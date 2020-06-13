@@ -41,7 +41,7 @@ public class KMObjectDumper
 		case .bool(let val):	result = CNTextLine(string: "\(val)")
 		case .int(let val):	result = CNTextLine(string: "\(val)")
 		case .float(let val):	result = CNTextLine(string: "\(val)")
-		case .string(let val):	result = CNTextLine(string: val)
+		case .string(let val):	result = CNTextLine(string: "\"" + val + "\"")
 		case .null:		result = CNTextLine(string: "null")
 		case .object(let obj):	result = dump(object: obj)
 		case .text(let val):

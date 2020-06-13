@@ -14,6 +14,23 @@ public enum KMParseError: Error {
 	case noProperty(String)			// property name
 	case unexpectedPropertyValue(String)	// property name
 	case unexpectedValue(KMValue)
+
+	public var description: String {
+		get {
+			let result: String
+			switch self {
+			case .noError:				result = "No error"
+			case .unknownError:			result = "Unknown error"
+			case .noClassName:			result = "No class name"
+			case .unknownClassName(let name):	result = "Unknown class name: \(name)"
+			case .unexpectedClassName(let name):	result = "Unexpected class name: \(name)"
+			case .noProperty(let name):		result = "Property is not found: \(name)"
+			case .unexpectedPropertyValue(let val):	result = "Property \(val) has unexpected value"
+			case .unexpectedValue(_):		result = "Unexpected property value"
+			}
+			return result
+		}
+	}
 }
 
 public protocol KMComponent

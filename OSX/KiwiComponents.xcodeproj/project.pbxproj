@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0563034E249330D00028E0B2 /* KMPopupMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0563034D249330D00028E0B2 /* KMPopupMenu.swift */; };
+		0563034E249330D00028E0B2 /* KMContextualMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0563034D249330D00028E0B2 /* KMContextualMenu.swift */; };
 		05630350249380EE0028E0B2 /* KMClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0563034F249380EE0028E0B2 /* KMClass.swift */; };
 		057D6A322493A57C00DCF3DA /* KiwiControls.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 057D6A312493A57C00DCF3DA /* KiwiControls.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0586B4AD2492F4F8004731E3 /* KMComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0586B4AC2492F4F8004731E3 /* KMComponent.swift */; };
@@ -15,6 +15,16 @@
 		05A78FC124925B080011D10A /* KMObjectDumper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A78FBE24925B080011D10A /* KMObjectDumper.swift */; };
 		05A78FC224925B080011D10A /* KMObjectParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A78FBF24925B080011D10A /* KMObjectParser.swift */; };
 		05B844EB2492551800509D34 /* KiwiComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B844E92492551800509D34 /* KiwiComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05DF84332494376800F43FC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DF84322494376800F43FC5 /* AppDelegate.swift */; };
+		05DF84352494376800F43FC5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DF84342494376800F43FC5 /* ViewController.swift */; };
+		05DF84372494376B00F43FC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05DF84362494376B00F43FC5 /* Assets.xcassets */; };
+		05DF843A2494376B00F43FC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05DF84382494376B00F43FC5 /* Main.storyboard */; };
+		05DF84422494387900F43FC5 /* KiwiComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA943B24926ED0005723BD /* KiwiComponents.framework */; };
+		05DF84432494387C00F43FC5 /* CoconutData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA943624926E81005723BD /* CoconutData.framework */; };
+		05DF84442494387F00F43FC5 /* KiwiControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 057D6A312493A57C00DCF3DA /* KiwiControls.framework */; };
+		05DF8446249438AB00F43FC5 /* KiwiComponents.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05FA943B24926ED0005723BD /* KiwiComponents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		05DF8447249438AF00F43FC5 /* KiwiControls.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 057D6A312493A57C00DCF3DA /* KiwiControls.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		05DF8448249438BA00F43FC5 /* CoconutData.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05FA943624926E81005723BD /* CoconutData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05FA941824926860005723BD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FA941624926860005723BD /* main.swift */; };
 		05FA941924926860005723BD /* UTParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FA941724926860005723BD /* UTParser.swift */; };
 		05FA943824926EA8005723BD /* CoconutData.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05FA943624926E81005723BD /* CoconutData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -28,6 +38,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 05B844E52492551800509D34;
 			remoteInfo = KiwiComponents;
+		};
+		05DF8440249437A500F43FC5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05B844DD2492551800509D34 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 05A78FC324925BFC0011D10A;
+			remoteInfo = Install;
 		};
 		05FA942524926A77005723BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -46,6 +63,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		05DF8445249438A100F43FC5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				05DF8446249438AB00F43FC5 /* KiwiComponents.framework in CopyFiles */,
+				05DF8447249438AF00F43FC5 /* KiwiControls.framework in CopyFiles */,
+				05DF8448249438BA00F43FC5 /* CoconutData.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		05FA9409249266BB005723BD /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -71,7 +100,7 @@
 
 /* Begin PBXFileReference section */
 		0563034A249330510028E0B2 /* KiwiControls.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KiwiControls.framework; sourceTree = "<group>"; };
-		0563034D249330D00028E0B2 /* KMPopupMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMPopupMenu.swift; sourceTree = "<group>"; };
+		0563034D249330D00028E0B2 /* KMContextualMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMContextualMenu.swift; sourceTree = "<group>"; };
 		0563034F249380EE0028E0B2 /* KMClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMClass.swift; sourceTree = "<group>"; };
 		057D6A312493A57C00DCF3DA /* KiwiControls.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KiwiControls.framework; path = ../../../Library/Frameworks/KiwiControls.framework; sourceTree = "<group>"; };
 		0586B4AC2492F4F8004731E3 /* KMComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMComponent.swift; sourceTree = "<group>"; };
@@ -81,6 +110,13 @@
 		05B844E62492551800509D34 /* KiwiComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KiwiComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		05B844E92492551800509D34 /* KiwiComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KiwiComponents.h; sourceTree = "<group>"; };
 		05B844EA2492551800509D34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		05DF84302494376800F43FC5 /* ComponentTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComponentTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		05DF84322494376800F43FC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		05DF84342494376800F43FC5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		05DF84362494376B00F43FC5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		05DF84392494376B00F43FC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		05DF843B2494376B00F43FC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		05DF843C2494376B00F43FC5 /* ComponentTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ComponentTest.entitlements; sourceTree = "<group>"; };
 		05FA940B249266BB005723BD /* UnitTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = UnitTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		05FA941624926860005723BD /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		05FA941724926860005723BD /* UTParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UTParser.swift; sourceTree = "<group>"; };
@@ -95,6 +131,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		05DF842D2494376800F43FC5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05DF84422494387900F43FC5 /* KiwiComponents.framework in Frameworks */,
+				05DF84442494387F00F43FC5 /* KiwiControls.framework in Frameworks */,
+				05DF84432494387C00F43FC5 /* CoconutData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +164,7 @@
 		057D6A302493A4EF00DCF3DA /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				05DF84312494376800F43FC5 /* ComponentTest */,
 				05FA942024926A68005723BD /* UnitTestBundle */,
 				05FA940C249266BB005723BD /* UnitTest */,
 			);
@@ -147,7 +194,7 @@
 		0586B4AE2492F5AF004731E3 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				0563034D249330D00028E0B2 /* KMPopupMenu.swift */,
+				0563034D249330D00028E0B2 /* KMContextualMenu.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -180,6 +227,7 @@
 				05B844E62492551800509D34 /* KiwiComponents.framework */,
 				05FA940B249266BB005723BD /* UnitTest */,
 				05FA941F24926A68005723BD /* UnitTest.bundle */,
+				05DF84302494376800F43FC5 /* ComponentTest.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -190,6 +238,19 @@
 				05B844EA2492551800509D34 /* Info.plist */,
 			);
 			name = OSX;
+			sourceTree = "<group>";
+		};
+		05DF84312494376800F43FC5 /* ComponentTest */ = {
+			isa = PBXGroup;
+			children = (
+				05DF84322494376800F43FC5 /* AppDelegate.swift */,
+				05DF84342494376800F43FC5 /* ViewController.swift */,
+				05DF84362494376B00F43FC5 /* Assets.xcassets */,
+				05DF84382494376B00F43FC5 /* Main.storyboard */,
+				05DF843B2494376B00F43FC5 /* Info.plist */,
+				05DF843C2494376B00F43FC5 /* ComponentTest.entitlements */,
+			);
+			path = ComponentTest;
 			sourceTree = "<group>";
 		};
 		05F2ADC4249255830026E850 /* Source */ = {
@@ -271,6 +332,25 @@
 			productReference = 05B844E62492551800509D34 /* KiwiComponents.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		05DF842F2494376800F43FC5 /* ComponentTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 05DF843F2494376B00F43FC5 /* Build configuration list for PBXNativeTarget "ComponentTest" */;
+			buildPhases = (
+				05DF842C2494376800F43FC5 /* Sources */,
+				05DF842D2494376800F43FC5 /* Frameworks */,
+				05DF842E2494376800F43FC5 /* Resources */,
+				05DF8445249438A100F43FC5 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				05DF8441249437A500F43FC5 /* PBXTargetDependency */,
+			);
+			name = ComponentTest;
+			productName = ComponentTest;
+			productReference = 05DF84302494376800F43FC5 /* ComponentTest.app */;
+			productType = "com.apple.product-type.application";
+		};
 		05FA940A249266BB005723BD /* UnitTest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 05FA940F249266BB005723BD /* Build configuration list for PBXNativeTarget "UnitTest" */;
@@ -324,6 +404,9 @@
 						CreatedOnToolsVersion = 11.5;
 						LastSwiftMigration = 1150;
 					};
+					05DF842F2494376800F43FC5 = {
+						CreatedOnToolsVersion = 11.5;
+					};
 					05FA940A249266BB005723BD = {
 						CreatedOnToolsVersion = 11.5;
 						LastSwiftMigration = 1150;
@@ -350,6 +433,7 @@
 				05A78FC324925BFC0011D10A /* Install */,
 				05FA941E24926A68005723BD /* UnitTestBundle */,
 				05FA940A249266BB005723BD /* UnitTest */,
+				05DF842F2494376800F43FC5 /* ComponentTest */,
 			);
 		};
 /* End PBXProject section */
@@ -362,6 +446,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		05DF842E2494376800F43FC5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05DF84372494376B00F43FC5 /* Assets.xcassets in Resources */,
+				05DF843A2494376B00F43FC5 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -371,10 +464,19 @@
 			files = (
 				05A78FC024925B080011D10A /* KMObject.swift in Sources */,
 				05A78FC224925B080011D10A /* KMObjectParser.swift in Sources */,
-				0563034E249330D00028E0B2 /* KMPopupMenu.swift in Sources */,
+				0563034E249330D00028E0B2 /* KMContextualMenu.swift in Sources */,
 				05A78FC124925B080011D10A /* KMObjectDumper.swift in Sources */,
 				05630350249380EE0028E0B2 /* KMClass.swift in Sources */,
 				0586B4AD2492F4F8004731E3 /* KMComponent.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		05DF842C2494376800F43FC5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05DF84352494376800F43FC5 /* ViewController.swift in Sources */,
+				05DF84332494376800F43FC5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +504,11 @@
 			target = 05B844E52492551800509D34 /* KiwiComponents */;
 			targetProxy = 05A78FD224925CB60011D10A /* PBXContainerItemProxy */;
 		};
+		05DF8441249437A500F43FC5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 05A78FC324925BFC0011D10A /* Install */;
+			targetProxy = 05DF8440249437A500F43FC5 /* PBXContainerItemProxy */;
+		};
 		05FA942624926A77005723BD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 05A78FC324925BFC0011D10A /* Install */;
@@ -413,6 +520,17 @@
 			targetProxy = 05FA942724926A7F005723BD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		05DF84382494376B00F43FC5 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				05DF84392494376B00F43FC5 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		05A78FC524925BFC0011D10A /* Debug */ = {
@@ -619,6 +737,54 @@
 			};
 			name = Release;
 		};
+		05DF843D2494376B00F43FC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ../Test/ComponentTest/ComponentTest.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = TR2DNF3P93;
+				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Frameworks",
+				);
+				INFOPLIST_FILE = ../Test/ComponentTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = github.com.steelwheels.ComponentTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		05DF843E2494376B00F43FC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ../Test/ComponentTest/ComponentTest.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = TR2DNF3P93;
+				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Frameworks",
+				);
+				INFOPLIST_FILE = ../Test/ComponentTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = github.com.steelwheels.ComponentTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		05FA9410249266BB005723BD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -721,6 +887,15 @@
 			buildConfigurations = (
 				05B844EF2492551800509D34 /* Debug */,
 				05B844F02492551800509D34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		05DF843F2494376B00F43FC5 /* Build configuration list for PBXNativeTarget "ComponentTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05DF843D2494376B00F43FC5 /* Debug */,
+				05DF843E2494376B00F43FC5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

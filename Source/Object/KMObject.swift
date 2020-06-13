@@ -5,6 +5,7 @@
  *   Copyright (C) 2020 Steel Wheels Project
  */
 
+import CoconutData
 import Foundation
 
 public enum KMValue {
@@ -16,6 +17,29 @@ public enum KMValue {
 	case object(KMObject)
 	case array(Array<KMValue>)
 	case null
+
+	public func dump() -> CNText {
+		let result: CNText
+		switch self {
+		case .bool(let val):	result = CNTextLine(string: "\(val)")
+		case .int(let val):	result = CNTextLine(string: "\(val)")
+		case .float(let val):	result = CNTextLine(string: "\(val)")
+		case .string(let val):	result = CNTextLine(string: "\(val)")
+		case .text(let val):	result = CNTextLine(string: "\(val)")
+		case .null:		result = CNTextLine(string: "null")
+		case .object(let obj):
+			let dumper = KMObjectDumper()
+			result = dumper.dump(object: obj)
+		case .array(let values):
+			let sect = CNTextSection()
+			sect.header = "[" ; sect.footer = "]"
+			for val in values {
+				sect.add(text: val.dump())
+			}
+			result = sect
+		}
+		return result
+	}
 }
 
 public class KMObject

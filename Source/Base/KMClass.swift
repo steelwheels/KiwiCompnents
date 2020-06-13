@@ -8,7 +8,7 @@
 import Foundation
 
 public enum KMClass: String {
-	case popupMenu		= "PopupMenu"
+	case contextualMenu		= "ContextualMenu"
 }
 
 extension KMValue
@@ -25,6 +25,11 @@ extension KMValue
 
 extension KMObject
 {
+	public func set(className cls: KMClass) {
+		let nameval = KMValue.string(cls.rawValue)
+		self.set(identifier: "class", value: nameval)
+	}
+
 	public func checkClass(requiredClass reqcls: KMClass) throws {
 		if let val = self.get(indeitifier: "class") {
 			if let name = val.stringValue {

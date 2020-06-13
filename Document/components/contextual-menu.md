@@ -1,7 +1,7 @@
-# Popup Menu
+# Contextual Menu
 
 ## Introduction
-The popup menu component is used to display pop menu on the current window. User can select one menu item (labeled by text) from it.
+The contextual menu component is used to display pop up menu on the current window. User can select one menu item (labeled by text) from it.
 
 ## Interface
 ### Script
@@ -10,8 +10,8 @@ The class is `PopupMenu`. It has array of menu item labeld in it.
 {
         class: "PopMenu",
         content: [
-                "menu-item-1",
-                "menu-item-2"
+                {id: 0, label: "menu-item-1"},
+                {id: 1, label: "menu-item-2"}
         ]
 }
 ````
@@ -26,8 +26,6 @@ The id of selected menu item is outputted after user select it.
         selected_id: 1      // value == if of selected item
 }
 ````
-
-## Sample script
 
 
 ## Related links
