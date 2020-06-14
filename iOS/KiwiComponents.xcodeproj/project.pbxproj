@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		058AF5602495116C0094C1F7 /* KMObjectConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058AF55F2495116C0094C1F7 /* KMObjectConverter.swift */; };
 		05A2897824932D3B00499894 /* KMComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A2897724932D3B00499894 /* KMComponent.swift */; };
 		05BB121B249275E40073C2A0 /* KiwiComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 05BB1217249275E40073C2A0 /* KiwiComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		05BB121C249275E40073C2A0 /* KMObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BB1218249275E40073C2A0 /* KMObject.swift */; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		0543AFBF2492754E0008B5E1 /* KiwiComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KiwiComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0543AFC32492754E0008B5E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		058AF55F2495116C0094C1F7 /* KMObjectConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMObjectConverter.swift; sourceTree = "<group>"; };
 		05A2897724932D3B00499894 /* KMComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMComponent.swift; sourceTree = "<group>"; };
 		05BB1217249275E40073C2A0 /* KiwiComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KiwiComponents.h; sourceTree = "<group>"; };
 		05BB1218249275E40073C2A0 /* KMObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMObject.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				05BB1218249275E40073C2A0 /* KMObject.swift */,
+				058AF55F2495116C0094C1F7 /* KMObjectConverter.swift */,
 				05BB1219249275E40073C2A0 /* KMObjectDumper.swift */,
 				05BB121A249275E40073C2A0 /* KMObjectParser.swift */,
 			);
@@ -203,6 +206,7 @@
 			files = (
 				05BB121C249275E40073C2A0 /* KMObject.swift in Sources */,
 				05BB121E249275E40073C2A0 /* KMObjectParser.swift in Sources */,
+				058AF5602495116C0094C1F7 /* KMObjectConverter.swift in Sources */,
 				05BB121D249275E40073C2A0 /* KMObjectDumper.swift in Sources */,
 				05A2897824932D3B00499894 /* KMComponent.swift in Sources */,
 			);

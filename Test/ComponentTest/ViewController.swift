@@ -44,11 +44,13 @@ class ViewController: KCPlaneViewController
 	private func openPopupMenu() {
 		let lab0 = menuItem(menuId: 0, menuLabel: "label0")
 		let lab1 = menuItem(menuId: 1, menuLabel: "label1")
-		let labs = KMValue.array([.object(lab0), .object(lab1)])
+		let labs = CNNativeValue.arrayValue([lab0, lab1])
 
-		let obj = KMObject()
-		obj.set(className: KMClass.contextualMenu)
-		obj.set(identifier: "contents", value: labs)
+		let dict: Dictionary<String, CNNativeValue> = [
+			"class":    .stringValue(KMClass.contextualMenu.rawValue),
+			"contents": labs
+		]
+		let obj = CNNativeValue.dictionaryValue(dict)
 
 		let input  = KMConnection()
 		let output = KMConnection()
@@ -72,11 +74,12 @@ class ViewController: KCPlaneViewController
 		}
 	}
 
-	private func menuItem(menuId mid: Int, menuLabel mlabel: String) -> KMObject {
-		let obj = KMObject()
-		obj.set(identifier: "id",    value: .int(mid))
-		obj.set(identifier: "label", value: .string(mlabel))
-		return obj
+	private func menuItem(menuId mid: Int, menuLabel mlabel: String) -> CNNativeValue {
+		let dict : Dictionary<String, CNNativeValue> = [
+			"id":    CNNativeValue.numberValue(NSNumber(value: mid)),
+			"label": CNNativeValue.stringValue(mlabel)
+		]
+		return .dictionaryValue(dict)
 	}
 }
 

@@ -11,6 +11,7 @@ public enum KMClass: String {
 	case contextualMenu		= "ContextualMenu"
 }
 
+/*
 extension KMValue
 {
 	public var stringValue: String? {
@@ -25,10 +26,7 @@ extension KMValue
 
 extension KMObject
 {
-	public func set(className cls: KMClass) {
-		let nameval = KMValue.string(cls.rawValue)
-		self.set(identifier: "class", value: nameval)
-	}
+	
 
 	public func checkClass(requiredClass reqcls: KMClass) throws {
 		if let val = self.get(indeitifier: "class") {
@@ -69,3 +67,5 @@ extension KMObject
 		}
 	}
 }
+*/
+

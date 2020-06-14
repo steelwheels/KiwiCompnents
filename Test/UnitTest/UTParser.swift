@@ -37,11 +37,10 @@ private func parse(string str: String, console cons: CNConsole) -> Bool
 {
 	cons.print(string: "+ parse test\n")
 	let result: Bool
-	let parser = KMObjectParser()
+	let parser = CNNativeValueParser()
 	switch parser.parse(source: str) {
 	case .ok(let obj):
-		let dumper = KMObjectDumper()
-		let text   = dumper.dump(object: obj)
+		let text = obj.toText()
 		text.print(console: cons)
 		result = true
 	case .error(let err):

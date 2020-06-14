@@ -6,6 +6,7 @@
  */
 
 import KiwiControls
+import CoconutData
 import Foundation
 
 public class KMPopupMenu: KCContextualMenu, KMComponent
@@ -15,7 +16,7 @@ public class KMPopupMenu: KCContextualMenu, KMComponent
 	private var mInputConnection:	KMConnection? = nil
 	private var mOutputConnection:	KMConnection? = nil
 
-	public func connect(script scr: KMObject, input inconn: KMConnection, output outconn: KMConnection) -> KMParseError {
+	public func connect(script scr: CNNativeValue, input inconn: KMConnection, output outconn: KMConnection) -> KMParseError {
 		mInputConnection	= inconn
 		mOutputConnection	= outconn
 
@@ -33,23 +34,14 @@ public class KMPopupMenu: KCContextualMenu, KMComponent
 		}
 	}
 
-	private func decode(script scr: KMObject) throws -> Array<MenuItem> {
+	private func decode(script scr: CNNativeValue) throws -> Array<MenuItem> {
 		var items: Array<MenuItem> = []
-		try scr.checkClass(requiredClass: KMClass.contextualMenu)
-		if let contents = scr.get(indeitifier: "contents") {
-			switch contents {
-			case .array(let values):
-				for val in values {
-					switch val {
-					case .object(let obj):
-						let item = try decode(object: obj)
-						items.append(item)
-					default:
-						throw KMParseError.unexpectedValue(val)
-					}
-				}
-			default:
-				throw KMParseError.unexpectedPropertyValue("contents")
+		try scr.checkClassName(requiredClass: KMClass.contextualMenu)
+
+		if let contents = scr.arrayProperty(identifier: "contents") {
+			for val in contents {
+				let item = try decode(object: val)
+				items.append(item)
 			}
 		} else {
 			throw KMParseError.noProperty("contents")
@@ -57,13 +49,19 @@ public class KMPopupMenu: KCContextualMenu, KMComponent
 		return items
 	}
 
-	private func decode(object obj: KMObject) throws -> MenuItem {
-		let mid    = try obj.intValue(propertyName: "id")
-		let mlabel = try obj.stringValue(propertyName: "label")
-		return MenuItem(index: mid, label: mlabel)
+	private func decode(object obj: CNNativeValue) throws -> MenuItem {
+		if let mid = obj.numberProperty(identifier: "id") {
+			if let mlabel = obj.stringProperty(identifier: "label") {
+				return MenuItem(index: mid.intValue, label: mlabel)
+			} else {
+				throw KMParseError.noProperty("label")
+			}
+		} else {
+			throw KMParseError.noProperty("id")
+		}
 	}
 
-	public func receive(data dat: KMObject) {
+	public func receive(data dat: CNNativeValue) {
 		NSLog("This compnent does not support receive operation")
 	}
 }
