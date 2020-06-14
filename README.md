@@ -10,4 +10,8 @@ This software is distributed under [GNU LESSER GENERAL PUBLIC LICENSE Version 2.
 * [Object Notation](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Data/object-notation.md): Extended JavaScript Object Notation to describe scripts and settings.
 
 ### Components
-* []
+* [Contextual menu](Document/components/contextual-menu.md): Popup menu in the current view.
+
+## Related links
+* [Steel Wheels Project](https://steelwheels.github.io): Developer's web site
+
