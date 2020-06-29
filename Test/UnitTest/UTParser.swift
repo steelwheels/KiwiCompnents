@@ -41,7 +41,7 @@ private func parse(string str: String, console cons: CNConsole) -> Bool
 	switch parser.parse(source: str) {
 	case .ok(let obj):
 		let text = obj.toText()
-		text.print(console: cons)
+		text.print(console: cons, terminal: "")
 		result = true
 	case .error(let err):
 		cons.print(string: "[Error] \(err.description)\n")

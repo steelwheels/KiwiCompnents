@@ -11,7 +11,9 @@
 		0563034E249330D00028E0B2 /* KMContextualMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0563034D249330D00028E0B2 /* KMContextualMenu.swift */; };
 		05630350249380EE0028E0B2 /* KMClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0563034F249380EE0028E0B2 /* KMClass.swift */; };
 		0586B4AD2492F4F8004731E3 /* KMComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0586B4AC2492F4F8004731E3 /* KMComponent.swift */; };
+		058FCE5B24A9FCD700E3EB33 /* KMCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058FCE5A24A9FCD700E3EB33 /* KMCompiler.swift */; };
 		05B844EB2492551800509D34 /* KiwiComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 05B844E92492551800509D34 /* KiwiComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05BE75A424AA16180091587D /* KiwiShell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BE75A324AA16180091587D /* KiwiShell.framework */; };
 		05DF84332494376800F43FC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DF84322494376800F43FC5 /* AppDelegate.swift */; };
 		05DF84352494376800F43FC5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DF84342494376800F43FC5 /* ViewController.swift */; };
 		05DF84372494376B00F43FC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05DF84362494376B00F43FC5 /* Assets.xcassets */; };
@@ -20,6 +22,13 @@
 		05DF84432494387C00F43FC5 /* CoconutData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05FA943624926E81005723BD /* CoconutData.framework */; };
 		05DF8446249438AB00F43FC5 /* KiwiComponents.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05FA943B24926ED0005723BD /* KiwiComponents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05DF8448249438BA00F43FC5 /* CoconutData.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05FA943624926E81005723BD /* CoconutData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		05E577A224AA1AAF0050F457 /* KiwiShell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BE75A324AA16180091587D /* KiwiShell.framework */; };
+		05E577A324AA1AC00050F457 /* KiwiShell.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05BE75A324AA16180091587D /* KiwiShell.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		05E577A424AA1B2D0050F457 /* KiwiShell.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05BE75A324AA16180091587D /* KiwiShell.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		05E577A624AA1B550050F457 /* CoconutShell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E577A524AA1B550050F457 /* CoconutShell.framework */; };
+		05E577A724AA1B6A0050F457 /* CoconutShell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E577A524AA1B550050F457 /* CoconutShell.framework */; };
+		05E577A824AA1B6F0050F457 /* CoconutShell.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05E577A524AA1B550050F457 /* CoconutShell.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		05E577A924AA1B750050F457 /* CoconutShell.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05E577A524AA1B550050F457 /* CoconutShell.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05EFB47224950C8600296165 /* KiwiLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFB47024950C8600296165 /* KiwiLibrary.framework */; };
 		05EFB47324950C8600296165 /* KiwiEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFB47124950C8600296165 /* KiwiEngine.framework */; };
 		05EFB47424950C8E00296165 /* KiwiEngine.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05EFB47124950C8600296165 /* KiwiEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -74,9 +83,11 @@
 			dstSubfolderSpec = 10;
 			files = (
 				05EFB47424950C8E00296165 /* KiwiEngine.framework in CopyFiles */,
+				05E577A424AA1B2D0050F457 /* KiwiShell.framework in CopyFiles */,
 				05EFB47724950C9C00296165 /* KiwiLibrary.framework in CopyFiles */,
 				05EFB47B24950CCD00296165 /* KiwiControls.framework in CopyFiles */,
 				05DF8446249438AB00F43FC5 /* KiwiComponents.framework in CopyFiles */,
+				05E577A824AA1B6F0050F457 /* CoconutShell.framework in CopyFiles */,
 				05DF8448249438BA00F43FC5 /* CoconutData.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -98,6 +109,8 @@
 			files = (
 				05FA943C24926ED9005723BD /* KiwiComponents.framework in CopyFiles */,
 				05FA943824926EA8005723BD /* CoconutData.framework in CopyFiles */,
+				05E577A924AA1B750050F457 /* CoconutShell.framework in CopyFiles */,
+				05E577A324AA1AC00050F457 /* KiwiShell.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,9 +121,11 @@
 		0563034D249330D00028E0B2 /* KMContextualMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMContextualMenu.swift; sourceTree = "<group>"; };
 		0563034F249380EE0028E0B2 /* KMClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMClass.swift; sourceTree = "<group>"; };
 		0586B4AC2492F4F8004731E3 /* KMComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMComponent.swift; sourceTree = "<group>"; };
+		058FCE5A24A9FCD700E3EB33 /* KMCompiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMCompiler.swift; sourceTree = "<group>"; };
 		05B844E62492551800509D34 /* KiwiComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KiwiComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		05B844E92492551800509D34 /* KiwiComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KiwiComponents.h; sourceTree = "<group>"; };
 		05B844EA2492551800509D34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		05BE75A324AA16180091587D /* KiwiShell.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KiwiShell.framework; path = ../../../Library/Frameworks/KiwiShell.framework; sourceTree = "<group>"; };
 		05DF84302494376800F43FC5 /* ComponentTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComponentTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05DF84322494376800F43FC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		05DF84342494376800F43FC5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +133,7 @@
 		05DF84392494376B00F43FC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		05DF843B2494376B00F43FC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05DF843C2494376B00F43FC5 /* ComponentTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ComponentTest.entitlements; sourceTree = "<group>"; };
+		05E577A524AA1B550050F457 /* CoconutShell.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoconutShell.framework; path = ../../../Library/Frameworks/CoconutShell.framework; sourceTree = "<group>"; };
 		05EFB47024950C8600296165 /* KiwiLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KiwiLibrary.framework; path = ../../../Library/Frameworks/KiwiLibrary.framework; sourceTree = "<group>"; };
 		05EFB47124950C8600296165 /* KiwiEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KiwiEngine.framework; path = ../../../Library/Frameworks/KiwiEngine.framework; sourceTree = "<group>"; };
 		05EFB47824950CC500296165 /* KiwiControls.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KiwiControls.framework; path = ../../../Library/Frameworks/KiwiControls.framework; sourceTree = "<group>"; };
@@ -136,8 +152,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				05EFB47324950C8600296165 /* KiwiEngine.framework in Frameworks */,
+				05E577A624AA1B550050F457 /* CoconutShell.framework in Frameworks */,
 				05EFB47224950C8600296165 /* KiwiLibrary.framework in Frameworks */,
 				05EFB47924950CC500296165 /* KiwiControls.framework in Frameworks */,
+				05BE75A424AA16180091587D /* KiwiShell.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,9 +164,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				05EFB47524950C9200296165 /* KiwiEngine.framework in Frameworks */,
+				05E577A224AA1AAF0050F457 /* KiwiShell.framework in Frameworks */,
 				05EFB47624950C9900296165 /* KiwiLibrary.framework in Frameworks */,
 				05EFB47A24950CC900296165 /* KiwiControls.framework in Frameworks */,
 				05DF84422494387900F43FC5 /* KiwiComponents.framework in Frameworks */,
+				05E577A724AA1B6A0050F457 /* CoconutShell.framework in Frameworks */,
 				05DF84432494387C00F43FC5 /* CoconutData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,13 +226,23 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
+		058FCE5C24A9FD4000E3EB33 /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				058FCE5A24A9FCD700E3EB33 /* KMCompiler.swift */,
+			);
+			path = Setup;
+			sourceTree = "<group>";
+		};
 		05A78FD624925CF90011D10A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				05BE75A324AA16180091587D /* KiwiShell.framework */,
 				05EFB47824950CC500296165 /* KiwiControls.framework */,
 				05EFB47124950C8600296165 /* KiwiEngine.framework */,
 				05EFB47024950C8600296165 /* KiwiLibrary.framework */,
 				05FA943B24926ED0005723BD /* KiwiComponents.framework */,
+				05E577A524AA1B550050F457 /* CoconutShell.framework */,
 				05FA943624926E81005723BD /* CoconutData.framework */,
 			);
 			name = Frameworks;
@@ -265,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				05B844E92492551800509D34 /* KiwiComponents.h */,
+				058FCE5C24A9FD4000E3EB33 /* Setup */,
 				0586B4AB2492F4E1004731E3 /* Base */,
 				055E35492495A12D008A0CC0 /* Object */,
 				0586B4AE2492F5AF004731E3 /* Component */,
@@ -474,6 +505,7 @@
 				05630350249380EE0028E0B2 /* KMClass.swift in Sources */,
 				055E354D2495A199008A0CC0 /* KMNativeValue.swift in Sources */,
 				0586B4AD2492F4F8004731E3 /* KMComponent.swift in Sources */,
+				058FCE5B24A9FCD700E3EB33 /* KMCompiler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
