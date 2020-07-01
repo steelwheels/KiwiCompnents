@@ -7,10 +7,7 @@ This software is distributed under [GNU LESSER GENERAL PUBLIC LICENSE Version 2.
 
 ## Documents
 ### Components
-* [alert](Document/Components.md): List of all components
-
-### Object
-* [Object Notation](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Data/object-notation.md): Extended JavaScript Object Notation to describe scripts and settings.
+* [Components](Document/Components.md): List of all components
 
 ## Related links
 * [Steel Wheels Project](https://steelwheels.github.io): Developer's web site

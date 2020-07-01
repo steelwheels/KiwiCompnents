@@ -14,3 +14,7 @@ let result = alert(message) ;
 |Type       |Description                        |
 |:--        |:--                                |
 |Bool       |When user press "OK" button, this value will be true. On the other case, this value will be false. |
+
+## Related links
+* [README](https://github.com/steelwheels/KiwiCompnents): Top page of KiwiComponents project.
+* [Steel Wheels Project](https://steelwheels.github.io): Developer's web site
