@@ -10,6 +10,7 @@
 		0588977324AA0E9E00DED9C1 /* KMCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0588977224AA0E9E00DED9C1 /* KMCompiler.swift */; };
 		05A2897824932D3B00499894 /* KMComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A2897724932D3B00499894 /* KMComponent.swift */; };
 		05BB121B249275E40073C2A0 /* KiwiComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 05BB1217249275E40073C2A0 /* KiwiComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05C9C96024AA2E5A0049541B /* KMAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C9C95F24AA2E5A0049541B /* KMAlert.swift */; };
 		05EAC49724960355007D30CB /* KMClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EAC49624960355007D30CB /* KMClass.swift */; };
 		05EAC49A2496038C007D30CB /* KMNativeValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EAC4992496038C007D30CB /* KMNativeValue.swift */; };
 /* End PBXBuildFile section */
@@ -30,6 +31,7 @@
 		0588977224AA0E9E00DED9C1 /* KMCompiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMCompiler.swift; sourceTree = "<group>"; };
 		05A2897724932D3B00499894 /* KMComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMComponent.swift; sourceTree = "<group>"; };
 		05BB1217249275E40073C2A0 /* KiwiComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KiwiComponents.h; sourceTree = "<group>"; };
+		05C9C95F24AA2E5A0049541B /* KMAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMAlert.swift; sourceTree = "<group>"; };
 		05EAC49624960355007D30CB /* KMClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMClass.swift; sourceTree = "<group>"; };
 		05EAC4992496038C007D30CB /* KMNativeValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMNativeValue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,9 +96,18 @@
 				05A2897624932D2500499894 /* Base */,
 				0588977124AA0E8700DED9C1 /* Setup */,
 				05EAC49824960375007D30CB /* Object */,
+				05C9C95E24AA2E3D0049541B /* Component */,
 			);
 			name = Source;
 			path = ../Source;
+			sourceTree = "<group>";
+		};
+		05C9C95E24AA2E3D0049541B /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				05C9C95F24AA2E5A0049541B /* KMAlert.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		05EAC49824960375007D30CB /* Object */ = {
@@ -211,6 +222,7 @@
 			files = (
 				05EAC49A2496038C007D30CB /* KMNativeValue.swift in Sources */,
 				05EAC49724960355007D30CB /* KMClass.swift in Sources */,
+				05C9C96024AA2E5A0049541B /* KMAlert.swift in Sources */,
 				0588977324AA0E9E00DED9C1 /* KMCompiler.swift in Sources */,
 				05A2897824932D3B00499894 /* KMComponent.swift in Sources */,
 			);
