@@ -14,13 +14,15 @@ import JavaScriptCore
 
 public class KMAlert
 {
+	private var mContext:		KEContext
 	private var mViewController:	KCViewController
 
-	public init(viewController viewcont: KCViewController) {
+	public init(context ctxt: KEContext, viewController viewcont: KCViewController) {
+		mContext	= ctxt
 		mViewController = viewcont
 	}
 
-	public func execute(messageValue msgval: JSValue, context ctxt: KEContext) -> JSValue {
+	public func execute(messageValue msgval: JSValue) -> JSValue {
 		var result: Bool = false
 		let message: String
 		if let str = msgval.toString() {
@@ -39,16 +41,15 @@ public class KMAlert
 			})
 			semaphore.wait()
 		}
-		return JSValue(bool: result, in: ctxt)
+		return JSValue(bool: result, in: mContext)
 	}
 
 	private func show(message msg: String) -> Bool {
 		let err = NSError.informationNotice(message: msg)
 		let result: Bool
 		switch KCAlert.runModal(error: err, in: mViewController) {
-		case .Abort:	result = true
-		case .Continue:	result = false
-		case .Stop:	result = true
+		case .OK:	result = true
+		case .Cancel:	result = false
 		}
 		return result
 	}

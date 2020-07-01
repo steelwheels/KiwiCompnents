@@ -36,8 +36,8 @@ public class KMComponentCompiler: KLExternalCompiler
 		/* alert */
 		let alertFunc: @convention(block) (_ value: JSValue) -> JSValue = {
 			(_ value: JSValue) -> JSValue in
-			let alert = KMAlert(viewController: self.mViewController)
-			return alert.execute(messageValue: value, context: ctxt)
+			let alert = KMAlert(context: ctxt, viewController: self.mViewController)
+			return alert.execute(messageValue: value)
 		}
 		ctxt.set(name: "alert", function: alertFunc)
 		return true
