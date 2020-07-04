@@ -20,15 +20,36 @@ The window view is presented by the hierarchy of the components.
 ![Container Compolent](./Images/container-component.png)
 
 ## Description of component
+### Base
 Following contents are defined for a component.
 * _Class name_: Each component has unique class name
 * _Properties_: Variables to hold the property values
 * _Methods_: JavaScript function to implement functions of the component
 
 The component is described by [Extended JavaScript Object Notation](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Data/object-notation.md).
+
+### Instance and class name
 ````
 instance-name: {
     class:  "class-name"
+}
+````
+
+### Normal method
+````
+{
+    func_a:  func(a, b, c)  %{
+        return a + b + c ;
+    %}
+}
+````
+
+### Listner method
+````
+{
+    listner_a: listen(a.b.c) %{
+        self.a = a.b.c + 1 ;
+    %}
 }
 ````
 
