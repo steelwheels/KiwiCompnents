@@ -6,21 +6,18 @@
 //  Copyright © 2020 Steel Wheels Project. All rights reserved.
 //
 
+import CoconutData
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
-
-
-
-	func applicationDidFinishLaunching(_ aNotification: Notification) {
-		// Insert code here to initialize your application
+class AppDelegate: CNApplicationDelegate
+{
+	override func applicationDidFinishLaunching(_ aNotification: Notification) {
+		super.applicationDidFinishLaunching(aNotification)
 	}
 
 	func applicationWillTerminate(_ aNotification: Notification) {
 		// Insert code here to tear down your application
 	}
-
-
 }
 
