@@ -28,6 +28,9 @@ public class KMComponentCompiler: KLExternalCompiler
 			result = compileForWindow(context: ctxt)
 		case .terminal:
 			result = true
+		@unknown default:
+			NSLog("Unknown application type")
+			result = false
 		}
 		return result
 	}

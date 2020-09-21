@@ -50,6 +50,9 @@ public class KMAlert
 		switch KCAlert.runModal(error: err, in: mViewController) {
 		case .OK:	result = true
 		case .Cancel:	result = false
+		@unknown default:
+			NSLog("Unknown runModal result")
+			result = false
 		}
 		return result
 	}

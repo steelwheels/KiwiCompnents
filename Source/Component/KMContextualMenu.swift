@@ -5,6 +5,8 @@
  *   Copyright (C) 2020 Steel Wheels Project
  */
 
+#if os(OSX)
+
 import KiwiControls
 import CoconutData
 import Foundation
@@ -66,3 +68,4 @@ public class KMPopupMenu: KCContextualMenu, KMComponent
 	}
 }
 
+#endif // os(OSX)
