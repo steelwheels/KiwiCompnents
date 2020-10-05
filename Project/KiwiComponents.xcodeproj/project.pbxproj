@@ -31,20 +31,32 @@
 		056A6CD825176B2C00E6379D /* KiwiComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 056A6CD625176B2C00E6379D /* KiwiComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		056A6CE125176B7F00E6379D /* KMCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CE025176B7F00E6379D /* KMCompiler.swift */; };
 		056A6CE225176B7F00E6379D /* KMCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CE025176B7F00E6379D /* KMCompiler.swift */; };
-		056A6CE725176B9A00E6379D /* KMNativeValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CE625176B9A00E6379D /* KMNativeValue.swift */; };
-		056A6CE825176B9A00E6379D /* KMNativeValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CE625176B9A00E6379D /* KMNativeValue.swift */; };
 		056A6CEE25176D2F00E6379D /* KMAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CEC25176D2F00E6379D /* KMAlert.swift */; };
 		056A6CEF25176D2F00E6379D /* KMAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CEC25176D2F00E6379D /* KMAlert.swift */; };
-		056A6CF025176D2F00E6379D /* KMContextualMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CED25176D2F00E6379D /* KMContextualMenu.swift */; };
-		056A6CF125176D2F00E6379D /* KMContextualMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CED25176D2F00E6379D /* KMContextualMenu.swift */; };
-		056A6CF725176D4E00E6379D /* KMClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF525176D4E00E6379D /* KMClass.swift */; };
-		056A6CF825176D4E00E6379D /* KMClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF525176D4E00E6379D /* KMClass.swift */; };
-		056A6CF925176D4E00E6379D /* KMComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMComponent.swift */; };
-		056A6CFA25176D4E00E6379D /* KMComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMComponent.swift */; };
+		056A6CF925176D4E00E6379D /* KMObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMObject.swift */; };
+		056A6CFA25176D4E00E6379D /* KMObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMObject.swift */; };
 		056A6CFF25176D7300E6379D /* CoconutData.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; };
 		056A6D0025176D7300E6379D /* CoconutData.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		056A6D0325176D9500E6379D /* CoconutData.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; };
 		056A6D0425176D9500E6379D /* CoconutData.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		059AB1D8251C09FA0094B268 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059AB1D7251C09FA0094B268 /* AppDelegate.swift */; };
+		059AB1DA251C09FA0094B268 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059AB1D9251C09FA0094B268 /* ViewController.swift */; };
+		059AB1DC251C09FD0094B268 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 059AB1DB251C09FD0094B268 /* Assets.xcassets */; };
+		059AB1DF251C09FD0094B268 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 059AB1DD251C09FD0094B268 /* Main.storyboard */; };
+		059AB1E9251C0C170094B268 /* CoconutData.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; };
+		059AB1EA251C0C170094B268 /* CoconutData.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		059AB1EC251C0C2D0094B268 /* KiwiControls.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE12518625E00C1D29C /* KiwiControls.xcframework */; };
+		059AB1ED251C0C2D0094B268 /* KiwiControls.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE12518625E00C1D29C /* KiwiControls.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		059AB1EE251C0C490094B268 /* KiwiControls.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE12518625E00C1D29C /* KiwiControls.xcframework */; };
+		059AB1EF251C0C490094B268 /* KiwiEngine.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE72518629300C1D29C /* KiwiEngine.xcframework */; };
+		059AB1F0251C0C490094B268 /* KiwiEngine.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE72518629300C1D29C /* KiwiEngine.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		059AB1F1251C0C490094B268 /* KiwiLibrary.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE62518629300C1D29C /* KiwiLibrary.xcframework */; };
+		059AB1F2251C0C490094B268 /* KiwiLibrary.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE62518629300C1D29C /* KiwiLibrary.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		059AB1F3251C0C490094B268 /* KiwiShell.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF0251862D500C1D29C /* KiwiShell.xcframework */; };
+		059AB1F4251C0C490094B268 /* KiwiShell.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF0251862D500C1D29C /* KiwiShell.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		059AB1F6251C0C490094B268 /* KiwiComponents.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */; };
+		059AB1F7251C0C490094B268 /* KiwiComponents.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		059AB1F9251C413D0094B268 /* UTObjectValueTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059AB1F8251C413D0094B268 /* UTObjectValueTable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +73,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 056A6CC425176B0C00E6379D;
 			remoteInfo = KiwiComponents_macOS;
+		};
+		059AB1E6251C0A360094B268 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0543978325176ADC0060F4E4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 05676AFA251863AA00C1D29C;
+			remoteInfo = Install;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -97,6 +116,22 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		059AB1EB251C0C170094B268 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				059AB1EA251C0C170094B268 /* CoconutData.xcframework in Embed Frameworks */,
+				059AB1ED251C0C2D0094B268 /* KiwiControls.xcframework in Embed Frameworks */,
+				059AB1F0251C0C490094B268 /* KiwiEngine.xcframework in Embed Frameworks */,
+				059AB1F7251C0C490094B268 /* KiwiComponents.xcframework in Embed Frameworks */,
+				059AB1F4251C0C490094B268 /* KiwiShell.xcframework in Embed Frameworks */,
+				059AB1F2251C0C490094B268 /* KiwiLibrary.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -112,12 +147,18 @@
 		056A6CD625176B2C00E6379D /* KiwiComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KiwiComponents.h; sourceTree = "<group>"; };
 		056A6CD725176B2C00E6379D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		056A6CE025176B7F00E6379D /* KMCompiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMCompiler.swift; sourceTree = "<group>"; };
-		056A6CE625176B9A00E6379D /* KMNativeValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMNativeValue.swift; sourceTree = "<group>"; };
 		056A6CEC25176D2F00E6379D /* KMAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMAlert.swift; sourceTree = "<group>"; };
-		056A6CED25176D2F00E6379D /* KMContextualMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMContextualMenu.swift; sourceTree = "<group>"; };
-		056A6CF525176D4E00E6379D /* KMClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMClass.swift; sourceTree = "<group>"; };
-		056A6CF625176D4E00E6379D /* KMComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMComponent.swift; sourceTree = "<group>"; };
+		056A6CF625176D4E00E6379D /* KMObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMObject.swift; sourceTree = "<group>"; };
 		056A6CFE25176D7300E6379D /* CoconutData.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = CoconutData.xcframework; path = ../../../Library/Frameworks/CoconutData.xcframework; sourceTree = "<group>"; };
+		059AB1D5251C09FA0094B268 /* UnitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		059AB1D7251C09FA0094B268 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		059AB1D9251C09FA0094B268 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		059AB1DB251C09FD0094B268 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		059AB1DE251C09FD0094B268 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		059AB1E0251C09FD0094B268 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		059AB1E1251C09FD0094B268 /* UnitTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnitTest.entitlements; sourceTree = "<group>"; };
+		059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = KiwiComponents.xcframework; path = ../../../Library/Frameworks/KiwiComponents.xcframework; sourceTree = "<group>"; };
+		059AB1F8251C413D0094B268 /* UTObjectValueTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UTObjectValueTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +188,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		059AB1D2251C09FA0094B268 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				059AB1E9251C0C170094B268 /* CoconutData.xcframework in Frameworks */,
+				059AB1EE251C0C490094B268 /* KiwiControls.xcframework in Frameworks */,
+				059AB1EC251C0C2D0094B268 /* KiwiControls.xcframework in Frameworks */,
+				059AB1F6251C0C490094B268 /* KiwiComponents.xcframework in Frameworks */,
+				059AB1EF251C0C490094B268 /* KiwiEngine.xcframework in Frameworks */,
+				059AB1F3251C0C490094B268 /* KiwiShell.xcframework in Frameworks */,
+				059AB1F1251C0C490094B268 /* KiwiLibrary.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -154,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				056A6CDE25176B4200E6379D /* Source */,
+				059AB1D0251C09C60094B268 /* Test */,
 				056A6CC725176B0C00E6379D /* KiwiComponents_macOS */,
 				056A6CD525176B2C00E6379D /* KiwiComponents_iOS */,
 				056A6CC625176B0C00E6379D /* Products */,
@@ -166,6 +222,7 @@
 			children = (
 				056A6CC525176B0C00E6379D /* KiwiComponents.framework */,
 				056A6CD425176B2C00E6379D /* KiwiComponents.framework */,
+				059AB1D5251C09FA0094B268 /* UnitTest.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -193,7 +250,6 @@
 			children = (
 				056A6CF425176D3900E6379D /* Base */,
 				056A6CEB25176D1A00E6379D /* Component */,
-				056A6CE525176B8700E6379D /* Object */,
 				056A6CDF25176B6700E6379D /* Setup */,
 			);
 			name = Source;
@@ -208,19 +264,10 @@
 			path = Setup;
 			sourceTree = "<group>";
 		};
-		056A6CE525176B8700E6379D /* Object */ = {
-			isa = PBXGroup;
-			children = (
-				056A6CE625176B9A00E6379D /* KMNativeValue.swift */,
-			);
-			path = Object;
-			sourceTree = "<group>";
-		};
 		056A6CEB25176D1A00E6379D /* Component */ = {
 			isa = PBXGroup;
 			children = (
 				056A6CEC25176D2F00E6379D /* KMAlert.swift */,
-				056A6CED25176D2F00E6379D /* KMContextualMenu.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -228,8 +275,7 @@
 		056A6CF425176D3900E6379D /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				056A6CF525176D4E00E6379D /* KMClass.swift */,
-				056A6CF625176D4E00E6379D /* KMComponent.swift */,
+				056A6CF625176D4E00E6379D /* KMObject.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -237,6 +283,7 @@
 		056A6CFD25176D7300E6379D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */,
 				05676AF52518630800C1D29C /* CoconutShell.xcframework */,
 				05676AF0251862D500C1D29C /* KiwiShell.xcframework */,
 				05676AE72518629300C1D29C /* KiwiEngine.xcframework */,
@@ -245,6 +292,29 @@
 				056A6CFE25176D7300E6379D /* CoconutData.xcframework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		059AB1D0251C09C60094B268 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				059AB1D6251C09FA0094B268 /* UnitTest */,
+			);
+			name = Test;
+			path = ../Test;
+			sourceTree = "<group>";
+		};
+		059AB1D6251C09FA0094B268 /* UnitTest */ = {
+			isa = PBXGroup;
+			children = (
+				059AB1D7251C09FA0094B268 /* AppDelegate.swift */,
+				059AB1D9251C09FA0094B268 /* ViewController.swift */,
+				059AB1DB251C09FD0094B268 /* Assets.xcassets */,
+				059AB1DD251C09FD0094B268 /* Main.storyboard */,
+				059AB1E0251C09FD0094B268 /* Info.plist */,
+				059AB1E1251C09FD0094B268 /* UnitTest.entitlements */,
+				059AB1F8251C413D0094B268 /* UTObjectValueTable.swift */,
+			);
+			path = UnitTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,12 +396,32 @@
 			productReference = 056A6CD425176B2C00E6379D /* KiwiComponents.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		059AB1D4251C09FA0094B268 /* UnitTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 059AB1E2251C09FD0094B268 /* Build configuration list for PBXNativeTarget "UnitTest" */;
+			buildPhases = (
+				059AB1D1251C09FA0094B268 /* Sources */,
+				059AB1D2251C09FA0094B268 /* Frameworks */,
+				059AB1D3251C09FA0094B268 /* Resources */,
+				059AB1EB251C0C170094B268 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				059AB1E7251C0A360094B268 /* PBXTargetDependency */,
+			);
+			name = UnitTest;
+			productName = UnitTest;
+			productReference = 059AB1D5251C09FA0094B268 /* UnitTest.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		0543978325176ADC0060F4E4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1200;
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
 					05676AFA251863AA00C1D29C = {
@@ -344,6 +434,9 @@
 					056A6CD325176B2C00E6379D = {
 						CreatedOnToolsVersion = 12.0;
 						LastSwiftMigration = 1200;
+					};
+					059AB1D4251C09FA0094B268 = {
+						CreatedOnToolsVersion = 12.0;
 					};
 				};
 			};
@@ -363,6 +456,7 @@
 				056A6CC425176B0C00E6379D /* KiwiComponents_macOS */,
 				056A6CD325176B2C00E6379D /* KiwiComponents_iOS */,
 				05676AFA251863AA00C1D29C /* Install */,
+				059AB1D4251C09FA0094B268 /* UnitTest */,
 			);
 		};
 /* End PBXProject section */
@@ -382,6 +476,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		059AB1D3251C09FA0094B268 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				059AB1DC251C09FD0094B268 /* Assets.xcassets in Resources */,
+				059AB1DF251C09FD0094B268 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -389,12 +492,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				056A6CE725176B9A00E6379D /* KMNativeValue.swift in Sources */,
-				056A6CF025176D2F00E6379D /* KMContextualMenu.swift in Sources */,
-				056A6CF725176D4E00E6379D /* KMClass.swift in Sources */,
 				056A6CEE25176D2F00E6379D /* KMAlert.swift in Sources */,
 				056A6CE125176B7F00E6379D /* KMCompiler.swift in Sources */,
-				056A6CF925176D4E00E6379D /* KMComponent.swift in Sources */,
+				056A6CF925176D4E00E6379D /* KMObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,12 +502,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				056A6CE825176B9A00E6379D /* KMNativeValue.swift in Sources */,
-				056A6CF125176D2F00E6379D /* KMContextualMenu.swift in Sources */,
-				056A6CF825176D4E00E6379D /* KMClass.swift in Sources */,
 				056A6CEF25176D2F00E6379D /* KMAlert.swift in Sources */,
 				056A6CE225176B7F00E6379D /* KMCompiler.swift in Sources */,
-				056A6CFA25176D4E00E6379D /* KMComponent.swift in Sources */,
+				056A6CFA25176D4E00E6379D /* KMObject.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		059AB1D1251C09FA0094B268 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				059AB1F9251C413D0094B268 /* UTObjectValueTable.swift in Sources */,
+				059AB1DA251C09FA0094B268 /* ViewController.swift in Sources */,
+				059AB1D8251C09FA0094B268 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,7 +531,23 @@
 			target = 056A6CC425176B0C00E6379D /* KiwiComponents_macOS */;
 			targetProxy = 05676B00251863C800C1D29C /* PBXContainerItemProxy */;
 		};
+		059AB1E7251C0A360094B268 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 05676AFA251863AA00C1D29C /* Install */;
+			targetProxy = 059AB1E6251C0A360094B268 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		059AB1DD251C09FD0094B268 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				059AB1DE251C09FD0094B268 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		0543978725176ADC0060F4E4 /* Debug */ = {
@@ -877,6 +1000,151 @@
 			};
 			name = Release;
 		};
+		059AB1E3251C09FD0094B268 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = ../Test/UnitTest/UnitTest.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = TR2DNF3P93;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = ../Test/UnitTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = github.com.steelwheels.UnitTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		059AB1E4251C09FD0094B268 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = ../Test/UnitTest/UnitTest.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = TR2DNF3P93;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = ../Test/UnitTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = github.com.steelwheels.UnitTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -912,6 +1180,15 @@
 			buildConfigurations = (
 				056A6CDA25176B2C00E6379D /* Debug */,
 				056A6CDB25176B2C00E6379D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		059AB1E2251C09FD0094B268 /* Build configuration list for PBXNativeTarget "UnitTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				059AB1E3251C09FD0094B268 /* Debug */,
+				059AB1E4251C09FD0094B268 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -5,45 +5,34 @@
  *   Copyright (C) 2020 Steel Wheels Project
  */
 
-import KiwiShell
+import KiwiControls
 import KiwiLibrary
 import KiwiEngine
-import KiwiControls
 import CoconutData
 import JavaScriptCore
-import Foundation
 
 public class KMComponentCompiler: KLExternalCompiler
 {
 	private var mViewController:	KCViewController
 
-	public init(viewController viewcont: KCViewController) {
-		mViewController = viewcont
+	public init(viewController vcont: KCViewController) {
+		mViewController = vcont
 	}
 
 	public func compileExternalModule(context ctxt: KEContext, config conf: KEConfig) -> Bool {
-		let result: Bool
-		switch conf.applicationType {
-		case .window:
-			result = compileForWindow(context: ctxt)
-		case .terminal:
-			result = true
-		@unknown default:
-			NSLog("Unknown application type")
-			result = false
-		}
-		return result
+		return compileBuildinObjects(context: ctxt)
 	}
 
-	private func compileForWindow(context ctxt: KEContext) -> Bool {
-		/* alert */
-		let alertFunc: @convention(block) (_ value: JSValue) -> JSValue = {
-			(_ value: JSValue) -> JSValue in
-			let alert = KMAlert(context: ctxt, viewController: self.mViewController)
-			return alert.execute(messageValue: value)
+	private func compileBuildinObjects(context ctxt: KEContext) -> Bool {
+		/* ObservedValueTable */
+		CNLog(logLevel: .detail, message: "Define ObservedValueTable function")
+		let observedValueTableAllocator: @convention(block) () -> JSValue = {
+			() -> JSValue in
+			let table = KMObservedValueTable(context: ctxt)
+			return JSValue(object: table, in: ctxt)
 		}
-		ctxt.set(name: "alert", function: alertFunc)
+		ctxt.set(name: "ObservedValueTable", function: observedValueTableAllocator)
+
 		return true
 	}
-
 }
