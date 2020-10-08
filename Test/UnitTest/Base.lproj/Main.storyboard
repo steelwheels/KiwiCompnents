@@ -709,21 +709,7 @@
                     <view key="view" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="eoF-2q-PY8" customClass="KCTerminalView" customModule="KiwiControls">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                            </customView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="eoF-2q-PY8" secondAttribute="bottom" id="DtV-Eq-vB9"/>
-                            <constraint firstAttribute="trailing" secondItem="eoF-2q-PY8" secondAttribute="trailing" id="Knh-4z-CVL"/>
-                            <constraint firstItem="eoF-2q-PY8" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="Y0A-zP-T5c"/>
-                            <constraint firstItem="eoF-2q-PY8" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="v5X-dw-vX5"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="mTerminalView" destination="eoF-2q-PY8" id="8uk-EQ-uzi"/>
-                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		056719DE252DE73100201386 /* KMStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056719DD252DE73100201386 /* KMStackView.swift */; };
+		056719DF252DE73100201386 /* KMStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056719DD252DE73100201386 /* KMStackView.swift */; };
 		05676AE22518625E00C1D29C /* KiwiControls.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE12518625E00C1D29C /* KiwiControls.xcframework */; };
 		05676AE32518625E00C1D29C /* KiwiControls.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE12518625E00C1D29C /* KiwiControls.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05676AE42518626F00C1D29C /* KiwiControls.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE12518625E00C1D29C /* KiwiControls.xcframework */; };
@@ -29,16 +31,16 @@
 		05676AF92518631D00C1D29C /* CoconutShell.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF52518630800C1D29C /* CoconutShell.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		056A6CCA25176B0C00E6379D /* KiwiComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 056A6CC825176B0C00E6379D /* KiwiComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		056A6CD825176B2C00E6379D /* KiwiComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 056A6CD625176B2C00E6379D /* KiwiComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		056A6CE125176B7F00E6379D /* KMCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CE025176B7F00E6379D /* KMCompiler.swift */; };
-		056A6CE225176B7F00E6379D /* KMCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CE025176B7F00E6379D /* KMCompiler.swift */; };
 		056A6CEE25176D2F00E6379D /* KMAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CEC25176D2F00E6379D /* KMAlert.swift */; };
 		056A6CEF25176D2F00E6379D /* KMAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CEC25176D2F00E6379D /* KMAlert.swift */; };
-		056A6CF925176D4E00E6379D /* KMObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMObject.swift */; };
-		056A6CFA25176D4E00E6379D /* KMObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMObject.swift */; };
+		056A6CF925176D4E00E6379D /* KMCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMCompiler.swift */; };
+		056A6CFA25176D4E00E6379D /* KMCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMCompiler.swift */; };
 		056A6CFF25176D7300E6379D /* CoconutData.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; };
 		056A6D0025176D7300E6379D /* CoconutData.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		056A6D0325176D9500E6379D /* CoconutData.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; };
 		056A6D0425176D9500E6379D /* CoconutData.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		057CCC92252E04D40012EA0C /* KMComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057CCC91252E04D40012EA0C /* KMComponentViewController.swift */; };
+		057CCC93252E04D40012EA0C /* KMComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057CCC91252E04D40012EA0C /* KMComponentViewController.swift */; };
 		059AB1D8251C09FA0094B268 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059AB1D7251C09FA0094B268 /* AppDelegate.swift */; };
 		059AB1DA251C09FA0094B268 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059AB1D9251C09FA0094B268 /* ViewController.swift */; };
 		059AB1DC251C09FD0094B268 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 059AB1DB251C09FD0094B268 /* Assets.xcassets */; };
@@ -56,7 +58,13 @@
 		059AB1F4251C0C490094B268 /* KiwiShell.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF0251862D500C1D29C /* KiwiShell.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		059AB1F6251C0C490094B268 /* KiwiComponents.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */; };
 		059AB1F7251C0C490094B268 /* KiwiComponents.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		059AB1F9251C413D0094B268 /* UTObjectValueTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059AB1F8251C413D0094B268 /* UTObjectValueTable.swift */; };
+		05A88F19252B65D60036432D /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
+		05A88F1A252B65D60036432D /* Amber.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		05A88F1B252B65E80036432D /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
+		05A88F1C252B65E80036432D /* Amber.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		05BD9A40252C7AF900106ED9 /* sample-1.amb in Resources */ = {isa = PBXBuildFile; fileRef = 05BD9A3F252C7AF900106ED9 /* sample-1.amb */; };
+		05D0CABF252B6AFC0041C196 /* KMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0CABE252B6AFC0041C196 /* KMButton.swift */; };
+		05D0CAC0252B6AFC0041C196 /* KMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0CABE252B6AFC0041C196 /* KMButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +104,7 @@
 				05676AE32518625E00C1D29C /* KiwiControls.xcframework in Embed Frameworks */,
 				05676AF2251862D500C1D29C /* KiwiShell.xcframework in Embed Frameworks */,
 				05676AEB2518629300C1D29C /* KiwiEngine.xcframework in Embed Frameworks */,
+				05A88F1A252B65D60036432D /* Amber.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,6 +121,7 @@
 				05676AED251862B700C1D29C /* KiwiEngine.xcframework in Embed Frameworks */,
 				05676AF4251862E700C1D29C /* KiwiShell.xcframework in Embed Frameworks */,
 				05676AEF251862B700C1D29C /* KiwiLibrary.xcframework in Embed Frameworks */,
+				05A88F1C252B65E80036432D /* Amber.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -135,6 +145,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		056719DD252DE73100201386 /* KMStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMStackView.swift; sourceTree = "<group>"; };
 		05676AE12518625E00C1D29C /* KiwiControls.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = KiwiControls.xcframework; path = ../../../Library/Frameworks/KiwiControls.xcframework; sourceTree = "<group>"; };
 		05676AE62518629300C1D29C /* KiwiLibrary.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = KiwiLibrary.xcframework; path = ../../../Library/Frameworks/KiwiLibrary.xcframework; sourceTree = "<group>"; };
 		05676AE72518629300C1D29C /* KiwiEngine.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = KiwiEngine.xcframework; path = ../../../Library/Frameworks/KiwiEngine.xcframework; sourceTree = "<group>"; };
@@ -146,10 +157,10 @@
 		056A6CD425176B2C00E6379D /* KiwiComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KiwiComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		056A6CD625176B2C00E6379D /* KiwiComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KiwiComponents.h; sourceTree = "<group>"; };
 		056A6CD725176B2C00E6379D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		056A6CE025176B7F00E6379D /* KMCompiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMCompiler.swift; sourceTree = "<group>"; };
 		056A6CEC25176D2F00E6379D /* KMAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMAlert.swift; sourceTree = "<group>"; };
-		056A6CF625176D4E00E6379D /* KMObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMObject.swift; sourceTree = "<group>"; };
+		056A6CF625176D4E00E6379D /* KMCompiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMCompiler.swift; sourceTree = "<group>"; };
 		056A6CFE25176D7300E6379D /* CoconutData.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = CoconutData.xcframework; path = ../../../Library/Frameworks/CoconutData.xcframework; sourceTree = "<group>"; };
+		057CCC91252E04D40012EA0C /* KMComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMComponentViewController.swift; sourceTree = "<group>"; };
 		059AB1D5251C09FA0094B268 /* UnitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		059AB1D7251C09FA0094B268 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		059AB1D9251C09FA0094B268 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -158,7 +169,9 @@
 		059AB1E0251C09FD0094B268 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		059AB1E1251C09FD0094B268 /* UnitTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnitTest.entitlements; sourceTree = "<group>"; };
 		059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = KiwiComponents.xcframework; path = ../../../Library/Frameworks/KiwiComponents.xcframework; sourceTree = "<group>"; };
-		059AB1F8251C413D0094B268 /* UTObjectValueTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UTObjectValueTable.swift; sourceTree = "<group>"; };
+		05A88F18252B65D60036432D /* Amber.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Amber.xcframework; path = ../../../Library/Frameworks/Amber.xcframework; sourceTree = "<group>"; };
+		05BD9A3F252C7AF900106ED9 /* sample-1.amb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-1.amb"; sourceTree = "<group>"; };
+		05D0CABE252B6AFC0041C196 /* KMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +185,7 @@
 				05676AE22518625E00C1D29C /* KiwiControls.xcframework in Frameworks */,
 				05676AF1251862D500C1D29C /* KiwiShell.xcframework in Frameworks */,
 				05676AEA2518629300C1D29C /* KiwiEngine.xcframework in Frameworks */,
+				05A88F19252B65D60036432D /* Amber.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,6 +199,7 @@
 				05676AEC251862B700C1D29C /* KiwiEngine.xcframework in Frameworks */,
 				05676AF3251862E700C1D29C /* KiwiShell.xcframework in Frameworks */,
 				05676AEE251862B700C1D29C /* KiwiLibrary.xcframework in Frameworks */,
+				05A88F1B252B65E80036432D /* Amber.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,41 +263,28 @@
 		056A6CDE25176B4200E6379D /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				056A6CF425176D3900E6379D /* Base */,
+				057BB83B252E04750007D9EB /* Window */,
+				05A88F1D252B68350036432D /* Compiler */,
 				056A6CEB25176D1A00E6379D /* Component */,
-				056A6CDF25176B6700E6379D /* Setup */,
 			);
 			name = Source;
 			path = ../Source;
-			sourceTree = "<group>";
-		};
-		056A6CDF25176B6700E6379D /* Setup */ = {
-			isa = PBXGroup;
-			children = (
-				056A6CE025176B7F00E6379D /* KMCompiler.swift */,
-			);
-			path = Setup;
 			sourceTree = "<group>";
 		};
 		056A6CEB25176D1A00E6379D /* Component */ = {
 			isa = PBXGroup;
 			children = (
 				056A6CEC25176D2F00E6379D /* KMAlert.swift */,
+				05D0CABE252B6AFC0041C196 /* KMButton.swift */,
+				056719DD252DE73100201386 /* KMStackView.swift */,
 			);
 			path = Component;
-			sourceTree = "<group>";
-		};
-		056A6CF425176D3900E6379D /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				056A6CF625176D4E00E6379D /* KMObject.swift */,
-			);
-			path = Base;
 			sourceTree = "<group>";
 		};
 		056A6CFD25176D7300E6379D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				05A88F18252B65D60036432D /* Amber.xcframework */,
 				059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */,
 				05676AF52518630800C1D29C /* CoconutShell.xcframework */,
 				05676AF0251862D500C1D29C /* KiwiShell.xcframework */,
@@ -292,6 +294,14 @@
 				056A6CFE25176D7300E6379D /* CoconutData.xcframework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		057BB83B252E04750007D9EB /* Window */ = {
+			isa = PBXGroup;
+			children = (
+				057CCC91252E04D40012EA0C /* KMComponentViewController.swift */,
+			);
+			path = Window;
 			sourceTree = "<group>";
 		};
 		059AB1D0251C09C60094B268 /* Test */ = {
@@ -306,15 +316,31 @@
 		059AB1D6251C09FA0094B268 /* UnitTest */ = {
 			isa = PBXGroup;
 			children = (
+				05BD9A3E252C7A5200106ED9 /* Resource */,
 				059AB1D7251C09FA0094B268 /* AppDelegate.swift */,
 				059AB1D9251C09FA0094B268 /* ViewController.swift */,
 				059AB1DB251C09FD0094B268 /* Assets.xcassets */,
 				059AB1DD251C09FD0094B268 /* Main.storyboard */,
 				059AB1E0251C09FD0094B268 /* Info.plist */,
 				059AB1E1251C09FD0094B268 /* UnitTest.entitlements */,
-				059AB1F8251C413D0094B268 /* UTObjectValueTable.swift */,
 			);
 			path = UnitTest;
+			sourceTree = "<group>";
+		};
+		05A88F1D252B68350036432D /* Compiler */ = {
+			isa = PBXGroup;
+			children = (
+				056A6CF625176D4E00E6379D /* KMCompiler.swift */,
+			);
+			path = Compiler;
+			sourceTree = "<group>";
+		};
+		05BD9A3E252C7A5200106ED9 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				05BD9A3F252C7AF900106ED9 /* sample-1.amb */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -480,6 +506,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05BD9A40252C7AF900106ED9 /* sample-1.amb in Resources */,
 				059AB1DC251C09FD0094B268 /* Assets.xcassets in Resources */,
 				059AB1DF251C09FD0094B268 /* Main.storyboard in Resources */,
 			);
@@ -493,8 +520,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				056A6CEE25176D2F00E6379D /* KMAlert.swift in Sources */,
-				056A6CE125176B7F00E6379D /* KMCompiler.swift in Sources */,
-				056A6CF925176D4E00E6379D /* KMObject.swift in Sources */,
+				056A6CF925176D4E00E6379D /* KMCompiler.swift in Sources */,
+				057CCC92252E04D40012EA0C /* KMComponentViewController.swift in Sources */,
+				05D0CABF252B6AFC0041C196 /* KMButton.swift in Sources */,
+				056719DE252DE73100201386 /* KMStackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,8 +532,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				056A6CEF25176D2F00E6379D /* KMAlert.swift in Sources */,
-				056A6CE225176B7F00E6379D /* KMCompiler.swift in Sources */,
-				056A6CFA25176D4E00E6379D /* KMObject.swift in Sources */,
+				056A6CFA25176D4E00E6379D /* KMCompiler.swift in Sources */,
+				057CCC93252E04D40012EA0C /* KMComponentViewController.swift in Sources */,
+				05D0CAC0252B6AFC0041C196 /* KMButton.swift in Sources */,
+				056719DF252DE73100201386 /* KMStackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,7 +543,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				059AB1F9251C413D0094B268 /* UTObjectValueTable.swift in Sources */,
 				059AB1DA251C09FA0094B268 /* ViewController.swift in Sources */,
 				059AB1D8251C09FA0094B268 /* AppDelegate.swift in Sources */,
 			);

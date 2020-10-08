@@ -1,0 +1,8 @@
+top: VBox {
+    button_a: Button {
+        title:  String "Hello"
+        pressed: Event() %{
+		console.log("pressed") ;
+        %}
+    }
+}
