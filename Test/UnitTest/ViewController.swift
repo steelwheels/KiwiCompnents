@@ -19,7 +19,7 @@ class ViewController: KMComponentViewController
 	open override func loadViewContext(rootView root: KCRootView) -> KCSize {
 		/* Print detail logs */
 		let _ = KCLogManager.shared
-		CNPreference.shared.systemPreference.logLevel = .detail
+		CNPreference.shared.systemPreference.logLevel = .warning //　.detail
 
 		if let scrurl = CNFilePath.URLForResourceFile(fileName: "sample-1", fileExtension: "amb") {
 			self.scriptURL = scrurl
