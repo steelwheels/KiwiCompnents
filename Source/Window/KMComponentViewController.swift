@@ -58,7 +58,7 @@ open class KMComponentViewController: KCPlaneViewController
 			console.error(string: "Failed to compile base")
 			return root.frame.size
 		}
-		guard libcompiler.compileLibrary(context: ctxt, sourceFile: .none, processManager: mProcessManager, externalCompiler: nil, environment: env, console: console, config: config) else {
+		guard libcompiler.compileLibrary(context: ctxt, sourceFile: .none, processManager: mProcessManager, environment: env, console: console, config: config) else {
 			console.error(string: "Failed to compile library")
 			return root.frame.size
 		}
