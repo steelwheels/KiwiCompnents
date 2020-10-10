@@ -69,7 +69,7 @@ public class KMStackView: KCStackView, AMBComponent
 				CNLog(logLevel: .error, message: "Invalid raw value for axis: \(val)")
 			}
 		} else {
-			robj.set(key: KMButton.IsEnabledItem, intValue: Int(self.axis.rawValue))
+			robj.set(key: KMStackView.AxisItem, intValue: Int(self.axis.rawValue))
 		}
 		/* Add listner: axis */
 		robj.addCallbackSource(forProperty: KMStackView.AxisItem, callbackFunction: {
@@ -84,17 +84,17 @@ public class KMStackView: KCStackView, AMBComponent
 		})
 
 		/* Sync initial value: alignment */
-		if let val = robj.getIntProperty(forKey: KMStackView.AxisItem) {
+		if let val = robj.getIntProperty(forKey: KMStackView.AlignmentItem) {
 			if let alignval = CNAlignment(rawValue: Int32(val)) {
 				self.alignment = alignval
 			} else {
 				CNLog(logLevel: .error, message: "Invalid raw value for alignment: \(val)")
 			}
 		} else {
-			robj.set(key: KMButton.IsEnabledItem, intValue: Int(self.alignment.rawValue))
+			robj.set(key: KMStackView.AlignmentItem, intValue: Int(self.alignment.rawValue))
 		}
 		/* Add listner: alignment */
-		robj.addCallbackSource(forProperty: KMStackView.AxisItem, callbackFunction: {
+		robj.addCallbackSource(forProperty: KMStackView.AlignmentItem, callbackFunction: {
 			(_ val: Any) -> Void in
 			if let val = robj.getIntProperty(forKey: KMStackView.AxisItem) {
 				if let alignval = CNAlignment(rawValue: Int32(val)) {
@@ -105,7 +105,7 @@ public class KMStackView: KCStackView, AMBComponent
 			}
 		})
 
-		/* Sync initial value: axis */
+		/* Sync initial value: distribution */
 		if let val = robj.getIntProperty(forKey: KMStackView.DistributionItem) {
 			if let distval = CNDistribution(rawValue: Int32(val)) {
 				self.distribution = distval
@@ -113,7 +113,7 @@ public class KMStackView: KCStackView, AMBComponent
 				CNLog(logLevel: .error, message: "Invalid raw value for distribution: \(val)")
 			}
 		} else {
-			robj.set(key: KMButton.IsEnabledItem, intValue: Int(self.distribution.rawValue))
+			robj.set(key: KMStackView.DistributionItem, intValue: Int(self.distribution.rawValue))
 		}
 		/* Add listner: distribution */
 		robj.addCallbackSource(forProperty: KMStackView.DistributionItem, callbackFunction: {

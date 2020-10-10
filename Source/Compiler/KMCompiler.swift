@@ -33,6 +33,15 @@ public class KMCompiler: AMBCompiler
 				return .ok(newcomp)
 			}
 		})
+		manager.addAllocator(className: "Terminal", allocatorFunc: {
+			(_ robj: AMBReactObject, _ ctxt: KEContext) -> AllocationResult in
+			let newcomp  = KMTerminalView()
+			if let err = newcomp.setup(reactObject: robj, context: ctxt) {
+				return .error(err)
+			} else {
+				return .ok(newcomp)
+			}
+		})
 	}
 }
 

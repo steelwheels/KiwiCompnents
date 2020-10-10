@@ -12,6 +12,11 @@ import KiwiLibrary
 import CoconutData
 import JavaScriptCore
 import Foundation
+#if os(OSX)
+import AppKit
+#else
+import UIKit
+#endif
 
 open class KMComponentViewController: KCPlaneViewController
 {
@@ -91,6 +96,9 @@ open class KMComponentViewController: KCPlaneViewController
 		} else {
 			console.error(string: "Component is NOT view")
 		}
-		return root.frame.size
+
+		let fitsize = root.fittingSize
+		NSLog("root size = \(fitsize.description)")
+		return fitsize
 	}
 }
