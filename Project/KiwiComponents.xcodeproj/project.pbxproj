@@ -43,6 +43,8 @@
 		057CCC93252E04D40012EA0C /* KMComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057CCC91252E04D40012EA0C /* KMComponentViewController.swift */; };
 		059545AB252EF2AB00E019B2 /* KMTerminalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059545AA252EF2AB00E019B2 /* KMTerminalView.swift */; };
 		059545AC252EF2AB00E019B2 /* KMTerminalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059545AA252EF2AB00E019B2 /* KMTerminalView.swift */; };
+		0596163025327D2800F6059F /* KMShell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0596162F25327D2800F6059F /* KMShell.swift */; };
+		0596163125327D2800F6059F /* KMShell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0596162F25327D2800F6059F /* KMShell.swift */; };
 		059AB1D8251C09FA0094B268 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059AB1D7251C09FA0094B268 /* AppDelegate.swift */; };
 		059AB1DA251C09FA0094B268 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059AB1D9251C09FA0094B268 /* ViewController.swift */; };
 		059AB1DC251C09FD0094B268 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 059AB1DB251C09FD0094B268 /* Assets.xcassets */; };
@@ -64,6 +66,8 @@
 		05A88F1A252B65D60036432D /* Amber.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05A88F1B252B65E80036432D /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
 		05A88F1C252B65E80036432D /* Amber.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		05BA27872532868E00AA0460 /* KMScriptThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BA27862532868E00AA0460 /* KMScriptThread.swift */; };
+		05BA27882532868E00AA0460 /* KMScriptThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BA27862532868E00AA0460 /* KMScriptThread.swift */; };
 		05BD9A40252C7AF900106ED9 /* sample-1.amb in Resources */ = {isa = PBXBuildFile; fileRef = 05BD9A3F252C7AF900106ED9 /* sample-1.amb */; };
 		05D0CABF252B6AFC0041C196 /* KMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0CABE252B6AFC0041C196 /* KMButton.swift */; };
 		05D0CAC0252B6AFC0041C196 /* KMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0CABE252B6AFC0041C196 /* KMButton.swift */; };
@@ -164,6 +168,7 @@
 		056A6CFE25176D7300E6379D /* CoconutData.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = CoconutData.xcframework; path = ../../../Library/Frameworks/CoconutData.xcframework; sourceTree = "<group>"; };
 		057CCC91252E04D40012EA0C /* KMComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMComponentViewController.swift; sourceTree = "<group>"; };
 		059545AA252EF2AB00E019B2 /* KMTerminalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMTerminalView.swift; sourceTree = "<group>"; };
+		0596162F25327D2800F6059F /* KMShell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMShell.swift; sourceTree = "<group>"; };
 		059AB1D5251C09FA0094B268 /* UnitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		059AB1D7251C09FA0094B268 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		059AB1D9251C09FA0094B268 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +178,7 @@
 		059AB1E1251C09FD0094B268 /* UnitTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnitTest.entitlements; sourceTree = "<group>"; };
 		059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = KiwiComponents.xcframework; path = ../../../Library/Frameworks/KiwiComponents.xcframework; sourceTree = "<group>"; };
 		05A88F18252B65D60036432D /* Amber.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Amber.xcframework; path = ../../../Library/Frameworks/Amber.xcframework; sourceTree = "<group>"; };
+		05BA27862532868E00AA0460 /* KMScriptThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMScriptThread.swift; sourceTree = "<group>"; };
 		05BD9A3F252C7AF900106ED9 /* sample-1.amb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-1.amb"; sourceTree = "<group>"; };
 		05D0CABE252B6AFC0041C196 /* KMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -279,8 +285,10 @@
 			children = (
 				056A6CEC25176D2F00E6379D /* KMAlert.swift */,
 				05D0CABE252B6AFC0041C196 /* KMButton.swift */,
+				0596162F25327D2800F6059F /* KMShell.swift */,
 				056719DD252DE73100201386 /* KMStackView.swift */,
 				059545AA252EF2AB00E019B2 /* KMTerminalView.swift */,
+				05BA27862532868E00AA0460 /* KMScriptThread.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -523,6 +531,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0596163025327D2800F6059F /* KMShell.swift in Sources */,
+				05BA27872532868E00AA0460 /* KMScriptThread.swift in Sources */,
 				059545AB252EF2AB00E019B2 /* KMTerminalView.swift in Sources */,
 				056A6CEE25176D2F00E6379D /* KMAlert.swift in Sources */,
 				056A6CF925176D4E00E6379D /* KMCompiler.swift in Sources */,
@@ -536,6 +546,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0596163125327D2800F6059F /* KMShell.swift in Sources */,
+				05BA27882532868E00AA0460 /* KMScriptThread.swift in Sources */,
 				059545AC252EF2AB00E019B2 /* KMTerminalView.swift in Sources */,
 				056A6CEF25176D2F00E6379D /* KMAlert.swift in Sources */,
 				056A6CFA25176D4E00E6379D /* KMCompiler.swift in Sources */,

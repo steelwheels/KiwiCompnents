@@ -22,6 +22,7 @@ open class KMComponentViewController: KCPlaneViewController
 {
 	private var mContext:		KEContext? = nil
 	private var mProcessManager:	CNProcessManager = CNProcessManager()
+	private var mEnvironment:	CNEnvironment    = CNEnvironment()
 
 	public var scriptURL:		URL?	// URL of AmberScript
 
@@ -49,16 +50,15 @@ open class KMComponentViewController: KCPlaneViewController
 		mContext = ctxt
 
 		let terminfo = CNTerminalInfo(width: 80, height: 25)
-		let env	     = CNEnvironment()
 		let console  = CNFileConsole()
 		let config   = KEConfig(applicationType: .window, doStrict: true, logLevel: .defaultLevel)
 
 		let libcompiler = KLCompiler()
-		guard libcompiler.compileBase(context: ctxt, terminalInfo: terminfo, environment: env, console: console, config: config) else {
+		guard libcompiler.compileBase(context: ctxt, terminalInfo: terminfo, environment: mEnvironment, console: console, config: config) else {
 			console.error(string: "Failed to compile base")
 			return root.frame.size
 		}
-		guard libcompiler.compileLibrary(context: ctxt, sourceFile: .none, processManager: mProcessManager, environment: env, console: console, config: config) else {
+		guard libcompiler.compileLibrary(context: ctxt, sourceFile: .none, processManager: mProcessManager, environment: mEnvironment, console: console, config: config) else {
 			console.error(string: "Failed to compile library")
 			return root.frame.size
 		}
@@ -79,7 +79,7 @@ open class KMComponentViewController: KCPlaneViewController
 		
 		let ambcompiler = KMCompiler()
 		let topcomp: AMBComponent
-		switch ambcompiler.compile(frame: frame, context: ctxt) {
+		switch ambcompiler.compile(frame: frame, context: ctxt, processManager: mProcessManager, environment: mEnvironment) {
 		case .ok(let comp):
 			topcomp = comp
 		case .error(let err):
