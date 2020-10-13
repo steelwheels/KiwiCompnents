@@ -19,10 +19,12 @@ class ViewController: KMComponentViewController
 	open override func loadViewContext(rootView root: KCRootView) -> KCSize {
 		/* Print detail logs */
 		let _ = KCLogManager.shared
-		CNPreference.shared.systemPreference.logLevel = .warning //　.detail
+		CNPreference.shared.systemPreference.logLevel = .detail
 
 		if let scrurl = CNFilePath.URLForResourceFile(fileName: "sample-1", fileExtension: "amb") {
-			self.scriptURL = scrurl
+			let pmgr = CNProcessManager()
+			let env  = CNEnvironment()
+			setup(scriptURL: scrurl, processManager: pmgr, environment: env)
 		} else {
 			NSLog("Failed to allocate URL")
 		}

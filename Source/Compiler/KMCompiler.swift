@@ -18,7 +18,7 @@ public class KMCompiler: AMBCompiler
 		manager.addAllocator(className: "Button", allocatorFunc: {
 			(_ robj: AMBReactObject, _ ctxt: KEContext, _ pmgr: CNProcessManager, _ env: CNEnvironment) -> AllocationResult in
 			let newcomp = KMButton()
-			if let err = newcomp.setup(reactObject: robj, context: ctxt) {
+			if let err = newcomp.setup(reactObject: robj, context: ctxt, processManager: pmgr, environment: env) {
 				return .error(err)
 			} else {
 				return .ok(newcomp)
@@ -28,7 +28,7 @@ public class KMCompiler: AMBCompiler
 			(_ robj: AMBReactObject, _ ctxt: KEContext, _ pmgr: CNProcessManager, _ env: CNEnvironment) -> AllocationResult in
 			let newcomp  = KMStackView()
 			newcomp.axis = .vertical
-			if let err = newcomp.setup(reactObject: robj, context: ctxt) {
+			if let err = newcomp.setup(reactObject: robj, context: ctxt, processManager: pmgr, environment: env) {
 				return .error(err)
 			} else {
 				return .ok(newcomp)
@@ -37,7 +37,7 @@ public class KMCompiler: AMBCompiler
 		manager.addAllocator(className: "Terminal", allocatorFunc: {
 			(_ robj: AMBReactObject, _ ctxt: KEContext, _ pmgr: CNProcessManager, _ env: CNEnvironment) -> AllocationResult in
 			let newcomp  = KMTerminalView()
-			if let err = newcomp.setup(reactObject: robj, context: ctxt) {
+			if let err = newcomp.setup(reactObject: robj, context: ctxt, processManager: pmgr, environment: env) {
 				return .error(err)
 			} else {
 				return .ok(newcomp)
@@ -45,8 +45,8 @@ public class KMCompiler: AMBCompiler
 		})
 		manager.addAllocator(className: "ScriptThread", allocatorFunc: {
 			(_ robj: AMBReactObject, _ ctxt: KEContext, _ pmgr: CNProcessManager, _ env: CNEnvironment) -> AllocationResult in
-			let newcomp = KMScriptThread(processManager: pmgr, environment: env)
-			if let err = newcomp.setup(reactObject: robj, context: ctxt) {
+			let newcomp = KMScriptThread()
+			if let err = newcomp.setup(reactObject: robj, context: ctxt, processManager: pmgr, environment: env) {
 				return .error(err)
 			} else {
 				return .ok(newcomp)

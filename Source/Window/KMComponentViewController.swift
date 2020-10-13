@@ -20,15 +20,42 @@ import UIKit
 
 open class KMComponentViewController: KCPlaneViewController
 {
-	private var mContext:		KEContext? = nil
-	private var mProcessManager:	CNProcessManager = CNProcessManager()
-	private var mEnvironment:	CNEnvironment    = CNEnvironment()
+	private var mContext:		KEContext
+	private var mScriptURL:		URL?
+	private var mProcessManager:	CNProcessManager?
+	private var mEnvironment:	CNEnvironment?
 
-	public var scriptURL:		URL?	// URL of AmberScript
+	public override init(){
+		guard let vm = JSVirtualMachine() else {
+			fatalError("Failed to allocate VM")
+		}
+		mContext	= KEContext(virtualMachine: vm)
+		mScriptURL	= nil
+		mProcessManager	= nil
+		mEnvironment	= nil
+		super.init()
+	}
+
+	@objc required dynamic public init?(coder: NSCoder) {
+		guard let vm = JSVirtualMachine() else {
+			fatalError("Failed to allocate VM")
+		}
+		mContext	= KEContext(virtualMachine: vm)
+		mScriptURL	= nil
+		mProcessManager	= nil
+		mEnvironment	= nil
+		super.init(coder: coder)
+	}
+
+	public func setup(scriptURL scrurl: URL, processManager pmgr: CNProcessManager, environment env: CNEnvironment) {
+		mScriptURL	= scrurl
+		mProcessManager	= pmgr
+		mEnvironment	= env
+	}
 
 	open override func loadViewContext(rootView root: KCRootView) -> KCSize {
 		let script: String
-		if let scrurl = scriptURL {
+		if let scrurl = mScriptURL {
 			if let scr = scrurl.loadContents() {
 				script = scr as String
 			} else {
@@ -40,25 +67,26 @@ open class KMComponentViewController: KCPlaneViewController
 			return root.frame.size
 		}
 
-		guard let vm = JSVirtualMachine() else {
-			NSLog("Failed to allocate VM")
+		guard let procmgr = mProcessManager else {
+			NSLog("No process manager")
 			return root.frame.size
 		}
 
-		/* Setup context */
-		let ctxt = KEContext(virtualMachine: vm)
-		mContext = ctxt
+		guard let env = mEnvironment else {
+			NSLog("No environment")
+			return root.frame.size
+		}
 
 		let terminfo = CNTerminalInfo(width: 80, height: 25)
 		let console  = CNFileConsole()
 		let config   = KEConfig(applicationType: .window, doStrict: true, logLevel: .defaultLevel)
 
 		let libcompiler = KLCompiler()
-		guard libcompiler.compileBase(context: ctxt, terminalInfo: terminfo, environment: mEnvironment, console: console, config: config) else {
+		guard libcompiler.compileBase(context: mContext, terminalInfo: terminfo, environment: env, console: console, config: config) else {
 			console.error(string: "Failed to compile base")
 			return root.frame.size
 		}
-		guard libcompiler.compileLibrary(context: ctxt, sourceFile: .none, processManager: mProcessManager, environment: mEnvironment, console: console, config: config) else {
+		guard libcompiler.compileLibrary(context: mContext, sourceFile: .none, processManager: procmgr, environment: env, console: console, config: config) else {
 			console.error(string: "Failed to compile library")
 			return root.frame.size
 		}
@@ -79,7 +107,7 @@ open class KMComponentViewController: KCPlaneViewController
 		
 		let ambcompiler = KMCompiler()
 		let topcomp: AMBComponent
-		switch ambcompiler.compile(frame: frame, context: ctxt, processManager: mProcessManager, environment: mEnvironment) {
+		switch ambcompiler.compile(frame: frame, context: mContext, processManager: procmgr, environment: env) {
 		case .ok(let comp):
 			topcomp = comp
 		case .error(let err):

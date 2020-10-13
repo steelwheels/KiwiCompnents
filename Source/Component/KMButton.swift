@@ -22,26 +22,16 @@ public class KMButton: KCButton, AMBComponent
 
 	private var mReactObject:	AMBReactObject?
 	private var mContext:		KEContext?
+	private var mEnvironment:	CNEnvironment?
 
-	public var reactObject: AMBReactObject { get {
-		if let robj = mReactObject {
-			return robj
-		} else {
-			fatalError("No react object in \(#file)")
-		}
-	}}
-
-	public var context: KEContext { get {
-		if let ctxt = mContext {
-			return ctxt
-		} else {
-			fatalError("No context in \(#file)")
-		}
-	}}
+	public var reactObject: AMBReactObject	{ get { return getProperty(mReactObject)	}}
+	public var context: KEContext		{ get { return getProperty(mContext)		}}
+	public var environment: CNEnvironment	{ get { return getProperty(mEnvironment)	}}
 
 	public init(){
 		mReactObject	= nil
 		mContext	= nil
+		mEnvironment	= nil
 
 		#if os(OSX)
 			let frame = NSRect(x: 0.0, y: 0.0, width: 188, height: 21)
@@ -54,6 +44,7 @@ public class KMButton: KCButton, AMBComponent
 	public required init?(coder: NSCoder) {
 		mReactObject	= nil
 		mContext	= nil
+		mEnvironment	= nil
 		super.init(coder: coder)
 	}
 
@@ -62,9 +53,10 @@ public class KMButton: KCButton, AMBComponent
 		NSLog("Can not add child components to Button component")
 	}
 
-	public func setup(reactObject robj: AMBReactObject, context ctxt: KEContext) -> NSError? {
+	public func setup(reactObject robj: AMBReactObject, context ctxt: KEContext, processManager pmgr: CNProcessManager, environment env: CNEnvironment) -> NSError? {
 		mReactObject	= robj
 		mContext	= ctxt
+		mEnvironment	= env
 
 		/* Add allbacks */
 		self.buttonPressedCallback = {
