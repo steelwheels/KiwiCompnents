@@ -16,18 +16,12 @@ public protocol KMProcessComponent {
 }
 
 public class KMScriptThread: AMBComponentObject, KMProcessComponent {
-	public var isRunning: Bool
+	public static let	IsRunningItem		= "isRunning"
 
-	private var mContext:		KEContext?
-	private var mProcessManager:	CNProcessManager?
-	private var mEnvironment:	CNEnvironment?
-	private var mScriptThread:	KHScriptThread?
+	public var isRunning: Bool
 
 	public override init() {
 		isRunning		= false
-		mProcessManager		= nil
-		mEnvironment		= nil
-		mScriptThread   	= nil
 		super.init()
 	}
 
@@ -35,6 +29,9 @@ public class KMScriptThread: AMBComponentObject, KMProcessComponent {
 		if let err = super.setup(reactObject: robj, context: ctxt, processManager: pmgr, environment: env) {
 			return err
 		}
+
+		robj.set(key: KMScriptThread.IsRunningItem, booleanValue: self.isRunning)
+
 		return nil
 	}
 }
