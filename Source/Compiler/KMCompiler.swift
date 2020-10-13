@@ -43,9 +43,9 @@ public class KMCompiler: AMBCompiler
 				return .ok(newcomp)
 			}
 		})
-		manager.addAllocator(className: "ScriptThread", allocatorFunc: {
+		manager.addAllocator(className: "Shell", allocatorFunc: {
 			(_ robj: AMBReactObject, _ ctxt: KEContext, _ pmgr: CNProcessManager, _ env: CNEnvironment) -> AllocationResult in
-			let newcomp = KMScriptThread()
+			let newcomp = KMShell()
 			if let err = newcomp.setup(reactObject: robj, context: ctxt, processManager: pmgr, environment: env) {
 				return .error(err)
 			} else {

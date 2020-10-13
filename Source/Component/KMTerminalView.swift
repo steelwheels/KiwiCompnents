@@ -24,6 +24,7 @@ public class KMTerminalView: KCTerminalView, AMBComponent
 	private var mReactObject:	AMBReactObject?
 	private var mContext:		KEContext?
 	private var mEnvironment:	CNEnvironment?
+	private var mChildComponents:	Array<AMBComponent>
 
 	public var reactObject: AMBReactObject	{ get { getProperty(mReactObject) 	}}
 	public var context: KEContext		{ get { getProperty(mContext) 		}}
@@ -33,6 +34,7 @@ public class KMTerminalView: KCTerminalView, AMBComponent
 		mReactObject		= nil
 		mContext		= nil
 		mEnvironment		= nil
+		mChildComponents	= []
 		#if os(OSX)
 			let frame = NSRect(x: 0.0, y: 0.0, width: 480, height: 270)
 		#else
@@ -45,9 +47,9 @@ public class KMTerminalView: KCTerminalView, AMBComponent
 		mReactObject		= nil
 		mContext		= nil
 		mEnvironment		= nil
+		mChildComponents	= []
 		super.init(coder: coder)
 	}
-
 
 	public func setup(reactObject robj: AMBReactObject, context ctxt: KEContext, processManager pmgr: CNProcessManager, environment env: CNEnvironment) -> NSError? {
 		mReactObject	= robj
@@ -112,9 +114,26 @@ public class KMTerminalView: KCTerminalView, AMBComponent
 		return nil
 	}
 
-	public var children: Array<AMBComponent> { get { return [] }}
+	public var children: Array<AMBComponent> { get { return mChildComponents }}
+
 	public func addChild(component comp: AMBComponent) {
-		NSLog("Can not add child components to Terminal component")
+		if mChildComponents.count == 0 {
+			if let shell = comp as? KMShell {
+				setupShell(shellComponet: shell)
+				mChildComponents.append(shell)
+			} else {
+				CNLog(logLevel: .error, message: "The terminal view can have shell component")
+			}
+		} else {
+			CNLog(logLevel: .error, message: "The terminal view can have ONLY one child")
+		}
+	}
+
+	private func setupShell(shellComponet shell: KMShell) {
+		let instrm:  CNFileStream = .fileHandle(super.inputFileHandle)
+		let outstrm: CNFileStream = .fileHandle(super.outputFileHandle)
+		let errstrm: CNFileStream = .fileHandle(super.errorFileHandle)
+		shell.start(inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
 	}
 
 	public func toText() -> CNTextSection {
