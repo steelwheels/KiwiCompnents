@@ -119,21 +119,18 @@ public class KMTerminalView: KCTerminalView, AMBComponent
 	public func addChild(component comp: AMBComponent) {
 		if mChildComponents.count == 0 {
 			if let shell = comp as? KMShell {
-				setupShell(shellComponet: shell)
 				mChildComponents.append(shell)
+				/* Start shell */
+				let instrm:  CNFileStream = .fileHandle(self.inputFileHandle )
+				let outstrm: CNFileStream = .fileHandle(self.outputFileHandle)
+				let errstrm: CNFileStream = .fileHandle(self.errorFileHandle )
+				shell.start(inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
 			} else {
-				CNLog(logLevel: .error, message: "The terminal view can have shell component")
+				CNLog(logLevel: .error, message: "The terminal view can have shell component only")
 			}
 		} else {
 			CNLog(logLevel: .error, message: "The terminal view can have ONLY one child")
 		}
-	}
-
-	private func setupShell(shellComponet shell: KMShell) {
-		let instrm:  CNFileStream = .fileHandle(super.inputFileHandle)
-		let outstrm: CNFileStream = .fileHandle(super.outputFileHandle)
-		let errstrm: CNFileStream = .fileHandle(super.errorFileHandle)
-		shell.start(inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
 	}
 
 	public func toText() -> CNTextSection {

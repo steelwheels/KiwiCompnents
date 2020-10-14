@@ -62,6 +62,7 @@
 		059AB1F4251C0C490094B268 /* KiwiShell.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF0251862D500C1D29C /* KiwiShell.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		059AB1F6251C0C490094B268 /* KiwiComponents.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */; };
 		059AB1F7251C0C490094B268 /* KiwiComponents.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		05A0B0EA2537381200C4A7B8 /* sample-2.js in Resources */ = {isa = PBXBuildFile; fileRef = 05A0B0E92537381200C4A7B8 /* sample-2.js */; };
 		05A88F19252B65D60036432D /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
 		05A88F1A252B65D60036432D /* Amber.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05A88F1B252B65E80036432D /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
@@ -175,6 +176,7 @@
 		059AB1E0251C09FD0094B268 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		059AB1E1251C09FD0094B268 /* UnitTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnitTest.entitlements; sourceTree = "<group>"; };
 		059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = KiwiComponents.xcframework; path = ../../../Library/Frameworks/KiwiComponents.xcframework; sourceTree = "<group>"; };
+		05A0B0E92537381200C4A7B8 /* sample-2.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "sample-2.js"; sourceTree = "<group>"; };
 		05A88F18252B65D60036432D /* Amber.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Amber.xcframework; path = ../../../Library/Frameworks/Amber.xcframework; sourceTree = "<group>"; };
 		05BD9A3F252C7AF900106ED9 /* sample-1.amb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sample-1.amb"; sourceTree = "<group>"; };
 		05D0CABE252B6AFC0041C196 /* KMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMButton.swift; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 		05BD9A3E252C7A5200106ED9 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				05A0B0E92537381200C4A7B8 /* sample-2.js */,
 				05BD9A3F252C7AF900106ED9 /* sample-1.amb */,
 			);
 			path = Resource;
@@ -517,6 +520,7 @@
 				05BD9A40252C7AF900106ED9 /* sample-1.amb in Resources */,
 				059AB1DC251C09FD0094B268 /* Assets.xcassets in Resources */,
 				059AB1DF251C09FD0094B268 /* Main.storyboard in Resources */,
+				05A0B0EA2537381200C4A7B8 /* sample-2.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
