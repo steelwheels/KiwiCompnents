@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		054772BA2538592500A7EC5F /* KMMultiComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */; };
+		054772BB2538592500A7EC5F /* KMMultiComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */; };
 		056719DE252DE73100201386 /* KMStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056719DD252DE73100201386 /* KMStackView.swift */; };
 		056719DF252DE73100201386 /* KMStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056719DD252DE73100201386 /* KMStackView.swift */; };
 		05676AE22518625E00C1D29C /* KiwiControls.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE12518625E00C1D29C /* KiwiControls.xcframework */; };
@@ -150,6 +152,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMMultiComponentViewController.swift; sourceTree = "<group>"; };
 		056719DD252DE73100201386 /* KMStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMStackView.swift; sourceTree = "<group>"; };
 		05676AE12518625E00C1D29C /* KiwiControls.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = KiwiControls.xcframework; path = ../../../Library/Frameworks/KiwiControls.xcframework; sourceTree = "<group>"; };
 		05676AE62518629300C1D29C /* KiwiLibrary.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = KiwiLibrary.xcframework; path = ../../../Library/Frameworks/KiwiLibrary.xcframework; sourceTree = "<group>"; };
@@ -310,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				057CCC91252E04D40012EA0C /* KMComponentViewController.swift */,
+				054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */,
 			);
 			path = Window;
 			sourceTree = "<group>";
@@ -348,8 +352,8 @@
 		05BD9A3E252C7A5200106ED9 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				05A0B0E92537381200C4A7B8 /* sample-2.js */,
 				05BD9A3F252C7AF900106ED9 /* sample-1.amb */,
+				05A0B0E92537381200C4A7B8 /* sample-2.js */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -531,6 +535,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				054772BA2538592500A7EC5F /* KMMultiComponentViewController.swift in Sources */,
 				0596163025327D2800F6059F /* KMShell.swift in Sources */,
 				059545AB252EF2AB00E019B2 /* KMTerminalView.swift in Sources */,
 				056A6CEE25176D2F00E6379D /* KMAlert.swift in Sources */,
@@ -545,6 +550,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				054772BB2538592500A7EC5F /* KMMultiComponentViewController.swift in Sources */,
 				0596163125327D2800F6059F /* KMShell.swift in Sources */,
 				059545AC252EF2AB00E019B2 /* KMTerminalView.swift in Sources */,
 				056A6CEF25176D2F00E6379D /* KMAlert.swift in Sources */,
@@ -1093,7 +1099,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1117,7 +1123,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1168,6 +1174,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
