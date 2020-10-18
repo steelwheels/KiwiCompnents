@@ -98,7 +98,8 @@ open class KMComponentViewController: KCSingleViewController
 			console.error(string: "Error: Unknown switch condition (1)")
 			return root.frame.size
 		}
-		
+
+		/* Allocate the component */
 		let ambcompiler = KMCompiler()
 		let topcomp: AMBComponent
 		switch ambcompiler.compile(frame: frame, context: mContext, processManager: procmgr, environment: mEnvironment) {
@@ -109,6 +110,16 @@ open class KMComponentViewController: KCSingleViewController
 			return root.frame.size
 		@unknown default:
 			console.error(string: "Error: Unknown switch condition (2)")
+			return root.frame.size
+		}
+
+		/* Compile library for component*/
+		guard let parentcctrl = self.parentController as? KMMultiComponentViewController else {
+			console.error(string: "No parent view controller")
+			return root.frame.size
+		}
+		if let err = ambcompiler.compileLibrary(context: mContext, parentViewController: parentcctrl) {
+			console.error(string: "Error: \(err.toString())")
 			return root.frame.size
 		}
 

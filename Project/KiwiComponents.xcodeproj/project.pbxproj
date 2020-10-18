@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		050ED8F7253AF74200DF294C /* KMSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050ED8F6253AF74200DF294C /* KMSegue.swift */; };
+		050ED8F8253AF74200DF294C /* KMSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050ED8F6253AF74200DF294C /* KMSegue.swift */; };
 		054772BA2538592500A7EC5F /* KMMultiComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */; };
 		054772BB2538592500A7EC5F /* KMMultiComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */; };
 		056719DE252DE73100201386 /* KMStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056719DD252DE73100201386 /* KMStackView.swift */; };
@@ -152,6 +154,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		050ED8F6253AF74200DF294C /* KMSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMSegue.swift; sourceTree = "<group>"; };
 		054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMMultiComponentViewController.swift; sourceTree = "<group>"; };
 		056719DD252DE73100201386 /* KMStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMStackView.swift; sourceTree = "<group>"; };
 		05676AE12518625E00C1D29C /* KiwiControls.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = KiwiControls.xcframework; path = ../../../Library/Frameworks/KiwiControls.xcframework; sourceTree = "<group>"; };
@@ -314,6 +317,7 @@
 			children = (
 				057CCC91252E04D40012EA0C /* KMComponentViewController.swift */,
 				054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */,
+				050ED8F6253AF74200DF294C /* KMSegue.swift */,
 			);
 			path = Window;
 			sourceTree = "<group>";
@@ -537,6 +541,7 @@
 			files = (
 				054772BA2538592500A7EC5F /* KMMultiComponentViewController.swift in Sources */,
 				0596163025327D2800F6059F /* KMShell.swift in Sources */,
+				050ED8F7253AF74200DF294C /* KMSegue.swift in Sources */,
 				059545AB252EF2AB00E019B2 /* KMTerminalView.swift in Sources */,
 				056A6CEE25176D2F00E6379D /* KMAlert.swift in Sources */,
 				056A6CF925176D4E00E6379D /* KMCompiler.swift in Sources */,
@@ -552,6 +557,7 @@
 			files = (
 				054772BB2538592500A7EC5F /* KMMultiComponentViewController.swift in Sources */,
 				0596163125327D2800F6059F /* KMShell.swift in Sources */,
+				050ED8F8253AF74200DF294C /* KMSegue.swift in Sources */,
 				059545AC252EF2AB00E019B2 /* KMTerminalView.swift in Sources */,
 				056A6CEF25176D2F00E6379D /* KMAlert.swift in Sources */,
 				056A6CFA25176D4E00E6379D /* KMCompiler.swift in Sources */,

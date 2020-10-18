@@ -53,5 +53,9 @@ public class KMCompiler: AMBCompiler
 			}
 		})
 	}
+
+	public func compileLibrary(context ctxt: KEContext, parentViewController parent: KMMultiComponentViewController) -> NSError? {
+		return nil
+	}
 }
 
