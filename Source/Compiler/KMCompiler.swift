@@ -55,6 +55,8 @@ public class KMCompiler: AMBCompiler
 	}
 
 	public func compileLibrary(context ctxt: KEContext, parentViewController parent: KMMultiComponentViewController) -> NSError? {
+		let segue = KMSegue(parentViewController: parent, context: ctxt)
+		ctxt.set(name: "segue", object: segue)
 		return nil
 	}
 }
