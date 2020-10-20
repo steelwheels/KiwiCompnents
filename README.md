@@ -8,6 +8,7 @@ This software is distributed under [GNU LESSER GENERAL PUBLIC LICENSE Version 2.
 ## Documents
 ### Components
 * [Components](Document/Components.md): List of all components
+* [Librariies](Document/Library.md): Classes and functions for component programming.
 
 ## Related links
 * [Steel Wheels Project](https://steelwheels.github.io): Developer's web site
