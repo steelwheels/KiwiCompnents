@@ -29,8 +29,8 @@ public class KMShell: AMBComponentObject
 		if let srcfile = env.getString(name: KMShell.SourceFileVariableName) {
 			if let url = URL(string: srcfile) {
 				NSLog("URL=\(url.absoluteString)")
-				let src: KESourceFile = .file(url)
-				startScript(sourceFile: src, inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
+				let res = KEResource(singleFileURL: url)
+				startScript(resource: res, inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
 			} else {
 				/* Failed to get source file */
 				startShell(inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
@@ -49,10 +49,10 @@ public class KMShell: AMBComponentObject
 		mShellThread = thread
 	}
 
-	private func startScript(sourceFile src: KESourceFile, inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream) {
+	private func startScript(resource res: KEResource, inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream) {
 		setupEnvironment(environment: self.environment)
 		let conf   = KHConfig(applicationType: .window, hasMainFunction: true, doStrict: true, logLevel: .warning)
-		let thread = KHScriptThread(sourceFile: src, processManager: self.processManager, input: instrm, output: outstrm, error: errstrm, environment: environment, config: conf)
+		let thread = KHScriptThread(threadName: nil, resource: res, processManager: self.processManager, input: instrm, output: outstrm, error: errstrm, environment: environment, config: conf)
 		thread.start(argument: .nullValue)
 		mScriptThread = thread
 	}

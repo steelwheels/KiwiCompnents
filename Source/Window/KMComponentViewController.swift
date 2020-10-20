@@ -21,7 +21,8 @@ import UIKit
 open class KMComponentViewController: KCSingleViewController
 {
 	private var mContext:		KEContext
-	private var mScriptURL:		URL?
+	private var mViewName:		String?
+	private var mResource:		KEResource?
 	private var mProcessManager:	CNProcessManager?
 	private var mEnvironment:	CNEnvironment
 
@@ -30,7 +31,8 @@ open class KMComponentViewController: KCSingleViewController
 			fatalError("Failed to allocate VM")
 		}
 		mContext	= KEContext(virtualMachine: vm)
-		mScriptURL	= nil
+		mViewName	= nil
+		mResource	= nil
 		mProcessManager	= nil
 		mEnvironment	= CNEnvironment()
 		super.init(parentViewController: parent)
@@ -41,28 +43,32 @@ open class KMComponentViewController: KCSingleViewController
 			fatalError("Failed to allocate VM")
 		}
 		mContext	= KEContext(virtualMachine: vm)
-		mScriptURL	= nil
+		mViewName	= nil
+		mResource	= nil
 		mProcessManager	= nil
 		mEnvironment	= CNEnvironment()
 		super.init(coder: coder)
 	}
 
-	public func setup(scriptURL scrurl: URL, processManager pmgr: CNProcessManager) {
-		mScriptURL	= scrurl
+	public func setup(viewName vname: String, resource res: KEResource, processManager pmgr: CNProcessManager) {
+		mViewName	= vname
+		mResource	= res
 		mProcessManager	= pmgr
 	}
 
 	open override func loadViewContext(rootView root: KCRootView) -> KCSize {
-		let script: String
-		if let scrurl = mScriptURL {
-			if let scr = scrurl.loadContents() {
-				script = scr as String
-			} else {
-				NSLog("Failed to load URL: \(scrurl.path)")
-				return root.frame.size
-			}
-		} else {
-			NSLog("No script URL")
+		guard let viewname = mViewName else {
+			NSLog("No view name")
+			return root.frame.size
+		}
+
+		guard let resource = mResource else {
+			NSLog("No resource")
+			return root.frame.size
+		}
+
+		guard let script = resource.loadView(identifier: viewname) else {
+			NSLog("Failed to load content of \(viewname)")
 			return root.frame.size
 		}
 
@@ -80,7 +86,7 @@ open class KMComponentViewController: KCSingleViewController
 			console.error(string: "Failed to compile base")
 			return root.frame.size
 		}
-		guard libcompiler.compileLibrary(context: mContext, sourceFile: .none, processManager: procmgr, environment: mEnvironment, console: console, config: config) else {
+		guard libcompiler.compileLibrary(context: mContext, resource: resource, processManager: procmgr, environment: mEnvironment, console: console, config: config) else {
 			console.error(string: "Failed to compile library")
 			return root.frame.size
 		}
