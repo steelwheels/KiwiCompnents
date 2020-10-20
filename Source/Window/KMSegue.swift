@@ -21,27 +21,23 @@ public protocol KMSegueProtocol: JSExport
 @objc public class KMSegue: NSObject, KMSegueProtocol
 {
 	private var mParentViewController:	KMMultiComponentViewController
-	private var mResource:			KEResource
-	private var mProcessManager:		CNProcessManager
 	private var mContext:			KEContext
 	private var mReturnValue:		CNNativeValue
 
-	public init(parentViewController parent: KMMultiComponentViewController, resource res: KEResource, processManager procmgr: CNProcessManager, context ctxt: KEContext) {
+	public init(parentViewController parent: KMMultiComponentViewController, context ctxt: KEContext) {
 		mParentViewController	= parent
-		mResource		= res
-		mProcessManager		= procmgr
 		mContext		= ctxt
 		mReturnValue		= .nullValue
 	}
 
 	public func enter(_ viewval: JSValue) -> JSValue {
-		var result = false
+		var result: Bool
 		if viewval.isString {
-			let viewname = viewval.toString() as String
-			let viewctrl = KMComponentViewController(parentViewController: mParentViewController)
-			viewctrl.setup(viewName: viewname, resource: mResource, processManager: mProcessManager)
-			mParentViewController.pushViewController(viewController: viewctrl)
+			let script = viewval.toString() as String
+			mParentViewController.pushViewController(script: script)
 			result = true
+		} else {
+			result = false
 		}
 		return JSValue(bool: result, in: mContext)
 	}

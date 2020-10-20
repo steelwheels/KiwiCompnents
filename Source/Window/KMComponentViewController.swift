@@ -21,7 +21,7 @@ import UIKit
 open class KMComponentViewController: KCSingleViewController
 {
 	private var mContext:		KEContext
-	private var mViewName:		String?
+	private var mScript:		String?
 	private var mResource:		KEResource?
 	private var mProcessManager:	CNProcessManager?
 	private var mEnvironment:	CNEnvironment
@@ -31,7 +31,7 @@ open class KMComponentViewController: KCSingleViewController
 			fatalError("Failed to allocate VM")
 		}
 		mContext	= KEContext(virtualMachine: vm)
-		mViewName	= nil
+		mScript		= nil
 		mResource	= nil
 		mProcessManager	= nil
 		mEnvironment	= CNEnvironment()
@@ -43,32 +43,27 @@ open class KMComponentViewController: KCSingleViewController
 			fatalError("Failed to allocate VM")
 		}
 		mContext	= KEContext(virtualMachine: vm)
-		mViewName	= nil
+		mScript		= nil
 		mResource	= nil
 		mProcessManager	= nil
 		mEnvironment	= CNEnvironment()
 		super.init(coder: coder)
 	}
 
-	public func setup(viewName vname: String, resource res: KEResource, processManager pmgr: CNProcessManager) {
-		mViewName	= vname
+	public func setup(script scr: String, resource res: KEResource, processManager pmgr: CNProcessManager) {
+		mScript	= scr
 		mResource	= res
 		mProcessManager	= pmgr
 	}
 
 	open override func loadViewContext(rootView root: KCRootView) -> KCSize {
-		guard let viewname = mViewName else {
-			NSLog("No view name")
+		guard let script = mScript else {
+			NSLog("No script")
 			return root.frame.size
 		}
 
 		guard let resource = mResource else {
 			NSLog("No resource")
-			return root.frame.size
-		}
-
-		guard let script = resource.loadView(identifier: viewname) else {
-			NSLog("Failed to load content of \(viewname)")
 			return root.frame.size
 		}
 
@@ -136,5 +131,15 @@ open class KMComponentViewController: KCSingleViewController
 			console.error(string: "Component is NOT view")
 		}
 		return root.fittingSize
+	}
+
+	public override func suspend() {
+		NSLog("\(#file) suspend")
+		mContext.suspend()
+	}
+
+	public override func resume() {
+		NSLog("\(#file) resume")
+		mContext.resume()
 	}
 }

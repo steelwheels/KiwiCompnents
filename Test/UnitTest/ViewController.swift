@@ -29,13 +29,12 @@ class ViewController: KMMultiComponentViewController
 
 		/* Add subview */
 		if let scrurl = CNFilePath.URLForResourceFile(fileName: "sample-1", fileExtension: "amb") {
-			let termview = KMComponentViewController(parentViewController: self)
-			termview.setup(scriptURL:scrurl , processManager: self.processManager)
-			super.add(name: ViewController.TerminalViewControllerName, viewController: termview)
+			if let script = scrurl.loadContents() as String? {
+				super.pushViewController(script: script)
+			} else {
+				NSLog("Failed to load sample-1.amb")
+			}
 		}
-
-		let _ = pushViewController(byName: ViewController.TerminalViewControllerName)
-		mIs1stAppear = false
 	}
 }
 
