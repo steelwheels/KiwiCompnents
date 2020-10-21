@@ -33,8 +33,8 @@ public protocol KMSegueProtocol: JSExport
 	public func enter(_ viewval: JSValue) -> JSValue {
 		var result: Bool
 		if viewval.isString {
-			let script = viewval.toString() as String
-			mParentViewController.pushViewController(script: script)
+			let viewname = viewval.toString() as String
+			mParentViewController.pushViewController(viewName: viewname)
 			result = true
 		} else {
 			result = false

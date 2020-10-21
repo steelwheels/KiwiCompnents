@@ -12,8 +12,8 @@ import Foundation
 
 open class KMMultiComponentViewController: KCMultiViewController
 {
-	private var mResource	    = KEResource(baseURL: Bundle.main.bundleURL)
-	private var mProcessManager = CNProcessManager()
+	private var mResource: KEResource?	= nil
+	private var mProcessManager		= CNProcessManager()
 
 	public var processManager: CNProcessManager { get { return mProcessManager }}
 
@@ -21,9 +21,22 @@ open class KMMultiComponentViewController: KCMultiViewController
 		super.init(coder: coder)
 	}
 
-	public func pushViewController(script scr: String) {
+	open override func viewDidLoad() {
+		mResource = loadResource()
+		super.viewDidLoad()
+	}
+
+	open func loadResource() -> KEResource {
+		return KEResource(baseURL: Bundle.main.bundleURL)
+	}
+
+	public func pushViewController(viewName vname: String) {
+		guard let resource = mResource else {
+			CNLog(logLevel: .error, message: "Can not happen. Resource is NOT loaded")
+			return
+		}
 		let viewctrl = KMComponentViewController(parentViewController: self)
-		viewctrl.setup(script: scr, resource: mResource, processManager: mProcessManager)
+		viewctrl.setup(viewName: vname, resource: resource, processManager: mProcessManager)
 		super.pushViewController(viewController: viewctrl)
 	}
 }

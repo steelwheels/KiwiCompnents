@@ -21,7 +21,7 @@ import UIKit
 open class KMComponentViewController: KCSingleViewController
 {
 	private var mContext:		KEContext
-	private var mScript:		String?
+	private var mViewName:		String?
 	private var mResource:		KEResource?
 	private var mProcessManager:	CNProcessManager?
 	private var mEnvironment:	CNEnvironment
@@ -31,7 +31,7 @@ open class KMComponentViewController: KCSingleViewController
 			fatalError("Failed to allocate VM")
 		}
 		mContext	= KEContext(virtualMachine: vm)
-		mScript		= nil
+		mViewName	= nil
 		mResource	= nil
 		mProcessManager	= nil
 		mEnvironment	= CNEnvironment()
@@ -43,27 +43,32 @@ open class KMComponentViewController: KCSingleViewController
 			fatalError("Failed to allocate VM")
 		}
 		mContext	= KEContext(virtualMachine: vm)
-		mScript		= nil
+		mViewName	= nil
 		mResource	= nil
 		mProcessManager	= nil
 		mEnvironment	= CNEnvironment()
 		super.init(coder: coder)
 	}
 
-	public func setup(script scr: String, resource res: KEResource, processManager pmgr: CNProcessManager) {
-		mScript	= scr
+	public func setup(viewName name: String, resource res: KEResource, processManager pmgr: CNProcessManager) {
+		mViewName	= name
 		mResource	= res
 		mProcessManager	= pmgr
 	}
 
 	open override func loadViewContext(rootView root: KCRootView) -> KCSize {
-		guard let script = mScript else {
-			NSLog("No script")
+		guard let name = mViewName else {
+			NSLog("No script name")
 			return root.frame.size
 		}
 
 		guard let resource = mResource else {
 			NSLog("No resource")
+			return root.frame.size
+		}
+
+		guard let script = resource.loadView(identifier: name) else {
+			NSLog("No script for name: \(name)")
 			return root.frame.size
 		}
 
