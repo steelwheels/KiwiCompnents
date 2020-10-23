@@ -56,6 +56,15 @@ open class KMComponentViewController: KCSingleViewController
 		mProcessManager	= pmgr
 	}
 
+	public func setup(sourceURL surl: URL, processManager pmgr: CNProcessManager) {
+		let vname = "main_view"
+		let res   = KEResource(baseURL: Bundle.main.bundleURL)
+		res.setView(identifier: vname, path: surl.path)
+		mViewName	= vname
+		mResource	= res
+		mProcessManager	= pmgr
+	}
+
 	open override func loadViewContext(rootView root: KCRootView) -> KCSize {
 		guard let name = mViewName else {
 			NSLog("No script name")
@@ -106,7 +115,7 @@ open class KMComponentViewController: KCSingleViewController
 		}
 
 		/* Allocate the component */
-		let ambcompiler = KMCompiler()
+		let ambcompiler = KMComponentCompiler()
 		let topcomp: AMBComponent
 		switch ambcompiler.compile(frame: frame, context: mContext, processManager: procmgr, environment: mEnvironment) {
 		case .ok(let comp):
@@ -120,11 +129,11 @@ open class KMComponentViewController: KCSingleViewController
 		}
 
 		/* Compile library for component*/
-		guard let parentcctrl = self.parentController as? KMMultiComponentViewController else {
-			console.error(string: "No parent view controller")
+		guard let parent = self.parentController as? KMMultiComponentViewController else {
+			console.error(string: "Error: No parent view controller ")
 			return root.frame.size
 		}
-		if let err = ambcompiler.compileLibrary(context: mContext, parentViewController: parentcctrl) {
+		if let err = ambcompiler.compileLibrary(context: mContext, multiComponentViewController: parent, environment: mEnvironment) {
 			console.error(string: "Error: \(err.toString())")
 			return root.frame.size
 		}
@@ -136,15 +145,5 @@ open class KMComponentViewController: KCSingleViewController
 			console.error(string: "Component is NOT view")
 		}
 		return root.fittingSize
-	}
-
-	public override func suspend() {
-		NSLog("\(#file) suspend")
-		mContext.suspend()
-	}
-
-	public override func resume() {
-		NSLog("\(#file) resume")
-		mContext.resume()
 	}
 }

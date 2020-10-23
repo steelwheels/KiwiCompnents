@@ -38,8 +38,8 @@
 		056A6CD825176B2C00E6379D /* KiwiComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 056A6CD625176B2C00E6379D /* KiwiComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		056A6CEE25176D2F00E6379D /* KMAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CEC25176D2F00E6379D /* KMAlert.swift */; };
 		056A6CEF25176D2F00E6379D /* KMAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CEC25176D2F00E6379D /* KMAlert.swift */; };
-		056A6CF925176D4E00E6379D /* KMCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMCompiler.swift */; };
-		056A6CFA25176D4E00E6379D /* KMCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMCompiler.swift */; };
+		056A6CF925176D4E00E6379D /* KMComponentCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMComponentCompiler.swift */; };
+		056A6CFA25176D4E00E6379D /* KMComponentCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMComponentCompiler.swift */; };
 		056A6CFF25176D7300E6379D /* CoconutData.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; };
 		056A6D0025176D7300E6379D /* CoconutData.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		056A6D0325176D9500E6379D /* CoconutData.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; };
@@ -66,7 +66,6 @@
 		059AB1F4251C0C490094B268 /* KiwiShell.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF0251862D500C1D29C /* KiwiShell.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		059AB1F6251C0C490094B268 /* KiwiComponents.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */; };
 		059AB1F7251C0C490094B268 /* KiwiComponents.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		05A0B0EA2537381200C4A7B8 /* sample-2.js in Resources */ = {isa = PBXBuildFile; fileRef = 05A0B0E92537381200C4A7B8 /* sample-2.js */; };
 		05A88F19252B65D60036432D /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
 		05A88F1A252B65D60036432D /* Amber.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05A88F1B252B65E80036432D /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
@@ -169,7 +168,7 @@
 		056A6CD625176B2C00E6379D /* KiwiComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KiwiComponents.h; sourceTree = "<group>"; };
 		056A6CD725176B2C00E6379D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		056A6CEC25176D2F00E6379D /* KMAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMAlert.swift; sourceTree = "<group>"; };
-		056A6CF625176D4E00E6379D /* KMCompiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMCompiler.swift; sourceTree = "<group>"; };
+		056A6CF625176D4E00E6379D /* KMComponentCompiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMComponentCompiler.swift; sourceTree = "<group>"; };
 		056A6CFE25176D7300E6379D /* CoconutData.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = CoconutData.xcframework; path = ../../../Library/Frameworks/CoconutData.xcframework; sourceTree = "<group>"; };
 		057CCC91252E04D40012EA0C /* KMComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMComponentViewController.swift; sourceTree = "<group>"; };
 		059545AA252EF2AB00E019B2 /* KMTerminalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMTerminalView.swift; sourceTree = "<group>"; };
@@ -182,7 +181,6 @@
 		059AB1E0251C09FD0094B268 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		059AB1E1251C09FD0094B268 /* UnitTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnitTest.entitlements; sourceTree = "<group>"; };
 		059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = KiwiComponents.xcframework; path = ../../../Library/Frameworks/KiwiComponents.xcframework; sourceTree = "<group>"; };
-		05A0B0E92537381200C4A7B8 /* sample-2.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "sample-2.js"; sourceTree = "<group>"; };
 		05A88F18252B65D60036432D /* Amber.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Amber.xcframework; path = ../../../Library/Frameworks/Amber.xcframework; sourceTree = "<group>"; };
 		05D0CABE252B6AFC0041C196 /* KMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -346,7 +344,7 @@
 		05A88F1D252B68350036432D /* Compiler */ = {
 			isa = PBXGroup;
 			children = (
-				056A6CF625176D4E00E6379D /* KMCompiler.swift */,
+				056A6CF625176D4E00E6379D /* KMComponentCompiler.swift */,
 			);
 			path = Compiler;
 			sourceTree = "<group>";
@@ -355,7 +353,6 @@
 			isa = PBXGroup;
 			children = (
 				054FC7E3253F2B0200808777 /* sample.jspkg */,
-				05A0B0E92537381200C4A7B8 /* sample-2.js */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -526,7 +523,6 @@
 				054FC7E4253F2B0200808777 /* sample.jspkg in Resources */,
 				059AB1DC251C09FD0094B268 /* Assets.xcassets in Resources */,
 				059AB1DF251C09FD0094B268 /* Main.storyboard in Resources */,
-				05A0B0EA2537381200C4A7B8 /* sample-2.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,7 +538,7 @@
 				050ED8F7253AF74200DF294C /* KMSegue.swift in Sources */,
 				059545AB252EF2AB00E019B2 /* KMTerminalView.swift in Sources */,
 				056A6CEE25176D2F00E6379D /* KMAlert.swift in Sources */,
-				056A6CF925176D4E00E6379D /* KMCompiler.swift in Sources */,
+				056A6CF925176D4E00E6379D /* KMComponentCompiler.swift in Sources */,
 				057CCC92252E04D40012EA0C /* KMComponentViewController.swift in Sources */,
 				05D0CABF252B6AFC0041C196 /* KMButton.swift in Sources */,
 				056719DE252DE73100201386 /* KMStackView.swift in Sources */,
@@ -558,7 +554,7 @@
 				050ED8F8253AF74200DF294C /* KMSegue.swift in Sources */,
 				059545AC252EF2AB00E019B2 /* KMTerminalView.swift in Sources */,
 				056A6CEF25176D2F00E6379D /* KMAlert.swift in Sources */,
-				056A6CFA25176D4E00E6379D /* KMCompiler.swift in Sources */,
+				056A6CFA25176D4E00E6379D /* KMComponentCompiler.swift in Sources */,
 				057CCC93252E04D40012EA0C /* KMComponentViewController.swift in Sources */,
 				05D0CAC0252B6AFC0041C196 /* KMButton.swift in Sources */,
 				056719DF252DE73100201386 /* KMStackView.swift in Sources */,
@@ -1151,8 +1147,8 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = ../Test/UnitTest/UnitTest.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1185,6 +1181,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = github.com.steelwheels.UnitTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -1228,8 +1225,8 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = ../Test/UnitTest/UnitTest.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1256,6 +1253,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = github.com.steelwheels.UnitTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";

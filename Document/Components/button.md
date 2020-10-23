@@ -1,9 +1,9 @@
 # Button component
+The button to be pressed.
 
 ## Syntax
 ````
-button_a: {
-    class:      "Button",
+button_a Button : {
     enable:     true,
     title:      "Button title",
     pressed: %{ 

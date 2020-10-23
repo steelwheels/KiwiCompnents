@@ -1,6 +1,7 @@
 {
 	views: {
 		sample_view: "sample-1.amb"
+		second_view: "sample-2.amb"
 	}
 }
 

@@ -6,10 +6,10 @@ top: VBox {
 	}
     }
     button_a: Button {
-        title:  String "Sample-1"
+        title:  String "Sample-2"
         pressed: Event() %{
-		console.log("launch second view") ;
-		enterView("second_view") ;
+		console.log("leave") ;
+		leaveView(1) ;
         %}
     }
 }

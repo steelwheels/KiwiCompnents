@@ -17,7 +17,7 @@ import UIKit
 public class KMButton: KCButton, AMBComponent
 {
 	static let PressedItem		= "pressed"
-	static let IsEnabledItem	= "isEnabled"
+	static let IsEnabledItem	= "enabled"
 	static let TitleItem		= "title"
 
 	private var mReactObject:	AMBReactObject?
