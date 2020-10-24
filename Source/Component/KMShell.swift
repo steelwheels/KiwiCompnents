@@ -28,7 +28,7 @@ public class KMShell: AMBComponentObject
 		let env = self.environment
 		if let srcfile = env.getString(name: KMShell.SourceFileVariableName) {
 			if let url = URL(string: srcfile) {
-				NSLog("URL=\(url.absoluteString)")
+				//NSLog("URL=\(url.absoluteString)")
 				let res = KEResource(singleFileURL: url)
 				startScript(resource: res, inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
 			} else {
