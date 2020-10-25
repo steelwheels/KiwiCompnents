@@ -90,6 +90,7 @@ open class KMComponentViewController: KCSingleViewController
 		let console  = CNFileConsole()
 		let config   = KEConfig(applicationType: .window, doStrict: true, logLevel: .defaultLevel)
 
+		/* Compile library */
 		let libcompiler = KLCompiler()
 		guard libcompiler.compileBase(context: mContext, terminalInfo: terminfo, environment: mEnvironment, console: console, config: config) else {
 			console.error(string: "Failed to compile base")
@@ -133,10 +134,15 @@ open class KMComponentViewController: KCSingleViewController
 			console.error(string: "Error: No parent view controller ")
 			return root.frame.size
 		}
-		if let err = ambcompiler.compileLibrary(context: mContext, multiComponentViewController: parent, environment: mEnvironment) {
+		let alibcompiler = KMLibraryCompiler()
+		if let err = alibcompiler.compile(context: mContext, multiComponentViewController: parent, environment: mEnvironment) {
 			console.error(string: "Error: \(err.toString())")
 			return root.frame.size
 		}
+
+		/* Link components */
+		let linker = KMComponentLinker(parentViewController: self)
+		linker.visit(component: topcomp)
 
 		/* Setup root view*/
 		if let view = topcomp as? KCView {

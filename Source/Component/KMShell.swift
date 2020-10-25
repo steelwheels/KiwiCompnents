@@ -24,35 +24,40 @@ public class KMShell: AMBComponentObject
 		super.init()
 	}
 
-	public func start(inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream) {
+	public func start(parentViewController parent: KMComponentViewController, inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream) {
+		guard let root = parent.parentController as? KMMultiComponentViewController else {
+			CNLog(logLevel: .error, message: "No parent view controller")
+			return
+		}
+
 		let env = self.environment
 		if let srcfile = env.getString(name: KMShell.SourceFileVariableName) {
 			if let url = URL(string: srcfile) {
 				//NSLog("URL=\(url.absoluteString)")
 				let res = KEResource(singleFileURL: url)
-				startScript(resource: res, inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
+				startScript(rootViewController: root, resource: res, inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
 			} else {
 				/* Failed to get source file */
-				startShell(inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
+				startShell(rootViewController: root, inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
 			}
 		} else {
 			/* No startup source file */
-			startShell(inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
+			startShell(rootViewController: root, inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
 		}
 	}
 
-	private func startShell(inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream) {
+	private func startShell(rootViewController root: KMMultiComponentViewController, inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream) {
 		setupEnvironment(environment: self.environment)
 		let conf = KEConfig(applicationType: .window, doStrict: true, logLevel: .defaultLevel)
-		let thread = KHShellThread(processManager: self.processManager, input: instrm, output: outstrm, error: errstrm, environment: self.environment, config: conf)
+		let thread = KMShellThread(rootViewController: root, processManager: self.processManager, input: instrm, output: outstrm, error: errstrm, environment: self.environment, config: conf)
 		thread.start(argument: .nullValue)
 		mShellThread = thread
 	}
 
-	private func startScript(resource res: KEResource, inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream) {
+	private func startScript(rootViewController root: KMMultiComponentViewController, resource res: KEResource, inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream) {
 		setupEnvironment(environment: self.environment)
 		let conf   = KHConfig(applicationType: .window, hasMainFunction: true, doStrict: true, logLevel: .warning)
-		let thread = KHScriptThread(threadName: nil, resource: res, processManager: self.processManager, input: instrm, output: outstrm, error: errstrm, environment: environment, config: conf)
+		let thread = KMScriptThread(rootViewController: root, threadName: nil, resource: res, processManager: self.processManager, input: instrm, output: outstrm, error: errstrm, environment: environment, config: conf)
 		thread.start(argument: .nullValue)
 		mScriptThread = thread
 	}

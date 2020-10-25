@@ -120,11 +120,6 @@ public class KMTerminalView: KCTerminalView, AMBComponent
 		if mChildComponents.count == 0 {
 			if let shell = comp as? KMShell {
 				mChildComponents.append(shell)
-				/* Start shell */
-				let instrm:  CNFileStream = .fileHandle(self.inputFileHandle )
-				let outstrm: CNFileStream = .fileHandle(self.outputFileHandle)
-				let errstrm: CNFileStream = .fileHandle(self.errorFileHandle )
-				shell.start(inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
 			} else {
 				CNLog(logLevel: .error, message: "The terminal view can have shell component only")
 			}
@@ -133,9 +128,23 @@ public class KMTerminalView: KCTerminalView, AMBComponent
 		}
 	}
 
+	public func startShell(parentViewController parent: KMComponentViewController) {
+		for child in mChildComponents {
+			if let shell = child as? KMShell {
+				let instrm:  CNFileStream = .fileHandle(self.inputFileHandle )
+				let outstrm: CNFileStream = .fileHandle(self.outputFileHandle)
+				let errstrm: CNFileStream = .fileHandle(self.errorFileHandle )
+				shell.start(parentViewController: parent, inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
+			}
+		}
+	}
+
+	public func accept(visitor vst: KMVisitor) {
+		vst.visit(terminalView: self)
+	}
+
 	public func toText() -> CNTextSection {
 		return reactObject.toText()
 	}
-
 }
 

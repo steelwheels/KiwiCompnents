@@ -142,6 +142,10 @@ public class KMStackView: KCStackView, AMBComponent
 		}
 	}
 
+	public func accept(visitor vst: KMVisitor) {
+		vst.visit(stackView: self)
+	}
+
 	public func toText() -> CNTextSection {
 		return reactObject.toText()
 	}

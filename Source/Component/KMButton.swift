@@ -99,6 +99,10 @@ public class KMButton: KCButton, AMBComponent
 		return nil
 	}
 
+	public func accept(visitor vst: KMVisitor) {
+		vst.visit(button: self)
+	}
+
 	public func toText() -> CNTextSection {
 		return reactObject.toText()
 	}
