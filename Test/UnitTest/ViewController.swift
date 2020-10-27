@@ -18,8 +18,6 @@ class ViewController: KMMultiComponentViewController
 {
 	public static let TerminalViewControllerName	= "term"
 
-	private var mIs1stAppear: Bool	= false
-
 	open override func loadResource() -> KEResource {
 		if let path = Bundle.main.path(forResource: "sample", ofType: "jspkg") {
 			let resource = KEResource.init(baseURL: URL(fileURLWithPath: path))
@@ -47,7 +45,12 @@ class ViewController: KMMultiComponentViewController
 		CNPreference.shared.systemPreference.logLevel = .warning // .detail
 
 		/* Add subview */
-		super.pushViewController(viewName: "sample_view")
+		if let res = super.resource {
+			if let url = res.URLOfView(identifier: "sample_view") {
+				super.pushViewController(sourceURL: url)
+			}
+		}
+
 /*
 		if let scrurl = CNFilePath.URLForResourceFile(fileName: "sample-1", fileExtension: "amb") {
 			if let script = scrurl.loadContents() as String? {

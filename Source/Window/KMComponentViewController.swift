@@ -21,8 +21,7 @@ import UIKit
 open class KMComponentViewController: KCSingleViewController
 {
 	private var mContext:		KEContext
-	private var mViewName:		String?
-	private var mResource:		KEResource?
+	private var mSourceURL:		URL?
 	private var mProcessManager:	CNProcessManager?
 	private var mEnvironment:	CNEnvironment
 
@@ -31,8 +30,7 @@ open class KMComponentViewController: KCSingleViewController
 			fatalError("Failed to allocate VM")
 		}
 		mContext	= KEContext(virtualMachine: vm)
-		mViewName	= nil
-		mResource	= nil
+		mSourceURL	= nil
 		mProcessManager	= nil
 		mEnvironment	= CNEnvironment()
 		super.init(parentViewController: parent)
@@ -43,41 +41,25 @@ open class KMComponentViewController: KCSingleViewController
 			fatalError("Failed to allocate VM")
 		}
 		mContext	= KEContext(virtualMachine: vm)
-		mViewName	= nil
-		mResource	= nil
+		mSourceURL	= nil
 		mProcessManager	= nil
 		mEnvironment	= CNEnvironment()
 		super.init(coder: coder)
 	}
 
-	public func setup(viewName name: String, resource res: KEResource, processManager pmgr: CNProcessManager) {
-		mViewName	= name
-		mResource	= res
-		mProcessManager	= pmgr
-	}
-
 	public func setup(sourceURL surl: URL, processManager pmgr: CNProcessManager) {
-		let vname = "main_view"
-		let res   = KEResource(baseURL: Bundle.main.bundleURL)
-		res.setView(identifier: vname, path: surl.path)
-		mViewName	= vname
-		mResource	= res
+		mSourceURL	= surl
 		mProcessManager	= pmgr
 	}
 
 	open override func loadViewContext(rootView root: KCRootView) -> KCSize {
-		guard let name = mViewName else {
-			NSLog("No script name")
+		guard let srcurl = mSourceURL else {
+			CNLog(logLevel: .error, message: "No source URL")
 			return root.frame.size
 		}
 
-		guard let resource = mResource else {
-			NSLog("No resource")
-			return root.frame.size
-		}
-
-		guard let script = resource.loadView(identifier: name) else {
-			NSLog("No script for name: \(name)")
+		guard let script = srcurl.loadContents() else {
+			NSLog("Failed to load script from \(srcurl.absoluteString)")
 			return root.frame.size
 		}
 
@@ -86,6 +68,7 @@ open class KMComponentViewController: KCSingleViewController
 			return root.frame.size
 		}
 
+		let resource = KEResource(baseURL: srcurl)
 		let terminfo = CNTerminalInfo(width: 80, height: 25)
 		let console  = CNFileConsole()
 		let config   = KEConfig(applicationType: .window, doStrict: true, logLevel: .defaultLevel)
@@ -104,7 +87,7 @@ open class KMComponentViewController: KCSingleViewController
 		/* Compile the Amber script */
 		let ambparser = AMBParser()
 		let frame: AMBFrame
-		switch ambparser.parse(source: script) {
+		switch ambparser.parse(source: script as String) {
 		case .ok(let frm):
 			frame = frm
 		case .error(let err):
@@ -135,8 +118,8 @@ open class KMComponentViewController: KCSingleViewController
 			return root.frame.size
 		}
 		let alibcompiler = KMLibraryCompiler()
-		if let err = alibcompiler.compile(context: mContext, multiComponentViewController: parent, environment: mEnvironment) {
-			console.error(string: "Error: \(err.toString())")
+		guard alibcompiler.compile(context: mContext, multiComponentViewController: parent, resource: resource, processManager: procmgr, console: console, environment: mEnvironment, config: config) else {
+			console.error(string: "Error: Failed to compile")
 			return root.frame.size
 		}
 

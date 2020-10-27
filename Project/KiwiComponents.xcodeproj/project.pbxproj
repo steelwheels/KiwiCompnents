@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		050ED8F7253AF74200DF294C /* KMVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050ED8F6253AF74200DF294C /* KMVisitor.swift */; };
 		050ED8F8253AF74200DF294C /* KMVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050ED8F6253AF74200DF294C /* KMVisitor.swift */; };
+		052AD76D2545B04700929F67 /* KMThreadLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052AD76C2545B04700929F67 /* KMThreadLauncher.swift */; };
+		052AD76E2545B04700929F67 /* KMThreadLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052AD76C2545B04700929F67 /* KMThreadLauncher.swift */; };
 		054772BA2538592500A7EC5F /* KMMultiComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */; };
 		054772BB2538592500A7EC5F /* KMMultiComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */; };
 		054FC7E4253F2B0200808777 /* sample.jspkg in Resources */ = {isa = PBXBuildFile; fileRef = 054FC7E3253F2B0200808777 /* sample.jspkg */; };
@@ -161,6 +163,7 @@
 
 /* Begin PBXFileReference section */
 		050ED8F6253AF74200DF294C /* KMVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMVisitor.swift; sourceTree = "<group>"; };
+		052AD76C2545B04700929F67 /* KMThreadLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMThreadLauncher.swift; sourceTree = "<group>"; };
 		054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMMultiComponentViewController.swift; sourceTree = "<group>"; };
 		054FC7E3253F2B0200808777 /* sample.jspkg */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = sample.jspkg; sourceTree = "<group>"; };
 		0550E5A725442BDC00B10AD7 /* KMScriptThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMScriptThread.swift; sourceTree = "<group>"; };
@@ -247,6 +250,7 @@
 			children = (
 				0550E5A725442BDC00B10AD7 /* KMScriptThread.swift */,
 				0550E5AA25442BF600B10AD7 /* KMShellThread.swift */,
+				052AD76C2545B04700929F67 /* KMThreadLauncher.swift */,
 			);
 			path = Process;
 			sourceTree = "<group>";
@@ -566,6 +570,7 @@
 				05CAEB6625445D36002AD83E /* KMLibraryCompiler.swift in Sources */,
 				056A6CEE25176D2F00E6379D /* KMAlert.swift in Sources */,
 				056A6CF925176D4E00E6379D /* KMComponentCompiler.swift in Sources */,
+				052AD76D2545B04700929F67 /* KMThreadLauncher.swift in Sources */,
 				05EC69412544629B008932EB /* KMComponentLinker.swift in Sources */,
 				057CCC92252E04D40012EA0C /* KMComponentViewController.swift in Sources */,
 				05D0CABF252B6AFC0041C196 /* KMButton.swift in Sources */,
@@ -586,6 +591,7 @@
 				05CAEB6725445D36002AD83E /* KMLibraryCompiler.swift in Sources */,
 				056A6CEF25176D2F00E6379D /* KMAlert.swift in Sources */,
 				056A6CFA25176D4E00E6379D /* KMComponentCompiler.swift in Sources */,
+				052AD76E2545B04700929F67 /* KMThreadLauncher.swift in Sources */,
 				05EC69422544629B008932EB /* KMComponentLinker.swift in Sources */,
 				057CCC93252E04D40012EA0C /* KMComponentViewController.swift in Sources */,
 				05D0CAC0252B6AFC0041C196 /* KMButton.swift in Sources */,

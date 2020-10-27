@@ -22,13 +22,10 @@ public class KMShellThread: KHShellThread
 	public override func compile(context ctxt: KEContext, resource res: KEResource, processManager procmgr: CNProcessManager, terminalInfo terminfo: CNTerminalInfo, environment env: CNEnvironment, console cons: CNFileConsole, config conf: KEConfig) -> Bool {
 		if super.compile(context: ctxt, resource: res, processManager: procmgr, terminalInfo: terminfo, environment: env, console: cons, config: conf) {
 			let compiler = KMLibraryCompiler()
-			if let err = compiler.compile(context: ctxt, multiComponentViewController: mRootViewController, environment: env) {
-				cons.error(string: "[Error] \(err.toString())")
-			} else {
-				return true
-			}
+			return compiler.compile(context: ctxt, multiComponentViewController: mRootViewController, resource: res, processManager: procmgr, console: cons, environment: env, config: conf)
+		} else {
+			return false
 		}
-		return false
 	}
 }
 
