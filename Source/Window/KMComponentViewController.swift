@@ -47,6 +47,8 @@ open class KMComponentViewController: KCSingleViewController
 		super.init(coder: coder)
 	}
 
+	public var context: KEContext { get { return mContext }}
+
 	public func setup(sourceURL surl: URL, processManager pmgr: CNProcessManager) {
 		mSourceURL	= surl
 		mProcessManager	= pmgr

@@ -18,6 +18,8 @@ class ViewController: KMMultiComponentViewController
 {
 	public static let TerminalViewControllerName	= "term"
 
+	private var mContext: KEContext? = nil
+
 	open override func loadResource() -> KEResource {
 		if let path = Bundle.main.path(forResource: "sample", ofType: "jspkg") {
 			let resource = KEResource.init(baseURL: URL(fileURLWithPath: path))
@@ -44,10 +46,21 @@ class ViewController: KMMultiComponentViewController
 		let _ = KCLogManager.shared
 		CNPreference.shared.systemPreference.logLevel = .warning // .detail
 
+		/* get context */
+		let ctxt: KEContext
+		if let c = mContext {
+			ctxt = c
+		} else {
+			let vm      = JSVirtualMachine()
+			let newctxt = KEContext(virtualMachine: vm!)
+			mContext    = newctxt
+			ctxt	    = newctxt
+		}
+
 		/* Add subview */
 		if let res = super.resource {
 			if let url = res.URLOfView(identifier: "sample_view") {
-				super.pushViewController(sourceURL: url)
+				super.pushViewController(sourceURL: url, context: ctxt)
 			}
 		}
 

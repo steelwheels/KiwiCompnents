@@ -25,7 +25,7 @@ public class KMLibraryCompiler
 			(_ paramval: JSValue) -> JSValue in
 			let result: JSValue
 			if let url = self.enterParameter(parameter: paramval, resource: res, environment: env) {
-				let retval = self.enterView(multiViewController: vcont, sourceURL: url)
+				let retval = self.enterView(multiViewController: vcont, sourceURL: url, context: ctxt)
 				result = retval.toJSValue(context: ctxt)
 			} else {
 				result = JSValue(nullIn: ctxt)
@@ -74,13 +74,13 @@ public class KMLibraryCompiler
 		return result
 	}
 
-	private func enterView(multiViewController vcont: KMMultiComponentViewController, sourceURL surl: URL) -> CNNativeValue {
-		var retval: CNNativeValue = .nullValue
+	private func enterView(multiViewController vcont: KMMultiComponentViewController, sourceURL surl: URL, context ctxt: KEContext) -> CNNativeValue {
 		CNExecuteInMainThread(doSync: true, execute: {
 			() -> Void in
-			retval = vcont.launchViewController(sourceURL: surl)
+			vcont.pushViewController(sourceURL: surl, context: ctxt)
 		})
-		return retval
+		ctxt.suspend()
+		return vcont.returnValue
 	}
 
 	private func leaveView(multiViewController vcont: KMMultiComponentViewController, returnValue retval: CNNativeValue) -> Bool {
@@ -88,7 +88,12 @@ public class KMLibraryCompiler
 		CNExecuteInMainThread(doSync: true, execute: {
 			() -> Void in
 			vcont.setReturnValue(value: retval)
-			result = vcont.popViewController()
+			if let ctxt = vcont.popViewController() {
+				ctxt.resume()
+				result = true
+			} else {
+				result = false
+			}
 		})
 		return result
 	}
