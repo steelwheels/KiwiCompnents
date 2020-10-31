@@ -21,25 +21,15 @@
 		056719DE252DE73100201386 /* KMStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056719DD252DE73100201386 /* KMStackView.swift */; };
 		056719DF252DE73100201386 /* KMStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056719DD252DE73100201386 /* KMStackView.swift */; };
 		05676AE22518625E00C1D29C /* KiwiControls.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE12518625E00C1D29C /* KiwiControls.xcframework */; };
-		05676AE32518625E00C1D29C /* KiwiControls.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE12518625E00C1D29C /* KiwiControls.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05676AE42518626F00C1D29C /* KiwiControls.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE12518625E00C1D29C /* KiwiControls.xcframework */; };
-		05676AE52518626F00C1D29C /* KiwiControls.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE12518625E00C1D29C /* KiwiControls.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05676AE82518629300C1D29C /* KiwiLibrary.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE62518629300C1D29C /* KiwiLibrary.xcframework */; };
-		05676AE92518629300C1D29C /* KiwiLibrary.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE62518629300C1D29C /* KiwiLibrary.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05676AEA2518629300C1D29C /* KiwiEngine.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE72518629300C1D29C /* KiwiEngine.xcframework */; };
-		05676AEB2518629300C1D29C /* KiwiEngine.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE72518629300C1D29C /* KiwiEngine.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05676AEC251862B700C1D29C /* KiwiEngine.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE72518629300C1D29C /* KiwiEngine.xcframework */; };
-		05676AED251862B700C1D29C /* KiwiEngine.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE72518629300C1D29C /* KiwiEngine.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05676AEE251862B700C1D29C /* KiwiLibrary.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE62518629300C1D29C /* KiwiLibrary.xcframework */; };
-		05676AEF251862B700C1D29C /* KiwiLibrary.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AE62518629300C1D29C /* KiwiLibrary.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05676AF1251862D500C1D29C /* KiwiShell.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF0251862D500C1D29C /* KiwiShell.xcframework */; };
-		05676AF2251862D500C1D29C /* KiwiShell.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF0251862D500C1D29C /* KiwiShell.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05676AF3251862E700C1D29C /* KiwiShell.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF0251862D500C1D29C /* KiwiShell.xcframework */; };
-		05676AF4251862E700C1D29C /* KiwiShell.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF0251862D500C1D29C /* KiwiShell.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05676AF62518630800C1D29C /* CoconutShell.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF52518630800C1D29C /* CoconutShell.xcframework */; };
-		05676AF72518630800C1D29C /* CoconutShell.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF52518630800C1D29C /* CoconutShell.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05676AF82518631D00C1D29C /* CoconutShell.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF52518630800C1D29C /* CoconutShell.xcframework */; };
-		05676AF92518631D00C1D29C /* CoconutShell.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF52518630800C1D29C /* CoconutShell.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		056A6CCA25176B0C00E6379D /* KiwiComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 056A6CC825176B0C00E6379D /* KiwiComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		056A6CD825176B2C00E6379D /* KiwiComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 056A6CD625176B2C00E6379D /* KiwiComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		056A6CEE25176D2F00E6379D /* KMAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CEC25176D2F00E6379D /* KMAlert.swift */; };
@@ -47,9 +37,7 @@
 		056A6CF925176D4E00E6379D /* KMComponentCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMComponentCompiler.swift */; };
 		056A6CFA25176D4E00E6379D /* KMComponentCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMComponentCompiler.swift */; };
 		056A6CFF25176D7300E6379D /* CoconutData.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; };
-		056A6D0025176D7300E6379D /* CoconutData.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		056A6D0325176D9500E6379D /* CoconutData.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; };
-		056A6D0425176D9500E6379D /* CoconutData.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		057CCC92252E04D40012EA0C /* KMComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057CCC91252E04D40012EA0C /* KMComponentViewController.swift */; };
 		057CCC93252E04D40012EA0C /* KMComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057CCC91252E04D40012EA0C /* KMComponentViewController.swift */; };
 		059545AB252EF2AB00E019B2 /* KMTerminalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059545AA252EF2AB00E019B2 /* KMTerminalView.swift */; };
@@ -73,9 +61,7 @@
 		059AB1F6251C0C490094B268 /* KiwiComponents.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */; };
 		059AB1F7251C0C490094B268 /* KiwiComponents.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05A88F19252B65D60036432D /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
-		05A88F1A252B65D60036432D /* Amber.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05A88F1B252B65E80036432D /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
-		05A88F1C252B65E80036432D /* Amber.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05CAEB6625445D36002AD83E /* KMLibraryCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CAEB6525445D36002AD83E /* KMLibraryCompiler.swift */; };
 		05CAEB6725445D36002AD83E /* KMLibraryCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CAEB6525445D36002AD83E /* KMLibraryCompiler.swift */; };
 		05D0CABF252B6AFC0041C196 /* KMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0CABE252B6AFC0041C196 /* KMButton.swift */; };
@@ -109,40 +95,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		056A6D0125176D7300E6379D /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				05676AF72518630800C1D29C /* CoconutShell.xcframework in Embed Frameworks */,
-				05676AE92518629300C1D29C /* KiwiLibrary.xcframework in Embed Frameworks */,
-				056A6D0025176D7300E6379D /* CoconutData.xcframework in Embed Frameworks */,
-				05676AE32518625E00C1D29C /* KiwiControls.xcframework in Embed Frameworks */,
-				05676AF2251862D500C1D29C /* KiwiShell.xcframework in Embed Frameworks */,
-				05676AEB2518629300C1D29C /* KiwiEngine.xcframework in Embed Frameworks */,
-				05A88F1A252B65D60036432D /* Amber.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		056A6D0525176D9500E6379D /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				05676AF92518631D00C1D29C /* CoconutShell.xcframework in Embed Frameworks */,
-				056A6D0425176D9500E6379D /* CoconutData.xcframework in Embed Frameworks */,
-				05676AE52518626F00C1D29C /* KiwiControls.xcframework in Embed Frameworks */,
-				05676AED251862B700C1D29C /* KiwiEngine.xcframework in Embed Frameworks */,
-				05676AF4251862E700C1D29C /* KiwiShell.xcframework in Embed Frameworks */,
-				05676AEF251862B700C1D29C /* KiwiLibrary.xcframework in Embed Frameworks */,
-				05A88F1C252B65E80036432D /* Amber.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		059AB1EB251C0C170094B268 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -434,7 +386,6 @@
 				056A6CC125176B0C00E6379D /* Sources */,
 				056A6CC225176B0C00E6379D /* Frameworks */,
 				056A6CC325176B0C00E6379D /* Resources */,
-				056A6D0125176D7300E6379D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -453,7 +404,6 @@
 				056A6CD025176B2C00E6379D /* Sources */,
 				056A6CD125176B2C00E6379D /* Frameworks */,
 				056A6CD225176B2C00E6379D /* Resources */,
-				056A6D0525176D9500E6379D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
