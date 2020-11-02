@@ -128,13 +128,13 @@ public class KMTerminalView: KCTerminalView, AMBComponent
 		}
 	}
 
-	public func startShell(parentViewController parent: KMComponentViewController) {
+	public func startShell(parentViewController parent: KMComponentViewController, resource res: KEResource) {
 		for child in mChildComponents {
 			if let shell = child as? KMShell {
 				let instrm:  CNFileStream = .fileHandle(self.inputFileHandle )
 				let outstrm: CNFileStream = .fileHandle(self.outputFileHandle)
 				let errstrm: CNFileStream = .fileHandle(self.errorFileHandle )
-				shell.start(parentViewController: parent, inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
+				shell.start(parentViewController: parent, inputStream: instrm, outputStream: outstrm, errorStream: errstrm, resource: res)
 			}
 		}
 	}

@@ -38,40 +38,20 @@ class ViewController: KMMultiComponentViewController
 		}
 	}
 
-
 	open override func viewDidLoad() {
 		super.viewDidLoad()
 
-		/* Print detail logs */
+		/* Update log level */
 		let _ = KCLogManager.shared
-		CNPreference.shared.systemPreference.logLevel = .warning // .detail
+		let syspref = CNPreference.shared.systemPreference
+		syspref.logLevel = .nolog
 
-		/* get context */
-		let ctxt: KEContext
-		if let c = mContext {
-			ctxt = c
+		/* add sub view */
+		if let res = self.resource {
+			super.pushViewController(source: .mainView(res), context: nil)
 		} else {
-			let vm      = JSVirtualMachine()
-			let newctxt = KEContext(virtualMachine: vm!)
-			mContext    = newctxt
-			ctxt	    = newctxt
+			NSLog("Failed to get resource")
 		}
-
-		/* Add subview */
-		if let res = super.resource {
-			if let url = res.URLOfView(identifier: "sample_view") {
-				super.pushViewController(sourceURL: url, context: ctxt)
-			}
-		}
-
-/*
-		if let scrurl = CNFilePath.URLForResourceFile(fileName: "sample-1", fileExtension: "amb") {
-			if let script = scrurl.loadContents() as String? {
-				super.pushViewController(script: script)
-			} else {
-				NSLog("Failed to load sample-1.amb")
-			}
-		}*/
 	}
 }
 

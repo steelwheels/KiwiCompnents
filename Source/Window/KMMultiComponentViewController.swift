@@ -39,9 +39,9 @@ open class KMMultiComponentViewController: KCMultiViewController
 		return KEResource(baseURL: Bundle.main.bundleURL)
 	}
 
-	public func pushViewController(sourceURL surl: URL, context ctxt: KEContext?) {
+	public func pushViewController(source src: KMSource, context ctxt: KEContext?) {
 		let viewctrl = KMComponentViewController(parentViewController: self)
-		viewctrl.setup(sourceURL: surl, processManager: mProcessManager)
+		viewctrl.setup(source: src, processManager: mProcessManager)
 		if let c = ctxt {
 			mContextStack.push(.context(c))
 		} else {

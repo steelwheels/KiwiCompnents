@@ -13,7 +13,7 @@ import Foundation
 
 public class KMShell: AMBComponentObject
 {
-	public static let SourceFileVariableName = "SRCFILE"
+	static let ScriptItem		= "script"
 
 	private var mShellThread:	KHShellThread?
 	private var mScriptThread:	KHScriptThread?
@@ -24,16 +24,16 @@ public class KMShell: AMBComponentObject
 		super.init()
 	}
 
-	public func start(parentViewController parent: KMComponentViewController, inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream) {
+	public func start(parentViewController parent: KMComponentViewController, inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream, resource res: KEResource) {
 		guard let root = parent.parentController as? KMMultiComponentViewController else {
 			CNLog(logLevel: .error, message: "No parent view controller")
 			return
 		}
 
-		let env = self.environment
-		if let srcfile = env.getString(name: KMShell.SourceFileVariableName) {
-			if let url = URL(string: srcfile) {
-				//NSLog("URL=\(url.absoluteString)")
+		let robj = super.reactObject
+		if let srcname = robj.getStringProperty(forKey: KMShell.ScriptItem) {
+			NSLog("shell: srcname=\(srcname)")
+			if let url = res.URLOfThread(identifier: srcname) {
 				let res = KEResource(singleFileURL: url)
 				startScript(rootViewController: root, resource: res, inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
 			} else {

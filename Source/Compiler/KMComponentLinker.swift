@@ -6,14 +6,17 @@
  */
 
 import Amber
+import KiwiEngine
 import Foundation
 
 public class KMComponentLinker: KMVisitor
 {
-	private var mParentController: KMComponentViewController
+	private var mParentController:	KMComponentViewController
+	private var mResource:		KEResource
 
-	public init(parentViewController parent: KMComponentViewController){
+	public init(parentViewController parent: KMComponentViewController, resource res: KEResource){
 		mParentController = parent
+		mResource	  = res
 	}
 
 	public override func visit(button view: KMButton){
@@ -30,6 +33,6 @@ public class KMComponentLinker: KMVisitor
 	}
 
 	public override func visit(terminalView view: KMTerminalView){
-		view.startShell(parentViewController: mParentController)
+		view.startShell(parentViewController: mParentController, resource: mResource)
 	}
 }

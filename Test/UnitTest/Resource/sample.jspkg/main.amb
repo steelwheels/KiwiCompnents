@@ -1,0 +1,20 @@
+top: VBox {
+    terminal_a: Terminal {
+	width:	Int 	80
+	height:	Int	25
+	shell: Shell {
+	}
+    }
+    button_a: Button {
+        title:  String "Go to Second"
+        pressed: Event() %{
+		console.log("launch second view .. start") ;
+		if(enterView("button_view") != null){
+			console.log("launch second view .. done") ;
+		} else {
+			console.log("launch second view .. failed") ;
+		}
+        %}
+    }
+}
+

@@ -5,22 +5,20 @@
 //  Created by Tomoo Hamada on 2020/09/24.
 //
 
+import KiwiControls
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: KCApplicationDelegate {
 
-	
-
-
-	func applicationDidFinishLaunching(_ aNotification: Notification) {
+	override func applicationDidFinishLaunching(_ aNotification: Notification) {
 		// Insert code here to initialize your application
+		super.applicationDidFinishLaunching(aNotification)
 	}
 
-	func applicationWillTerminate(_ aNotification: Notification) {
+	override func applicationWillTerminate(_ aNotification: Notification) {
 		// Insert code here to tear down your application
+		super.applicationWillTerminate(aNotification)
 	}
-
-
 }
 

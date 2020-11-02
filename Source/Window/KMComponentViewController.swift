@@ -18,11 +18,17 @@ import AppKit
 import UIKit
 #endif
 
+public enum KMSource {
+	case	mainView(KEResource)			// The resource contains the main view
+	case	subView(KEResource, String)		// The resource contains the sub view, the sub view name
+}
+
 open class KMComponentViewController: KCSingleViewController
 {
 	private var mContext:		KEContext
-	private var mSourceURL:		URL?
+	private var mSource:		KMSource?
 	private var mProcessManager:	CNProcessManager?
+	private var mResource:		KEResource?
 	private var mEnvironment:	CNEnvironment
 
 	public override init(parentViewController parent: KCMultiViewController){
@@ -30,8 +36,9 @@ open class KMComponentViewController: KCSingleViewController
 			fatalError("Failed to allocate VM")
 		}
 		mContext	= KEContext(virtualMachine: vm)
-		mSourceURL	= nil
+		mSource		= nil
 		mProcessManager	= nil
+		mResource	= nil
 		mEnvironment	= CNEnvironment()
 		super.init(parentViewController: parent)
 	}
@@ -41,36 +48,53 @@ open class KMComponentViewController: KCSingleViewController
 			fatalError("Failed to allocate VM")
 		}
 		mContext	= KEContext(virtualMachine: vm)
-		mSourceURL	= nil
+		mSource		= nil
 		mProcessManager	= nil
+		mResource	= nil
 		mEnvironment	= CNEnvironment()
 		super.init(coder: coder)
 	}
 
 	public var context: KEContext { get { return mContext }}
 
-	public func setup(sourceURL surl: URL, processManager pmgr: CNProcessManager) {
-		mSourceURL	= surl
+	public func setup(source src: KMSource, processManager pmgr: CNProcessManager) {
+		mSource		= src
 		mProcessManager	= pmgr
 	}
 
 	open override func loadViewContext(rootView root: KCRootView) -> KCSize {
-		guard let srcurl = mSourceURL else {
-			CNLog(logLevel: .error, message: "No source URL")
-			return root.frame.size
-		}
-
-		guard let script = srcurl.loadContents() else {
-			NSLog("Failed to load script from \(srcurl.absoluteString)")
+		guard let src = mSource else {
+			CNLog(logLevel: .error, message: "No source file")
 			return root.frame.size
 		}
 
 		guard let procmgr = mProcessManager else {
-			NSLog("No process manager")
+			CNLog(logLevel: .error, message: "No process manager")
 			return root.frame.size
 		}
 
-		let resource = KEResource(baseURL: srcurl)
+		let script:	String
+		let resource:	KEResource
+		switch src {
+		case .mainView(let res):
+			if let scr = res.loadView() {
+				script		= scr
+				resource	= res
+			} else {
+				CNLog(logLevel: .error, message: "Failed to load main view")
+				return root.frame.size
+			}
+		case .subView(let res, let name):
+			if let scr = res.loadSubview(identifier: name) {
+				script		= scr
+				resource	= res
+			} else {
+				CNLog(logLevel: .error, message: "Failed to load sub view named: \(name)")
+				return root.frame.size
+			}
+		}
+		mResource = resource
+
 		let terminfo = CNTerminalInfo(width: 80, height: 25)
 		let console  = CNFileConsole()
 		let config   = KEConfig(applicationType: .window, doStrict: true, logLevel: .defaultLevel)
@@ -125,10 +149,6 @@ open class KMComponentViewController: KCSingleViewController
 			return root.frame.size
 		}
 
-		/* Link components */
-		let linker = KMComponentLinker(parentViewController: self)
-		linker.visit(component: topcomp)
-
 		/* Setup root view*/
 		if let view = topcomp as? KCView {
 			root.setup(childView: view)
@@ -136,5 +156,29 @@ open class KMComponentViewController: KCSingleViewController
 			console.error(string: "Component is NOT view")
 		}
 		return root.fittingSize
+	}
+
+	#if os(OSX)
+	open override func viewDidAppear() {
+		super.viewDidAppear()
+		doViewDidAppear()
+	}
+	#else
+	open override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		doViewDidAppear()
+	}
+	#endif
+
+	private func doViewDidAppear() {
+		/* Link components */
+		if let res = mResource, let root = self.rootView {
+			let linker = KMComponentLinker(parentViewController: self, resource: res)
+			for subview in root.subviews {
+				if let subcomp = subview as? AMBComponent {
+					linker.visit(component: subcomp)
+				}
+			}
+		}
 	}
 }

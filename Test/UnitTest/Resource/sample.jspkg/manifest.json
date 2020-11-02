@@ -1,7 +1,10 @@
 {
-	views: {
-		sample_view: "sample-1.amb"
-		second_view: "sample-2.amb"
+	view:	"main.amb"
+	threads: {
+		main_thread:	"main.js"
+	}
+	subviews: {
+		button_view:	"button.amb"
 	}
 }
 

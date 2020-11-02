@@ -14,18 +14,18 @@ import CoconutData
 public class KMLibraryCompiler
 {
 	public func compile(context ctxt: KEContext, multiComponentViewController vcont: KMMultiComponentViewController, resource res: KEResource, processManager procmgr: CNProcessManager, console cons: CNFileConsole, environment env: CNEnvironment, config conf: KEConfig) -> Bool {
-		defineComponentFuntion(context: ctxt, multiComponentViewController: vcont, resource: res, environment: env)
+		defineComponentFuntion(context: ctxt, multiComponentViewController: vcont, resource: res)
 		defineThreadFunction(multiViewController: vcont, context: ctxt, resource: res, processManager: procmgr, environment: env, console: cons, config: conf)
 		return true
 	}
 
-	private func defineComponentFuntion(context ctxt: KEContext, multiComponentViewController vcont: KMMultiComponentViewController, resource res: KEResource, environment env: CNEnvironment) {
+	private func defineComponentFuntion(context ctxt: KEContext, multiComponentViewController vcont: KMMultiComponentViewController, resource res: KEResource) {
 		/* enterView function */
 		let enterfunc: @convention(block) (_ pathval: JSValue) -> JSValue = {
 			(_ paramval: JSValue) -> JSValue in
 			let result: JSValue
-			if let url = self.enterParameter(parameter: paramval, resource: res, environment: env) {
-				let retval = self.enterView(multiViewController: vcont, sourceURL: url, context: ctxt)
+			if let src = self.enterParameter(parameter: paramval, resource: res) {
+				let retval = self.enterView(multiViewController: vcont, source: src, context: ctxt)
 				result = retval.toJSValue(context: ctxt)
 			} else {
 				result = JSValue(nullIn: ctxt)
@@ -44,42 +44,23 @@ public class KMLibraryCompiler
 		ctxt.set(name: "leaveView", function: leavefunc)
 	}
 
-	private func enterParameter(parameter param: JSValue, resource res: KEResource, environment env: CNEnvironment) -> URL? {
-		var result: URL? = nil
-		if param.isURL {
-			result = param.toURL()
-		} else if param.isString {
-			if let paramstr = param.toString() {
-				switch pathExtension(string: paramstr) {
-				case "":
-					if let url = res.URLOfView(identifier: paramstr) {
-						result = url
-					} else {
-						CNLog(logLevel: .error, message: "No view item: \(paramstr)")
-					}
-				case "amb":
-					let url: URL
-					if FileManager.default.isAbsolutePath(pathString: paramstr) {
-						url = URL(fileURLWithPath: paramstr)
-					} else {
-						let curdir = env.currentDirectory
-						url = URL(fileURLWithPath: paramstr, relativeTo: curdir)
-					}
-					result = url
-				default:
-					CNLog(logLevel: .error, message: "Invalid file extension for amber: \(paramstr)")
-				}
-			}
+	private func enterParameter(parameter param: JSValue, resource res: KEResource) -> KMSource? {
+		if let paramstr = param.toString() {
+			let subres = res.subset()
+			return .subView(subres, paramstr)
+		} else {
+			return nil
 		}
-		return result
 	}
 
-	private func enterView(multiViewController vcont: KMMultiComponentViewController, sourceURL surl: URL, context ctxt: KEContext) -> CNNativeValue {
+	private func enterView(multiViewController vcont: KMMultiComponentViewController, source src: KMSource, context ctxt: KEContext) -> CNNativeValue {
 		CNExecuteInMainThread(doSync: true, execute: {
 			() -> Void in
-			vcont.pushViewController(sourceURL: surl, context: ctxt)
+			vcont.pushViewController(source: src, context: ctxt)
 		})
-		ctxt.suspend()
+		if !Thread.isMainThread {
+			ctxt.suspend()
+		}
 		return vcont.returnValue
 	}
 
@@ -119,6 +100,17 @@ public class KMLibraryCompiler
 	private func pathExtension(string str: String) -> String {
 		let nsstr = str as NSString
 		return nsstr.pathExtension
+	}
+
+	private class func stringToURL(string str: String, environment env: CNEnvironment) -> URL {
+		let result: URL
+		if FileManager.default.isAbsolutePath(pathString: str) {
+			result = URL(fileURLWithPath: str)
+		} else {
+			let curdir = env.currentDirectory
+			result = URL(fileURLWithPath: str, relativeTo: curdir)
+		}
+		return result
 	}
 
 	private class func vallueToFileStream(value val: JSValue) -> CNFileStream? {
