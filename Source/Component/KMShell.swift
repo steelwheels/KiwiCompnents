@@ -32,12 +32,12 @@ public class KMShell: AMBComponentObject
 
 		let robj = super.reactObject
 		if let srcname = robj.getStringProperty(forKey: KMShell.ScriptItem) {
-			NSLog("shell: srcname=\(srcname)")
 			if let url = res.URLOfThread(identifier: srcname) {
 				let res = KEResource(singleFileURL: url)
 				startScript(rootViewController: root, resource: res, inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
 			} else {
 				/* Failed to get source file */
+				CNLog(logLevel: .error, message: "Failed to load scripte source: \(srcname)")
 				startShell(rootViewController: root, inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
 			}
 		} else {
