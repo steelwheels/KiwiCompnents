@@ -30,16 +30,18 @@ open class KMComponentViewController: KCSingleViewController
 	private var mProcessManager:	CNProcessManager?
 	private var mResource:		KEResource?
 	private var mEnvironment:	CNEnvironment
+	private var mDidAlreadyLinked:	Bool
 
 	public override init(parentViewController parent: KCMultiViewController){
 		guard let vm = JSVirtualMachine() else {
 			fatalError("Failed to allocate VM")
 		}
-		mContext	= KEContext(virtualMachine: vm)
-		mSource		= nil
-		mProcessManager	= nil
-		mResource	= nil
-		mEnvironment	= CNEnvironment()
+		mContext		= KEContext(virtualMachine: vm)
+		mSource			= nil
+		mProcessManager		= nil
+		mResource		= nil
+		mEnvironment		= CNEnvironment()
+		mDidAlreadyLinked	= false
 		super.init(parentViewController: parent)
 	}
 
@@ -47,11 +49,12 @@ open class KMComponentViewController: KCSingleViewController
 		guard let vm = JSVirtualMachine() else {
 			fatalError("Failed to allocate VM")
 		}
-		mContext	= KEContext(virtualMachine: vm)
-		mSource		= nil
-		mProcessManager	= nil
-		mResource	= nil
-		mEnvironment	= CNEnvironment()
+		mContext		= KEContext(virtualMachine: vm)
+		mSource			= nil
+		mProcessManager		= nil
+		mResource		= nil
+		mEnvironment		= CNEnvironment()
+		mDidAlreadyLinked	= false
 		super.init(coder: coder)
 	}
 
@@ -172,13 +175,16 @@ open class KMComponentViewController: KCSingleViewController
 
 	private func doViewDidAppear() {
 		/* Link components */
-		if let res = mResource, let root = self.rootView {
-			let linker = KMComponentLinker(parentViewController: self, resource: res)
-			for subview in root.subviews {
-				if let subcomp = subview as? AMBComponent {
-					linker.visit(component: subcomp)
+		if !mDidAlreadyLinked {
+			if let res = mResource, let root = self.rootView {
+				let linker = KMComponentLinker(parentViewController: self, resource: res)
+				for subview in root.subviews {
+					if let subcomp = subview as? AMBComponent {
+						linker.visit(component: subcomp)
+					}
 				}
 			}
+			mDidAlreadyLinked = true
 		}
 	}
 }

@@ -54,6 +54,15 @@ public class KMComponentCompiler: AMBCompiler
 				return .ok(newcomp)
 			}
 		})
+		manager.addAllocator(className: "Label", allocatorFunc: {
+			(_ robj: AMBReactObject, _ ctxt: KEContext, _ pmgr: CNProcessManager, _ env: CNEnvironment) -> AllocationResult in
+			let newcomp = KMTextField()
+			if let err = newcomp.setup(reactObject: robj, context: ctxt, processManager: pmgr, environment: env) {
+				return .error(err)
+			} else {
+				return .ok(newcomp)
+			}
+		})
 	}
 
 

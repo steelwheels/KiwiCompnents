@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0508118925519EF800407987 /* KMTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0508118825519EF800407987 /* KMTextField.swift */; };
+		0508118A25519EF800407987 /* KMTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0508118825519EF800407987 /* KMTextField.swift */; };
 		050ED8F7253AF74200DF294C /* KMVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050ED8F6253AF74200DF294C /* KMVisitor.swift */; };
 		050ED8F8253AF74200DF294C /* KMVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050ED8F6253AF74200DF294C /* KMVisitor.swift */; };
 		052AD76D2545B04700929F67 /* KMThreadLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052AD76C2545B04700929F67 /* KMThreadLauncher.swift */; };
@@ -114,6 +116,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0508118825519EF800407987 /* KMTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMTextField.swift; sourceTree = "<group>"; };
 		050ED8F6253AF74200DF294C /* KMVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMVisitor.swift; sourceTree = "<group>"; };
 		052AD76C2545B04700929F67 /* KMThreadLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMThreadLauncher.swift; sourceTree = "<group>"; };
 		054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMMultiComponentViewController.swift; sourceTree = "<group>"; };
@@ -267,6 +270,7 @@
 				0596162F25327D2800F6059F /* KMShell.swift */,
 				056719DD252DE73100201386 /* KMStackView.swift */,
 				059545AA252EF2AB00E019B2 /* KMTerminalView.swift */,
+				0508118825519EF800407987 /* KMTextField.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -523,6 +527,7 @@
 				052AD76D2545B04700929F67 /* KMThreadLauncher.swift in Sources */,
 				05EC69412544629B008932EB /* KMComponentLinker.swift in Sources */,
 				057CCC92252E04D40012EA0C /* KMComponentViewController.swift in Sources */,
+				0508118925519EF800407987 /* KMTextField.swift in Sources */,
 				05D0CABF252B6AFC0041C196 /* KMButton.swift in Sources */,
 				056719DE252DE73100201386 /* KMStackView.swift in Sources */,
 			);
@@ -544,6 +549,7 @@
 				052AD76E2545B04700929F67 /* KMThreadLauncher.swift in Sources */,
 				05EC69422544629B008932EB /* KMComponentLinker.swift in Sources */,
 				057CCC93252E04D40012EA0C /* KMComponentViewController.swift in Sources */,
+				0508118A25519EF800407987 /* KMTextField.swift in Sources */,
 				05D0CAC0252B6AFC0041C196 /* KMButton.swift in Sources */,
 				056719DF252DE73100201386 /* KMStackView.swift in Sources */,
 			);
