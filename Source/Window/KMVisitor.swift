@@ -6,21 +6,25 @@
  */
 
 import Amber
+import CoconutData
 
 open class KMVisitor
 {
 	public func visit(component comp: AMBComponent) {
-		if let button = comp as? KMButton {
+		if let txt = comp as? KMTextField {
+			visit(textField: txt)
+		} else if let button = comp as? KMButton {
 			visit(button: button)
 		} else if let stack = comp as? KMStackView {
 			visit(stackView: stack)
 		} else if let term = comp as? KMTerminalView {
 			visit(terminalView: term)
 		} else {
-			NSLog("Unknown component")
+			CNLog(logLevel: .error, message: "Unknown component")
 		}
 	}
 
+	open func visit(textField field: KMTextField){ }
 	open func visit(button view: KMButton){ }
 	open func visit(stackView view: KMStackView){ }
 	open func visit(terminalView view: KMTerminalView){ }

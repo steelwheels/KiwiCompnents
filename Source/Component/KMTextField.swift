@@ -64,6 +64,10 @@ public class KMTextField: KCTextField, AMBComponent
 		return nil
 	}
 
+	public func accept(visitor vst: KMVisitor) {
+		vst.visit(textField: self)
+	}
+
 	public func addChild(component comp: AMBComponent) {
 		CNLog(logLevel: .error, message: "Unsupported method: addChild")
 	}

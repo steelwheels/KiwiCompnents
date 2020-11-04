@@ -19,6 +19,10 @@ public class KMComponentLinker: KMVisitor
 		mResource	  = res
 	}
 
+	public override func visit(textField view: KMTextField){
+		/* Do nothing */
+	}
+
 	public override func visit(button view: KMButton){
 		/* Do nothing */
 	}
