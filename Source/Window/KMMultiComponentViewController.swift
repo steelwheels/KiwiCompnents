@@ -19,12 +19,9 @@ open class KMMultiComponentViewController: KCMultiViewController
 
 	private var mResource: KEResource?		= nil
 	private var mProcessManager			= CNProcessManager()
-	private var mReturnValue: CNNativeValue		= .nullValue
-	private var mContextStack			= CNStack<Context>()
 
 	public var resource: KEResource? { get { return mResource }}
 	public var processManager: CNProcessManager { get { return mProcessManager }}
-	public var returnValue: CNNativeValue { get { return mReturnValue }}
 
 	@objc required dynamic public init?(coder: NSCoder) {
 		super.init(coder: coder)
@@ -39,37 +36,23 @@ open class KMMultiComponentViewController: KCMultiViewController
 		return KEResource(baseURL: Bundle.main.bundleURL)
 	}
 
-	public func pushViewController(source src: KMSource, context ctxt: KEContext?) {
+	public func pushViewController(source src: KMSource) {
 		let viewctrl = KMComponentViewController(parentViewController: self)
 		viewctrl.setup(source: src, processManager: mProcessManager)
-		if let c = ctxt {
-			mContextStack.push(.context(c))
-		} else {
-			mContextStack.push(.none)
-		}
 		super.pushViewController(viewController: viewctrl)
 	}
 
-	public func popViewController() -> KEContext? {
+	public func popViewController(returnValue retval: CNNativeValue) -> Bool {
 		if super.popViewController() {
-			if let ctxt = mContextStack.pop() {
-				let result: KEContext?
-				switch ctxt {
-				case .context(let ctxt):	result = ctxt
-				case .none:			result = nil
-				}
-				return result
+			if let curview = super.currentViewController() as? KMComponentViewController {
+				curview.state.setReturnValue(value: retval)
 			} else {
-				CNLog(logLevel: .error, message: "Failed to pop stack")
+				NSLog("Error: Unexpected object")
 			}
+			return true
 		} else {
-			CNLog(logLevel: .error, message: "Failed to pop view")
+			return false
 		}
-		return nil
-	}
-
-	public func setReturnValue(value val: CNNativeValue) {
-		mReturnValue = val
 	}
 }
 

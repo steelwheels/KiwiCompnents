@@ -27,6 +27,7 @@ open class KMComponentViewController: KCSingleViewController
 {
 	private var mContext:		KEContext
 	private var mSource:		KMSource?
+	private var mViewState:		KMViewState?
 	private var mProcessManager:	CNProcessManager?
 	private var mResource:		KEResource?
 	private var mEnvironment:	CNEnvironment
@@ -38,6 +39,7 @@ open class KMComponentViewController: KCSingleViewController
 		}
 		mContext		= KEContext(virtualMachine: vm)
 		mSource			= nil
+		mViewState		= nil
 		mProcessManager		= nil
 		mResource		= nil
 		mEnvironment		= CNEnvironment()
@@ -51,6 +53,7 @@ open class KMComponentViewController: KCSingleViewController
 		}
 		mContext		= KEContext(virtualMachine: vm)
 		mSource			= nil
+		mViewState		= nil
 		mProcessManager		= nil
 		mResource		= nil
 		mEnvironment		= CNEnvironment()
@@ -60,20 +63,28 @@ open class KMComponentViewController: KCSingleViewController
 
 	public var context: KEContext { get { return mContext }}
 
+	public var state: KMViewState {
+		if let state = mViewState {
+			return state
+		} else {
+			fatalError("Uninitialized state")
+		}
+	}
+
 	public func setup(source src: KMSource, processManager pmgr: CNProcessManager) {
 		mSource		= src
 		mProcessManager	= pmgr
 	}
 
-	open override func loadViewContext(rootView root: KCRootView) -> KCSize {
+	open override func loadViewContext(rootView root: KCRootView) -> KCSize? {
 		guard let src = mSource else {
 			CNLog(logLevel: .error, message: "No source file")
-			return root.frame.size
+			return nil
 		}
 
 		guard let procmgr = mProcessManager else {
 			CNLog(logLevel: .error, message: "No process manager")
-			return root.frame.size
+			return nil
 		}
 
 		let script:	String
@@ -85,7 +96,7 @@ open class KMComponentViewController: KCSingleViewController
 				resource	= res
 			} else {
 				CNLog(logLevel: .error, message: "Failed to load main view")
-				return root.frame.size
+				return nil
 			}
 		case .subView(let res, let name):
 			if let scr = res.loadSubview(identifier: name) {
@@ -93,7 +104,7 @@ open class KMComponentViewController: KCSingleViewController
 				resource	= res
 			} else {
 				CNLog(logLevel: .error, message: "Failed to load sub view named: \(name)")
-				return root.frame.size
+				return nil
 			}
 		}
 		mResource = resource
@@ -102,15 +113,19 @@ open class KMComponentViewController: KCSingleViewController
 		let console  = CNFileConsole()
 		let config   = KEConfig(applicationType: .window, doStrict: true, logLevel: .defaultLevel)
 
+		/* Allocate the view state */
+		let viewstate = KMViewState(context: context, viewController: self)
+		mViewState = viewstate
+
 		/* Compile library */
 		let libcompiler = KLCompiler()
 		guard libcompiler.compileBase(context: mContext, terminalInfo: terminfo, environment: mEnvironment, console: console, config: config) else {
 			console.error(string: "Failed to compile base")
-			return root.frame.size
+			return nil
 		}
 		guard libcompiler.compileLibrary(context: mContext, resource: resource, processManager: procmgr, environment: mEnvironment, console: console, config: config) else {
 			console.error(string: "Failed to compile library")
-			return root.frame.size
+			return nil
 		}
 
 		/* Compile the Amber script */
@@ -121,10 +136,10 @@ open class KMComponentViewController: KCSingleViewController
 			frame = frm
 		case .error(let err):
 			console.error(string: "Error: \(err.toString())")
-			return root.frame.size
+			return nil
 		@unknown default:
 			console.error(string: "Error: Unknown switch condition (1)")
-			return root.frame.size
+			return nil
 		}
 
 		/* Allocate the component */
@@ -135,21 +150,17 @@ open class KMComponentViewController: KCSingleViewController
 			topcomp = comp
 		case .error(let err):
 			console.error(string: "Error: \(err.toString())")
-			return root.frame.size
+			return nil
 		@unknown default:
 			console.error(string: "Error: Unknown switch condition (2)")
-			return root.frame.size
+			return nil
 		}
 
 		/* Compile library for component*/
-		guard let parent = self.parentController as? KMMultiComponentViewController else {
-			console.error(string: "Error: No parent view controller ")
-			return root.frame.size
-		}
 		let alibcompiler = KMLibraryCompiler()
-		guard alibcompiler.compile(context: mContext, multiComponentViewController: parent, resource: resource, processManager: procmgr, console: console, environment: mEnvironment, config: config) else {
+		guard alibcompiler.compile(context: mContext, viewController: self, resource: resource, processManager: procmgr, console: console, environment: mEnvironment, config: config) else {
 			console.error(string: "Error: Failed to compile")
-			return root.frame.size
+			return nil
 		}
 
 		/* Setup root view*/
@@ -177,7 +188,7 @@ open class KMComponentViewController: KCSingleViewController
 		/* Link components */
 		if !mDidAlreadyLinked {
 			if let res = mResource, let root = self.rootView {
-				let linker = KMComponentLinker(parentViewController: self, resource: res)
+				let linker = KMComponentLinker(viewController: self, resource: res)
 				for subview in root.subviews {
 					if let subcomp = subview as? AMBComponent {
 						linker.visit(component: subcomp)

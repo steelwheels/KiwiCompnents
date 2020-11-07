@@ -14,7 +14,7 @@ public class KMComponentLinker: KMVisitor
 	private var mParentController:	KMComponentViewController
 	private var mResource:		KEResource
 
-	public init(parentViewController parent: KMComponentViewController, resource res: KEResource){
+	public init(viewController parent: KMComponentViewController, resource res: KEResource){
 		mParentController = parent
 		mResource	  = res
 	}
@@ -37,6 +37,6 @@ public class KMComponentLinker: KMVisitor
 	}
 
 	public override func visit(terminalView view: KMTerminalView){
-		view.startShell(parentViewController: mParentController, resource: mResource)
+		view.startShell(viewController: mParentController, resource: mResource)
 	}
 }

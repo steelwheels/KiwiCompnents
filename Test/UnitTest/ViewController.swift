@@ -16,10 +16,6 @@ import JavaScriptCore
 
 class ViewController: KMMultiComponentViewController
 {
-	public static let TerminalViewControllerName	= "term"
-
-	private var mContext: KEContext? = nil
-
 	open override func loadResource() -> KEResource {
 		if let path = Bundle.main.path(forResource: "sample", ofType: "jspkg") {
 			let resource = KEResource.init(baseURL: URL(fileURLWithPath: path))
@@ -48,7 +44,7 @@ class ViewController: KMMultiComponentViewController
 
 		/* add sub view */
 		if let res = self.resource {
-			super.pushViewController(source: .mainView(res), context: nil)
+			super.pushViewController(source: .mainView(res))
 		} else {
 			NSLog("Failed to get resource")
 		}

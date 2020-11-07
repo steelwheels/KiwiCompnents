@@ -63,7 +63,9 @@ public class KMButton: KCButton, AMBComponent
 			() -> Void in
 			if let rval = robj.get(forKey: KMButton.PressedItem) {
 				if let evtval = rval.eventFunctionValue {
-					evtval.call(withArguments: [])
+					DispatchQueue.global().async {
+						evtval.call(withArguments: [])
+					}
 				}
 			}
 		}

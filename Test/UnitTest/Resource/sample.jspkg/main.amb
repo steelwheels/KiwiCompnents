@@ -12,11 +12,12 @@ top: VBox {
         title:  String "Go to Second"
         pressed: Event() %{
 		console.log("launch second view .. start") ;
-		if(enterView("button_view") != null){
-			console.log("launch second view .. done") ;
-		} else {
-			console.log("launch second view .. failed") ;
-		}
+		console.log("state (before) ... " + viewState.isActive) ;
+		enterView("button_view") ;
+
+		let retval = waitUntilActivate() ;
+		console.log("state (after ) ... " + viewState.isActive) ;
+		console.log("return value   ... " + retval) ;
         %}
     }
 }

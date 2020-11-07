@@ -3,7 +3,7 @@ top: VBox {
         title:  String "Back to First"
         pressed: Event() %{
 		console.log("leave view") ;
-		leaveView(0) ;
+		leaveView(1234) ;
         %}
     }
 }
