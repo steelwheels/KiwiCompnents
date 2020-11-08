@@ -21,6 +21,10 @@ The parameter can have some different data type to give the location of script f
 ## Return value
 If the entering view is suceeded, the return value will be `true`.
 
+## Example
+Here is view transition example:
+![View Transition](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Images/view-transition.png)
+
 ## References
 * [Library](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Library.md): Library for GUI programming by Amber.
 * [leaveView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/leaveView.md): Return to previous view

@@ -5,14 +5,24 @@ Wait until the view is activated.
 ````
 waitUntilActivate() -> Object
 ````
-Wait until the view is activated and return the parameter which is given as a parameter of [leaveView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/leaveView.md) function.
+
+## Description
+Wait until the view is activated.
 
 In usually, this function will be called after [enterView](ttps://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/enterView.md) function call. 
-Here is the example:
+The return value is given as a parameter of [leaveView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/leaveView.md) function.
 
-````
-if(enterView("buttons")){
-	let retval = waitUntilActivate() ;
-	....
-}
-````
+## Parameters
+none
+
+## Return value
+The value given by [leaveView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/leaveView.md).
+
+## Example
+Here is view transition example:
+![View Transition](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Images/view-transition.png)
+
+## References
+* [Library](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Library.md): Library for GUI programming by Amber.
+* [leaveView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/leaveView.md): Return to previous view
+* [Kiwi Component Framework](https://github.com/steelwheels/KiwiCompnents): Document of this framework.

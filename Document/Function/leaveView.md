@@ -19,6 +19,10 @@ The parameter is used as the return value. See [waitUntilActivate](https://githu
 ## Return value
 None. The operation after calling this function will NOT be executed because the view will be switched.
 
+## Example
+Here is view transition example:
+![View Transition](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Images/view-transition.png)
+
 ## References
 * [Kiwi Component Framework](https://github.com/steelwheels/KiwiCompnents): Document of this framework.
 * [waitUntilActivate](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/waitUntilActivate.md): The function to wait until the view is activated.
