@@ -24,5 +24,6 @@ Here is view transition example:
 
 ## References
 * [Library](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Library.md): Library for GUI programming by Amber.
+* [enterView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/leaveView.md): Move to new view
 * [leaveView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/leaveView.md): Return to previous view
 * [Kiwi Component Framework](https://github.com/steelwheels/KiwiCompnents): Document of this framework.

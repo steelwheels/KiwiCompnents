@@ -28,6 +28,7 @@ Here is view transition example:
 ## References
 * [Library](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Library.md): Library for GUI programming by Amber.
 * [leaveView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/leaveView.md): Return to previous view
+* [waitUntilActivate](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/waitUntilActivate.md): The function to wait until the view is activated.
 * [Kiwi Component Framework](https://github.com/steelwheels/KiwiCompnents): Document of this framework.
 
 
