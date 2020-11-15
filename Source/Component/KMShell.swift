@@ -61,6 +61,11 @@ public class KMShell: AMBComponentObject
 		env.set(name: "TERM",           value: .stringValue("xterm-16color"))
 		env.set(name: "CLICOLOR",       value: .stringValue("1"))
 		env.set(name: "CLICOLOR_FORCE", value: .stringValue("1"))
+
+		/* Overwrite PWD by HOME */
+		if let home = env.getString(name: "HOME") {
+			env.set(name: "PWD", 		value: .stringValue(home))
+		}
 	}
 }
 

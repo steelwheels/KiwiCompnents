@@ -6,10 +6,11 @@
 //
 
 import KiwiControls
+import CoconutData
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: KCApplicationDelegate {
+class AppDelegate: CNApplicationDelegate {
 
 	override func applicationDidFinishLaunching(_ aNotification: Notification) {
 		// Insert code here to initialize your application

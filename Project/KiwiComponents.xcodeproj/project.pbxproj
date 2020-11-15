@@ -68,6 +68,8 @@
 		05A88F1B252B65E80036432D /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
 		05BFC72B25568D980082E9CC /* viewState.js in Resources */ = {isa = PBXBuildFile; fileRef = 05BFC72A25568D980082E9CC /* viewState.js */; };
 		05BFC72C25568D980082E9CC /* viewState.js in Resources */ = {isa = PBXBuildFile; fileRef = 05BFC72A25568D980082E9CC /* viewState.js */; };
+		05C9034B25609E8200ECDA1E /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
+		05C9034C25609E8200ECDA1E /* Amber.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05CAEB6625445D36002AD83E /* KMLibraryCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CAEB6525445D36002AD83E /* KMLibraryCompiler.swift */; };
 		05CAEB6725445D36002AD83E /* KMLibraryCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CAEB6525445D36002AD83E /* KMLibraryCompiler.swift */; };
 		05D0CABF252B6AFC0041C196 /* KMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0CABE252B6AFC0041C196 /* KMButton.swift */; };
@@ -113,6 +115,7 @@
 				059AB1F7251C0C490094B268 /* KiwiComponents.xcframework in Embed Frameworks */,
 				059AB1F4251C0C490094B268 /* KiwiShell.xcframework in Embed Frameworks */,
 				059AB1F2251C0C490094B268 /* KiwiLibrary.xcframework in Embed Frameworks */,
+				05C9034C25609E8200ECDA1E /* Amber.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -200,6 +203,7 @@
 				059AB1EF251C0C490094B268 /* KiwiEngine.xcframework in Frameworks */,
 				059AB1F3251C0C490094B268 /* KiwiShell.xcframework in Frameworks */,
 				059AB1F1251C0C490094B268 /* KiwiLibrary.xcframework in Frameworks */,
+				05C9034B25609E8200ECDA1E /* Amber.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
