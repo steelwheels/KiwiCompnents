@@ -76,15 +76,15 @@ open class KMComponentViewController: KCSingleViewController
 		mProcessManager	= pmgr
 	}
 
-	open override func loadViewContext(rootView root: KCRootView) -> KCSize? {
+	open override func loadViewContext(rootView root: KCRootView) {
 		guard let src = mSource else {
 			CNLog(logLevel: .error, message: "No source file")
-			return nil
+			return
 		}
 
 		guard let procmgr = mProcessManager else {
 			CNLog(logLevel: .error, message: "No process manager")
-			return nil
+			return
 		}
 
 		let script:	String
@@ -96,7 +96,7 @@ open class KMComponentViewController: KCSingleViewController
 				resource	= res
 			} else {
 				CNLog(logLevel: .error, message: "Failed to load main view")
-				return nil
+				return
 			}
 		case .subView(let res, let name):
 			if let scr = res.loadSubview(identifier: name) {
@@ -104,7 +104,7 @@ open class KMComponentViewController: KCSingleViewController
 				resource	= res
 			} else {
 				CNLog(logLevel: .error, message: "Failed to load sub view named: \(name)")
-				return nil
+				return
 			}
 		}
 		mResource = resource
@@ -121,11 +121,11 @@ open class KMComponentViewController: KCSingleViewController
 		let libcompiler = KLCompiler()
 		guard libcompiler.compileBase(context: mContext, terminalInfo: terminfo, environment: mEnvironment, console: console, config: config) else {
 			console.error(string: "Failed to compile base")
-			return nil
+			return
 		}
 		guard libcompiler.compileLibrary(context: mContext, resource: resource, processManager: procmgr, environment: mEnvironment, console: console, config: config) else {
 			console.error(string: "Failed to compile library")
-			return nil
+			return
 		}
 
 		/* Compile the Amber script */
@@ -136,10 +136,10 @@ open class KMComponentViewController: KCSingleViewController
 			frame = frm
 		case .error(let err):
 			console.error(string: "Error: \(err.toString())")
-			return nil
+			return
 		@unknown default:
 			console.error(string: "Error: Unknown switch condition (1)")
-			return nil
+			return
 		}
 
 		/* Allocate the component */
@@ -150,17 +150,17 @@ open class KMComponentViewController: KCSingleViewController
 			topcomp = comp
 		case .error(let err):
 			console.error(string: "Error: \(err.toString())")
-			return nil
+			return
 		@unknown default:
 			console.error(string: "Error: Unknown switch condition (2)")
-			return nil
+			return
 		}
 
 		/* Compile library for component*/
 		let alibcompiler = KMLibraryCompiler()
 		guard alibcompiler.compile(context: mContext, viewController: self, resource: resource, processManager: procmgr, console: console, environment: mEnvironment, config: config) else {
 			console.error(string: "Error: Failed to compile")
-			return nil
+			return
 		}
 
 		/* Setup root view*/
@@ -169,7 +169,6 @@ open class KMComponentViewController: KCSingleViewController
 		} else {
 			console.error(string: "Component is NOT view")
 		}
-		return root.fittingSize
 	}
 
 	#if os(OSX)

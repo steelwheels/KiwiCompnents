@@ -34,8 +34,8 @@ class ViewController: KMMultiComponentViewController
 		}
 	}
 
-	open override func viewDidLoad() {
-		super.viewDidLoad()
+	open override func viewDidAppear() {
+		super.viewDidAppear()
 
 		/* Update log level */
 		let _ = KCLogManager.shared
