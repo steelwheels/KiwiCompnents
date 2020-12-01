@@ -19,20 +19,20 @@ public class KMTextField: KCTextField, AMBComponent
 	public static let TextItem		= "text"
 
 	private var mReactObject:	AMBReactObject?
-	private var mContext:		KEContext?
-	private var mEnvironment:	CNEnvironment?
 	private var mChildComponents:	Array<AMBComponent>
 
-	public var reactObject: AMBReactObject	{ get { getProperty(mReactObject) 	}}
-	public var context: KEContext		{ get { getProperty(mContext) 		}}
-	public var environment: CNEnvironment	{ get { getProperty(mEnvironment)	}}
+	public var reactObject: AMBReactObject	{ get {
+		if let robj = mReactObject {
+			return robj
+		} else {
+			fatalError("No react object")
+		}
+	}}
 
 	public var children: Array<AMBComponent> { get { return [] }}
 
 	public init(){
 		mReactObject		= nil
-		mContext		= nil
-		mEnvironment		= nil
 		mChildComponents	= []
 		#if os(OSX)
 			let frame = NSRect(x: 0.0, y: 0.0, width: 160, height: 60)
@@ -44,22 +44,18 @@ public class KMTextField: KCTextField, AMBComponent
 	
 	@objc required dynamic init?(coder: NSCoder) {
 		mReactObject		= nil
-		mContext		= nil
-		mEnvironment		= nil
 		mChildComponents	= []
 		super.init(coder: coder)
 	}
 
-	public func setup(reactObject robj: AMBReactObject, context ctxt: KEContext, processManager pmgr: CNProcessManager, environment env: CNEnvironment) -> NSError? {
+	public func setup(reactObject robj: AMBReactObject) -> NSError? {
 		mReactObject	= robj
-		mContext	= ctxt
-		mEnvironment	= env
 		
 		/* Sync initial value: text */
-		if let val = robj.getStringProperty(forKey: KMTextField.TextItem) {
+		if let val = robj.stringValue(forProperty: KMTextField.TextItem) {
 			super.text = val
 		} else {
-			robj.set(key: KMTextField.TextItem, stringValue: self.text)
+			robj.setStringValue(string: self.text, forProperty: KMTextField.TextItem)
 		}
 		return nil
 	}
@@ -70,10 +66,6 @@ public class KMTextField: KCTextField, AMBComponent
 
 	public func addChild(component comp: AMBComponent) {
 		CNLog(logLevel: .error, message: "Unsupported method: addChild")
-	}
-
-	public func toText() -> CNTextSection {
-		return reactObject.toText()
 	}
 }
 

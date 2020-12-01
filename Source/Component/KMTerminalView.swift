@@ -17,18 +17,20 @@ import UIKit
 public class KMTerminalView: KCTerminalView, AMBComponent
 {
 	private var mReactObject:	AMBReactObject?
-	private var mContext:		KEContext?
-	private var mEnvironment:	CNEnvironment?
 	private var mChildComponents:	Array<AMBComponent>
 
-	public var reactObject: AMBReactObject	{ get { getProperty(mReactObject) 	}}
-	public var context: KEContext		{ get { getProperty(mContext) 		}}
-	public var environment: CNEnvironment	{ get { getProperty(mEnvironment)	}}
+	public var reactObject: AMBReactObject {
+		get {
+			if let robj = mReactObject {
+				return robj
+			} else {
+				fatalError("No react object")
+			}
+		}
+	}
 
 	public init(){
 		mReactObject		= nil
-		mContext		= nil
-		mEnvironment		= nil
 		mChildComponents	= []
 		#if os(OSX)
 			let frame = NSRect(x: 0.0, y: 0.0, width: 480, height: 270)
@@ -40,15 +42,12 @@ public class KMTerminalView: KCTerminalView, AMBComponent
 
 	public required init?(coder: NSCoder) {
 		mReactObject		= nil
-		mContext		= nil
-		mEnvironment		= nil
 		mChildComponents	= []
 		super.init(coder: coder)
 	}
 
-	public func setup(reactObject robj: AMBReactObject, context ctxt: KEContext, processManager pmgr: CNProcessManager, environment env: CNEnvironment) -> NSError? {
+	public func setup(reactObject robj: AMBReactObject) -> NSError? {
 		mReactObject	= robj
-		mContext	= ctxt
 		return nil
 	}
 
@@ -79,10 +78,6 @@ public class KMTerminalView: KCTerminalView, AMBComponent
 
 	public func accept(visitor vst: KMVisitor) {
 		vst.visit(terminalView: self)
-	}
-
-	public func toText() -> CNTextSection {
-		return reactObject.toText()
 	}
 }
 

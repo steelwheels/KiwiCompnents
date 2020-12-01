@@ -21,18 +21,17 @@ public class KMButton: KCButton, AMBComponent
 	static let TitleItem		= "title"
 
 	private var mReactObject:	AMBReactObject?
-	private var mContext:		KEContext?
-	private var mEnvironment:	CNEnvironment?
 
-	public var reactObject: AMBReactObject	{ get { return getProperty(mReactObject)	}}
-	public var context: KEContext		{ get { return getProperty(mContext)		}}
-	public var environment: CNEnvironment	{ get { return getProperty(mEnvironment)	}}
+	public var reactObject: AMBReactObject	{ get {
+		if let robj = mReactObject {
+			return robj
+		} else {
+			fatalError("No react object")
+		}
+	}}
 
 	public init(){
 		mReactObject	= nil
-		mContext	= nil
-		mEnvironment	= nil
-
 		#if os(OSX)
 			let frame = NSRect(x: 0.0, y: 0.0, width: 188, height: 21)
 		#else
@@ -43,8 +42,6 @@ public class KMButton: KCButton, AMBComponent
 
 	public required init?(coder: NSCoder) {
 		mReactObject	= nil
-		mContext	= nil
-		mEnvironment	= nil
 		super.init(coder: coder)
 	}
 
@@ -53,47 +50,42 @@ public class KMButton: KCButton, AMBComponent
 		NSLog("Can not add child components to Button component")
 	}
 
-	public func setup(reactObject robj: AMBReactObject, context ctxt: KEContext, processManager pmgr: CNProcessManager, environment env: CNEnvironment) -> NSError? {
+	public func setup(reactObject robj: AMBReactObject) -> NSError? {
 		mReactObject	= robj
-		mContext	= ctxt
-		mEnvironment	= env
-
-		/* Add allbacks */
+		/* Add callbacks */
 		self.buttonPressedCallback = {
 			() -> Void in
-			if let rval = robj.get(forKey: KMButton.PressedItem) {
-				if let evtval = rval.eventFunctionValue {
-					DispatchQueue.global().async {
-						evtval.call(withArguments: [])
-					}
+			if let evtval = robj.immediateValue(forProperty: KMButton.PressedItem) {
+				DispatchQueue.global().async {
+					evtval.call(withArguments: [])
 				}
 			}
 		}
 
 		/* Sync initial value: isEnabled */
-		if let val = robj.getBooleanProperty(forKey: KMButton.IsEnabledItem) {
-			self.isEnabled = val
+		if let val = robj.numberValue(forProperty: KMButton.IsEnabledItem) {
+			self.isEnabled = val.boolValue
 		} else {
-			robj.set(key: KMButton.IsEnabledItem, booleanValue: self.isEnabled)
+			robj.setNumberValue(number: NSNumber(booleanLiteral: self.isEnabled), forProperty: KMButton.IsEnabledItem)
 		}
 		/* Add listner: isEnabled */
-		robj.addCallbackSource(forProperty: KMButton.IsEnabledItem, callbackFunction: {
-			(_ val: Any) -> Void in
-			if let val = robj.getBooleanProperty(forKey: KMButton.IsEnabledItem) {
-				self.isEnabled = val
+		robj.addObserver(forProperty: KMButton.IsEnabledItem, callback: {
+			(_ param: Any) -> Void in
+			if let val = robj.numberValue(forProperty: KMButton.IsEnabledItem) {
+				self.isEnabled = val.boolValue
 			}
 		})
 
 		/* Sync initial value: title */
-		if let val = robj.getStringProperty(forKey: KMButton.TitleItem) {
+		if let val = robj.stringValue(forProperty: KMButton.TitleItem) {
 			self.title = val
 		} else {
-			robj.set(key: KMButton.TitleItem, stringValue: self.title)
+			robj.setStringValue(string: self.title, forProperty: KMButton.TitleItem)
 		}
 		/* Add listner: title */
-		robj.addCallbackSource(forProperty: KMButton.TitleItem, callbackFunction: {
-			(_ val: Any) -> Void in
-			if let val = robj.getStringProperty(forKey: KMButton.TitleItem) {
+		robj.addObserver(forProperty: KMButton.TitleItem, callback: {
+			(_ param: Any) -> Void in
+			if let val = robj.stringValue(forProperty: KMButton.TitleItem) {
 				self.title = val
 			}
 		})
@@ -103,9 +95,5 @@ public class KMButton: KCButton, AMBComponent
 
 	public func accept(visitor vst: KMVisitor) {
 		vst.visit(button: self)
-	}
-
-	public func toText() -> CNTextSection {
-		return reactObject.toText()
 	}
 }

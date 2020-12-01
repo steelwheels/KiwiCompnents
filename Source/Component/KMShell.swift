@@ -25,8 +25,7 @@ public class KMShell: AMBComponentObject
 	}
 
 	public func start(viewController vcont: KMComponentViewController, inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream, resource res: KEResource) {
-		let robj = super.reactObject
-		if let srcname = robj.getStringProperty(forKey: KMShell.ScriptItem) {
+		if let srcname = reactObject.stringValue(forProperty: KMShell.ScriptItem) {
 			if let url = res.URLOfThread(identifier: srcname) {
 				let res = KEResource(singleFileURL: url)
 				startScript(viewController: vcont, resource: res, inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
@@ -42,17 +41,17 @@ public class KMShell: AMBComponentObject
 	}
 
 	private func startShell(viewController vcont: KMComponentViewController, inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream) {
-		setupEnvironment(environment: self.environment)
+		setupEnvironment(environment: reactObject.environment)
 		let conf = KEConfig(applicationType: .window, doStrict: true, logLevel: .defaultLevel)
-		let thread = KMShellThread(viewController: vcont, processManager: self.processManager, input: instrm, output: outstrm, error: errstrm, environment: self.environment, config: conf)
+		let thread = KMShellThread(viewController: vcont, processManager: reactObject.processManager, input: instrm, output: outstrm, error: errstrm, environment: reactObject.environment, config: conf)
 		thread.start(argument: .nullValue)
 		mShellThread = thread
 	}
 
 	private func startScript(viewController vcont: KMComponentViewController, resource res: KEResource, inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream) {
-		setupEnvironment(environment: self.environment)
+		setupEnvironment(environment: reactObject.environment)
 		let conf   = KHConfig(applicationType: .window, hasMainFunction: true, doStrict: true, logLevel: .warning)
-		let thread = KMScriptThread(viewController: vcont, source: .application(res), processManager: self.processManager, input: instrm, output: outstrm, error: errstrm, environment: environment, config: conf)
+		let thread = KMScriptThread(viewController: vcont, source: .application(res), processManager: reactObject.processManager, input: instrm, output: outstrm, error: errstrm, environment: reactObject.environment, config: conf)
 		thread.start(argument: .nullValue)
 		mScriptThread = thread
 	}
