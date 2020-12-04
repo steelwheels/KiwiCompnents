@@ -7,17 +7,22 @@
 
 import Amber
 import KiwiEngine
+import CoconutData
 import Foundation
 
 public class KMComponentLinker: KMVisitor
 {
 	private var mParentController:	KMComponentViewController
 	private var mResource:		KEResource
+	private var mFileConsole:	CNFileConsole?
 
 	public init(viewController parent: KMComponentViewController, resource res: KEResource){
 		mParentController = parent
 		mResource	  = res
+		mFileConsole	  = nil
 	}
+
+	public var result: CNFileConsole? { get { return mFileConsole }}
 
 	public override func visit(textField view: KMTextField){
 		/* Do nothing */
@@ -38,5 +43,11 @@ public class KMComponentLinker: KMVisitor
 
 	public override func visit(terminalView view: KMTerminalView){
 		view.startShell(viewController: mParentController, resource: mResource)
+		if mFileConsole == nil {
+			let instrm  = view.inputFileHandle
+			let outstrm = view.outputFileHandle
+			let errstrm = view.errorFileHandle
+			mFileConsole = CNFileConsole(input: instrm, output: outstrm, error: errstrm)
+		}
 	}
 }

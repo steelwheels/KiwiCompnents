@@ -110,7 +110,7 @@ open class KMComponentViewController: KCSingleViewController
 		mResource = resource
 
 		let terminfo = CNTerminalInfo(width: 80, height: 25)
-		let console  = CNFileConsole()
+		let console  = super.globalConsole
 		let config   = KEConfig(applicationType: .window, doStrict: true, logLevel: .defaultLevel)
 
 		/* Allocate the view state */
@@ -192,6 +192,10 @@ open class KMComponentViewController: KCSingleViewController
 					if let subcomp = subview as? AMBComponent {
 						linker.visit(component: subcomp)
 					}
+				}
+				/* Replace global console */
+				if let console = linker.result {
+					super.globalConsole = console
 				}
 			}
 			mDidAlreadyLinked = true
