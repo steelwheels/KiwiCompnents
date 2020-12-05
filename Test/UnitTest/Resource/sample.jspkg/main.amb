@@ -2,6 +2,9 @@ top: VBox {
     text_a: Label {
 	text: String "Label"
     }
+    logo: Image {
+	name: String "logo"
+    }
     terminal_a: Terminal {
 	shell: Shell {
 	}

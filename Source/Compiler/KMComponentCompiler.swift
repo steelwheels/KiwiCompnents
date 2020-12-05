@@ -26,6 +26,24 @@ public class KMComponentCompiler: AMBFrameCompiler
 				return .ok(newcomp)
 			}
 		})
+		manager.addAllocator(className: "Image", allocatorFunc: {
+			(_ robj: AMBReactObject) -> AllocationResult in
+			let newcomp = KMImage()
+			if let err = newcomp.setup(reactObject: robj) {
+				return .error(err)
+			} else {
+				return .ok(newcomp)
+			}
+		})
+		manager.addAllocator(className: "Label", allocatorFunc: {
+			(_ robj: AMBReactObject) -> AllocationResult in
+			let newcomp = KMTextField()
+			if let err = newcomp.setup(reactObject: robj) {
+				return .error(err)
+			} else {
+				return .ok(newcomp)
+			}
+		})
 		manager.addAllocator(className: "VBox", allocatorFunc: {
 			(_ robj: AMBReactObject) -> AllocationResult in
 			let newcomp  = KMStackView()
@@ -48,15 +66,6 @@ public class KMComponentCompiler: AMBFrameCompiler
 		manager.addAllocator(className: "Shell", allocatorFunc: {
 			(_ robj: AMBReactObject) -> AllocationResult in
 			let newcomp = KMShell()
-			if let err = newcomp.setup(reactObject: robj) {
-				return .error(err)
-			} else {
-				return .ok(newcomp)
-			}
-		})
-		manager.addAllocator(className: "Label", allocatorFunc: {
-			(_ robj: AMBReactObject) -> AllocationResult in
-			let newcomp = KMTextField()
 			if let err = newcomp.setup(reactObject: robj) {
 				return .error(err)
 			} else {

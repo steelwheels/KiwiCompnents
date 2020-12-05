@@ -68,6 +68,7 @@ public class KMButton: KCButton, AMBComponent
 		} else {
 			robj.setNumberValue(number: NSNumber(booleanLiteral: self.isEnabled), forProperty: KMButton.IsEnabledItem)
 		}
+
 		/* Add listner: isEnabled */
 		robj.addObserver(forProperty: KMButton.IsEnabledItem, callback: {
 			(_ param: Any) -> Void in

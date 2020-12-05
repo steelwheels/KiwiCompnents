@@ -6,5 +6,8 @@
 	subviews: {
 		button_view:	"button.amb"
 	}
+	images: {
+		logo:		"amber-icon-128x128.png"
+	}
 }
 
