@@ -40,7 +40,7 @@ class ViewController: KMMultiComponentViewController
 		/* Update log level */
 		let _ = KCLogManager.shared
 		let syspref = CNPreference.shared.systemPreference
-		syspref.logLevel = .nolog
+		syspref.logLevel = .detail
 
 		/* add sub view */
 		if let res = self.resource {

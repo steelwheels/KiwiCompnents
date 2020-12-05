@@ -15,6 +15,8 @@ open class KMVisitor
 			visit(textField: txt)
 		} else if let button = comp as? KMButton {
 			visit(button: button)
+		} else if let image = comp as? KMImage {
+			visit(image: image)
 		} else if let stack = comp as? KMStackView {
 			visit(stackView: stack)
 		} else if let term = comp as? KMTerminalView {
@@ -24,8 +26,9 @@ open class KMVisitor
 		}
 	}
 
-	open func visit(textField field: KMTextField){ }
 	open func visit(button view: KMButton){ }
+	open func visit(image view: KMImage){ }
 	open func visit(stackView view: KMStackView){ }
 	open func visit(terminalView view: KMTerminalView){ }
+	open func visit(textField field: KMTextField){ }
 }

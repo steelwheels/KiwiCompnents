@@ -78,5 +78,9 @@ public class KMImage: KCImageView, AMBComponent
 	public func addChild(component comp: AMBComponent) {
 		NSLog("Can not add child components to Button component")
 	}
+
+	public func accept(visitor vst: KMVisitor) {
+		vst.visit(image: self)
+	}
 }
 

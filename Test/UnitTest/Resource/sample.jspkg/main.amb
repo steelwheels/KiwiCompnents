@@ -1,9 +1,11 @@
 top: VBox {
-    text_a: Label {
-	text: String "Label"
-    }
-    logo: Image {
-	name: String "logo"
+    message: HBox {
+	    logo: Image {
+		name: String "logo"
+	    }
+	    text_a: Label {
+		text: String "Label"
+	    }
     }
     terminal_a: Terminal {
 	shell: Shell {

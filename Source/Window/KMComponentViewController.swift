@@ -111,7 +111,8 @@ open class KMComponentViewController: KCSingleViewController
 
 		let terminfo = CNTerminalInfo(width: 80, height: 25)
 		let console  = super.globalConsole
-		let config   = KEConfig(applicationType: .window, doStrict: true, logLevel: .defaultLevel)
+		let loglevel = CNPreference.shared.systemPreference.logLevel
+		let config   = KEConfig(applicationType: .window, doStrict: true, logLevel: loglevel)
 
 		/* Allocate the view state */
 		let viewstate = KMViewState(context: context, viewController: self)
@@ -134,6 +135,12 @@ open class KMComponentViewController: KCSingleViewController
 		switch ambparser.parse(source: script as String) {
 		case .ok(let frm):
 			frame = frm
+			/* dump the frame */
+			if loglevel.isIncluded(in: .detail) {
+				let dumper = AMBFrameDumper()
+				let txt    = dumper.dumpToText(frame: frm)
+				CNLog(logLevel: .detail, text: txt)
+			}
 		case .error(let err):
 			console.error(string: "Error: \(err.toString())\n")
 			return
@@ -148,6 +155,12 @@ open class KMComponentViewController: KCSingleViewController
 		switch ambcompiler.compile(frame: frame, context: context, processManager: procmgr, resource: resource, environment: mEnvironment, config: config, console: console) {
 		case .ok(let comp):
 			topcomp = comp
+			/* dump the component */
+			if loglevel.isIncluded(in: .detail) {
+				let dumper = AMBComponentDumper()
+				let txt    = dumper.dumpToText(component: comp)
+				CNLog(logLevel: .detail, text: txt)
+			}
 		case .error(let err):
 			console.error(string: "Error: \(err.toString())\n")
 			return
@@ -199,6 +212,15 @@ open class KMComponentViewController: KCSingleViewController
 				}
 			}
 			mDidAlreadyLinked = true
+		}
+		/* dump for debug */
+		if CNPreference.shared.systemPreference.logLevel.isIncluded(in: .detail) {
+			if let root = self.rootView {
+				let dumper = KCViewDumper()
+				dumper.dump(view: root)
+			} else {
+				CNLog(logLevel: .error, message: "No root view")
+			}
 		}
 	}
 }
