@@ -48,7 +48,7 @@ public class KMTextField: KCTextField, AMBComponent
 		super.init(coder: coder)
 	}
 
-	public func setup(reactObject robj: AMBReactObject) -> NSError? {
+	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject	= robj
 		
 		/* Sync initial value: text */

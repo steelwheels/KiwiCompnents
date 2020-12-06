@@ -77,13 +77,15 @@ open class KMComponentViewController: KCSingleViewController
 	}
 
 	open override func loadViewContext(rootView root: KCRootView) {
+		let console  = super.globalConsole
+
 		guard let src = mSource else {
-			CNLog(logLevel: .error, message: "No source file\n")
+			console.error(string: "No source file for new view\n")
 			return
 		}
 
 		guard let procmgr = mProcessManager else {
-			CNLog(logLevel: .error, message: "No process manager\n")
+			console.error(string: "No process manager\n")
 			return
 		}
 
@@ -95,7 +97,7 @@ open class KMComponentViewController: KCSingleViewController
 				script		= scr
 				resource	= res
 			} else {
-				CNLog(logLevel: .error, message: "Failed to load main view\n")
+				console.error(string: "Failed to load main view\n")
 				return
 			}
 		case .subView(let res, let name):
@@ -103,16 +105,21 @@ open class KMComponentViewController: KCSingleViewController
 				script		= scr
 				resource	= res
 			} else {
-				CNLog(logLevel: .error, message: "Failed to load sub view named: \(name)\n")
+				console.error(string: "Failed to load sub view named: \(name)\n")
 				return
 			}
 		}
 		mResource = resource
 
 		let terminfo = CNTerminalInfo(width: 80, height: 25)
-		let console  = super.globalConsole
 		let loglevel = CNPreference.shared.systemPreference.logLevel
 		let config   = KEConfig(applicationType: .window, doStrict: true, logLevel: loglevel)
+
+		if config.logLevel.isIncluded(in: .detail) {
+			let txt = resource.toText()
+			console.print(string: "Resource for amber view\n")
+			console.print(string: txt.toStrings(terminal: "").joined(separator: "\n"))
+		}
 
 		/* Allocate the view state */
 		let viewstate = KMViewState(context: context, viewController: self)

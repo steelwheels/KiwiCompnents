@@ -50,7 +50,7 @@ public class KMButton: KCButton, AMBComponent
 		NSLog("Can not add child components to Button component")
 	}
 
-	public func setup(reactObject robj: AMBReactObject) -> NSError? {
+	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject	= robj
 		/* Add callbacks */
 		self.buttonPressedCallback = {

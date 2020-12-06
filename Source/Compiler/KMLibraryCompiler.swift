@@ -47,8 +47,7 @@ public class KMLibraryCompiler
 
 	private func enterParameter(parameter param: JSValue, resource res: KEResource) -> KMSource? {
 		if let paramstr = param.toString() {
-			let subres = res.subset()
-			return .subView(subres, paramstr)
+			return .subView(res, paramstr)
 		} else {
 			return nil
 		}

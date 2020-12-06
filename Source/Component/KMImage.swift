@@ -44,32 +44,34 @@ public class KMImage: KCImageView, AMBComponent
 		super.init(coder: coder)
 	}
 
-	public func setup(reactObject robj: AMBReactObject) -> NSError? {
+	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject	= robj
 
 		/* Sync initial value: name */
 		if let name = robj.stringValue(forProperty: KMImage.NameItem) {
-			setImage(byName: name)
+			setImage(byName: name, console: cons)
 		} else {
 			robj.setStringValue(string: "", forProperty: KMImage.NameItem)
 		}
 
-		/* Add listner: isEnabled */
+		/* Add listner: name */
 		robj.addObserver(forProperty: KMImage.NameItem, callback: {
 			(_ param: Any) -> Void in
 			if let name = robj.stringValue(forProperty: KMImage.NameItem) {
-				self.setImage(byName: name)
+				self.setImage(byName: name, console: cons)
 			} else {
-				NSLog("No name for image")
+				cons.error(string: "No name to load image\n")
 			}
 		})
 
 		return nil
 	}
 
-	private func setImage(byName name: String) {
+	private func setImage(byName name: String, console cons: CNConsole) {
 		if let img = reactObject.resource.loadImage(identifier: name) {
 			super.set(image: img)
+		} else {
+			cons.error(string: "Failed to load image named: \(name)\n")
 		}
 	}
 

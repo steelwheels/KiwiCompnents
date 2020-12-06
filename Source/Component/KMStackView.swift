@@ -47,7 +47,7 @@ public class KMStackView: KCStackView, AMBComponent
 		super.init(coder: coder)
 	}
 
-	public func setup(reactObject robj: AMBReactObject) -> NSError? {
+	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject	= robj
 
 		/* Sync initial value: axis */
@@ -55,7 +55,7 @@ public class KMStackView: KCStackView, AMBComponent
 			if let axisval = CNAxis(rawValue: Int32(val.intValue)) {
 				self.axis = axisval
 			} else {
-				CNLog(logLevel: .error, message: "Invalid raw value for axis: \(val)")
+				cons.error(string: "Invalid raw value for axis: \(val)\n")
 			}
 		} else {
 			robj.setNumberValue(number: NSNumber(value: self.axis.rawValue), forProperty: KMStackView.AxisItem)
@@ -67,7 +67,7 @@ public class KMStackView: KCStackView, AMBComponent
 				if let axisval = CNAxis(rawValue: val.int32Value) {
 					self.axis = axisval
 				} else {
-					CNLog(logLevel: .error, message: "Invalid raw value for axis: \(val)")
+					cons.error(string: "Invalid raw value for axis: \(val)\n")
 				}
 			}
 		})
@@ -77,7 +77,7 @@ public class KMStackView: KCStackView, AMBComponent
 			if let alignval = CNAlignment(rawValue: val.int32Value) {
 				self.alignment = alignval
 			} else {
-				CNLog(logLevel: .error, message: "Invalid raw value for alignment: \(val)")
+				cons.error(string: "Invalid raw value for alignment: \(val)\n")
 			}
 		} else {
 			robj.setNumberValue(number: NSNumber(value: self.alignment.rawValue), forProperty: KMStackView.AlignmentItem)
@@ -89,7 +89,7 @@ public class KMStackView: KCStackView, AMBComponent
 				if let alignval = CNAlignment(rawValue: val.int32Value) {
 					self.alignment = alignval
 				} else {
-					CNLog(logLevel: .error, message: "Invalid raw value for alignment: \(val)")
+					cons.error(string: "Invalid raw value for alignment: \(val)\n")
 				}
 			}
 		})
@@ -99,7 +99,7 @@ public class KMStackView: KCStackView, AMBComponent
 			if let distval = CNDistribution(rawValue: val.int32Value) {
 				self.distribution = distval
 			} else {
-				CNLog(logLevel: .error, message: "Invalid raw value for distribution: \(val)")
+				cons.error(string: "Invalid raw value for distribution: \(val)\n")
 			}
 		} else {
 			robj.setNumberValue(number: NSNumber(value: self.distribution.rawValue), forProperty: KMStackView.DistributionItem)
@@ -111,7 +111,7 @@ public class KMStackView: KCStackView, AMBComponent
 				if let distval = CNDistribution(rawValue: val.int32Value) {
 					self.distribution = distval
 				} else {
-					CNLog(logLevel: .error, message: "Invalid raw value for axis: \(val)")
+					cons.error(string: "Invalid raw value for distribution: \(val)\n")
 				}
 			}
 		})
