@@ -6,41 +6,33 @@
  */
 
 import KiwiEngine
+import KiwiControls
 import CoconutData
 import JavaScriptCore
 import Foundation
 
 @objc public protocol KMViewStateProtocol: JSExport
 {
-	var isActive: JSValue { get }
-	var returnValue: JSValue { get }
+	var isForeground: JSValue { get }
+	var returnValue:  JSValue { get }
 }
 
 @objc public class KMViewState: NSObject, KMViewStateProtocol
 {
 	private var mContext:		KEContext
-	private var mViewController:	KMComponentViewController
+	private var mViewState:		KCSingleViewState
 	private var mReturnValue:	CNNativeValue
 
-	public init(context ctxt: KEContext, viewController vcont: KMComponentViewController) {
+	public init(context ctxt: KEContext, viewState vstate: KCSingleViewState) {
 		mContext	= ctxt
-		mViewController	= vcont
+		mViewState	= vstate
 		mReturnValue	= .nullValue
 	}
 
-	public var isActive: JSValue {
+	public var isForeground: JSValue {
 		get {
-			return JSValue(bool: self.checkActive(), in: mContext)
+			return JSValue(bool: mViewState.isForeground, in: mContext)
 		}
-	}
-
-	private func checkActive() -> Bool {
-		var front: Bool = false
-		CNExecuteInMainThread(doSync: true, execute: {
-			() -> Void in
-			front = self.mViewController.isInFront
-		})
-		return front
 	}
 
 	public func setReturnValue(value val: CNNativeValue) {

@@ -64,10 +64,12 @@ open class KMComponentViewController: KCSingleViewController
 	public var context: KEContext { get { return mContext }}
 
 	public var state: KMViewState {
-		if let state = mViewState {
-			return state
-		} else {
-			fatalError("Uninitialized state")
+		get {
+			if let state = mViewState {
+				return state
+			} else {
+				fatalError("Uninitialized state")
+			}
 		}
 	}
 
@@ -115,14 +117,14 @@ open class KMComponentViewController: KCSingleViewController
 		let loglevel = CNPreference.shared.systemPreference.logLevel
 		let config   = KEConfig(applicationType: .window, doStrict: true, logLevel: loglevel)
 
-		if config.logLevel.isIncluded(in: .detail) {
+		if loglevel.isIncluded(in: .detail) {
 			let txt = resource.toText()
 			console.print(string: "Resource for amber view\n")
 			console.print(string: txt.toStrings(terminal: "").joined(separator: "\n"))
 		}
 
 		/* Allocate the view state */
-		let viewstate = KMViewState(context: context, viewController: self)
+		let viewstate = KMViewState(context: context, viewState: self.viewState)
 		mViewState = viewstate
 
 		/* Compile library */

@@ -3,7 +3,7 @@
  */
 
 function waitUntilActivate() {
-	while(!viewState.isActive){
+	while(!viewState.isForeground){
 		sleep(0.5) ;	// wait 500ms
 	}
 	return viewState.returnValue ;
