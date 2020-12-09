@@ -3,7 +3,7 @@ Allocate new view and switch the current view to it.
 
 ## Prototype
 ````
-enterView(viewName: String) -> Bool
+enterView(viewName: String) -> ViewState
 ````
 
 ## Description
@@ -19,11 +19,24 @@ The parameter can have some different data type to give the location of script f
 |viewName  |String |The name of view component. The name must be define in `subviews` section in the `manifest.json` file.|
 
 ## Return value
-If the entering view is suceeded, the return value will be `true`.
+The instance of [ViewState](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Class/ViewState.md) class.
+It tells the state of new view to caller process.
 
 ## Example
-Here is view transition example:
-![View Transition](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Images/view-transition.png)
+The following script allocate the new view and wait until it is closed.
+````
+/* Allocate new view and get the ViewState object */
+let viewstate = enterView("NewView") ;
+
+/* Wait until the return value is stored */
+while(!viewstate.readyToRun) {
+    sleep(0.5) ;
+}
+
+/* Get the result value from the new view */
+let result = viewState.returnValue ;
+
+````
 
 ## References
 * [Library](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Library.md): Library for GUI programming by Amber.

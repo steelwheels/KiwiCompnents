@@ -27,7 +27,7 @@ open class KMComponentViewController: KCSingleViewController
 {
 	private var mContext:		KEContext
 	private var mSource:		KMSource?
-	private var mViewState:		KMViewState?
+	private var mViewState:		KMViewState
 	private var mProcessManager:	CNProcessManager?
 	private var mResource:		KEResource?
 	private var mEnvironment:	CNEnvironment
@@ -39,7 +39,7 @@ open class KMComponentViewController: KCSingleViewController
 		}
 		mContext		= KEContext(virtualMachine: vm)
 		mSource			= nil
-		mViewState		= nil
+		mViewState		= KMViewState()
 		mProcessManager		= nil
 		mResource		= nil
 		mEnvironment		= CNEnvironment()
@@ -53,7 +53,7 @@ open class KMComponentViewController: KCSingleViewController
 		}
 		mContext		= KEContext(virtualMachine: vm)
 		mSource			= nil
-		mViewState		= nil
+		mViewState		= KMViewState()
 		mProcessManager		= nil
 		mResource		= nil
 		mEnvironment		= CNEnvironment()
@@ -64,13 +64,7 @@ open class KMComponentViewController: KCSingleViewController
 	public var context: KEContext { get { return mContext }}
 
 	public var state: KMViewState {
-		get {
-			if let state = mViewState {
-				return state
-			} else {
-				fatalError("Uninitialized state")
-			}
-		}
+		get { return mViewState }
 	}
 
 	public func setup(source src: KMSource, processManager pmgr: CNProcessManager) {
@@ -122,10 +116,6 @@ open class KMComponentViewController: KCSingleViewController
 			console.print(string: "Resource for amber view\n")
 			console.print(string: txt.toStrings(terminal: "").joined(separator: "\n"))
 		}
-
-		/* Allocate the view state */
-		let viewstate = KMViewState(context: context, viewState: self.viewState)
-		mViewState = viewstate
 
 		/* Compile library */
 		let libcompiler = KLCompiler()

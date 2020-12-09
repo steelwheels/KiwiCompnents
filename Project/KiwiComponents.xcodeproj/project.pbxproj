@@ -68,8 +68,6 @@
 		05A88F1B252B65E80036432D /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
 		05B1AC55257A7A5600A5BF62 /* KMImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B1AC54257A7A5600A5BF62 /* KMImage.swift */; };
 		05B1AC56257A7A5600A5BF62 /* KMImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B1AC54257A7A5600A5BF62 /* KMImage.swift */; };
-		05BFC72B25568D980082E9CC /* viewState.js in Resources */ = {isa = PBXBuildFile; fileRef = 05BFC72A25568D980082E9CC /* viewState.js */; };
-		05BFC72C25568D980082E9CC /* viewState.js in Resources */ = {isa = PBXBuildFile; fileRef = 05BFC72A25568D980082E9CC /* viewState.js */; };
 		05C9034B25609E8200ECDA1E /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
 		05C9034C25609E8200ECDA1E /* Amber.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05CAEB6625445D36002AD83E /* KMLibraryCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CAEB6525445D36002AD83E /* KMLibraryCompiler.swift */; };
@@ -161,7 +159,6 @@
 		059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = KiwiComponents.xcframework; path = ../../../Library/Frameworks/KiwiComponents.xcframework; sourceTree = "<group>"; };
 		05A88F18252B65D60036432D /* Amber.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Amber.xcframework; path = ../../../Library/Frameworks/Amber.xcframework; sourceTree = "<group>"; };
 		05B1AC54257A7A5600A5BF62 /* KMImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMImage.swift; sourceTree = "<group>"; };
-		05BFC72A25568D980082E9CC /* viewState.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = viewState.js; sourceTree = "<group>"; };
 		05CAEB6525445D36002AD83E /* KMLibraryCompiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLibraryCompiler.swift; sourceTree = "<group>"; };
 		05D0CABE252B6AFC0041C196 /* KMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMButton.swift; sourceTree = "<group>"; };
 		05EC69402544629B008932EB /* KMComponentLinker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMComponentLinker.swift; sourceTree = "<group>"; };
@@ -227,7 +224,6 @@
 			isa = PBXGroup;
 			children = (
 				056A6CDE25176B4200E6379D /* Source */,
-				05BFC72825568BBD0082E9CC /* Resource */,
 				059AB1D0251C09C60094B268 /* Test */,
 				056A6CC725176B0C00E6379D /* KiwiComponents_macOS */,
 				056A6CD525176B2C00E6379D /* KiwiComponents_iOS */,
@@ -357,23 +353,6 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		05BFC72825568BBD0082E9CC /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-				05BFC72925568BFD0082E9CC /* Library */,
-			);
-			name = Resource;
-			path = ../Resource;
-			sourceTree = "<group>";
-		};
-		05BFC72925568BFD0082E9CC /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				05BFC72A25568D980082E9CC /* viewState.js */,
-			);
-			path = Library;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -422,7 +401,6 @@
 				056A6CC025176B0C00E6379D /* Headers */,
 				056A6CC125176B0C00E6379D /* Sources */,
 				056A6CC225176B0C00E6379D /* Frameworks */,
-				056A6CC325176B0C00E6379D /* Resources */,
 			);
 			buildRules = (
 			);
@@ -517,19 +495,10 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		056A6CC325176B0C00E6379D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				05BFC72B25568D980082E9CC /* viewState.js in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		056A6CD225176B2C00E6379D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05BFC72C25568D980082E9CC /* viewState.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

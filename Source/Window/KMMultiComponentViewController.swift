@@ -36,23 +36,22 @@ open class KMMultiComponentViewController: KCMultiViewController
 		return KEResource(baseURL: Bundle.main.bundleURL)
 	}
 
-	public func pushViewController(source src: KMSource) {
+	public func pushViewController(source src: KMSource) -> KMViewState {
 		let viewctrl = KMComponentViewController(parentViewController: self)
 		viewctrl.setup(source: src, processManager: mProcessManager)
 		super.pushViewController(viewController: viewctrl)
+		return viewctrl.state
 	}
 
 	public func popViewController(returnValue retval: CNNativeValue) -> Bool {
-		if super.popViewController() {
-			if let curview = super.currentViewController() as? KMComponentViewController {
-				curview.state.setReturnValue(value: retval)
-			} else {
-				NSLog("Error: Unexpected object")
-			}
-			return true
+		/* Set return value */
+		if let view = super.currentViewController() as? KMComponentViewController {
+			view.state.setReturnValue(value: retval)
 		} else {
-			return false
+			NSLog("No view to return the value")
 		}
+		/* Pop the view */
+		return super.popViewController()
 	}
 }
 

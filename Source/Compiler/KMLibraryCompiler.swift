@@ -16,7 +16,6 @@ public class KMLibraryCompiler
 	public func compile(context ctxt: KEContext, viewController vcont: KMComponentViewController, resource res: KEResource, processManager procmgr: CNProcessManager, console cons: CNFileConsole, environment env: CNEnvironment, config conf: KEConfig) -> Bool {
 		defineComponentFuntion(context: ctxt, viewController: vcont, resource: res)
 		defineThreadFunction(context: ctxt, viewController: vcont, resource: res, processManager: procmgr, environment: env, console: cons, config: conf)
-		compileLibraryFiles(context: ctxt, viewController: vcont, console: cons)
 		return true
 	}
 
@@ -24,14 +23,15 @@ public class KMLibraryCompiler
 		/* enterView function */
 		let enterfunc: @convention(block) (_ pathval: JSValue) -> JSValue = {
 			(_ paramval: JSValue) -> JSValue in
-			let result: JSValue
 			if let src = self.enterParameter(parameter: paramval, resource: res) {
-				self.enterView(viewController: vcont, source: src)
-				result = JSValue(bool: true, in: ctxt)
-			} else {
-				result = JSValue(bool: false, in: ctxt)
+				if let vstate = self.enterView(viewController: vcont, source: src) {
+					let vobj = KMViewStateValue(context: ctxt, viewState: vstate)
+					return JSValue(object: vobj, in: ctxt)
+				} else {
+					NSLog("No view state")
+				}
 			}
-			return result
+			return JSValue(nullIn: ctxt)
 		}
 		ctxt.set(name: "enterView", function: enterfunc)
 
@@ -53,15 +53,17 @@ public class KMLibraryCompiler
 		}
 	}
 
-	private func enterView(viewController vcont: KMComponentViewController, source src: KMSource)  {
+	private func enterView(viewController vcont: KMComponentViewController, source src: KMSource) -> KMViewState? {
+		var vstate: KMViewState? = nil
 		CNExecuteInMainThread(doSync: true, execute: {
 			() -> Void in
 			if let parent = vcont.parent as? KMMultiComponentViewController {
-				parent.pushViewController(source: src)
+				vstate = parent.pushViewController(source: src)
 			} else {
 				NSLog("[Error] No parent controller")
 			}
 		})
+		return vstate
 	}
 
 	private func leaveView(viewController vcont: KMComponentViewController, returnValue retval: CNNativeValue) {
@@ -120,27 +122,5 @@ public class KMLibraryCompiler
 			}
 		}
 		return nil
-	}
-
-	private func compileLibraryFiles(context ctxt: KEContext, viewController vcont: KMComponentViewController, console cons: CNFileConsole) {
-		/* Define global */
-		ctxt.set(name: "viewState", object: vcont.state)
-		
-		/* Load files*/
-		switch CNFilePath.URLsForResourceFiles(fileExtension: "js", subdirectory: nil, forClass: KMLibraryCompiler.self) {
-		case .ok(let urls):
-			for url in urls {
-				if let script = url.loadContents() {
-					/* Compile the script */
-					ctxt.evaluateScript(script as String)
-				} else {
-					cons.error(string: "Failed to compile: \(url.absoluteString)")
-				}
-			}
-		case .error(let err):
-			cons.error(string: "[Error] \(err.toString())\n")
-		@unknown default:
-			cons.error(string: "[Error] Unexpected case\n")
-		}
 	}
 }
