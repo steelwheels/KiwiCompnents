@@ -72,17 +72,17 @@ open class KMComponentViewController: KCSingleViewController
 		mProcessManager	= pmgr
 	}
 
-	open override func loadViewContext(rootView root: KCRootView) {
+	open override func loadContext() -> KCView? {
 		let console  = super.globalConsole
 
 		guard let src = mSource else {
 			console.error(string: "No source file for new view\n")
-			return
+			return nil
 		}
 
 		guard let procmgr = mProcessManager else {
 			console.error(string: "No process manager\n")
-			return
+			return nil
 		}
 
 		let script:	String
@@ -94,7 +94,7 @@ open class KMComponentViewController: KCSingleViewController
 				resource	= res
 			} else {
 				console.error(string: "Failed to load main view\n")
-				return
+				return nil
 			}
 		case .subView(let res, let name):
 			if let scr = res.loadSubview(identifier: name) {
@@ -102,7 +102,7 @@ open class KMComponentViewController: KCSingleViewController
 				resource	= res
 			} else {
 				console.error(string: "Failed to load sub view named: \(name)\n")
-				return
+				return nil
 			}
 		}
 		mResource = resource
@@ -121,11 +121,11 @@ open class KMComponentViewController: KCSingleViewController
 		let libcompiler = KLCompiler()
 		guard libcompiler.compileBase(context: mContext, terminalInfo: terminfo, environment: mEnvironment, console: console, config: config) else {
 			console.error(string: "Failed to compile base\n")
-			return
+			return nil
 		}
 		guard libcompiler.compileLibrary(context: mContext, resource: resource, processManager: procmgr, environment: mEnvironment, console: console, config: config) else {
 			console.error(string: "Failed to compile library\n")
-			return
+			return nil
 		}
 
 		/* Compile the Amber script */
@@ -143,10 +143,10 @@ open class KMComponentViewController: KCSingleViewController
 			}
 		case .error(let err):
 			console.error(string: "Error: \(err.toString())\n")
-			return
+			return nil
 		@unknown default:
 			console.error(string: "Error: Unknown switch condition (1)\n")
-			return
+			return nil
 		}
 
 		/* Allocate the component */
@@ -164,25 +164,49 @@ open class KMComponentViewController: KCSingleViewController
 			}
 		case .error(let err):
 			console.error(string: "Error: \(err.toString())\n")
-			return
+			return nil
 		@unknown default:
 			console.error(string: "Error: Unknown switch condition (2)\n")
-			return
+			return nil
 		}
 
 		/* Compile library for component*/
 		let alibcompiler = KMLibraryCompiler()
 		guard alibcompiler.compile(context: mContext, viewController: self, resource: resource, processManager: procmgr, console: console, environment: mEnvironment, config: config) else {
 			console.error(string: "Error: Failed to compile\n")
-			return
+			return nil
 		}
 
 		/* Setup root view*/
-		if let view = topcomp as? KCView {
-			root.setup(childView: view)
-		} else {
-			console.error(string: "Component is NOT view\n")
+		return topcomp as? KCView
+	}
+
+	open override func errorContext() -> KCView {
+		let box = KCStackView()
+		box.axis = .vertical
+
+		let message = KCTextField()
+		message.text = "Failed to load context"
+		box.addArrangedSubView(subView: message)
+
+		let button = KCButton()
+		button.title = "Continue"
+		button.buttonPressedCallback = {
+			() -> Void in
+			let cons  = super.globalConsole
+			if let parent = self.parentController as? KMMultiComponentViewController {
+				if parent.popViewController(returnValue: .nullValue) {
+					cons.error(string: "Force to return previous view\n")
+				} else {
+					cons.error(string: "Failed to pop view\n")
+				}
+			} else {
+				cons.error(string: "No parent controller\n")
+			}
 		}
+		box.addArrangedSubView(subView: button)
+
+		return box
 	}
 
 	#if os(OSX)

@@ -44,7 +44,7 @@ class ViewController: KMMultiComponentViewController
 
 		/* add sub view */
 		if let res = self.resource {
-			super.pushViewController(source: .mainView(res))
+			let _ = super.pushViewController(source: .mainView(res))
 		} else {
 			NSLog("Failed to get resource")
 		}
