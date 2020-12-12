@@ -136,9 +136,10 @@ open class KMComponentViewController: KCSingleViewController
 			frame = frm
 			/* dump the frame */
 			if loglevel.isIncluded(in: .detail) {
+				console.print(string: "[Output of Amber Parser]\n")
 				let dumper = AMBFrameDumper()
 				let txt    = dumper.dumpToText(frame: frm)
-				CNLog(logLevel: .detail, text: txt)
+				txt.print(console: console, terminal: "")
 			}
 		case .error(let err):
 			console.error(string: "Error: \(err.toString())\n")
@@ -156,9 +157,10 @@ open class KMComponentViewController: KCSingleViewController
 			topcomp = comp
 			/* dump the component */
 			if loglevel.isIncluded(in: .detail) {
+				console.print(string: "[Output of Amber Compiler]\n")
 				let dumper = AMBComponentDumper()
 				let txt    = dumper.dumpToText(component: comp)
-				CNLog(logLevel: .detail, text: txt)
+				txt.print(console: console, terminal: "")
 			}
 		case .error(let err):
 			console.error(string: "Error: \(err.toString())\n")
@@ -214,11 +216,12 @@ open class KMComponentViewController: KCSingleViewController
 		}
 		/* dump for debug */
 		if CNPreference.shared.systemPreference.logLevel.isIncluded(in: .detail) {
+			let cons  = super.globalConsole
 			if let root = self.rootView {
 				let dumper = KCViewDumper()
-				dumper.dump(view: root)
+				dumper.dump(view: root, console: cons)
 			} else {
-				CNLog(logLevel: .error, message: "No root view")
+				cons.error(string: "No root view")
 			}
 		}
 	}
