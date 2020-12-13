@@ -8,11 +8,8 @@ This document describes list of classes and functions for component programming.
 * [Button](components/button.md): The press button
 * [Label](components/label.md): The text field
 
-### Classes
-* [viewState](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/viewState.md): The result value of `enterView` function. This object tell the state of new view to the caller process.
-
 ### Functions
-* [enterView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/enterView.md): Allocate new view and move to it. The return value is `ViewState` object.
+* [enterView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/enterView.md): Allocate new view and move to it. 
 * [leaveView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/leaveView.md): Return to the previous view with some return values.
 
 ## References
