@@ -27,7 +27,6 @@ open class KMComponentViewController: KCSingleViewController
 {
 	private var mContext:		KEContext
 	private var mSource:		KMSource?
-	private var mViewState:		KMViewState
 	private var mProcessManager:	CNProcessManager?
 	private var mResource:		KEResource?
 	private var mEnvironment:	CNEnvironment
@@ -39,7 +38,6 @@ open class KMComponentViewController: KCSingleViewController
 		}
 		mContext		= KEContext(virtualMachine: vm)
 		mSource			= nil
-		mViewState		= KMViewState()
 		mProcessManager		= nil
 		mResource		= nil
 		mEnvironment		= CNEnvironment()
@@ -53,7 +51,6 @@ open class KMComponentViewController: KCSingleViewController
 		}
 		mContext		= KEContext(virtualMachine: vm)
 		mSource			= nil
-		mViewState		= KMViewState()
 		mProcessManager		= nil
 		mResource		= nil
 		mEnvironment		= CNEnvironment()
@@ -62,10 +59,6 @@ open class KMComponentViewController: KCSingleViewController
 	}
 
 	public var context: KEContext { get { return mContext }}
-
-	public var state: KMViewState {
-		get { return mViewState }
-	}
 
 	public func setup(source src: KMSource, processManager pmgr: CNProcessManager) {
 		mSource		= src
@@ -185,7 +178,8 @@ open class KMComponentViewController: KCSingleViewController
 		let box = KCStackView()
 		box.axis = .vertical
 
-		let message = KCTextField()
+		let message  = KCTextEdit()
+		message.mode = .view
 		message.text = "Failed to load context"
 		box.addArrangedSubView(subView: message)
 

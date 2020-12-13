@@ -24,7 +24,7 @@ public class KMComponentLinker: KMVisitor
 
 	public var result: CNFileConsole? { get { return mFileConsole }}
 
-	public override func visit(textField view: KMTextField){
+	public override func visit(textEdit view: KMTextEdit){
 		/* Do nothing */
 	}
 

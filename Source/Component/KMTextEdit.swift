@@ -1,6 +1,6 @@
 /**
- * @file	KMTextField.swift
- * @brief	Define KMTextField class
+ * @file	KMTextEdit.swift
+ * @brief	Define KMTextEdit class
  * @par Copyright
  *   Copyright (C) 2020 Steel Wheels Project
  */
@@ -14,7 +14,7 @@ import Foundation
 import UIKit
 #endif
 
-public class KMTextField: KCTextField, AMBComponent
+public class KMTextEdit: KCTextEdit, AMBComponent
 {
 	public static let TextItem		= "text"
 
@@ -52,16 +52,16 @@ public class KMTextField: KCTextField, AMBComponent
 		mReactObject	= robj
 		
 		/* Sync initial value: text */
-		if let val = robj.stringValue(forProperty: KMTextField.TextItem) {
+		if let val = robj.stringValue(forProperty: KMTextEdit.TextItem) {
 			super.text = val
 		} else {
-			robj.setStringValue(string: self.text, forProperty: KMTextField.TextItem)
+			robj.setStringValue(string: self.text, forProperty: KMTextEdit.TextItem)
 		}
 		return nil
 	}
 
 	public func accept(visitor vst: KMVisitor) {
-		vst.visit(textField: self)
+		vst.visit(textEdit: self)
 	}
 
 	public func addChild(component comp: AMBComponent) {

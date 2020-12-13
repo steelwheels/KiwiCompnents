@@ -3,8 +3,8 @@ top: VBox {
 	    logo: Image {
 		name: String "logo"
 	    }
-	    text_a: Label {
-		text: String "Label"
+	    text_a: TextField {
+		text: String "This is text field"
 	    }
     }
     terminal_a: Terminal {
@@ -14,13 +14,10 @@ top: VBox {
     button_a: Button {
         title:  String "Go to Second"
         pressed: Event() %{
-		console.log("launch second view .. start") ;
-		console.log("state (before) ... " + viewState.isActive) ;
-		enterView("button_view") ;
-
-		let retval = waitUntilActivate() ;
-		console.log("state (after ) ... " + viewState.isActive) ;
-		console.log("return value   ... " + retval) ;
+		console.log("launch button view .. start") ;
+		enterView("button_view", function(val){
+			console.log("button_view is closed: " + val) ;
+		}) ;
         %}
     }
 }

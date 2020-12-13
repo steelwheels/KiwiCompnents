@@ -40,11 +40,21 @@ class ViewController: KMMultiComponentViewController
 		/* Update log level */
 		let _ = KCLogManager.shared
 		let syspref = CNPreference.shared.systemPreference
-		syspref.logLevel = .detail
+		syspref.logLevel = .debug
 
 		/* add sub view */
 		if let res = self.resource {
-			let _ = super.pushViewController(source: .mainView(res))
+			let callback: KMMultiComponentViewController.ViewSwitchCallback = {
+				(_ val: CNNativeValue) -> Void in
+				let msg: String
+				if let str = val.toString() {
+					msg = str
+				} else {
+					msg = "<unknown>"
+				}
+				NSLog("original view controller is poped: \(msg)")
+			}
+			let _ = super.pushViewController(source: .mainView(res), callback: callback)
 		} else {
 			NSLog("Failed to get resource")
 		}

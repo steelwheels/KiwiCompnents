@@ -47,7 +47,8 @@ public class KMComponentCompiler: AMBFrameCompiler
 		})
 		manager.addAllocator(className: "Label", allocatorFunc: {
 			(_ robj: AMBReactObject, _ cons: CNConsole) -> AllocationResult in
-			let newcomp = KMTextField()
+			let newcomp = KMTextEdit()
+			newcomp.mode = .label
 			if let err = newcomp.setup(reactObject: robj, console: cons) {
 				return .error(err)
 			} else {
@@ -66,6 +67,16 @@ public class KMComponentCompiler: AMBFrameCompiler
 		manager.addAllocator(className: "Terminal", allocatorFunc: {
 			(_ robj: AMBReactObject, _ cons: CNConsole) -> AllocationResult in
 			let newcomp  = KMTerminalView()
+			if let err = newcomp.setup(reactObject: robj, console: cons) {
+				return .error(err)
+			} else {
+				return .ok(newcomp)
+			}
+		})
+		manager.addAllocator(className: "TextField", allocatorFunc: {
+			(_ robj: AMBReactObject, _ cons: CNConsole) -> AllocationResult in
+			let newcomp = KMTextEdit()
+			newcomp.mode = .view
 			if let err = newcomp.setup(reactObject: robj, console: cons) {
 				return .error(err)
 			} else {

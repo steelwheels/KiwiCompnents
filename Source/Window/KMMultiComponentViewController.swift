@@ -12,6 +12,8 @@ import Foundation
 
 open class KMMultiComponentViewController: KCMultiViewController
 {
+	public typealias ViewSwitchCallback = KCMultiViewController.ViewSwitchCallback
+
 	private enum Context {
 		case	context(KEContext)
 		case	none
@@ -36,22 +38,15 @@ open class KMMultiComponentViewController: KCMultiViewController
 		return KEResource(baseURL: Bundle.main.bundleURL)
 	}
 
-	public func pushViewController(source src: KMSource) -> KMViewState {
+	public func pushViewController(source src: KMSource, callback cbfunc: @escaping ViewSwitchCallback) {
 		let viewctrl = KMComponentViewController(parentViewController: self)
 		viewctrl.setup(source: src, processManager: mProcessManager)
-		super.pushViewController(viewController: viewctrl)
-		return viewctrl.state
+		super.pushViewController(viewController: viewctrl, callback: cbfunc)
 	}
 
-	public func popViewController(returnValue retval: CNNativeValue) -> Bool {
-		/* Set return value */
-		if let view = super.currentViewController() as? KMComponentViewController {
-			view.state.setReturnValue(value: retval)
-		} else {
-			NSLog("No view to return the value")
-		}
+	public override func popViewController(returnValue retval: CNNativeValue) -> Bool {
 		/* Pop the view */
-		return super.popViewController()
+		return super.popViewController(returnValue: retval)
 	}
 }
 

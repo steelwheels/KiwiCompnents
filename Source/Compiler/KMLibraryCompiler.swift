@@ -21,17 +21,12 @@ public class KMLibraryCompiler
 
 	private func defineComponentFuntion(context ctxt: KEContext, viewController vcont: KMComponentViewController, resource res: KEResource) {
 		/* enterView function */
-		let enterfunc: @convention(block) (_ pathval: JSValue) -> JSValue = {
-			(_ paramval: JSValue) -> JSValue in
+		let enterfunc: @convention(block) (_ pathval: JSValue, _ cbfunc: JSValue) -> JSValue = {
+			(_ paramval: JSValue, _ cbfunc: JSValue) -> JSValue in
 			if let src = self.enterParameter(parameter: paramval, resource: res) {
-				if let vstate = self.enterView(viewController: vcont, source: src) {
-					let vobj = KMViewStateValue(context: ctxt, viewState: vstate)
-					return JSValue(object: vobj, in: ctxt)
-				} else {
-					NSLog("No view state")
-				}
+				self.enterView(viewController: vcont, context: ctxt, source: src, callback: cbfunc)
 			}
-			return JSValue(nullIn: ctxt)
+			return JSValue(undefinedIn: ctxt)
 		}
 		ctxt.set(name: "enterView", function: enterfunc)
 
@@ -53,17 +48,19 @@ public class KMLibraryCompiler
 		}
 	}
 
-	private func enterView(viewController vcont: KMComponentViewController, source src: KMSource) -> KMViewState? {
-		var vstate: KMViewState? = nil
+	private func enterView(viewController vcont: KMComponentViewController, context ctxt: KEContext, source src: KMSource, callback cbfunc: JSValue) {
 		CNExecuteInMainThread(doSync: true, execute: {
 			() -> Void in
 			if let parent = vcont.parent as? KMMultiComponentViewController {
-				vstate = parent.pushViewController(source: src)
+				let vcallback: KMMultiComponentViewController.ViewSwitchCallback = {
+					(_ val: CNNativeValue) -> Void in
+					cbfunc.call(withArguments: [val.toJSValue(context: ctxt)])
+				}
+				parent.pushViewController(source: src, callback: vcallback)
 			} else {
 				NSLog("[Error] No parent controller")
 			}
 		})
-		return vstate
 	}
 
 	private func leaveView(viewController vcont: KMComponentViewController, returnValue retval: CNNativeValue) {

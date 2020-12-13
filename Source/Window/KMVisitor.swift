@@ -11,8 +11,8 @@ import CoconutData
 open class KMVisitor
 {
 	public func visit(component comp: AMBComponent) {
-		if let txt = comp as? KMTextField {
-			visit(textField: txt)
+		if let txt = comp as? KMTextEdit {
+			visit(textEdit: txt)
 		} else if let button = comp as? KMButton {
 			visit(button: button)
 		} else if let image = comp as? KMImage {
@@ -30,5 +30,5 @@ open class KMVisitor
 	open func visit(image view: KMImage){ }
 	open func visit(stackView view: KMStackView){ }
 	open func visit(terminalView view: KMTerminalView){ }
-	open func visit(textField field: KMTextField){ }
+	open func visit(textEdit field: KMTextEdit){ }
 }
