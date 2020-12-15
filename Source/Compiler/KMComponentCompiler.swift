@@ -76,7 +76,7 @@ public class KMComponentCompiler: AMBFrameCompiler
 		manager.addAllocator(className: "TextField", allocatorFunc: {
 			(_ robj: AMBReactObject, _ cons: CNConsole) -> AllocationResult in
 			let newcomp = KMTextEdit()
-			newcomp.mode = .view
+			newcomp.mode = .view(40)
 			if let err = newcomp.setup(reactObject: robj, console: cons) {
 				return .error(err)
 			} else {
