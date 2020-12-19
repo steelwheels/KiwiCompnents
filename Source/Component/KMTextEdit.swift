@@ -57,6 +57,13 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 		} else {
 			robj.setStringValue(string: self.text, forProperty: KMTextEdit.TextItem)
 		}
+		/* Add listner: text */
+		robj.addObserver(forProperty: KMTextEdit.TextItem, callback: {
+			(_ param: Any) -> Void in
+			if let val = robj.stringValue(forProperty: KMTextEdit.TextItem) {
+				self.text = val
+			}
+		})
 		return nil
 	}
 
