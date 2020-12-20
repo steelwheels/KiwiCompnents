@@ -17,6 +17,7 @@ import UIKit
 public class KMTextEdit: KCTextEdit, AMBComponent
 {
 	public static let TextItem		= "text"
+	public static let IsBezeledItem		= "isBezeled"
 
 	private var mReactObject:	AMBReactObject?
 	private var mChildComponents:	Array<AMBComponent>
@@ -51,19 +52,32 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject	= robj
 		
-		/* Sync initial value: text */
+		/* Setup: text */
 		if let val = robj.stringValue(forProperty: KMTextEdit.TextItem) {
 			super.text = val
 		} else {
 			robj.setStringValue(string: self.text, forProperty: KMTextEdit.TextItem)
 		}
-		/* Add listner: text */
 		robj.addObserver(forProperty: KMTextEdit.TextItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.stringValue(forProperty: KMTextEdit.TextItem) {
 				self.text = val
 			}
 		})
+
+		/* Setup: isBezeled */
+		if let val = robj.boolValue(forProperty: KMTextEdit.IsBezeledItem) {
+			super.isBezeled = val
+		} else {
+			robj.setBoolValue(value: super.isBezeled, forProperty: KMTextEdit.IsBezeledItem)
+		}
+		robj.addObserver(forProperty: KMTextEdit.IsBezeledItem, callback: {
+			(_ param: Any) -> Void in
+			if let val = robj.boolValue(forProperty: KMTextEdit.IsBezeledItem) {
+				super.isBezeled = val
+			}
+		})
+
 		return nil
 	}
 

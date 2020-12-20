@@ -17,7 +17,7 @@ import UIKit
 public class KMButton: KCButton, AMBComponent
 {
 	static let PressedItem		= "pressed"
-	static let IsEnabledItem	= "enabled"
+	static let IsEnabledItem	= "isEnabled"
 	static let TitleItem		= "title"
 
 	private var mReactObject:	AMBReactObject?
@@ -63,17 +63,17 @@ public class KMButton: KCButton, AMBComponent
 		}
 
 		/* Sync initial value: isEnabled */
-		if let val = robj.numberValue(forProperty: KMButton.IsEnabledItem) {
-			self.isEnabled = val.boolValue
+		if let val = robj.boolValue(forProperty: KMButton.IsEnabledItem) {
+			self.isEnabled = val
 		} else {
-			robj.setNumberValue(number: NSNumber(booleanLiteral: self.isEnabled), forProperty: KMButton.IsEnabledItem)
+			robj.setBoolValue(value: self.isEnabled, forProperty: KMButton.IsEnabledItem)
 		}
 
 		/* Add listner: isEnabled */
 		robj.addObserver(forProperty: KMButton.IsEnabledItem, callback: {
 			(_ param: Any) -> Void in
-			if let val = robj.numberValue(forProperty: KMButton.IsEnabledItem) {
-				self.isEnabled = val.boolValue
+			if let val = robj.boolValue(forProperty: KMButton.IsEnabledItem) {
+				self.isEnabled = val
 			}
 		})
 
