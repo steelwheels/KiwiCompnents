@@ -4,9 +4,9 @@
 This document describes list of classes and functions for component programming.
 
 ### Components
-* [Box](components/box.md): The box to contain multiple modules vertically or holizontaly.
-* [Button](components/button.md): The press button
-* [Label](components/label.md): The text field
+* [Box](Components/Box.md): The box to contain multiple modules vertically or holizontaly.
+* [Button](Components/Button.md): The press button
+* [TextField](Components/TextField.md): The text field
 
 ### Functions
 * [enterView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/enterView.md): Allocate new view and move to it. 

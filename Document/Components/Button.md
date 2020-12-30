@@ -12,3 +12,8 @@ button_a Button : {
 }
 ````
 
+## Reference
+* [README](https://github.com/steelwheels/KiwiCompnents): Top page of KiwiComponents project.
+* [Steel Wheels Project](https://steelwheels.github.io): Developer's web site
+
+

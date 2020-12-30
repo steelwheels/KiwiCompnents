@@ -18,6 +18,7 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 {
 	public static let TextItem		= "text"
 	public static let IsBezeledItem		= "isBezeled"
+	public static let FontSizeItem		= "fontSize"
 
 	private var mReactObject:	AMBReactObject?
 	private var mChildComponents:	Array<AMBComponent>
@@ -78,6 +79,19 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 			}
 		})
 
+		/* Setup: fontSize */
+		if let val = robj.int32Value(forProperty: KMTextEdit.FontSizeItem) {
+			super.font = CNFont.systemFont(ofSize: CGFloat(val))
+		} else {
+			let val = Int32(CNFont.systemFontSize)
+			robj.setInt32Value(value: val, forProperty: KMTextEdit.FontSizeItem)
+		}
+		robj.addObserver(forProperty: KMTextEdit.FontSizeItem, callback: {
+			(_ param: Any) -> Void in
+			if let val = robj.int32Value(forProperty: KMTextEdit.FontSizeItem) {
+				super.font = CNFont.systemFont(ofSize: CGFloat(val))
+			}
+		})
 		return nil
 	}
 
