@@ -1,23 +1,37 @@
 top: VBox {
     message: HBox {
 	    logo: Image {
-		name: String "logo"
+			name: String "logo"
 	    }
 	    text_a: TextField {
-		text: String "This is text field"
+			text: String "This is text field"
 	    }
     }
+	boxes: HBox {
+		checkBox0: CheckBox {
+			title:	String "option-0"
+			checked: Event(status: Bool) %{
+				console.log("option-0: " + status) ;
+			%}
+		}
+		checkBox1: CheckBox {
+			title:	String "option-1"
+			checked: Event(status: Bool) %{
+				console.log("option-1: " + status) ;
+			%}
+		}
+    }
     terminal_a: Terminal {
-	shell: Shell {
-	}
+		shell: Shell {
+		}
     }
     button_a: Button {
         title:  String "Go to Second"
         pressed: Event() %{
-		console.log("launch button view .. start") ;
-		enterView("button_view", function(val){
-			console.log("button_view is closed: " + val) ;
-		}) ;
+			console.log("launch button view .. start") ;
+			enterView("button_view", function(val){
+				console.log("button_view is closed: " + val) ;
+			}) ;
         %}
     }
 }

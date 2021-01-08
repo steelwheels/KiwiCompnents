@@ -26,6 +26,15 @@ public class KMComponentCompiler: AMBFrameCompiler
 				return .ok(newcomp)
 			}
 		})
+		manager.addAllocator(className: "CheckBox", allocatorFunc: {
+			(_ robj: AMBReactObject, _ cons: CNConsole) -> AllocationResult in
+			let newcomp = KMCheckBox()
+			if let err = newcomp.setup(reactObject: robj, console: cons) {
+				return .error(err)
+			} else {
+				return .ok(newcomp)
+			}
+		})
 		manager.addAllocator(className: "HBox", allocatorFunc: {
 			(_ robj: AMBReactObject, _ cons: CNConsole) -> AllocationResult in
 			let newcomp  = KMStackView()

@@ -32,6 +32,10 @@ public class KMComponentLinker: KMVisitor
 		/* Do nothing */
 	}
 
+	public override func visit(checkBox view: KMCheckBox){
+		/* Do nothing */
+	}
+
 	public override func visit(image view: KMImage){
 		/* Do nothing */
 	}
