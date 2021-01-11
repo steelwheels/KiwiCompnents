@@ -51,7 +51,7 @@ public class KMAlert
 		case .OK:	result = true
 		case .Cancel:	result = false
 		@unknown default:
-			NSLog("Unknown runModal result")
+			CNLog(logLevel: .error, message: "Unknown runModal result")
 			result = false
 		}
 		return result

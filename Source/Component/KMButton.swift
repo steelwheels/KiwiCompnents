@@ -47,7 +47,7 @@ public class KMButton: KCButton, AMBComponent
 
 	public var children: Array<AMBComponent> { get { return [] }}
 	public func addChild(component comp: AMBComponent) {
-		NSLog("Can not add child components to Button component")
+		CNLog(logLevel: .error, message: "Can not add child components to Button component")
 	}
 
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
@@ -81,7 +81,7 @@ public class KMButton: KCButton, AMBComponent
 		if let val = robj.stringValue(forProperty: KMButton.TitleItem) {
 			self.title = val
 		} else {
-			robj.setStringValue(string: self.title, forProperty: KMButton.TitleItem)
+			robj.setStringValue(value: self.title, forProperty: KMButton.TitleItem)
 		}
 		/* Add listner: title */
 		robj.addObserver(forProperty: KMButton.TitleItem, callback: {

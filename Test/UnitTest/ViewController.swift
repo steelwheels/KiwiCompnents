@@ -21,15 +21,14 @@ class ViewController: KMMultiComponentViewController
 			let resource = KEResource.init(baseURL: URL(fileURLWithPath: path))
 			let loader   = KEManifestLoader()
 			if let err = loader.load(into: resource) {
-				NSLog("Failed to load contents of sample.jspkg: \(err.toString())")
+				CNLog(logLevel: .error, message: "Failed to load contents of sample.jspkg: \(err.toString())")
 			}
-
-			NSLog("resource:")
-			let txt = resource.toText().toStrings(terminal: "")
-			NSLog(txt.joined(separator: "\n"))
+			//NSLog("resource:")
+			//let txt = resource.toText().toStrings(terminal: "")
+			//NSLog(txt.joined(separator: "\n"))
 			return resource
 		} else {
-			NSLog("Failed to load sample.jspkg")
+			CNLog(logLevel: .error, message: "Failed to load sample.jspkg")
 			return super.loadResource()
 		}
 	}
@@ -52,11 +51,11 @@ class ViewController: KMMultiComponentViewController
 				} else {
 					msg = "<unknown>"
 				}
-				NSLog("original view controller is poped: \(msg)")
+				CNLog(logLevel: .detail, message: "original view controller is poped: \(msg)")
 			}
 			let _ = super.pushViewController(source: .mainView(res), callback: callback)
 		} else {
-			NSLog("Failed to get resource")
+			CNLog(logLevel: .error, message: "Failed to get resource")
 		}
 	}
 }

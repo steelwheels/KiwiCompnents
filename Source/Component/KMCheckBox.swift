@@ -19,7 +19,7 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 {
 	static let StatusItem		= "status"
 	static let IsEnabledItem	= "isEnabled"
-	static let CheckedItem		= "checked"
+	static let PressedItem		= "pressed"
 	static let TitleItem		= "title"
 
 	private var mReactObject:	AMBReactObject?
@@ -52,7 +52,20 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 		mReactObject	= robj
 
 		/* Sync initial value: status */
-		robj.setBoolValue(value: self.status, forProperty: KMCheckBox.StatusItem)
+		if let val = robj.boolValue(forProperty: KMCheckBox.StatusItem) {
+			self.status = val
+		} else {
+			robj.setBoolValue(value: self.status, forProperty: KMCheckBox.StatusItem)
+		}
+		/* Add listner: status */
+		robj.addObserver(forProperty: KMCheckBox.StatusItem, callback: {
+			(_ param: Any) -> Void in
+			if let val = robj.boolValue(forProperty: KMCheckBox.StatusItem) {
+				if self.status != val {
+					self.status = val
+				}
+			}
+		})
 
 		/* Sync initial value: isEnabled */
 		if let val = robj.boolValue(forProperty: KMCheckBox.IsEnabledItem) {
@@ -60,19 +73,36 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 		} else {
 			robj.setBoolValue(value: self.isEnabled, forProperty: KMCheckBox.IsEnabledItem)
 		}
+		/* Add listner: isEnabled */
+		robj.addObserver(forProperty: KMCheckBox.IsEnabledItem, callback: {
+			(_ param: Any) -> Void in
+			if let val = robj.boolValue(forProperty: KMCheckBox.IsEnabledItem) {
+				if self.isEnabled != val {
+					self.isEnabled = val
+				}
+			}
+		})
 
 		/* Sync initial value: title */
 		if let val = robj.stringValue(forProperty: KMCheckBox.TitleItem) {
 			self.title = val
 		} else {
-			robj.setStringValue(string: self.title, forProperty: KMCheckBox.TitleItem)
+			robj.setStringValue(value: self.title, forProperty: KMCheckBox.TitleItem)
 		}
+		/* Add listner: title */
+		robj.addObserver(forProperty: KMCheckBox.TitleItem, callback: {
+			(_ param: Any) -> Void in
+			if let val = robj.stringValue(forProperty: KMCheckBox.TitleItem) {
+				self.title = val
+			}
+		})
 
 		/* Add callback */
 		super.checkUpdatedCallback = {
-			(_ status: Bool) -> Void in
-			if let evtval = robj.immediateValue(forProperty: KMCheckBox.CheckedItem) {
-				if let statval = JSValue(bool: status, in: robj.context) {
+			(_ stat: Bool) -> Void in
+			if let evtval = robj.immediateValue(forProperty: KMCheckBox.PressedItem) {
+				robj.setBoolValue(value: stat, forProperty: KMCheckBox.StatusItem)
+				if let statval = JSValue(bool: stat, in: robj.context) {
 					DispatchQueue.global().async {
 						evtval.call(withArguments: [robj, statval])	// insert self
 					}
@@ -81,6 +111,7 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 				}
 			}
 		}
+
 		return nil
 	}
 

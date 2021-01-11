@@ -51,7 +51,7 @@ public class KMImage: KCImageView, AMBComponent
 		if let name = robj.stringValue(forProperty: KMImage.NameItem) {
 			setImage(byName: name, console: cons)
 		} else {
-			robj.setStringValue(string: "", forProperty: KMImage.NameItem)
+			robj.setStringValue(value: "", forProperty: KMImage.NameItem)
 		}
 
 		/* Add listner: name */
@@ -78,7 +78,7 @@ public class KMImage: KCImageView, AMBComponent
 	public var children: Array<AMBComponent> { get { return [] }}
 
 	public func addChild(component comp: AMBComponent) {
-		NSLog("Can not add child components to Button component")
+		CNLog(logLevel: .error, message: "Can not add child components to Button component")
 	}
 
 	public func accept(visitor vst: KMVisitor) {

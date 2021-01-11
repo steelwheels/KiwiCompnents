@@ -7,16 +7,17 @@ top: VBox {
 			text: String "This is text field"
 	    }
     }
-	boxes: HBox {
+    boxes: HBox {
 		checkBox0: CheckBox {
 			title:	String "option-0"
-			checked: Event(status: Bool) %{
+			pressed: Event(status: Bool) %{
 				console.log("option-0: " + status) ;
 			%}
 		}
 		checkBox1: CheckBox {
 			title:	String "option-1"
-			checked: Event(status: Bool) %{
+			status: Bool false
+			pressed: Event(status: Bool) %{
 				console.log("option-1: " + status) ;
 			%}
 		}

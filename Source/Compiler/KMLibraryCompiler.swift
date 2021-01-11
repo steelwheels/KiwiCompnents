@@ -58,7 +58,7 @@ public class KMLibraryCompiler
 				}
 				parent.pushViewController(source: src, callback: vcallback)
 			} else {
-				NSLog("[Error] No parent controller")
+				CNLog(logLevel: .error, message: "[Error] No parent controller")
 			}
 		})
 	}
@@ -68,10 +68,10 @@ public class KMLibraryCompiler
 			() -> Void in
 			if let parent = vcont.parent as? KMMultiComponentViewController {
 				if !parent.popViewController(returnValue: retval) {
-					NSLog("Failed to pop view")
+					CNLog(logLevel: .error, message: "Failed to pop view")
 				}
 			} else {
-				NSLog("[Error] No parent controller")
+				CNLog(logLevel: .error, message: "No parent controller")
 			}
 		})
 	}

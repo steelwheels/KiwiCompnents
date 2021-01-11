@@ -57,7 +57,7 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 		if let val = robj.stringValue(forProperty: KMTextEdit.TextItem) {
 			super.text = val
 		} else {
-			robj.setStringValue(string: self.text, forProperty: KMTextEdit.TextItem)
+			robj.setStringValue(value: self.text, forProperty: KMTextEdit.TextItem)
 		}
 		robj.addObserver(forProperty: KMTextEdit.TextItem, callback: {
 			(_ param: Any) -> Void in

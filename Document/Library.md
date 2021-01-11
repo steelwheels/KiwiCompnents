@@ -4,6 +4,7 @@
 This document describes list of classes and functions for component programming.
 
 ### Components
+* [CheckBox](Components/CheckBox.md): The check box. It has toggle switch and text label. 
 * [Box](Components/Box.md): The box to contain multiple modules vertically or holizontaly.
 * [Button](Components/Button.md): The press button
 * [TextField](Components/TextField.md): The text field
