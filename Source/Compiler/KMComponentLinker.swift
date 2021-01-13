@@ -36,6 +36,10 @@ public class KMComponentLinker: KMVisitor
 		/* Do nothing */
 	}
 
+	public override func visit(icon view: KMIcon){
+		/* Do nothing */
+	}
+
 	public override func visit(image view: KMImage){
 		/* Do nothing */
 	}

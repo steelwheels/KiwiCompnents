@@ -17,6 +17,8 @@ open class KMVisitor
 			visit(button: button)
 		} else if let cbox = comp as? KMCheckBox {
 			visit(checkBox: cbox)
+		} else if let icon  = comp as? KMIcon {
+			visit(icon: icon)
 		} else if let image = comp as? KMImage {
 			visit(image: image)
 		} else if let stack = comp as? KMStackView {
@@ -31,6 +33,7 @@ open class KMVisitor
 	open func visit(button view: KMButton){ }
 	open func visit(checkBox view: KMCheckBox){ }
 	open func visit(image view: KMImage){ }
+	open func visit(icon view: KMIcon){ }
 	open func visit(stackView view: KMStackView){ }
 	open func visit(terminalView view: KMTerminalView){ }
 	open func visit(textEdit view: KMTextEdit){ }
