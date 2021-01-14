@@ -34,6 +34,8 @@
 		05676AF3251862E700C1D29C /* KiwiShell.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF0251862D500C1D29C /* KiwiShell.xcframework */; };
 		05676AF62518630800C1D29C /* CoconutShell.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF52518630800C1D29C /* CoconutShell.xcframework */; };
 		05676AF82518631D00C1D29C /* CoconutShell.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF52518630800C1D29C /* CoconutShell.xcframework */; };
+		0569496025AFF1C200461235 /* KMLabeledStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0569495F25AFF1C200461235 /* KMLabeledStackView.swift */; };
+		0569496125AFF1C200461235 /* KMLabeledStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0569495F25AFF1C200461235 /* KMLabeledStackView.swift */; };
 		056A6CCA25176B0C00E6379D /* KiwiComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 056A6CC825176B0C00E6379D /* KiwiComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		056A6CD825176B2C00E6379D /* KiwiComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 056A6CD625176B2C00E6379D /* KiwiComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		056A6CEE25176D2F00E6379D /* KMAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CEC25176D2F00E6379D /* KMAlert.swift */; };
@@ -139,6 +141,7 @@
 		05676AE72518629300C1D29C /* KiwiEngine.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = KiwiEngine.xcframework; path = ../../../Library/Frameworks/KiwiEngine.xcframework; sourceTree = "<group>"; };
 		05676AF0251862D500C1D29C /* KiwiShell.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = KiwiShell.xcframework; path = ../../../Library/Frameworks/KiwiShell.xcframework; sourceTree = "<group>"; };
 		05676AF52518630800C1D29C /* CoconutShell.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = CoconutShell.xcframework; path = ../../../Library/Frameworks/CoconutShell.xcframework; sourceTree = "<group>"; };
+		0569495F25AFF1C200461235 /* KMLabeledStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLabeledStackView.swift; sourceTree = "<group>"; };
 		056A6CC525176B0C00E6379D /* KiwiComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KiwiComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		056A6CC825176B0C00E6379D /* KiwiComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KiwiComponents.h; sourceTree = "<group>"; };
 		056A6CC925176B0C00E6379D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -283,6 +286,7 @@
 				0570672125A8810C003C02B1 /* KMCheckBox.swift */,
 				050FD7A725ADCDE90063675D /* KMIcon.swift */,
 				05B1AC54257A7A5600A5BF62 /* KMImage.swift */,
+				0569495F25AFF1C200461235 /* KMLabeledStackView.swift */,
 				0596162F25327D2800F6059F /* KMShell.swift */,
 				056719DD252DE73100201386 /* KMStackView.swift */,
 				059545AA252EF2AB00E019B2 /* KMTerminalView.swift */,
@@ -524,6 +528,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0550E5A825442BDC00B10AD7 /* KMScriptThread.swift in Sources */,
+				0569496025AFF1C200461235 /* KMLabeledStackView.swift in Sources */,
 				054772BA2538592500A7EC5F /* KMMultiComponentViewController.swift in Sources */,
 				0550E5AB25442BF600B10AD7 /* KMShellThread.swift in Sources */,
 				0596163025327D2800F6059F /* KMShell.swift in Sources */,
@@ -549,6 +554,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0550E5A925442BDC00B10AD7 /* KMScriptThread.swift in Sources */,
+				0569496125AFF1C200461235 /* KMLabeledStackView.swift in Sources */,
 				054772BB2538592500A7EC5F /* KMMultiComponentViewController.swift in Sources */,
 				0550E5AC25442BF600B10AD7 /* KMShellThread.swift in Sources */,
 				0596163125327D2800F6059F /* KMShell.swift in Sources */,

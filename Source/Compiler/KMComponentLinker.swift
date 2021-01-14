@@ -53,6 +53,15 @@ public class KMComponentLinker: KMVisitor
 		}
 	}
 
+	public override func visit(labeledStackView view: KMLabeledStackView) {
+		let subviews = view.contentsView.arrangedSubviews()
+		for subview in subviews {
+			if let subcomp = subview as? AMBComponent {
+				self.visit(component: subcomp)
+			}
+		}
+	}
+
 	public override func visit(terminalView view: KMTerminalView){
 		view.startShell(viewController: mParentController, resource: mResource)
 		if mFileConsole == nil {

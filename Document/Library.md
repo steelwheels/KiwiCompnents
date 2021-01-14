@@ -8,6 +8,7 @@ This document describes list of classes and functions for component programming.
 * [Box](Components/Box.md): The box to contain multiple modules vertically or holizontaly.
 * [Button](Components/Button.md): The press button
 * [Icon](Components/Icon.md): The pressable icon
+* [Image](Components/Image.md): The graphical image
 * [TextField](Components/TextField.md): The text field
 
 ### Functions

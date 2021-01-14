@@ -73,6 +73,15 @@ public class KMComponentCompiler: AMBFrameCompiler
 				return .ok(newcomp)
 			}
 		})
+		manager.addAllocator(className: "LabelBox", allocatorFunc: {
+			(_ robj: AMBReactObject, _ cons: CNConsole) -> AllocationResult in
+			let newcomp = KMLabeledStackView()
+			if let err = newcomp.setup(reactObject: robj, console: cons) {
+				return .error(err)
+			} else {
+				return .ok(newcomp)
+			}
+		})
 		manager.addAllocator(className: "Shell", allocatorFunc: {
 			(_ robj: AMBReactObject, _ cons: CNConsole) -> AllocationResult in
 			let newcomp = KMShell()
