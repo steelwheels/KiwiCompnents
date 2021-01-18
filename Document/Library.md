@@ -9,6 +9,7 @@ This document describes list of classes and functions for component programming.
 * [Button](Components/Button.md): The press button
 * [Icon](Components/Icon.md): The pressable icon
 * [Image](Components/Image.md): The graphical image
+* [Table](Components/TextField.md): N x M cells on the table
 * [TextField](Components/TextField.md): The text field
 
 ### Functions
