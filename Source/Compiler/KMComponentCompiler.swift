@@ -91,6 +91,15 @@ public class KMComponentCompiler: AMBFrameCompiler
 				return .ok(newcomp)
 			}
 		})
+		manager.addAllocator(className: "Table", allocatorFunc: {
+			(_ robj: AMBReactObject, _ cons: CNConsole) -> AllocationResult in
+			let newcomp = KMTableView()
+			if let err = newcomp.setup(reactObject: robj, console: cons) {
+				return .error(err)
+			} else {
+				return .ok(newcomp)
+			}
+		})
 		manager.addAllocator(className: "Terminal", allocatorFunc: {
 			(_ robj: AMBReactObject, _ cons: CNConsole) -> AllocationResult in
 			let newcomp  = KMTerminalView()

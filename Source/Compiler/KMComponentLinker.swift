@@ -53,6 +53,10 @@ public class KMComponentLinker: KMVisitor
 		}
 	}
 
+	public override func visit(tableView view: KMTableView){
+		/* Do nothing */
+	}
+
 	public override func visit(labeledStackView view: KMLabeledStackView) {
 		let subviews = view.contentsView.arrangedSubviews()
 		for subview in subviews {

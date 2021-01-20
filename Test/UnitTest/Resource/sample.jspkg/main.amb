@@ -22,9 +22,9 @@ top: VBox {
 			%}
 		}
     }
-    terminal_a: Terminal {
-		shell: Shell {
-		}
+    table: Table {
+	width:	Int	2
+	height:	Int	2
     }
     button_a: Button {
         title:  String "Go to Second"
