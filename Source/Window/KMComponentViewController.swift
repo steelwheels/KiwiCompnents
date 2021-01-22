@@ -143,9 +143,10 @@ open class KMComponentViewController: KCSingleViewController
 		}
 
 		/* Allocate the component */
-		let ambcompiler = KMComponentCompiler()
+		let compiler = AMBFrameCompiler()
+		let mapper   = KMComponentMapper()
 		let topcomp: AMBComponent
-		switch ambcompiler.compile(frame: frame, context: context, processManager: procmgr, resource: resource, environment: mEnvironment, config: config, console: console) {
+		switch compiler.compile(frame: frame, mapper: mapper, context: context, processManager: procmgr, resource: resource, environment: mEnvironment, config: config, console: console) {
 		case .ok(let comp):
 			topcomp = comp
 			/* dump the component */

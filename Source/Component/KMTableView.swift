@@ -60,7 +60,8 @@ public class KMTableView: KCTableView, AMBComponent
 	}
 
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
-		mReactObject	= robj
+		mReactObject		= robj
+		mCellTable.console	= cons
 
 		/* Get column and row numbers */
 		if let val = robj.int32Value(forProperty: KMTableView.WidthItem) {
@@ -68,7 +69,7 @@ public class KMTableView: KCTableView, AMBComponent
 				mColumnNum = Int(val)
 			}
 		} else {
-			NSLog("No width property: \(KMTableView.WidthItem)")
+			cons.error(string: "No width property: \(KMTableView.WidthItem)")
 			mColumnNum = 1
 		}
 		if let val = robj.int32Value(forProperty: KMTableView.HeightItem) {
@@ -81,13 +82,15 @@ public class KMTableView: KCTableView, AMBComponent
 		}
 
 		/* Allocate columns */
-		NSLog("setupTable: \(mColumnNum) x \(mRowNum)")
 		for i in 0..<mColumnNum {
 			let colname = "col\(i)"
 			if mCellTable.addColumn(title: colname) {
 				for j in 0..<mRowNum {
-					let txt: CNNativeValue = .stringValue("col\(i)-row\(j)")
-					mCellTable.append(colmunName: colname, value: value)
+					let frm  = AMBFrame(className: "Label", instanceName: "lab0")
+					let cobj = AMBReactObject(frame: frm, context: robj.context, processManager: robj.processManager, resource: robj.resource, environment: robj.environment)
+					cobj.setStringValue(value: "\(i)x\(j)", forProperty: "text")
+					mCellTable.append(colmunName: colname, value: cobj)
+					NSLog("FRAME= \(cobj.description)")
 				}
 			} else {
 				NSLog("Failed to add new column")
@@ -127,12 +130,19 @@ public class KMCellColumn {
 
 public class KMCellTable: KCCellTableInterface
 {
+	private var mConsole:	CNConsole
 	private var mTitles:	Dictionary<String, Int>		// <Title, Index>
 	private var mColumns:	Array<KMCellColumn>
 
 	public init() {
+		mConsole	= CNFileConsole()
 		mTitles		= [:]
 		mColumns	= []
+	}
+
+	public var console: CNConsole {
+		get		{ return mConsole }
+		set(newcons)	{ mConsole = newcons}
 	}
 
 	public func addColumn(title ttl: String) -> Bool {
@@ -140,8 +150,10 @@ public class KMCellTable: KCCellTableInterface
 			let newcol   = KMCellColumn(title: ttl)
 			mTitles[ttl] = mColumns.count
 			mColumns.append(newcol)
+			return true
 		} else {
-			NSLog("Already exist: \(ttl) at \(#function)")
+			mConsole.error(string: "Already exist: \(ttl) at \(#function)")
+			return false
 		}
 	}
 
@@ -196,7 +208,7 @@ public class KMCellTable: KCCellTableInterface
 		if let val = dat as? AMBReactObject {
 			set(colmunName: cname, rowIndex: ridx, value: val)
 		} else {
-			NSLog("Failed to set at \(#function)")
+			mConsole.error(string: "Failed to set at \(#function)")
 		}
 	}
 
@@ -208,14 +220,14 @@ public class KMCellTable: KCCellTableInterface
 				return
 			}
 		}
-		NSLog("Failed to set at \(#function)")
+		mConsole.error(string: "Failed to set at \(#function)")
 	}
 
 	public func append(colmunName cname: String, data dat: Any?) {
 		if let val = dat as? AMBReactObject {
 			append(colmunName: cname, value: val)
 		} else {
-			NSLog("Failed to append at \(#function)")
+			mConsole.error(string: "Failed to append at \(#function)")
 		}
 	}
 
@@ -224,12 +236,25 @@ public class KMCellTable: KCCellTableInterface
 			let col = mColumns[cidx]
 			col.values.append(val)
 		} else {
-			NSLog("Failed to append at \(#function)")
+			mConsole.error(string: "Failed to append at \(#function)")
 		}
 	}
 
 	private func valueToView(value val: AMBReactObject) -> KCView? {
-
+		let mapper = KMComponentMapper()
+		switch mapper.map(object: val, console: mConsole) {
+		case .ok(let comp):
+			if let view = comp as? KCView {
+				return view
+			} else {
+				mConsole.error(string: "Not view object")
+			}
+		case .error(let err):
+			mConsole.error(string: "[Error] \(err.description)")
+		@unknown default:
+			mConsole.error(string: "[Error] Unknown case")
+		}
+		return nil
 	}
 }
 

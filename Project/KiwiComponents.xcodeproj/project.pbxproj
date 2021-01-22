@@ -40,8 +40,8 @@
 		056A6CD825176B2C00E6379D /* KiwiComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 056A6CD625176B2C00E6379D /* KiwiComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		056A6CEE25176D2F00E6379D /* KMAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CEC25176D2F00E6379D /* KMAlert.swift */; };
 		056A6CEF25176D2F00E6379D /* KMAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CEC25176D2F00E6379D /* KMAlert.swift */; };
-		056A6CF925176D4E00E6379D /* KMComponentCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMComponentCompiler.swift */; };
-		056A6CFA25176D4E00E6379D /* KMComponentCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMComponentCompiler.swift */; };
+		056A6CF925176D4E00E6379D /* KMComponentMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMComponentMapper.swift */; };
+		056A6CFA25176D4E00E6379D /* KMComponentMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMComponentMapper.swift */; };
 		056A6CFF25176D7300E6379D /* CoconutData.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; };
 		056A6D0325176D9500E6379D /* CoconutData.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; };
 		0570672225A8810C003C02B1 /* KMCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0570672125A8810C003C02B1 /* KMCheckBox.swift */; };
@@ -151,7 +151,7 @@
 		056A6CD625176B2C00E6379D /* KiwiComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KiwiComponents.h; sourceTree = "<group>"; };
 		056A6CD725176B2C00E6379D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		056A6CEC25176D2F00E6379D /* KMAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMAlert.swift; sourceTree = "<group>"; };
-		056A6CF625176D4E00E6379D /* KMComponentCompiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMComponentCompiler.swift; sourceTree = "<group>"; };
+		056A6CF625176D4E00E6379D /* KMComponentMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMComponentMapper.swift; sourceTree = "<group>"; };
 		056A6CFE25176D7300E6379D /* CoconutData.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = CoconutData.xcframework; path = ../../../Library/Frameworks/CoconutData.xcframework; sourceTree = "<group>"; };
 		0570672125A8810C003C02B1 /* KMCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMCheckBox.swift; sourceTree = "<group>"; };
 		057CCC91252E04D40012EA0C /* KMComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMComponentViewController.swift; sourceTree = "<group>"; };
@@ -350,7 +350,7 @@
 		05A88F1D252B68350036432D /* Compiler */ = {
 			isa = PBXGroup;
 			children = (
-				056A6CF625176D4E00E6379D /* KMComponentCompiler.swift */,
+				056A6CF625176D4E00E6379D /* KMComponentMapper.swift */,
 				05EC69402544629B008932EB /* KMComponentLinker.swift */,
 				05CAEB6525445D36002AD83E /* KMLibraryCompiler.swift */,
 			);
@@ -542,7 +542,7 @@
 				05CAEB6625445D36002AD83E /* KMLibraryCompiler.swift in Sources */,
 				05B1AC55257A7A5600A5BF62 /* KMImage.swift in Sources */,
 				056A6CEE25176D2F00E6379D /* KMAlert.swift in Sources */,
-				056A6CF925176D4E00E6379D /* KMComponentCompiler.swift in Sources */,
+				056A6CF925176D4E00E6379D /* KMComponentMapper.swift in Sources */,
 				052AD76D2545B04700929F67 /* KMThreadLauncher.swift in Sources */,
 				05EC69412544629B008932EB /* KMComponentLinker.swift in Sources */,
 				0570672225A8810C003C02B1 /* KMCheckBox.swift in Sources */,
@@ -569,7 +569,7 @@
 				05CAEB6725445D36002AD83E /* KMLibraryCompiler.swift in Sources */,
 				05B1AC56257A7A5600A5BF62 /* KMImage.swift in Sources */,
 				056A6CEF25176D2F00E6379D /* KMAlert.swift in Sources */,
-				056A6CFA25176D4E00E6379D /* KMComponentCompiler.swift in Sources */,
+				056A6CFA25176D4E00E6379D /* KMComponentMapper.swift in Sources */,
 				052AD76E2545B04700929F67 /* KMThreadLauncher.swift in Sources */,
 				05EC69422544629B008932EB /* KMComponentLinker.swift in Sources */,
 				0570672325A8810C003C02B1 /* KMCheckBox.swift in Sources */,

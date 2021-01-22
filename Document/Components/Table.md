@@ -9,17 +9,21 @@ There are 2 kinds of tables:
 
 ### Uniform table
 The number of cells are define by `rowCount` and `columnCount`.
-In the below example, there are 20 x 10 cells. Every cell has an image in it.
-The event function named `make` is used to set the values for each cell. The parameter `col` and `row` is used to tell the position of the cell to make.
+In the below example, there are 10 x 20 cells.The format of the table cell is defined by `cell` property. The example has image cells.
+
+The event function named `make` is used to set the contents of cell. The parameter `col` and `row` is used to tell the position of the cell to make.
 ````
 table Table: {
     rowCount:    Int 10
     columnCount: Int 20
-    image Image: {
+    cell: Image: {
         name: String "null-image"
     }
     make: Event(col, row) %{
-        self.image.name = "image-" + col + "x" + row ;
+        self.cell.image.name = "image-" + col + "x" + row ;
+    %}
+    pressed: Event(col, row) %{
+        console.log("clicked col=" + col + ", row=" + row) ;
     %}
 }
 ````
@@ -30,7 +34,7 @@ table Columns : {
     rowCount:  Int 10
     col0: Column {
         title:  String  "column-0"
-        label: Label {
+        cell: Label {
             title:  String "default"
         }
         make: Event(row) %{
@@ -40,14 +44,20 @@ table Columns : {
               break ;
             }
         %}
+        pressed: Event(row) %{
+            console.log("[col0] clicked row=" + row) ;
+        %}
     }
     col1: Column {
         title: String  "column-1"
-        image: Image {
+        cell: Image {
             name: String "image-0"
         }
         make: Event(row) %{
             ...
+        %}
+        pressed: Event(row) %{
+            console.log("[col1] clicked row=" + row) ;
         %}
     }
 }
@@ -57,9 +67,7 @@ table Columns : {
 ## Property values
 |Property name  |Type   |Description        |
 |:--            |:--    |:--                | 
-|text           |String |Content text       |
-|isBezeled      |Bool   |Set bezele ON/OFF  |
-|fontSize       |[FontSize](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Enum/FontSize.md) | Size of font |
+
 
 ## Reference
 * [README](https://github.com/steelwheels/KiwiCompnents): Top page of KiwiComponents project.
