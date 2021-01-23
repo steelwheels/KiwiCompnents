@@ -17,14 +17,14 @@ import UIKit
 
 public class KMTableView: KCTableView, AMBComponent
 {
-	public static let WidthItem	= "width"
-	public static let HeightItem	= "height"
+	public static let RowCountItem		= "rowCount"
+	public static let ColumnCountItem	= "columnCount"
 
 	private var mReactObject:	AMBReactObject?
 	private var mChildComponents:	Array<AMBComponent>
 	private var mCellTable:		KMCellTable
-	private var mColumnNum:		Int
-	private var mRowNum:		Int
+	private var mColumnCount:	Int
+	private var mRowCount:		Int
 
 	public var reactObject: AMBReactObject	{ get {
 		if let robj = mReactObject {
@@ -38,8 +38,8 @@ public class KMTableView: KCTableView, AMBComponent
 
 	public init(){
 		mReactObject		= nil
-		mColumnNum		= 1
-		mRowNum			= 1
+		mColumnCount		= 1
+		mRowCount		= 1
 		mCellTable		= KMCellTable()
 		mChildComponents	= []
 		#if os(OSX)
@@ -52,8 +52,8 @@ public class KMTableView: KCTableView, AMBComponent
 
 	@objc required dynamic init?(coder: NSCoder) {
 		mReactObject		= nil
-		mColumnNum		= 1
-		mRowNum			= 1
+		mColumnCount		= 1
+		mRowCount		= 1
 		mCellTable		= KMCellTable()
 		mChildComponents	= []
 		super.init(coder: coder)
@@ -64,28 +64,28 @@ public class KMTableView: KCTableView, AMBComponent
 		mCellTable.console	= cons
 
 		/* Get column and row numbers */
-		if let val = robj.int32Value(forProperty: KMTableView.WidthItem) {
+		if let val = robj.int32Value(forProperty: KMTableView.ColumnCountItem) {
 			if val >= 1 {
-				mColumnNum = Int(val)
+				mColumnCount = Int(val)
 			}
 		} else {
-			cons.error(string: "No width property: \(KMTableView.WidthItem)")
-			mColumnNum = 1
+			cons.error(string: "No column count property: \(KMTableView.ColumnCountItem)")
+			mColumnCount = 1
 		}
-		if let val = robj.int32Value(forProperty: KMTableView.HeightItem) {
+		if let val = robj.int32Value(forProperty: KMTableView.RowCountItem) {
 			if val >= 1 {
-				mRowNum = Int(val)
+				mRowCount = Int(val)
 			}
 		} else {
-			NSLog("No width property: \(KMTableView.HeightItem)")
-			mRowNum = 1
+			cons.error(string: "No row count property: \(KMTableView.RowCountItem)")
+			mRowCount = 1
 		}
 
 		/* Allocate columns */
-		for i in 0..<mColumnNum {
+		for i in 0..<mColumnCount {
 			let colname = "col\(i)"
 			if mCellTable.addColumn(title: colname) {
-				for j in 0..<mRowNum {
+				for j in 0..<mRowCount {
 					let frm  = AMBFrame(className: "Label", instanceName: "lab0")
 					let cobj = AMBReactObject(frame: frm, context: robj.context, processManager: robj.processManager, resource: robj.resource, environment: robj.environment)
 					cobj.setStringValue(value: "\(i)x\(j)", forProperty: "text")
