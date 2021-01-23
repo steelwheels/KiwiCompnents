@@ -69,17 +69,17 @@ public class KMComponentMapper: AMBComponentMapper
 			/* Not view object */
 			return mapData(object: robj, console: cons)
 		}
-		if let err = newcomp.setup(reactObject: robj, console: cons) {
-			return .error(err)
-		}
 		if hassubview {
-			if let err = mapChildView(component: newcomp, console: cons) {
+			if let err = mapChildView(component: newcomp, reactObject: robj, console: cons) {
 				return .error(err)
 			}
 		} else {
-			if let err = mapChildData(component: newcomp, console: cons) {
+			if let err = mapChildData(component: newcomp, reactObject: robj, console: cons) {
 				return .error(err)
 			}
+		}
+		if let err = newcomp.setup(reactObject: robj, console: cons) {
+			return .error(err)
 		}
 		return .ok(newcomp)
 	}
@@ -93,18 +93,17 @@ public class KMComponentMapper: AMBComponentMapper
 		default:
 			return super.mapObject(object: robj, console: cons)
 		}
-		if let err = newcomp.setup(reactObject: robj, console: cons) {
+		if let err = mapChildData(component: newcomp, reactObject: robj, console: cons) {
 			return .error(err)
 		}
-		if let err = mapChildData(component: newcomp, console: cons) {
+		if let err = newcomp.setup(reactObject: robj, console: cons) {
 			return .error(err)
 		} else {
 			return .ok(newcomp)
 		}
 	}
 
-	public func mapChildView(component comp: AMBComponent, console cons: CNConsole) -> NSError? {
-		let robj = comp.reactObject
+	public func mapChildView(component comp: AMBComponent, reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		for prop in robj.scriptedPropertyNames {
 			if let child = robj.childFrame(forProperty: prop) {
 				switch mapView(object: child, console: cons) {
@@ -120,8 +119,7 @@ public class KMComponentMapper: AMBComponentMapper
 		return nil
 	}
 
-	public func mapChildData(component comp: AMBComponent, console cons: CNConsole) -> NSError? {
-		let robj = comp.reactObject
+	public func mapChildData(component comp: AMBComponent, reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		for prop in robj.scriptedPropertyNames {
 			if let child = robj.childFrame(forProperty: prop) {
 				switch mapData(object: child, console: cons) {

@@ -25,6 +25,9 @@ top: VBox {
     table: Table {
 	columnCount:	Int	2
 	rowCount:	Int	2
+	cell: Label {
+		text: String "Hello"
+	}
     }
     button_a: Button {
         title:  String "Go to Second"

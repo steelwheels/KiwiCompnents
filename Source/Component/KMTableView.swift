@@ -19,12 +19,14 @@ public class KMTableView: KCTableView, AMBComponent
 {
 	public static let RowCountItem		= "rowCount"
 	public static let ColumnCountItem	= "columnCount"
+	public static let CellItem		= "cell"
 
 	private var mReactObject:	AMBReactObject?
 	private var mChildComponents:	Array<AMBComponent>
 	private var mCellTable:		KMCellTable
 	private var mColumnCount:	Int
 	private var mRowCount:		Int
+	private var mCellComponent:	AMBComponent?
 
 	public var reactObject: AMBReactObject	{ get {
 		if let robj = mReactObject {
@@ -34,7 +36,7 @@ public class KMTableView: KCTableView, AMBComponent
 		}
 	}}
 
-	public var children: Array<AMBComponent> { get { return [] }}
+	public var children: Array<AMBComponent> { get { return mChildComponents }}
 
 	public init(){
 		mReactObject		= nil
@@ -42,6 +44,7 @@ public class KMTableView: KCTableView, AMBComponent
 		mRowCount		= 1
 		mCellTable		= KMCellTable()
 		mChildComponents	= []
+		mCellComponent		= nil
 		#if os(OSX)
 			let frame = NSRect(x: 0.0, y: 0.0, width: 160, height: 60)
 		#else
@@ -56,6 +59,7 @@ public class KMTableView: KCTableView, AMBComponent
 		mRowCount		= 1
 		mCellTable		= KMCellTable()
 		mChildComponents	= []
+		mCellComponent		= nil
 		super.init(coder: coder)
 	}
 
@@ -81,6 +85,14 @@ public class KMTableView: KCTableView, AMBComponent
 			mRowCount = 1
 		}
 
+		/* Parse cell */
+		if let cell = searchChild(byName: KMTableView.CellItem) {
+			mCellComponent = cell
+		} else {
+			cons.error(string: "[Error] Table does not have \"cell\" component\n")
+			mCellComponent = allocateDummyCellComponent(reactObject: robj, console: cons)
+		}
+
 		/* Allocate columns */
 		for i in 0..<mColumnCount {
 			let colname = "col\(i)"
@@ -90,13 +102,11 @@ public class KMTableView: KCTableView, AMBComponent
 					let cobj = AMBReactObject(frame: frm, context: robj.context, processManager: robj.processManager, resource: robj.resource, environment: robj.environment)
 					cobj.setStringValue(value: "\(i)x\(j)", forProperty: "text")
 					mCellTable.append(colmunName: colname, value: cobj)
-					NSLog("FRAME= \(cobj.description)")
 				}
 			} else {
-				NSLog("Failed to add new column")
+				cons.print(string: "Failed to add new column")
 			}
 		}
-		NSLog("end of setup table")
 
 		/* allocae callback */
 		self.cellPressedCallback = {
@@ -109,12 +119,27 @@ public class KMTableView: KCTableView, AMBComponent
 		return nil
 	}
 
+	private func allocateDummyCellComponent(reactObject robj: AMBReactObject,  console cons: CNConsole) -> AMBComponentObject {
+		let frm  = AMBFrame(className: "Label", instanceName: "lab0")
+		let cobj = AMBReactObject(frame: frm, context: robj.context, processManager: robj.processManager, resource: robj.resource, environment: robj.environment)
+		cobj.setStringValue(value: "Undefined", forProperty: "text")
+		let newcomp = AMBComponentObject()
+		if let err = newcomp.setup(reactObject: cobj, console: cons) {
+			cons.error(string: "[Error] \(err.description)")
+			fatalError("Can not happen")
+		} else {
+			return newcomp
+		}
+	}
+
+
 	public func accept(visitor vst: KMVisitor) {
 		vst.visit(tableView: self)
 	}
 
 	public func addChild(component comp: AMBComponent) {
-		CNLog(logLevel: .error, message: "Unsupported method: addChild")
+		NSLog("addChild: inst-name=\(comp.reactObject.frame.instanceName)")
+		mChildComponents.append(comp)
 	}
 }
 
