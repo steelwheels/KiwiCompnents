@@ -10,6 +10,7 @@ import KiwiControls
 import KiwiLibrary
 import KiwiEngine
 import CoconutData
+import JavaScriptCore
 import Foundation
 #if os(iOS)
 import UIKit
@@ -20,6 +21,7 @@ public class KMTableView: KCTableView, AMBComponent
 	public static let RowCountItem		= "rowCount"
 	public static let ColumnCountItem	= "columnCount"
 	public static let CellItem		= "cell"
+	public static let MakeItem		= "make"
 
 	private var mReactObject:	AMBReactObject?
 	private var mChildComponents:	Array<AMBComponent>
@@ -27,6 +29,7 @@ public class KMTableView: KCTableView, AMBComponent
 	private var mColumnCount:	Int
 	private var mRowCount:		Int
 	private var mCellComponent:	AMBComponent?
+	private var mMakeEvent:		JSValue?
 
 	public var reactObject: AMBReactObject	{ get {
 		if let robj = mReactObject {
@@ -45,6 +48,7 @@ public class KMTableView: KCTableView, AMBComponent
 		mCellTable		= KMCellTable()
 		mChildComponents	= []
 		mCellComponent		= nil
+		mMakeEvent		= nil
 		#if os(OSX)
 			let frame = NSRect(x: 0.0, y: 0.0, width: 160, height: 60)
 		#else
@@ -60,6 +64,7 @@ public class KMTableView: KCTableView, AMBComponent
 		mCellTable		= KMCellTable()
 		mChildComponents	= []
 		mCellComponent		= nil
+		mMakeEvent		= nil
 		super.init(coder: coder)
 	}
 
@@ -85,26 +90,50 @@ public class KMTableView: KCTableView, AMBComponent
 			mRowCount = 1
 		}
 
-		/* Parse cell */
+		/* Get cell */
+		let cellcomp: AMBComponent
 		if let cell = searchChild(byName: KMTableView.CellItem) {
-			mCellComponent = cell
+			cellcomp = cell
 		} else {
 			cons.error(string: "[Error] Table does not have \"cell\" component\n")
-			mCellComponent = allocateDummyCellComponent(reactObject: robj, console: cons)
+			cellcomp = allocateDummyCellComponent(reactObject: robj, console: cons)
 		}
+		mCellComponent = cellcomp
 
-		/* Allocate columns */
+		/* Allocate columns and rows and set default values */
 		for i in 0..<mColumnCount {
-			let colname = "col\(i)"
+			let colname = "\(i)"
 			if mCellTable.addColumn(title: colname) {
 				for j in 0..<mRowCount {
-					let frm  = AMBFrame(className: "Label", instanceName: "lab0")
-					let cobj = AMBReactObject(frame: frm, context: robj.context, processManager: robj.processManager, resource: robj.resource, environment: robj.environment)
-					cobj.setStringValue(value: "\(i)x\(j)", forProperty: "text")
+					/* Allocate */
+					let cobj = AMBReactObject(frame: cellcomp.reactObject.frame, context: robj.context, processManager: robj.processManager, resource: robj.resource, environment: robj.environment)
 					mCellTable.append(colmunName: colname, value: cobj)
+					/* Copy values */
+					for pname in cellcomp.reactObject.scriptedPropertyNames {
+						if let pval = cellcomp.reactObject.immediateValue(forProperty: pname) {
+							cobj.setImmediateValue(value: pval, forProperty: pname)
+						}
+					}
+					/* Define cell properties */
+					defineCellProperty(colmunName: colname, rowIndex: j, context: robj.context, console: cons)
 				}
 			} else {
 				cons.print(string: "Failed to add new column")
+			}
+		}
+
+		/* get make event */
+		if let evtval = robj.immediateValue(forProperty: KMTableView.MakeItem) {
+			mMakeEvent = evtval
+		}
+
+		/* initialize */
+		for i in 0..<mColumnCount {
+			if let col = mCellTable.column(index: i) {
+				let rowcnt = col.numberOfRows
+				for j in 0..<rowcnt {
+					updateCell(colmunName: col.title, rowIndex: j, context: robj.context, console: cons)
+				}
 			}
 		}
 
@@ -132,13 +161,40 @@ public class KMTableView: KCTableView, AMBComponent
 		}
 	}
 
+	private func updateCell(colmunName cname: String, rowIndex ridx: Int, context ctxt: KEContext, console cons: CNConsole) {
+		if let makefunc = mMakeEvent, let cidx = mCellTable.columnIndex(name: cname) {
+			if let robj = mCellTable.get(colmunName: cname, rowIndex: ridx) {
+				if let cval = JSValue(int32: Int32(cidx), in: ctxt), let rval = JSValue(int32: Int32(ridx), in: ctxt){
+					let args = [robj, cval, rval]
+					makefunc.call(withArguments: args)
+				} else {
+					cons.error(string: "Can not happen at \(#function)")
+				}
+			}
+		}
+	}
+
+	private func defineCellProperty(colmunName cname: String, rowIndex ridx: Int, context ctxt: KEContext, console cons: CNConsole) {
+		let TEMPORARY_VARIABLE_NAME = "_amber_temp_cell_"
+		if let robj = mCellTable.get(colmunName: cname, rowIndex: ridx) {
+			for pname in robj.allPropertyNames {
+				let varname = TEMPORARY_VARIABLE_NAME + "\(cname)_\(ridx)_\(pname)"
+				ctxt.setObject(robj, forKeyedSubscript: varname as NSString)
+				let script =   "Object.defineProperty(\(varname), '\(pname)',{ \n"
+					     + "  get()    { return this.get(\"\(pname)\") ; }, \n"
+					     + "  set(val) { return this.set(\"\(pname)\", val) ; }, \n"
+					     + "}) ;\n"
+				ctxt.evaluateScript(script)
+				//NSLog("script = \(script)")
+			}
+		}
+	}
 
 	public func accept(visitor vst: KMVisitor) {
 		vst.visit(tableView: self)
 	}
 
 	public func addChild(component comp: AMBComponent) {
-		NSLog("addChild: inst-name=\(comp.reactObject.frame.instanceName)")
 		mChildComponents.append(comp)
 	}
 }
@@ -150,6 +206,10 @@ public class KMCellColumn {
 	public init(title str: String) {
 		title	= str
 		values	= []
+	}
+
+	public var numberOfRows: Int {
+		get { return values.count }
 	}
 }
 
@@ -170,6 +230,10 @@ public class KMCellTable: KCCellTableInterface
 		set(newcons)	{ mConsole = newcons}
 	}
 
+	public func numberOfColumns() -> Int {
+		return mColumns.count
+	}
+
 	public func addColumn(title ttl: String) -> Bool {
 		if mTitles[ttl] == nil {
 			let newcol   = KMCellColumn(title: ttl)
@@ -183,15 +247,31 @@ public class KMCellTable: KCCellTableInterface
 	}
 
 	public func columnTitle(index idx: Int) -> String? {
-		if 0<=idx && idx<mColumns.count {
-			return mColumns[idx].title
+		if let col = column(index: idx) {
+			return col.title
 		} else {
 			return nil
 		}
 	}
 
-	public func numberOfColumns() -> Int {
-		return mColumns.count
+	public func columnIndex(name nm: String) -> Int? {
+		return mTitles[nm]
+	}
+
+	public func column(named name: String) -> KMCellColumn? {
+		if let idx = mTitles[name] {
+			return column(index: idx)
+		} else {
+			return nil
+		}
+	}
+
+	public func column(index idx: Int) -> KMCellColumn? {
+		if 0<=idx && idx<mColumns.count {
+			return mColumns[idx]
+		} else {
+			return nil
+		}
 	}
 
 	public func numberOfRows(columnIndex idx: Int) -> Int? {
@@ -204,7 +284,7 @@ public class KMCellTable: KCCellTableInterface
 
 	public func numberOfRows(columnName name: String) -> Int? {
 		if let idx = mTitles[name] {
-			return mColumns[idx].values.count
+			return mColumns[idx].numberOfRows
 		} else {
 			return nil
 		}
@@ -246,6 +326,16 @@ public class KMCellTable: KCCellTableInterface
 			}
 		}
 		mConsole.error(string: "Failed to set at \(#function)")
+	}
+
+	public func get(colmunName cname: String, rowIndex ridx: Int) -> AMBReactObject? {
+		if let cidx = mTitles[cname] {
+			let col = mColumns[cidx]
+			if 0<=ridx && ridx<col.values.count {
+				return col.values[ridx]
+			}
+		}
+		return nil
 	}
 
 	public func append(colmunName cname: String, data dat: Any?) {

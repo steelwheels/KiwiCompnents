@@ -19,10 +19,10 @@ table Table: {
     cell: Image: {
         name: String "null-image"
     }
-    make: Event(col, row) %{
-        self.cell.image.name = "image-" + col + "x" + row ;
+    make: Event(col: Int, row: Int) %{
+        self.image.name = "image-" + col + "x" + row ;
     %}
-    pressed: Event(col, row) %{
+    pressed: Event(col: Int, row: Int) %{
         console.log("clicked col=" + col + ", row=" + row) ;
     %}
 }
@@ -37,14 +37,14 @@ table Columns : {
         cell: Label {
             title:  String "default"
         }
-        make: Event(row) %{
+        make: Event(row: Int) %{
             switch(row) {
               case 0:
-                self.label.title = "a" ;
+                self.title = "a" ;
               break ;
             }
         %}
-        pressed: Event(row) %{
+        pressed: Event(row: Int) %{
             console.log("[col0] clicked row=" + row) ;
         %}
     }
@@ -53,10 +53,10 @@ table Columns : {
         cell: Image {
             name: String "image-0"
         }
-        make: Event(row) %{
+        make: Event(row: Int) %{
             ...
         %}
-        pressed: Event(row) %{
+        pressed: Event(row: Int) %{
             console.log("[col1] clicked row=" + row) ;
         %}
     }

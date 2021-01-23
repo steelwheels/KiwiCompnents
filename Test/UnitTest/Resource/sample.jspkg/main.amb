@@ -28,6 +28,11 @@ top: VBox {
 	cell: Label {
 		text: String "Hello"
 	}
+	make: Event(col: Int, row: Int) %{
+		let msg = "make event: " + col + "," + row ;
+		console.log(msg) ;
+		self.text = msg ;
+	%}
     }
     button_a: Button {
         title:  String "Go to Second"
