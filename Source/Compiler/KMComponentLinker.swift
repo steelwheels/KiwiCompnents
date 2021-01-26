@@ -7,7 +7,9 @@
 
 import Amber
 import KiwiEngine
+import KiwiControls
 import CoconutData
+import JavaScriptCore
 import Foundation
 
 public class KMComponentLinker: KMVisitor
@@ -54,7 +56,43 @@ public class KMComponentLinker: KMVisitor
 	}
 
 	public override func visit(tableView view: KMTableView){
-		/* Do nothing */
+		if let celltable = view.cellTable {
+			let colnum = celltable.numberOfColumns()
+			for cidx in 0..<colnum {
+				if let rownum = celltable.numberOfRows(columnIndex: cidx) {
+					for ridx in 0..<rownum {
+						if let child = view.view(atColumn: cidx, row: ridx) {
+							linkEvents(tableView: view, colunm: cidx, row: ridx, childView: child)
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private func linkEvents(tableView table: KMTableView, colunm cidx: Int, row ridx: Int, childView cview: KCView) {
+		let tobj = table.reactObject
+		if let button = cview as? KMButton {
+			button.buttonPressedCallback = {
+				() -> Void in
+				KMComponentLinker.cellPressed(reactObject: tobj, column: cidx, row: ridx)
+			}
+		} else if let icon = cview as? KMIcon {
+			icon.buttonPressedCallback = {
+				() -> Void in
+				KMComponentLinker.cellPressed(reactObject: tobj, column: cidx, row: ridx)
+			}
+		}
+	}
+
+	static private func cellPressed(reactObject robj: AMBReactObject, column cidx: Int, row ridx: Int) {
+		if let pressed = robj.immediateValue(forProperty: KMTableView.PressedItem) {
+			if let colval = JSValue(int32: Int32(cidx), in: robj.context),
+			   let rowval = JSValue(int32: Int32(ridx), in: robj.context) {
+				let args   = [robj, colval, rowval]
+				pressed.call(withArguments: args)
+			}
+		}
 	}
 
 	public override func visit(labeledStackView view: KMLabeledStackView) {

@@ -22,6 +22,7 @@ public class KMTableView: KCTableView, AMBComponent
 	public static let ColumnCountItem	= "columnCount"
 	public static let CellItem		= "cell"
 	public static let MakeItem		= "make"
+	public static let PressedItem		= "pressed"
 
 	private var mReactObject:	AMBReactObject?
 	private var mChildComponents:	Array<AMBComponent>
@@ -139,8 +140,14 @@ public class KMTableView: KCTableView, AMBComponent
 
 		/* allocae callback */
 		self.cellPressedCallback = {
-			(_ column: String, _ row: Int) -> Void in
-			NSLog("pressed: \(column) \(row)")
+			(_ col: Int, _ row: Int) -> Void in
+			if let pressed = robj.immediateValue(forProperty: KMTableView.PressedItem) {
+				if let colval = JSValue(int32: Int32(col), in: robj.context),
+				   let rowval = JSValue(int32: Int32(row), in: robj.context) {
+					let args   = [robj, colval, rowval]
+					pressed.call(withArguments: args)
+				}
+			}
 		}
 
 		/* Set database */
@@ -300,6 +307,17 @@ public class KMCellTable: KCCellTableInterface
 
 	public func view(colmunName cname: String, rowIndex ridx: Int) -> KCView? {
 		if let cidx = mTitles[cname] {
+			let col = mColumns[cidx]
+			if 0<=ridx && ridx<col.values.count {
+				let val = col.values[ridx]
+				return valueToView(value: val)
+			}
+		}
+		return nil
+	}
+
+	public func view(colmunIndex cidx: Int, rowIndex ridx: Int) -> KCView? {
+		if 0<=cidx && cidx<mColumns.count {
 			let col = mColumns[cidx]
 			if 0<=ridx && ridx<col.values.count {
 				let val = col.values[ridx]

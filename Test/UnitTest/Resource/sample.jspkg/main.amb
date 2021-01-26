@@ -45,6 +45,9 @@ top: VBox {
 		self.title = msg ;
 		self.image = image ;
 	%}
+        pressed: Event(col:Int, row:Int) %{
+		console.log("Table Pressed col=" + col + ", row=" + row) ;
+	%}
     }
     button_a: Button {
         title:  String "Go to Second"
