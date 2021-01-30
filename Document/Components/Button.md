@@ -3,9 +3,9 @@ The button to be pressed.
 
 ## Syntax
 ````
-button_a Button : {
-    isEnabled:  true,
-    title:      "Button title",
+button_a: Button {
+    isEnabled:  Bool   true,
+    title:      String "Button title",
     pressed: Event() %{
         // Code to support the button press event
     %}

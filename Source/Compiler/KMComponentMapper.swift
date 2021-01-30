@@ -30,6 +30,9 @@ public class KMComponentMapper: AMBComponentMapper
 		case "CheckBox":
 			newcomp     = KMCheckBox()
 			hassubview  = false
+		case "Graphics2D":
+			newcomp	    = KMGraphics2D()
+			hassubview  = false
 		case "HBox":
 			let comp    = KMStackView()
 			comp.axis   = .horizontal

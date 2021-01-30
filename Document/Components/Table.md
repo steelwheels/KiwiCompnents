@@ -13,7 +13,7 @@ In the below example, there are 10 x 20 cells.The format of the table cell is de
 
 The event function named `make` is used to set the contents of cell. The parameter `col` and `row` is used to tell the position of the cell to make.
 ````
-table Table: {
+table: Table {
     rowsCount:   Int 10
     columnCount: Int 20
     cell: Image: {
@@ -30,7 +30,7 @@ table Table: {
 
 ### Multi columns table
 ````
-table Columns : {
+table: Columns {
     rowCount:  Int 10
     col0: Column {
         title:  String  "column-0"

@@ -6,6 +6,18 @@ top: VBox {
 	    text_a: TextField {
 			text: String "This is text field"
 	    }
+		graphics: Graphics2D {
+			draw: Event(context: Int) %{
+				let lframe = context.logicalFrame ;
+				let x      = lframe.x ;
+				let y      = lframe.y ;
+				let width  = lframe.width ;
+				let height = lframe.height ;
+				console.log("draw !! in " + x + " , " + y + " of " + context) ;
+				context.moveTo(x, y) ;
+				context.lineTo(x + width, y + height) ;
+			%}
+		}
     }
     boxes: HBox {
 		checkBox0: CheckBox {
@@ -23,12 +35,12 @@ top: VBox {
 		}
     }
     table: Table {
-	columnCount:	Int	3
-	rowCount:		Int	2
-	cell: Icon {
-		image: String "calendar"
-		title: String "calendar"
-	}
+		columnCount:	Int	3
+		rowCount:		Int	2
+		cell: Icon {
+			image: String "calendar"
+			title: String "calendar"
+		}
 	make: Event(col: Int, row: Int) %{
 		let msg   = "make event: " + col + "," + row ;
 		let idx   = row * 2 + col ;

@@ -3,7 +3,7 @@ Non-editable text field
 
 ## Syntax
 ````
-field TextField : {
+field: TextField {
     text:       String      "The label string"
     fontSize:   FontSize    [small | regular | large]
     isBezeled:  Bool         false

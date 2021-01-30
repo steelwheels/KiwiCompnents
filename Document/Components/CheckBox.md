@@ -3,7 +3,7 @@ The check box to toggle ON/OFF value.
 
 ## Syntax
 ````
-box CheckBox : {
+box: CheckBox {
     isEnabled:  Bool true,
     title:      String "Button title",
     pressed: Event(status: Bool) %{
