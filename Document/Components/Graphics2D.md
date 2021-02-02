@@ -1,5 +1,5 @@
 # Graphics 2D component
-The 2D graphics drawer
+The 2D graphics drawer.  
 
 ## Syntax
 ````
@@ -19,6 +19,11 @@ grp: Graphics2D {
 ## Methods
 ### `draw` event function
 The event function which is called when to draw the graphics.
+
+|Parameter name |Type   |Description                    |
+|:---           |:---   |:---                           |
+|context        |[GraphicsContext](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/GraphicsContext.md)  |The interface object to draw 2D graphics  |
+
 The parameter `context` is an instance of [GraphicsContext class](
 https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/GraphicsContext.md).
 
