@@ -13,9 +13,17 @@ top: VBox {
 				let y      = lframe.y ;
 				let width  = lframe.width ;
 				let height = lframe.height ;
-				console.log("draw !! in " + x + " , " + y + " of " + context) ;
+				console.log("[Graphics2D] draw !! in " + x + " , " + y + " of " + context) ;
 				context.moveTo(x, y) ;
 				context.lineTo(x + width, y + height) ;
+			%}
+		}
+
+		bitmap: Bitmap {
+			draw: Event(context: Int) %{
+				console.log("[Bitmap] draw !!") ;
+				context.setColor(context.blue) ;
+				context.drawPoint(5, 5) ;
 			%}
 		}
     }

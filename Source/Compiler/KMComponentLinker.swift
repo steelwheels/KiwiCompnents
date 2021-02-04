@@ -30,6 +30,10 @@ public class KMComponentLinker: KMVisitor
 		/* Do nothing */
 	}
 
+	public override func visit(bitmap view: KMBitmap){
+		/* Do nothing */
+	}
+
 	public override func visit(button view: KMButton){
 		/* Do nothing */
 	}

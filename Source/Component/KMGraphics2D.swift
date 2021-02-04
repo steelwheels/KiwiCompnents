@@ -2,7 +2,7 @@
  * @file	KMGraphics2D.swift
  * @brief	Define KMGraphics2D class
  * @par Copyright
- *   Copyright (C) 2022 Steel Wheels Project
+ *   Copyright (C) 2021 Steel Wheels Project
  */
 
 import KiwiControls

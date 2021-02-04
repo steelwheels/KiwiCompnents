@@ -13,6 +13,8 @@ open class KMVisitor
 	public func visit(component comp: AMBComponent) {
 		if let txt = comp as? KMTextEdit {
 			visit(textEdit: txt)
+		} else if let bitmap = comp as? KMBitmap {
+			visit(bitmap: bitmap)
 		} else if let button = comp as? KMButton {
 			visit(button: button)
 		} else if let cbox = comp as? KMCheckBox {
@@ -36,6 +38,7 @@ open class KMVisitor
 		}
 	}
 
+	open func visit(bitmap view: KMBitmap){ }
 	open func visit(button view: KMButton){ }
 	open func visit(checkBox view: KMCheckBox){ }
 	open func visit(graphics2D view: KMGraphics2D){ }

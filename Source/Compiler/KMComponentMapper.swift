@@ -24,6 +24,9 @@ public class KMComponentMapper: AMBComponentMapper
 		let newcomp    : AMBComponent
 		let hassubview : Bool
 		switch classname {
+		case "Bitmap":
+			newcomp	    = KMBitmap()
+			hassubview  = false
 		case "Button":
 			newcomp     = KMButton()
 			hassubview  = false
