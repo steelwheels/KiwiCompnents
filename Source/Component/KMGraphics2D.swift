@@ -24,11 +24,15 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 	public static let 	SizeYItem	= "size_y"
 	public static let 	OriginXItem	= "origin_x"
 	public static let 	OriginYItem	= "origin_y"
+	public static let	DurationItem	= "duration"
+	public static let	RepeatCountItem = "repeatCount"
 	public static let	DrawItem	= "draw"
 
 	private var mReactObject:	AMBReactObject?
 	private var mDrawFunc:		JSValue?
 	private var mConsole:		CNConsole
+
+	public static let DefaultRepeatCount: Int32	= 10
 
 	public var reactObject: AMBReactObject	{ get {
 		if let robj = mReactObject {
@@ -109,6 +113,22 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 			robj.setFloatValue(value: Double(self.logicalFrame.origin.y), forProperty: KMGraphics2D.OriginYItem)
 		}
 
+		/* duration */
+		var duration: TimeInterval = 1.0
+		if let val = robj.floatValue(forProperty: KMGraphics2D.DurationItem) {
+			duration = TimeInterval(val)
+		} else {
+			robj.setFloatValue(value: Double(duration), forProperty: KMGraphics2D.DurationItem)
+		}
+
+		/* repeatCount */
+		var rcount = KMGraphics2D.DefaultRepeatCount
+		if let val = robj.int32Value(forProperty: KMGraphics2D.RepeatCountItem) {
+			rcount = val
+		} else {
+			robj.setInt32Value(value: rcount, forProperty: KMBitmap.RepeatCountItem)
+		}
+
 		/* draw */
 		if let drawfnc = robj.immediateValue(forProperty: KMGraphics2D.DrawItem) {
 			mDrawFunc = drawfnc
@@ -116,14 +136,17 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 			cons.error(string: "[Error] No \"draw\" function is defined at Graphics2D view\n")
 		}
 
+		/* Setup */
+		self.animation(interval: duration, endTime: Float(rcount))
+
 		return nil
 	}
 
-	public override func draw(context ctxt: CNGraphicsContext) {
-		if let drawfnc = mDrawFunc {
-			let gctxt = KLGraphicsContext(graphicsContext: ctxt, scriptContext: reactObject.context, console: mConsole)
+	public override func draw(graphicsContext ctxt: CNGraphicsContext, count cnt: Int32) {
+		if let drawfnc = mDrawFunc, let cntval = JSValue(int32: cnt, in: reactObject.context) {
+			let gctxt  = KLGraphicsContext(graphicsContext: ctxt, scriptContext: reactObject.context, console: mConsole)
 			/* Call event function */
-			drawfnc.call(withArguments: [reactObject, gctxt])	// (self, context)
+			drawfnc.call(withArguments: [reactObject, gctxt, cntval])	// (self, context, count)
 		} else {
 			NSLog("No function to draw at \(#function)")
 		}

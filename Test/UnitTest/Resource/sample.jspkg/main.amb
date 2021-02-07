@@ -7,23 +7,28 @@ top: VBox {
 			text: String "This is text field"
 	    }
 		graphics: Graphics2D {
-			draw: Event(context: Int) %{
+			origin_x: Float -1.0
+			origin_y: Float -1.0
+			size_x:   Float  2.0
+			size_y:   Float  2.0
+			draw: Event(context: Int, count: Int) %{
+				console.log("[Grahics2D] " + count) ;
 				let lframe = context.logicalFrame ;
-				let x      = lframe.x ;
-				let y      = lframe.y ;
-				let width  = lframe.width ;
-				let height = lframe.height ;
-				console.log("[Graphics2D] draw !! in " + x + " , " + y + " of " + context) ;
-				context.moveTo(x, y) ;
-				context.lineTo(x + width, y + height) ;
+				let offset = Math.PI * ((count % 10) / 10.0) ; 
+				context.moveTo(lframe.x, Math.sin(lframe.x + offset)) ;
+				for(let x=lframe.x ; x<=lframe.x + lframe.width ; x+=0.1) {
+					let y = Math.sin(x + offset) ;
+					context.lineTo(x, y) ;
+				}
 			%}
 		}
 
 		bitmap: Bitmap {
-			draw: Event(context: Int) %{
-				console.log("[Bitmap] draw !!") ;
+			draw: Event(context: Int, count: Int) %{
+				//console.log("[Bitmap] draw: " + count) ;
 				context.setColor(context.blue) ;
-				context.drawPoint(5, 5) ;
+				let pos = count % 10 ;
+				context.drawPoint(pos, pos) ;
 			%}
 		}
     }

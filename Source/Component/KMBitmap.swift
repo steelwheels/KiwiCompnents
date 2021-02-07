@@ -22,10 +22,13 @@ public class KMBitmap: KCBitmapView, AMBComponent
 	public static let	HeightItem	= "height"
 	public static let	RowCountItem	= "rowCount"
 	public static let	ColumnCountItem	= "columnCount"
+	public static let	DurationItem	= "duration"
+	public static let	RepeatCountItem = "repeatCount"
 	public static let	DrawItem	= "draw"
 
 	public static let DefaultRowCount: Int		= 10
 	public static let DefaultColumnCount: Int	= 10
+	public static let DefaultRepeatCount: Int32	= 10
 
 	private var mReactObject:	AMBReactObject?
 	private var mDrawFunc:		JSValue?
@@ -96,6 +99,22 @@ public class KMBitmap: KCBitmapView, AMBComponent
 			robj.setInt32Value(value: Int32(self.columnCount), forProperty: KMBitmap.ColumnCountItem)
 		}
 
+		/* duration */
+		var duration: TimeInterval = 1.0
+		if let val = robj.floatValue(forProperty: KMBitmap.DurationItem) {
+			duration = TimeInterval(val)
+		} else {
+			robj.setFloatValue(value: Double(duration), forProperty: KMBitmap.DurationItem)
+		}
+
+		/* repeatCount */
+		var rcount = KMBitmap.DefaultRepeatCount
+		if let val = robj.int32Value(forProperty: KMBitmap.RepeatCountItem) {
+			rcount = val
+		} else {
+			robj.setInt32Value(value: rcount, forProperty: KMBitmap.RepeatCountItem)
+		}
+
 		/* draw */
 		if let drawfnc = robj.immediateValue(forProperty: KMBitmap.DrawItem) {
 			mDrawFunc = drawfnc
@@ -103,15 +122,18 @@ public class KMBitmap: KCBitmapView, AMBComponent
 			cons.error(string: "[Error] No \"draw\" function is defined at Graphics2D view\n")
 		}
 
+		/* Setup */
+		self.animation(interval: duration, endTime: Float(rcount))
+
 		return nil
 	}
 
-	public override func draw(context ctxt: CNBitmapContext) {
-		if let drawfnc = mDrawFunc {
-			NSLog("columnCount=\(self.columnCount) rowCounr=\(self.rowCount)")
+	public override func draw(bitmapContext ctxt: CNBitmapContext, count cnt: Int32) {
+		if let drawfnc = mDrawFunc, let cntval = JSValue(int32: cnt, in: reactObject.context) {
+			//NSLog("columnCount=\(self.columnCount) rowCounr=\(self.rowCount)")
 			let bmctxt = KLBitmapContext(bitmapContext: ctxt, scriptContext: reactObject.context, console: mConsole)
 			/* Call event function */
-			drawfnc.call(withArguments: [reactObject, bmctxt])	// (self, context)
+			drawfnc.call(withArguments: [reactObject, bmctxt, cntval])	// (self, context, count)
 		} else {
 			NSLog("No function to draw at \(#function)")
 		}
