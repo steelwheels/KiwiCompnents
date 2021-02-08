@@ -11,7 +11,7 @@ top: VBox {
 			origin_y: Float -1.0
 			size_x:   Float  2.0
 			size_y:   Float  2.0
-			draw: Event(context: Int, count: Int) %{
+			draw: Event(context, count) %{
 				console.log("[Grahics2D] " + count) ;
 				let lframe = context.logicalFrame ;
 				let offset = Math.PI * ((count % 10) / 10.0) ; 
@@ -24,7 +24,7 @@ top: VBox {
 		}
 
 		bitmap: Bitmap {
-			draw: Event(context: Int, count: Int) %{
+			draw: Event(context, count) %{
 				//console.log("[Bitmap] draw: " + count) ;
 				context.setColor(context.blue) ;
 				let pos = count % 10 ;
@@ -35,14 +35,14 @@ top: VBox {
     boxes: HBox {
 		checkBox0: CheckBox {
 			title:	String "option-0"
-			pressed: Event(status: Bool) %{
+			pressed: Event(status) %{
 				console.log("option-0: " + status) ;
 			%}
 		}
 		checkBox1: CheckBox {
 			title:	String "option-1"
 			status: Bool false
-			pressed: Event(status: Bool) %{
+			pressed: Event(status) %{
 				console.log("option-1: " + status) ;
 			%}
 		}
@@ -54,7 +54,7 @@ top: VBox {
 			image: String "calendar"
 			title: String "calendar"
 		}
-	make: Event(col: Int, row: Int) %{
+	make: Event(col, row) %{
 		let msg   = "make event: " + col + "," + row ;
 		let idx   = row * 2 + col ;
 		let image = "?" ;
@@ -70,7 +70,7 @@ top: VBox {
 		self.title = msg ;
 		self.image = image ;
 	%}
-        pressed: Event(col:Int, row:Int) %{
+        pressed: Event(col, row) %{
 		console.log("Table Pressed col=" + col + ", row=" + row) ;
 	%}
     }
