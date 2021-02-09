@@ -26,6 +26,8 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 	public static let 	OriginYItem	= "origin_y"
 	public static let	DurationItem	= "duration"
 	public static let	RepeatCountItem = "repeatCount"
+	public static let 	StartItem	= "start"
+	public static let	StopItem	= "stop"
 	public static let	DrawItem	= "draw"
 
 	private var mReactObject:	AMBReactObject?
@@ -126,8 +128,33 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 		if let val = robj.int32Value(forProperty: KMGraphics2D.RepeatCountItem) {
 			rcount = val
 		} else {
-			robj.setInt32Value(value: rcount, forProperty: KMBitmap.RepeatCountItem)
+			robj.setInt32Value(value: rcount, forProperty: KMGraphics2D.RepeatCountItem)
 		}
+
+		/* add start method */
+		let startfunc: @convention(block) (_ intrval: JSValue, _ endval: JSValue) -> JSValue = {
+			(_ intrval: JSValue, _ endval: JSValue) -> JSValue in
+			if intrval.isNumber && endval.isNumber {
+				let interval = intrval.toDouble()
+				let endtime  = endval.toDouble()
+				self.start(interval: interval, endTime: Float(endtime))
+				return JSValue(bool: true, in: robj.context)
+			} else {
+				return JSValue(bool: false, in: robj.context)
+			}
+		}
+		robj.setImmediateValue(value: JSValue(object: startfunc, in: robj.context), forProperty: KMGraphics2D.StartItem)
+		robj.addScriptedPropertyName(name: KMGraphics2D.StartItem)
+
+		/* add stop method */
+		let stopfunc: @convention(block) () -> JSValue = {
+			() -> JSValue in
+			let result = self.isRunning
+			self.stop()
+			return JSValue(bool: result, in: robj.context)
+		}
+		robj.setImmediateValue(value: JSValue(object: stopfunc, in: robj.context), forProperty: KMGraphics2D.StopItem)
+		robj.addScriptedPropertyName(name: KMGraphics2D.StopItem)
 
 		/* draw */
 		if let drawfnc = robj.immediateValue(forProperty: KMGraphics2D.DrawItem) {
@@ -135,9 +162,6 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 		} else {
 			cons.error(string: "[Error] No \"draw\" function is defined at Graphics2D view\n")
 		}
-
-		/* Setup */
-		self.animation(interval: duration, endTime: Float(rcount))
 
 		return nil
 	}

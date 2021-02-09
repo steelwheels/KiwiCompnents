@@ -24,6 +24,8 @@ public class KMBitmap: KCBitmapView, AMBComponent
 	public static let	ColumnCountItem	= "columnCount"
 	public static let	DurationItem	= "duration"
 	public static let	RepeatCountItem = "repeatCount"
+	public static let 	StartItem	= "start"
+	public static let	StopItem	= "stop"
 	public static let	DrawItem	= "draw"
 
 	public static let DefaultRowCount: Int		= 10
@@ -115,15 +117,37 @@ public class KMBitmap: KCBitmapView, AMBComponent
 			robj.setInt32Value(value: rcount, forProperty: KMBitmap.RepeatCountItem)
 		}
 
+		/* add start method */
+		let startfunc: @convention(block) (_ intrval: JSValue, _ endval: JSValue) -> JSValue = {
+			(_ intrval: JSValue, _ endval: JSValue) -> JSValue in
+			if intrval.isNumber && endval.isNumber {
+				let interval = intrval.toDouble()
+				let endtime  = endval.toDouble()
+				self.start(interval: interval, endTime: Float(endtime))
+				return JSValue(bool: true, in: robj.context)
+			} else {
+				return JSValue(bool: false, in: robj.context)
+			}
+		}
+		robj.setImmediateValue(value: JSValue(object: startfunc, in: robj.context), forProperty: KMBitmap.StartItem)
+		robj.addScriptedPropertyName(name: KMBitmap.StartItem)
+
+		/* add stop method */
+		let stopfunc: @convention(block) () -> JSValue = {
+			() -> JSValue in
+			let result = self.isRunning
+			self.stop()
+			return JSValue(bool: result, in: robj.context)
+		}
+		robj.setImmediateValue(value: JSValue(object: stopfunc, in: robj.context), forProperty: KMBitmap.StopItem)
+		robj.addScriptedPropertyName(name: KMBitmap.StopItem)
+
 		/* draw */
 		if let drawfnc = robj.immediateValue(forProperty: KMBitmap.DrawItem) {
 			mDrawFunc = drawfnc
 		} else {
 			cons.error(string: "[Error] No \"draw\" function is defined at Graphics2D view\n")
 		}
-
-		/* Setup */
-		self.animation(interval: duration, endTime: Float(rcount))
 
 		return nil
 	}
