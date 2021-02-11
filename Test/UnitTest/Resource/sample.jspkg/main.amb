@@ -21,6 +21,10 @@ top: VBox {
 					context.lineTo(x, y) ;
 				}
 			%}
+			init: Init %{
+				console.log("[Graphics2D] Init") ;
+				self.start(1.0, 10.0) ;
+			%}
 		}
 
 		bitmap: Bitmap {
@@ -29,6 +33,10 @@ top: VBox {
 				context.setColor(context.blue) ;
 				let pos = count % 10 ;
 				context.drawPoint(pos, pos) ;
+			%}
+			init: Init %{
+				console.log("[Bitmap] Init") ;
+				self.start(1.0, 10.0) ;
 			%}
 		}
     }

@@ -26,6 +26,8 @@ public class KMBitmap: KCBitmapView, AMBComponent
 	public static let	RepeatCountItem = "repeatCount"
 	public static let 	StartItem	= "start"
 	public static let	StopItem	= "stop"
+	public static let 	SuspendItem	= "suspend"
+	public static let	ResumeItem	= "resume"
 	public static let	DrawItem	= "draw"
 
 	public static let DefaultRowCount: Int		= 10
@@ -55,7 +57,6 @@ public class KMBitmap: KCBitmapView, AMBComponent
 		#endif
 		super.init(frame: frame)
 	}
-
 
 	@objc required dynamic init?(coder: NSCoder) {
 		mReactObject 	= nil
@@ -135,18 +136,42 @@ public class KMBitmap: KCBitmapView, AMBComponent
 		/* add stop method */
 		let stopfunc: @convention(block) () -> JSValue = {
 			() -> JSValue in
-			let result = self.isRunning
+			NSLog("stopfunc-0")
 			self.stop()
-			return JSValue(bool: result, in: robj.context)
+			NSLog("stopfunc-1")
+			return JSValue(bool: true, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: stopfunc, in: robj.context), forProperty: KMBitmap.StopItem)
 		robj.addScriptedPropertyName(name: KMBitmap.StopItem)
+
+		/* add suspend method */
+		let suspendfunc: @convention(block) () -> JSValue = {
+			() -> JSValue in
+			NSLog("suspendfunc-0")
+			self.suspend()
+			NSLog("suspendfunc-2")
+			return JSValue(bool: true, in: robj.context)
+		}
+		robj.setImmediateValue(value: JSValue(object: suspendfunc, in: robj.context), forProperty: KMBitmap.SuspendItem)
+		robj.addScriptedPropertyName(name: KMBitmap.SuspendItem)
+
+		/* add resume method */
+		let resumefunc: @convention(block) () -> JSValue = {
+			() -> JSValue in
+			NSLog("resumefunc-0")
+			self.resume()
+			NSLog("resumefunc-2")
+			return JSValue(bool: true, in: robj.context)
+		}
+		robj.setImmediateValue(value: JSValue(object: resumefunc, in: robj.context), forProperty: KMBitmap.ResumeItem)
+		robj.addScriptedPropertyName(name: KMBitmap.ResumeItem)
+
 
 		/* draw */
 		if let drawfnc = robj.immediateValue(forProperty: KMBitmap.DrawItem) {
 			mDrawFunc = drawfnc
 		} else {
-			cons.error(string: "[Error] No \"draw\" function is defined at Graphics2D view\n")
+			cons.error(string: "[Error] No \"draw\" function is defined at Bitmap view\n")
 		}
 
 		return nil

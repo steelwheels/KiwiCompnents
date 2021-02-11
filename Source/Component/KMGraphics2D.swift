@@ -28,6 +28,8 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 	public static let	RepeatCountItem = "repeatCount"
 	public static let 	StartItem	= "start"
 	public static let	StopItem	= "stop"
+	public static let 	SuspendItem	= "suspend"
+	public static let	ResumeItem	= "resume"
 	public static let	DrawItem	= "draw"
 
 	private var mReactObject:	AMBReactObject?
@@ -134,12 +136,15 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 		/* add start method */
 		let startfunc: @convention(block) (_ intrval: JSValue, _ endval: JSValue) -> JSValue = {
 			(_ intrval: JSValue, _ endval: JSValue) -> JSValue in
+			NSLog("startfunc-0")
 			if intrval.isNumber && endval.isNumber {
 				let interval = intrval.toDouble()
 				let endtime  = endval.toDouble()
 				self.start(interval: interval, endTime: Float(endtime))
+				NSLog("startfunc-1")
 				return JSValue(bool: true, in: robj.context)
 			} else {
+				NSLog("startfunc-2")
 				return JSValue(bool: false, in: robj.context)
 			}
 		}
@@ -149,12 +154,35 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 		/* add stop method */
 		let stopfunc: @convention(block) () -> JSValue = {
 			() -> JSValue in
-			let result = self.isRunning
+			NSLog("stopfunc-0")
 			self.stop()
-			return JSValue(bool: result, in: robj.context)
+			NSLog("stopfunc-1")
+			return JSValue(bool: true, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: stopfunc, in: robj.context), forProperty: KMGraphics2D.StopItem)
 		robj.addScriptedPropertyName(name: KMGraphics2D.StopItem)
+
+		/* add suspend method */
+		let suspendfunc: @convention(block) () -> JSValue = {
+			() -> JSValue in
+			NSLog("suspendfunc-0")
+			self.suspend()
+			NSLog("suspendfunc-2")
+			return JSValue(bool: true, in: robj.context)
+		}
+		robj.setImmediateValue(value: JSValue(object: suspendfunc, in: robj.context), forProperty: KMGraphics2D.SuspendItem)
+		robj.addScriptedPropertyName(name: KMGraphics2D.SuspendItem)
+
+		/* add resume method */
+		let resumefunc: @convention(block) () -> JSValue = {
+			() -> JSValue in
+			NSLog("resumefunc-0")
+			self.resume()
+			NSLog("resumefunc-2")
+			return JSValue(bool: true, in: robj.context)
+		}
+		robj.setImmediateValue(value: JSValue(object: resumefunc, in: robj.context), forProperty: KMGraphics2D.ResumeItem)
+		robj.addScriptedPropertyName(name: KMGraphics2D.ResumeItem)
 
 		/* draw */
 		if let drawfnc = robj.immediateValue(forProperty: KMGraphics2D.DrawItem) {

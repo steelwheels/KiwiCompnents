@@ -171,6 +171,10 @@ open class KMComponentViewController: KCSingleViewController
 			return nil
 		}
 
+		/* Execute the component */
+		let exec = AMBComponentExecutor(console: console)
+		exec.exec(component: topcomp)
+
 		/* Setup root view*/
 		return topcomp as? KCView
 	}
