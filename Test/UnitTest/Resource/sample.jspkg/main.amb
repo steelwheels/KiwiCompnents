@@ -12,7 +12,7 @@ top: VBox {
 			size_x:   Float  2.0
 			size_y:   Float  2.0
 			draw: Event(context, count) %{
-				console.log("[Grahics2D] " + count) ;
+				//console.log("[Grahics2D] " + count) ;
 				let lframe = context.logicalFrame ;
 				let offset = Math.PI * ((count % 10) / 10.0) ; 
 				context.moveTo(lframe.x, Math.sin(lframe.x + offset)) ;
@@ -52,6 +52,29 @@ top: VBox {
 			status: Bool false
 			pressed: Event(status) %{
 				console.log("option-1: " + status) ;
+			%}
+		}
+		button0: Button {
+			title:	String "Stop"
+			pressed: Event() %{
+				console.log("stop") ;
+				let grp = top.message.graphics ;
+				let bmp = top.message.bitmap ;
+				switch(grp.state()){
+				  case AnimationState.idle:
+					top.message.graphics.start(1.0, 10.0) ;
+					top.message.bitmap.start(1.0, 10.0) ;
+					self.title = "stop" ;
+				  break ;
+				  case AnimationState.run:
+					top.message.graphics.stop() ;
+					top.message.bitmap.stop() ;
+					self.title = "start" ;
+				  break ;
+				  case AnimationState.pause:
+				  break ;
+				}
+
 			%}
 		}
     }

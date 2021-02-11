@@ -26,6 +26,7 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 	public static let 	OriginYItem	= "origin_y"
 	public static let	DurationItem	= "duration"
 	public static let	RepeatCountItem = "repeatCount"
+	public static let	StateItem	= "state"
 	public static let 	StartItem	= "start"
 	public static let	StopItem	= "stop"
 	public static let 	SuspendItem	= "suspend"
@@ -132,6 +133,14 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 		} else {
 			robj.setInt32Value(value: rcount, forProperty: KMGraphics2D.RepeatCountItem)
 		}
+
+		/* add state method */
+		let statefunc: @convention(block) () -> JSValue = {
+			() -> JSValue in
+			return JSValue(int32: self.state.rawValue, in: robj.context)
+		}
+		robj.setImmediateValue(value: JSValue(object: statefunc, in: robj.context), forProperty: KMGraphics2D.StateItem)
+		robj.addScriptedPropertyName(name: KMGraphics2D.StateItem)
 
 		/* add start method */
 		let startfunc: @convention(block) (_ intrval: JSValue, _ endval: JSValue) -> JSValue = {
