@@ -100,12 +100,12 @@ public class KMBitmap: KCBitmapView, AMBComponent
 			robj.setInt32Value(value: Int32(self.columnCount), forProperty: KMBitmap.ColumnCountItem)
 		}
 
-		/* add state method */
-		let statefunc: @convention(block) () -> JSValue = {
-			() -> JSValue in
-			return JSValue(int32: self.state.rawValue, in: robj.context)
-		}
-		robj.setImmediateValue(value: JSValue(object: statefunc, in: robj.context), forProperty: KMBitmap.StateItem)
+		/* state property */
+		robj.setInt32Value(value: Int32(self.state.rawValue), forProperty: KMBitmap.StateItem)
+		self.setCallback(updateStateCallback: {
+			(_ newstate: CNAnimationState) -> Void in
+			robj.setInt32Value(value: Int32(newstate.rawValue), forProperty: KMBitmap.StateItem)
+		})
 		robj.addScriptedPropertyName(name: KMBitmap.StateItem)
 
 		/* add start method */
@@ -155,7 +155,6 @@ public class KMBitmap: KCBitmapView, AMBComponent
 		}
 		robj.setImmediateValue(value: JSValue(object: resumefunc, in: robj.context), forProperty: KMBitmap.ResumeItem)
 		robj.addScriptedPropertyName(name: KMBitmap.ResumeItem)
-
 
 		/* draw */
 		if let drawfnc = robj.immediateValue(forProperty: KMBitmap.DrawItem) {

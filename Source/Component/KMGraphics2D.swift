@@ -116,12 +116,12 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 			robj.setFloatValue(value: Double(self.logicalFrame.origin.y), forProperty: KMGraphics2D.OriginYItem)
 		}
 
-		/* add state method */
-		let statefunc: @convention(block) () -> JSValue = {
-			() -> JSValue in
-			return JSValue(int32: self.state.rawValue, in: robj.context)
-		}
-		robj.setImmediateValue(value: JSValue(object: statefunc, in: robj.context), forProperty: KMGraphics2D.StateItem)
+		/* state property */
+		robj.setInt32Value(value: Int32(self.state.rawValue), forProperty: KMGraphics2D.StateItem)
+		self.setCallback(updateStateCallback: {
+			(_ newstate: CNAnimationState) -> Void in
+			robj.setInt32Value(value: Int32(newstate.rawValue), forProperty: KMGraphics2D.StateItem)
+		})
 		robj.addScriptedPropertyName(name: KMGraphics2D.StateItem)
 
 		/* add start method */
