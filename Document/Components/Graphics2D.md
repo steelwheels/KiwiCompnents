@@ -10,6 +10,7 @@ grp: Graphics2D {
     size_y:         Double      graphic_height
     origin_x:       Double      graphic_origin_x
     origin_y:       Double      graphic_origin_y
+
     draw: Event(context) %{
         // Code to support the button press event
     %}
@@ -26,6 +27,36 @@ The event function which is called when to draw the graphics.
 
 The parameter `context` is an instance of [GraphicsContext class](
 https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/GraphicsContext.md).
+
+## Built-in method
+Following methods are defined as built-in method. 
+You can call them in your JavaScript code:
+### `start`
+````
+grp.start(interval: Double, endtime: Doble) ;
+````
+
+### `stop`
+````
+grp.stop() ;
+````
+
+### `suspend`
+````
+grp.suspend() ;
+````
+
+### `resume`
+````
+grp.resume() ;
+````
+
+### `state`
+Get the current state of the animation.
+````
+grp.state() ;
+````
+
 
 ## Reference
 * [README](https://github.com/steelwheels/KiwiCompnents): Top page of KiwiComponents project.

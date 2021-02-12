@@ -22,8 +22,6 @@ public class KMBitmap: KCBitmapView, AMBComponent
 	public static let	HeightItem	= "height"
 	public static let	RowCountItem	= "rowCount"
 	public static let	ColumnCountItem	= "columnCount"
-	public static let	DurationItem	= "duration"
-	public static let	RepeatCountItem = "repeatCount"
 	public static let	StateItem	= "state"
 	public static let 	StartItem	= "start"
 	public static let	StopItem	= "stop"
@@ -33,7 +31,6 @@ public class KMBitmap: KCBitmapView, AMBComponent
 
 	public static let DefaultRowCount: Int		= 10
 	public static let DefaultColumnCount: Int	= 10
-	public static let DefaultRepeatCount: Int32	= 10
 
 	private var mReactObject:	AMBReactObject?
 	private var mDrawFunc:		JSValue?
@@ -101,22 +98,6 @@ public class KMBitmap: KCBitmapView, AMBComponent
 			self.columnCount = Int(val)
 		} else {
 			robj.setInt32Value(value: Int32(self.columnCount), forProperty: KMBitmap.ColumnCountItem)
-		}
-
-		/* duration */
-		var duration: TimeInterval = 1.0
-		if let val = robj.floatValue(forProperty: KMBitmap.DurationItem) {
-			duration = TimeInterval(val)
-		} else {
-			robj.setFloatValue(value: Double(duration), forProperty: KMBitmap.DurationItem)
-		}
-
-		/* repeatCount */
-		var rcount = KMBitmap.DefaultRepeatCount
-		if let val = robj.int32Value(forProperty: KMBitmap.RepeatCountItem) {
-			rcount = val
-		} else {
-			robj.setInt32Value(value: rcount, forProperty: KMBitmap.RepeatCountItem)
 		}
 
 		/* add state method */

@@ -24,8 +24,6 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 	public static let 	SizeYItem	= "size_y"
 	public static let 	OriginXItem	= "origin_x"
 	public static let 	OriginYItem	= "origin_y"
-	public static let	DurationItem	= "duration"
-	public static let	RepeatCountItem = "repeatCount"
 	public static let	StateItem	= "state"
 	public static let 	StartItem	= "start"
 	public static let	StopItem	= "stop"
@@ -116,22 +114,6 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 			self.logicalFrame.origin.y = CGFloat(val)
 		} else {
 			robj.setFloatValue(value: Double(self.logicalFrame.origin.y), forProperty: KMGraphics2D.OriginYItem)
-		}
-
-		/* duration */
-		var duration: TimeInterval = 1.0
-		if let val = robj.floatValue(forProperty: KMGraphics2D.DurationItem) {
-			duration = TimeInterval(val)
-		} else {
-			robj.setFloatValue(value: Double(duration), forProperty: KMGraphics2D.DurationItem)
-		}
-
-		/* repeatCount */
-		var rcount = KMGraphics2D.DefaultRepeatCount
-		if let val = robj.int32Value(forProperty: KMGraphics2D.RepeatCountItem) {
-			rcount = val
-		} else {
-			robj.setInt32Value(value: rcount, forProperty: KMGraphics2D.RepeatCountItem)
 		}
 
 		/* add state method */
