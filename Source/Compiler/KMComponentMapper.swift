@@ -55,6 +55,9 @@ public class KMComponentMapper: AMBComponentMapper
 		case "LabelBox":
 			newcomp     = KMLabeledStackView()
 			hassubview  = true
+		case "PopupMenu":
+			newcomp     = KMPopupMenu()
+			hassubview  = false
 		case "Table":
 			newcomp     = KMTableView()
 			hassubview  = false

@@ -89,6 +89,9 @@ top: VBox {
 
 			%}
 		}
+		menu0: PopupMenu {
+			items: String ["a", "b", "c"]
+		}
     }
     table: Table {
 		columnCount:	Int	3

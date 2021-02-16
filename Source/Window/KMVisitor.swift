@@ -27,6 +27,8 @@ open class KMVisitor
 			visit(image: image)
 		} else if let stack = comp as? KMLabeledStackView {
 			visit(labeledStackView: stack)
+		} else if let pmenu = comp as? KMPopupMenu {
+			visit(popupMenu: pmenu)
 		} else if let stack = comp as? KMStackView {
 			visit(stackView: stack)
 		} else if let table = comp as? KMTableView {
@@ -45,6 +47,7 @@ open class KMVisitor
 	open func visit(image view: KMImage){ }
 	open func visit(icon view: KMIcon){ }
 	open func visit(labeledStackView view: KMLabeledStackView) { }
+	open func visit(popupMenu view: KMPopupMenu){ }
 	open func visit(stackView view: KMStackView){ }
 	open func visit(tableView view: KMTableView){ }
 	open func visit(terminalView view: KMTerminalView){ }
