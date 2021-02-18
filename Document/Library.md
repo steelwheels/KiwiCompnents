@@ -5,6 +5,7 @@ This document describes list of classes and functions for component programming.
 
 ### Components
 * [CheckBox](Components/CheckBox.md): The check box. It has toggle switch and text label. 
+* [Bitmap](Components/Bitmap.md): 2D bitmap
 * [Box](Components/Box.md): The box to contain multiple modules vertically or holizontaly.
 * [Button](Components/Button.md): The press button
 * [Graphics2D](Components/Graphics2D.md): 2D graphics

@@ -116,7 +116,7 @@ top: VBox {
 		self.title = msg ;
 		self.image = image ;
 	%}
-        pressed: Event(col, row) %{
+    pressed: Event(col, row) %{
 		console.log("Table Pressed col=" + col + ", row=" + row) ;
 	%}
     }
@@ -129,5 +129,8 @@ top: VBox {
 			}) ;
         %}
     }
+	init: Init %{
+		top.boxes.menu0.items = ["Hello", "Good morning", "Good evening"]
+	%}
 }
 

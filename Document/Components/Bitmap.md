@@ -1,23 +1,21 @@
-# Graphics 2D component
-The 2D graphics drawer.  
+# Bitmap component
+The 2D bitmap drawer.  
 
 ## Syntax
 ````
-grp: Graphics2D {
+bm: Bitmap {
     // readable and writable
     width:          Int         component_width
     height:         Int         component_height
-    size_x          Double      graphic_width
-    size_y:         Double      graphic_height
-    origin_x:       Double      graphic_origin_x
-    origin_y:       Double      graphic_origin_y
+    rowCount:       Int         number_of_rows
+    columnCount:    Int         number_of_columns
 
     // read only
     status: AnimationState      state_of_animation
 
     // Function to draw bitmap
     draw: Event(context) %{
-        // Code to support the button press event
+       ...
     %}
 }
 ````
@@ -26,9 +24,16 @@ grp: Graphics2D {
 |:--            |:--        |:--                |
 |status         |[AnimationState](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Enum/AnimationState.md)     |The state of animation    |
 
+
 ## Methods
 ### `draw` event function
 The event function which is called when to draw the graphics.
+
+````
+{
+    draw: Event(context, )
+}
+````
 
 |Parameter name |Type   |Description                    |
 |:---           |:---   |:---                           |
