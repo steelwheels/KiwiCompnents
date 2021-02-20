@@ -11,9 +11,12 @@ import KiwiLibrary
 import CoconutData
 import JavaScriptCore
 
-public class KMLibraryCompiler
+public class KMLibraryCompiler: AMBLibraryCompiler
 {
 	public func compile(context ctxt: KEContext, viewController vcont: KMComponentViewController, resource res: KEResource, processManager procmgr: CNProcessManager, console cons: CNFileConsole, environment env: CNEnvironment, config conf: KEConfig) -> Bool {
+		/* Compile for the amber layer */
+		super.compile(context: ctxt, resource: res, console: cons)
+		/* Compile for this layer */
 		defineComponentFuntion(context: ctxt, viewController: vcont, resource: res)
 		defineThreadFunction(context: ctxt, viewController: vcont, resource: res, processManager: procmgr, environment: env, console: cons, config: conf)
 		return true
