@@ -30,7 +30,7 @@ top: VBox {
 		bitmap: Bitmap {
 			draw: Event(context, count) %{
 				let pos  = count % 10 ;
-				context.clear() ;
+				context.clean() ;
 				context.set(pos, pos, context.blue) ;
 			%}
 			init: Init %{
