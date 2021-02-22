@@ -29,10 +29,9 @@ top: VBox {
 
 		bitmap: Bitmap {
 			draw: Event(context, count) %{
-				let base = context.baseBitmap ;
 				let pos  = count % 10 ;
-				base.set(pos, pos, context.blue) ;
-				context.draw(base) ;
+				context.clear() ;
+				context.set(pos, pos, context.blue) ;
 			%}
 			init: Init %{
 				console.log("[Bitmap] Init") ;

@@ -19,6 +19,7 @@ import UIKit
 public class KMPopupMenu: KCPopupMenu, AMBComponent
 {
 	static let ItemsItem		= "items"
+	static let IndexItem		= "index"
 	static let SelectedItem		= "selected"
 
 	private var mReactObject:	AMBReactObject?
@@ -74,6 +75,10 @@ public class KMPopupMenu: KCPopupMenu, AMBComponent
 				}
 			}
 		})
+
+		/* Index */
+		robj.setInt32Value(value: Int32(self.indexOfSelectedItem), forProperty: KMPopupMenu.IndexItem)
+		robj.addScriptedPropertyName(name: KMPopupMenu.IndexItem)
 
 		/* Callback */
 		super.callbackFunction = {
