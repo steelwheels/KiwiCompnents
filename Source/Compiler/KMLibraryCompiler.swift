@@ -52,7 +52,7 @@ public class KMLibraryCompiler: AMBLibraryCompiler
 	}
 
 	private func enterView(viewController vcont: KMComponentViewController, context ctxt: KEContext, source src: KMSource, callback cbfunc: JSValue) {
-		CNExecuteInMainThread(doSync: true, execute: {
+		DispatchQueue.main.async {
 			() -> Void in
 			if let parent = vcont.parent as? KMMultiComponentViewController {
 				let vcallback: KMMultiComponentViewController.ViewSwitchCallback = {
@@ -63,11 +63,11 @@ public class KMLibraryCompiler: AMBLibraryCompiler
 			} else {
 				CNLog(logLevel: .error, message: "[Error] No parent controller")
 			}
-		})
+		}
 	}
 
 	private func leaveView(viewController vcont: KMComponentViewController, returnValue retval: CNNativeValue) {
-		CNExecuteInMainThread(doSync: true, execute: {
+		DispatchQueue.main.async {
 			() -> Void in
 			if let parent = vcont.parent as? KMMultiComponentViewController {
 				if !parent.popViewController(returnValue: retval) {
@@ -76,7 +76,7 @@ public class KMLibraryCompiler: AMBLibraryCompiler
 			} else {
 				CNLog(logLevel: .error, message: "No parent controller")
 			}
-		})
+		}
 	}
 
 	private func defineThreadFunction(context ctxt: KEContext, viewController vcont: KMComponentViewController, resource res: KEResource, processManager procmgr: CNProcessManager, environment env: CNEnvironment, console cons: CNConsole, config conf: KEConfig) {

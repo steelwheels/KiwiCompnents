@@ -34,11 +34,11 @@ public class KMAlert
 			result = self.show(message: message)
 		} else {
 			let semaphore = DispatchSemaphore(value: 0)
-			CNExecuteInMainThread(doSync: false, execute: {
+			DispatchQueue.main.async {
 				() -> Void in
 				result = self.show(message: message)
 				semaphore.signal()
-			})
+			}
 			semaphore.wait()
 		}
 		return JSValue(bool: result, in: mContext)
