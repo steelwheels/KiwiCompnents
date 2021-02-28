@@ -54,9 +54,9 @@ public class KMIcon: KCIconView, AMBComponent
 		self.buttonPressedCallback = {
 			() -> Void in
 			if let evtval = robj.immediateValue(forProperty: KMIcon.PressedItem) {
-				DispatchQueue.global().async {
+				CNExecuteInMainThread(doSync: false, execute: {
 					evtval.call(withArguments: [robj])	// insert self
-				}
+				})
 			}
 		}
 
@@ -70,7 +70,9 @@ public class KMIcon: KCIconView, AMBComponent
 		robj.addObserver(forProperty: KMIcon.ImageItem, callback: {
 			(_ param: Any) -> Void in
 			if let name = robj.stringValue(forProperty: KMIcon.ImageItem) {
-				self.setIcon(byName: name, console: cons)
+				CNExecuteInMainThread(doSync: false, execute: {
+					self.setIcon(byName: name, console: cons)
+				})
 			} else {
 				cons.error(string: "No name to load image\n")
 			}
@@ -86,7 +88,9 @@ public class KMIcon: KCIconView, AMBComponent
 		robj.addObserver(forProperty: KMIcon.TitleItem, callback: {
 			(_ param: Any) -> Void in
 			if let ttl = robj.stringValue(forProperty: KMIcon.TitleItem) {
-				super.title = ttl
+				CNExecuteInMainThread(doSync: false, execute: {
+					super.title = ttl
+				})
 			} else {
 				cons.error(string: "No name to load image\n")
 			}
@@ -102,7 +106,9 @@ public class KMIcon: KCIconView, AMBComponent
 		robj.addObserver(forProperty: KMIcon.ScaleItem, callback: {
 			(_ param: Any) -> Void in
 			if let sclval = robj.floatValue(forProperty: KMIcon.ScaleItem) {
-				super.scale = CGFloat(sclval)
+				CNExecuteInMainThread(doSync: false, execute: {
+					super.scale = CGFloat(sclval)
+				})
 			} else {
 				cons.error(string: "No name to load image\n")
 			}

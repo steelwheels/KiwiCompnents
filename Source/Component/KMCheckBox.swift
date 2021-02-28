@@ -61,9 +61,11 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 		robj.addObserver(forProperty: KMCheckBox.StatusItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.boolValue(forProperty: KMCheckBox.StatusItem) {
-				if self.status != val {
-					self.status = val
-				}
+				CNExecuteInMainThread(doSync: false, execute: {
+					if self.status != val {
+						self.status = val
+					}
+				})
 			}
 		})
 
@@ -77,11 +79,11 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 		robj.addObserver(forProperty: KMCheckBox.IsEnabledItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.boolValue(forProperty: KMCheckBox.IsEnabledItem) {
-				DispatchQueue.main.async {
+				CNExecuteInMainThread(doSync: false, execute: {
 					if self.isEnabled != val {
 						self.isEnabled = val
 					}
-				}
+				})
 			}
 		})
 
@@ -95,9 +97,9 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 		robj.addObserver(forProperty: KMCheckBox.TitleItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.stringValue(forProperty: KMCheckBox.TitleItem) {
-				DispatchQueue.main.async {
+				CNExecuteInMainThread(doSync: false, execute: {
 					self.title = val
-				}
+				})
 			}
 		})
 
@@ -107,9 +109,9 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 			if let evtval = robj.immediateValue(forProperty: KMCheckBox.PressedItem) {
 				robj.setBoolValue(value: stat, forProperty: KMCheckBox.StatusItem)
 				if let statval = JSValue(bool: stat, in: robj.context) {
-					DispatchQueue.global().async {
+					CNExecuteInMainThread(doSync: false, execute: {
 						evtval.call(withArguments: [robj, statval])	// insert self
-					}
+					})
 				} else {
 					NSLog("Failed to allocate object at \(#function)")
 				}

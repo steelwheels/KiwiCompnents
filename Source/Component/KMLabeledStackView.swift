@@ -67,7 +67,9 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 			(_ val: Any) -> Void in
 			if let val = robj.int32Value(forProperty: KMStackView.AxisItem) {
 				if let axisval = CNAxis(rawValue: val) {
-					self.contentsView.axis = axisval
+					CNExecuteInMainThread(doSync: false, execute: {
+						self.contentsView.axis = axisval
+					})
 				} else {
 					cons.error(string: "Invalid raw value for axis: \(val)\n")
 				}
@@ -89,7 +91,9 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 			(_ param: Any) -> Void in
 			if let val = robj.int32Value(forProperty: KMStackView.AxisItem) {
 				if let alignval = CNAlignment(rawValue: val) {
-					self.contentsView.alignment = alignval
+					CNExecuteInMainThread(doSync: false, execute: {
+						self.contentsView.alignment = alignval
+					})
 				} else {
 					cons.error(string: "Invalid raw value for alignment: \(val)\n")
 				}
@@ -111,7 +115,9 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 			(_ param: Any) -> Void in
 			if let val = robj.int32Value(forProperty: KMStackView.DistributionItem) {
 				if let distval = CNDistribution(rawValue: val) {
-					self.contentsView.distribution = distval
+					CNExecuteInMainThread(doSync: false, execute: {
+						self.contentsView.distribution = distval
+					})
 				} else {
 					cons.error(string: "Invalid raw value for distribution: \(val)\n")
 				}

@@ -58,7 +58,9 @@ public class KMImage: KCImageView, AMBComponent
 		robj.addObserver(forProperty: KMImage.NameItem, callback: {
 			(_ param: Any) -> Void in
 			if let name = robj.stringValue(forProperty: KMImage.NameItem) {
-				self.setImage(byName: name, console: cons)
+				CNExecuteInMainThread(doSync: false, execute: {
+					self.setImage(byName: name, console: cons)
+				})
 			} else {
 				cons.error(string: "No name to load image\n")
 			}
@@ -74,7 +76,9 @@ public class KMImage: KCImageView, AMBComponent
 		robj.addObserver(forProperty: KMImage.ScaleItem, callback: {
 			(_ param: Any) -> Void in
 			if let scale = robj.floatValue(forProperty: KMImage.ScaleItem) {
-				self.scale = CGFloat(scale)
+				CNExecuteInMainThread(doSync: false, execute: {
+					self.scale = CGFloat(scale)
+				})
 			} else {
 				cons.error(string: "No scale for image\n")
 			}

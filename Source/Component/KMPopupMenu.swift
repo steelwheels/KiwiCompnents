@@ -68,8 +68,10 @@ public class KMPopupMenu: KCPopupMenu, AMBComponent
 			(_ param: Any) -> Void in
 			if let val = robj.arrayValue(forProperty: KMPopupMenu.ItemsItem) {
 				if let arr = val as? Array<String> {
-					super.removeAllItems()
-					super.addItems(withTitles: arr)
+					CNExecuteInMainThread(doSync: false, execute: {
+						super.removeAllItems()
+						super.addItems(withTitles: arr)
+					})
 				} else {
 					cons.error(string: "Invalid value for popup menu items [1]: \(val)\n")
 				}
@@ -85,9 +87,9 @@ public class KMPopupMenu: KCPopupMenu, AMBComponent
 			(_ index: Int, _ title: String?) -> Void in
 			if let evtval = robj.immediateValue(forProperty: KMPopupMenu.SelectedItem),
 			   let idxval = JSValue(int32: Int32(index), in: robj.context) {
-				DispatchQueue.global().async {
+				CNExecuteInMainThread(doSync: false, execute: {
 					evtval.call(withArguments: [robj, idxval])	// insert self, index
-				}
+				})
 			}
 		}
 

@@ -77,7 +77,9 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 		robj.addObserver(forProperty: KMTextEdit.IsBezeledItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.boolValue(forProperty: KMTextEdit.IsBezeledItem) {
-				super.isBezeled = val
+				CNExecuteInMainThread(doSync: false, execute: {
+					super.isBezeled = val
+				})
 			}
 		})
 

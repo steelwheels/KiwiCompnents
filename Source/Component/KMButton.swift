@@ -56,9 +56,9 @@ public class KMButton: KCButton, AMBComponent
 		self.buttonPressedCallback = {
 			() -> Void in
 			if let evtval = robj.immediateValue(forProperty: KMButton.PressedItem) {
-				DispatchQueue.main.async {
+				CNExecuteInMainThread(doSync: false, execute: {
 					evtval.call(withArguments: [robj])	// insert self
-				}
+				})
 			}
 		}
 
