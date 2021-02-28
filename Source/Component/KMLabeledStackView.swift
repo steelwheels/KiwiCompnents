@@ -135,7 +135,10 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 
 	public func addChild(component comp: AMBComponent) {
 		if let view = comp as? KCView {
-			super.contentsView.addArrangedSubView(subView: view)
+			CNExecuteInMainThread(doSync: false, execute: {
+				() -> Void in
+				super.contentsView.addArrangedSubView(subView: view)
+			})
 		} else {
 			let cname = comp.reactObject.frame.className
 			CNLog(logLevel: .error, message: "Unknown object: class=\(cname)")
