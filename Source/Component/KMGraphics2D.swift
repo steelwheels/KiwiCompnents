@@ -125,12 +125,12 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 		robj.addScriptedPropertyName(name: KMGraphics2D.StateItem)
 
 		/* add start method */
-		let startfunc: @convention(block) (_ intrval: JSValue, _ endval: JSValue) -> JSValue = {
-			(_ intrval: JSValue, _ endval: JSValue) -> JSValue in
-			if intrval.isNumber && endval.isNumber {
-				let interval = intrval.toDouble()
-				let endtime  = endval.toDouble()
-				self.start(interval: interval, endTime: Float(endtime))
+		let startfunc: @convention(block) (_ durval: JSValue, _ repval: JSValue) -> JSValue = {
+			(_ durval: JSValue, _ repval: JSValue) -> JSValue in
+			if durval.isNumber && repval.isNumber {
+				let duration = durval.toDouble()
+				let repcount = repval.toInt32()
+				self.start(duration: duration, repeatCount: Int(repcount))
 				return JSValue(bool: true, in: robj.context)
 			} else {
 				return JSValue(bool: false, in: robj.context)

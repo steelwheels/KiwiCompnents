@@ -62,7 +62,9 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 		robj.addObserver(forProperty: KMTextEdit.TextItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.stringValue(forProperty: KMTextEdit.TextItem) {
-				self.text = val
+				CNExecuteInMainThread(doSync: false, execute: {
+					self.text = val
+				})
 			}
 		})
 
@@ -89,7 +91,9 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 		robj.addObserver(forProperty: KMTextEdit.FontSizeItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.int32Value(forProperty: KMTextEdit.FontSizeItem) {
-				super.font = CNFont.systemFont(ofSize: CGFloat(val))
+				CNExecuteInMainThread(doSync: false, execute: {
+					super.font = CNFont.systemFont(ofSize: CGFloat(val))
+				})
 			}
 		})
 		return nil
