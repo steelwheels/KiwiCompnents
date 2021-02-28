@@ -73,7 +73,9 @@ public class KMButton: KCButton, AMBComponent
 		robj.addObserver(forProperty: KMButton.IsEnabledItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.boolValue(forProperty: KMButton.IsEnabledItem) {
-				self.isEnabled = val
+				CNExecuteInMainThread(doSync: false, execute: {
+					self.isEnabled = val
+				})
 			}
 		})
 
@@ -87,7 +89,9 @@ public class KMButton: KCButton, AMBComponent
 		robj.addObserver(forProperty: KMButton.TitleItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.stringValue(forProperty: KMButton.TitleItem) {
-				self.title = val
+				CNExecuteInMainThread(doSync: false, execute: {
+					self.title = val
+				})
 			}
 		})
 

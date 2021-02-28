@@ -77,8 +77,10 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 		robj.addObserver(forProperty: KMCheckBox.IsEnabledItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.boolValue(forProperty: KMCheckBox.IsEnabledItem) {
-				if self.isEnabled != val {
-					self.isEnabled = val
+				DispatchQueue.main.async {
+					if self.isEnabled != val {
+						self.isEnabled = val
+					}
 				}
 			}
 		})
@@ -93,7 +95,9 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 		robj.addObserver(forProperty: KMCheckBox.TitleItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.stringValue(forProperty: KMCheckBox.TitleItem) {
-				self.title = val
+				DispatchQueue.main.async {
+					self.title = val
+				}
 			}
 		})
 
