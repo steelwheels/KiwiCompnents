@@ -52,18 +52,19 @@ public class KMLibraryCompiler: AMBLibraryCompiler
 	}
 
 	private func enterView(viewController vcont: KMComponentViewController, context ctxt: KEContext, source src: KMSource, callback cbfunc: JSValue) {
-		CNExecuteInMainThread(doSync: false, execute: {
-			() -> Void in
-			if let parent = vcont.parent as? KMMultiComponentViewController {
-				let vcallback: KMMultiComponentViewController.ViewSwitchCallback = {
-					(_ val: CNNativeValue) -> Void in
+		if let parent = vcont.parent as? KMMultiComponentViewController {
+			let vcallback: KMMultiComponentViewController.ViewSwitchCallback = {
+				(_ val: CNNativeValue) -> Void in
+				CNExecuteInUserThread(level: .event, execute: {
 					cbfunc.call(withArguments: [val.toJSValue(context: ctxt)])
-				}
-				parent.pushViewController(source: src, callback: vcallback)
-			} else {
-				CNLog(logLevel: .error, message: "[Error] No parent controller")
+				})
 			}
-		})
+			CNExecuteInMainThread(doSync: false, execute: {
+				parent.pushViewController(source: src, callback: vcallback)
+			})
+		} else {
+			CNLog(logLevel: .error, message: "[Error] No parent controller")
+		}
 	}
 
 	private func leaveView(viewController vcont: KMComponentViewController, returnValue retval: CNNativeValue) {

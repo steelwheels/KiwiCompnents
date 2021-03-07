@@ -54,7 +54,7 @@ public class KMIcon: KCIconView, AMBComponent
 		self.buttonPressedCallback = {
 			() -> Void in
 			if let evtval = robj.immediateValue(forProperty: KMIcon.PressedItem) {
-				CNExecuteInMainThread(doSync: false, execute: {
+				CNExecuteInUserThread(level: .event, execute: {
 					evtval.call(withArguments: [robj])	// insert self
 				})
 			}

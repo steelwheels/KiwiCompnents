@@ -109,7 +109,7 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 			if let evtval = robj.immediateValue(forProperty: KMCheckBox.PressedItem) {
 				robj.setBoolValue(value: stat, forProperty: KMCheckBox.StatusItem)
 				if let statval = JSValue(bool: stat, in: robj.context) {
-					CNExecuteInMainThread(doSync: false, execute: {
+					CNExecuteInUserThread(level: .event, execute: {
 						evtval.call(withArguments: [robj, statval])	// insert self
 					})
 				} else {

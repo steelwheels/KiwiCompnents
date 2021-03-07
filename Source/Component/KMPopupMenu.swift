@@ -87,7 +87,7 @@ public class KMPopupMenu: KCPopupMenu, AMBComponent
 			(_ index: Int, _ title: String?) -> Void in
 			if let evtval = robj.immediateValue(forProperty: KMPopupMenu.SelectedItem),
 			   let idxval = JSValue(int32: Int32(index), in: robj.context) {
-				CNExecuteInMainThread(doSync: false, execute: {
+				CNExecuteInUserThread(level: .event, execute: {
 					evtval.call(withArguments: [robj, idxval])	// insert self, index
 				})
 			}

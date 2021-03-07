@@ -87,12 +87,17 @@ public class KMComponentLinker: KMVisitor
 		if let button = cview as? KMButton {
 			button.buttonPressedCallback = {
 				() -> Void in
-				KMComponentLinker.cellPressed(reactObject: tobj, column: cidx, row: ridx)
+				CNExecuteInUserThread(level: .event, execute: {
+					KMComponentLinker.cellPressed(reactObject: tobj, column: cidx, row: ridx)
+				})
+
 			}
 		} else if let icon = cview as? KMIcon {
 			icon.buttonPressedCallback = {
 				() -> Void in
-				KMComponentLinker.cellPressed(reactObject: tobj, column: cidx, row: ridx)
+				CNExecuteInUserThread(level: .event, execute: {
+					KMComponentLinker.cellPressed(reactObject: tobj, column: cidx, row: ridx)
+				})
 			}
 		}
 	}
@@ -101,8 +106,10 @@ public class KMComponentLinker: KMVisitor
 		if let pressed = robj.immediateValue(forProperty: KMTableView.PressedItem) {
 			if let colval = JSValue(int32: Int32(cidx), in: robj.context),
 			   let rowval = JSValue(int32: Int32(ridx), in: robj.context) {
-				let args   = [robj, colval, rowval]
-				pressed.call(withArguments: args)
+				CNExecuteInUserThread(level: .event, execute: {
+					let args   = [robj, colval, rowval]
+					pressed.call(withArguments: args)
+				})
 			}
 		}
 	}

@@ -144,8 +144,10 @@ public class KMTableView: KCTableView, AMBComponent
 			if let pressed = robj.immediateValue(forProperty: KMTableView.PressedItem) {
 				if let colval = JSValue(int32: Int32(col), in: robj.context),
 				   let rowval = JSValue(int32: Int32(row), in: robj.context) {
-					let args   = [robj, colval, rowval]
-					pressed.call(withArguments: args)
+					CNExecuteInUserThread(level: .event, execute: {
+						let args   = [robj, colval, rowval]
+						pressed.call(withArguments: args)
+					})
 				}
 			}
 		}
@@ -172,8 +174,10 @@ public class KMTableView: KCTableView, AMBComponent
 		if let makefunc = mMakeEvent, let cidx = mCellTable.columnIndex(name: cname) {
 			if let robj = mCellTable.get(colmunName: cname, rowIndex: ridx) {
 				if let cval = JSValue(int32: Int32(cidx), in: ctxt), let rval = JSValue(int32: Int32(ridx), in: ctxt){
-					let args = [robj, cval, rval]
-					makefunc.call(withArguments: args)
+					CNExecuteInUserThread(level: .event, execute: {
+						let args = [robj, cval, rval]
+						makefunc.call(withArguments: args)
+					})
 				} else {
 					cons.error(string: "Can not happen at \(#function)")
 				}
