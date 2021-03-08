@@ -61,10 +61,9 @@ public class KMShell: AMBComponentObject
 		env.set(name: "CLICOLOR",       value: .stringValue("1"))
 		env.set(name: "CLICOLOR_FORCE", value: .stringValue("1"))
 
-		/* Overwrite PWD by HOME */
-		if let home = env.getString(name: "HOME") {
-			env.set(name: "PWD", 		value: .stringValue(home))
-		}
+		let home = CNPreference.shared.userPreference.homeDirectory
+		env.setURL(name: "HOME", value: home)
+		env.setURL(name: "PWD",  value: home)
 	}
 }
 
