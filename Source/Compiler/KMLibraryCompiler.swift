@@ -89,10 +89,10 @@ public class KMLibraryCompiler: AMBLibraryCompiler
 
 	private func defineThreadFunction(context ctxt: KEContext, viewController vcont: KMComponentViewController, resource res: KEResource, processManager procmgr: CNProcessManager, environment env: CNEnvironment, console cons: CNConsole, config conf: KEConfig) {
 		/* Override Thread which is defined in KiwiLibrary */
-		let thfunc: @convention(block) (_ nameval: JSValue, _ inval: JSValue, _ outval: JSValue, _ errval: JSValue) -> JSValue = {
-			(_ nameval: JSValue, _ inval: JSValue, _ outval: JSValue, _ errval: JSValue) -> JSValue in
+		let thfunc: @convention(block) (_ pathval: JSValue, _ inval: JSValue, _ outval: JSValue, _ errval: JSValue) -> JSValue = {
+			(_ pathval: JSValue, _ inval: JSValue, _ outval: JSValue, _ errval: JSValue) -> JSValue in
 			let launcher = KMThreadLauncher(viewController: vcont, context: ctxt, resource: res, processManager: procmgr, environment: env, config: conf)
-			return launcher.run(name: nameval, input: inval, output: outval, error: errval)
+			return launcher.run(path: pathval, input: inval, output: outval, error: errval)
 		}
 		ctxt.set(name: "Thread", function: thfunc)
 
@@ -102,7 +102,7 @@ public class KMLibraryCompiler: AMBLibraryCompiler
 			let launcher = KMThreadLauncher(viewController: vcont, context: ctxt, resource: res, processManager: procmgr, environment: env, config: conf)
 			return launcher.run(path: pathval, input: inval, output: outval, error: errval)
 		}
-		ctxt.set(name: "run", function: runfunc)
+		ctxt.set(name: "_run", function: runfunc)
 	}
 
 	private func pathExtension(string str: String) -> String {
