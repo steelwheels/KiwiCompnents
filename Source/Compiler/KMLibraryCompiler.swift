@@ -13,13 +13,20 @@ import JavaScriptCore
 
 public class KMLibraryCompiler: AMBLibraryCompiler
 {
-	public func compile(context ctxt: KEContext, viewController vcont: KMComponentViewController, resource res: KEResource, processManager procmgr: CNProcessManager, console cons: CNFileConsole, environment env: CNEnvironment, config conf: KEConfig) -> Bool {
-		/* Compile for the amber layer */
-		super.compile(context: ctxt, resource: res, console: cons)
-		/* Compile for this layer */
-		defineComponentFuntion(context: ctxt, viewController: vcont, resource: res)
-		defineThreadFunction(context: ctxt, viewController: vcont, resource: res, processManager: procmgr, environment: env, console: cons, config: conf)
-		return true
+	private var mViewController: 	KMComponentViewController
+
+	public init(viewController vcont: KMComponentViewController) {
+		mViewController = vcont
+	}
+
+	open override func compileThreadFunctions(context ctxt: KEContext, resource res: KEResource, processManager procmgr: CNProcessManager, environment env: CNEnvironment, console cons: CNConsole, config conf: KEConfig) -> Bool {
+		if super.compileThreadFunctions(context: ctxt, resource: res, processManager: procmgr, environment: env, console: cons, config: conf) {
+			defineComponentFuntion(context: ctxt, viewController: mViewController, resource: res)
+			defineThreadFunction(context: ctxt, viewController: mViewController, resource: res, processManager: procmgr, environment: env, console: cons, config: conf)
+			return true
+		} else {
+			return false
+		}
 	}
 
 	private func defineComponentFuntion(context ctxt: KEContext, viewController vcont: KMComponentViewController, resource res: KEResource) {
@@ -125,3 +132,20 @@ public class KMLibraryCompiler: AMBLibraryCompiler
 		return nil
 	}
 }
+
+/*
+public class KMLibraryCompiler: AMBLibraryCompiler2
+{
+	public func compile(context ctxt: KEContext, viewController vcont: KMComponentViewController, resource res: KEResource, processManager procmgr: CNProcessManager, console cons: CNFileConsole, environment env: CNEnvironment, config conf: KEConfig) -> Bool {
+		/* Compile for the amber layer */
+		super.compile(context: ctxt, resource: res, console: cons)
+		/* Compile for this layer */
+		defineComponentFuntion(context: ctxt, viewController: vcont, resource: res)
+		defineThreadFunction(context: ctxt, viewController: vcont, resource: res, processManager: procmgr, environment: env, console: cons, config: conf)
+		return true
+	}
+
+
+}
+*/
+

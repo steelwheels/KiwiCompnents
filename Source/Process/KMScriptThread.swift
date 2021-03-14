@@ -22,12 +22,9 @@ public class KMScriptThread: KHScriptThread
 	}
 
 	public override func compile(context ctxt: KEContext, resource res: KEResource, processManager procmgr: CNProcessManager, terminalInfo terminfo: CNTerminalInfo, environment env: CNEnvironment, console cons: CNFileConsole, config conf: KEConfig) -> Bool {
-		if super.compile(context: ctxt, resource: res, processManager: procmgr, terminalInfo: terminfo, environment: env, console: cons, config: conf) {
-			let compiler = KMLibraryCompiler()
-			return compiler.compile(context: ctxt, viewController: mViewController, resource: res, processManager: procmgr, console: cons, environment: env, config: conf)
-		} else {
-			return false
-		}
+		let compiler = KMLibraryCompiler(viewController: mViewController)
+		return compiler.compile(context: ctxt, resource: res, processManager: procmgr, terminalInfo: terminfo, environment: env, console: cons, config: conf)
+
 	}
 }
 

@@ -111,13 +111,9 @@ open class KMComponentViewController: KCSingleViewController
 		}
 
 		/* Compile library */
-		let libcompiler = KLCompiler()
-		guard libcompiler.compileBase(context: mContext, terminalInfo: terminfo, environment: mEnvironment, console: console, config: config) else {
+		let libcompiler = KMLibraryCompiler(viewController: self)
+		guard libcompiler.compile(context: mContext, resource: resource, processManager: procmgr, terminalInfo: terminfo, environment: mEnvironment, console: console, config: config) else {
 			console.error(string: "Failed to compile base\n")
-			return nil
-		}
-		guard libcompiler.compileLibrary(context: mContext, resource: resource, processManager: procmgr, environment: mEnvironment, console: console, config: config) else {
-			console.error(string: "Failed to compile library\n")
 			return nil
 		}
 
@@ -161,13 +157,6 @@ open class KMComponentViewController: KCSingleViewController
 			return nil
 		@unknown default:
 			console.error(string: "Error: Unknown switch condition (2)\n")
-			return nil
-		}
-
-		/* Compile library for component*/
-		let alibcompiler = KMLibraryCompiler()
-		guard alibcompiler.compile(context: mContext, viewController: self, resource: resource, processManager: procmgr, console: console, environment: mEnvironment, config: config) else {
-			console.error(string: "Error: Failed to compile\n")
 			return nil
 		}
 
