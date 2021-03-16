@@ -17,6 +17,8 @@
 		052AD76E2545B04700929F67 /* KMThreadLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052AD76C2545B04700929F67 /* KMThreadLauncher.swift */; };
 		054772BA2538592500A7EC5F /* KMMultiComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */; };
 		054772BB2538592500A7EC5F /* KMMultiComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */; };
+		054C99D425FFA8FF00026A52 /* window.js in CopyFiles */ = {isa = PBXBuildFile; fileRef = 054C99D225FFA8DB00026A52 /* window.js */; };
+		054C99D825FFA91C00026A52 /* window.js in CopyFiles */ = {isa = PBXBuildFile; fileRef = 054C99D225FFA8DB00026A52 /* window.js */; };
 		054FC7E4253F2B0200808777 /* sample.jspkg in Resources */ = {isa = PBXBuildFile; fileRef = 054FC7E3253F2B0200808777 /* sample.jspkg */; };
 		0550E5A825442BDC00B10AD7 /* KMScriptThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0550E5A725442BDC00B10AD7 /* KMScriptThread.swift */; };
 		0550E5A925442BDC00B10AD7 /* KMScriptThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0550E5A725442BDC00B10AD7 /* KMScriptThread.swift */; };
@@ -115,6 +117,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		054C99D325FFA8EE00026A52 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Library;
+			dstSubfolderSpec = 7;
+			files = (
+				054C99D425FFA8FF00026A52 /* window.js in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		054C99D725FFA90800026A52 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Library;
+			dstSubfolderSpec = 7;
+			files = (
+				054C99D825FFA91C00026A52 /* window.js in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		059AB1EB251C0C170094B268 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -140,6 +162,7 @@
 		050FD7A725ADCDE90063675D /* KMIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMIcon.swift; sourceTree = "<group>"; };
 		052AD76C2545B04700929F67 /* KMThreadLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMThreadLauncher.swift; sourceTree = "<group>"; };
 		054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMMultiComponentViewController.swift; sourceTree = "<group>"; };
+		054C99D225FFA8DB00026A52 /* window.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = window.js; sourceTree = "<group>"; };
 		054FC7E3253F2B0200808777 /* sample.jspkg */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = sample.jspkg; sourceTree = "<group>"; };
 		0550E5A725442BDC00B10AD7 /* KMScriptThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMScriptThread.swift; sourceTree = "<group>"; };
 		0550E5AA25442BF600B10AD7 /* KMShellThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMShellThread.swift; sourceTree = "<group>"; };
@@ -242,12 +265,30 @@
 			isa = PBXGroup;
 			children = (
 				056A6CDE25176B4200E6379D /* Source */,
+				054C99D025FFA81F00026A52 /* Resource */,
 				059AB1D0251C09C60094B268 /* Test */,
 				056A6CC725176B0C00E6379D /* KiwiComponents_macOS */,
 				056A6CD525176B2C00E6379D /* KiwiComponents_iOS */,
 				056A6CC625176B0C00E6379D /* Products */,
 				056A6CFD25176D7300E6379D /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		054C99D025FFA81F00026A52 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				054C99D125FFA83700026A52 /* Library */,
+			);
+			name = Resource;
+			path = ../Resource;
+			sourceTree = "<group>";
+		};
+		054C99D125FFA83700026A52 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				054C99D225FFA8DB00026A52 /* window.js */,
+			);
+			path = Library;
 			sourceTree = "<group>";
 		};
 		056A6CC625176B0C00E6379D /* Products */ = {
@@ -425,6 +466,7 @@
 				056A6CC025176B0C00E6379D /* Headers */,
 				056A6CC125176B0C00E6379D /* Sources */,
 				056A6CC225176B0C00E6379D /* Frameworks */,
+				054C99D325FFA8EE00026A52 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -442,7 +484,7 @@
 				056A6CCF25176B2C00E6379D /* Headers */,
 				056A6CD025176B2C00E6379D /* Sources */,
 				056A6CD125176B2C00E6379D /* Frameworks */,
-				056A6CD225176B2C00E6379D /* Resources */,
+				054C99D725FFA90800026A52 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -519,13 +561,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		056A6CD225176B2C00E6379D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		059AB1D3251C09FA0094B268 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;

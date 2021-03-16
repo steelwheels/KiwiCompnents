@@ -12,6 +12,7 @@ import KiwiEngine
 import CoconutData
 import JavaScriptCore
 
+/*
 public class KMAlert
 {
 	private var mContext:		KEContext
@@ -57,4 +58,5 @@ public class KMAlert
 		return result
 	}
 }
+*/
 

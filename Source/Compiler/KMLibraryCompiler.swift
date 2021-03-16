@@ -6,6 +6,7 @@
  */
 
 import Amber
+import KiwiControls
 import KiwiEngine
 import KiwiLibrary
 import CoconutData
@@ -23,6 +24,7 @@ public class KMLibraryCompiler: AMBLibraryCompiler
 		if super.compileThreadFunctions(context: ctxt, resource: res, processManager: procmgr, environment: env, console: cons, config: conf) {
 			defineComponentFuntion(context: ctxt, viewController: mViewController, resource: res)
 			defineThreadFunction(context: ctxt, viewController: mViewController, resource: res, processManager: procmgr, environment: env, console: cons, config: conf)
+			importBuiltinLibrary(context: ctxt, console: cons, config: conf)
 			return true
 		} else {
 			return false
@@ -48,6 +50,13 @@ public class KMLibraryCompiler: AMBLibraryCompiler
 			return JSValue(bool: true, in: ctxt)
 		}
 		ctxt.set(name: "leaveView", function: leavefunc)
+
+		/* _alert */
+		let alertfunc: @convention(block) (_ msg: JSValue, _ cbfunc: JSValue) -> Void = {
+			(_ msg: JSValue, _ cbfunc: JSValue) -> Void in
+			self.defineAlertFunction(message: msg, callback: cbfunc, viewController: vcont, context: ctxt)
+		}
+		ctxt.set(name: "_alert", function: alertfunc)
 	}
 
 	private func enterParameter(parameter param: JSValue, resource res: KEResource) -> KMSource? {
@@ -87,6 +96,28 @@ public class KMLibraryCompiler: AMBLibraryCompiler
 		})
 	}
 
+	private func defineAlertFunction(message msg: JSValue, callback cbfunc: JSValue, viewController vcont: KMComponentViewController, context ctxt: KEContext) -> Void {
+		CNExecuteInMainThread(doSync: false, execute: {
+			if let msgstr = msg.toString() {
+				KCAlert.alert(type: .information, messgage: msgstr, in: vcont, callback: {
+					(_ retval: Int) -> Void in
+					if let retobj = JSValue(int32: Int32(retval), in: ctxt) {
+						cbfunc.call(withArguments: [retobj])
+					} else {
+						NSLog("Failed to allocate return value")
+						cbfunc.call(withArguments: [])
+					}
+				})
+			} else {
+				if let retobj = JSValue(int32: -1, in: ctxt) {
+					cbfunc.call(withArguments: [retobj])
+				} else {
+					cbfunc.call(withArguments: [])
+				}
+			}
+		})
+	}
+
 	private func defineThreadFunction(context ctxt: KEContext, viewController vcont: KMComponentViewController, resource res: KEResource, processManager procmgr: CNProcessManager, environment env: CNEnvironment, console cons: CNConsole, config conf: KEConfig) {
 		/* Override Thread which is defined in KiwiLibrary */
 		let thfunc: @convention(block) (_ pathval: JSValue, _ inval: JSValue, _ outval: JSValue, _ errval: JSValue) -> JSValue = {
@@ -105,6 +136,23 @@ public class KMLibraryCompiler: AMBLibraryCompiler
 		ctxt.set(name: "_run", function: runfunc)
 	}
 
+	private func importBuiltinLibrary(context ctxt: KEContext, console cons: CNConsole, config conf: KEConfig)
+	{
+		let libnames = ["window"]
+		do {
+			for libname in libnames {
+				if let url = CNFilePath.URLForResourceFile(fileName: libname, fileExtension: "js", subdirectory: "Library", forClass: KMLibraryCompiler.self) {
+					let script = try String(contentsOf: url, encoding: .utf8)
+					let _ = compile(context: ctxt, statement: script, console: cons, config: conf)
+				} else {
+					cons.error(string: "Built-in script \"\(libname)\" is not found.\n")
+				}
+			}
+		} catch {
+			cons.error(string: "Failed to read built-in script in KiwiComponents")
+		}
+	}
+	
 	private func pathExtension(string str: String) -> String {
 		let nsstr = str as NSString
 		return nsstr.pathExtension
