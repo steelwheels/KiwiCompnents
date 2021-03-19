@@ -33,14 +33,16 @@ public class KMLibraryCompiler: AMBLibraryCompiler
 
 	private func defineComponentFuntion(context ctxt: KEContext, viewController vcont: KMComponentViewController, resource res: KEResource) {
 		/* enterView function */
-		let enterfunc: @convention(block) (_ pathval: JSValue, _ cbfunc: JSValue) -> JSValue = {
-			(_ paramval: JSValue, _ cbfunc: JSValue) -> JSValue in
-			if let src = self.enterParameter(parameter: paramval, resource: res) {
-				self.enterView(viewController: vcont, context: ctxt, source: src, callback: cbfunc)
-			}
-			return JSValue(undefinedIn: ctxt)
+		let enterfunc: @convention(block) (_ pathval: JSValue, _ cbfunc: JSValue) -> Void = {
+			(_ paramval: JSValue, _ cbfunc: JSValue) -> Void in
+			CNExecuteInMainThread(doSync: false, execute: {
+				() -> Void in
+				if let src = self.enterParameter(parameter: paramval, resource: res) {
+					self.enterView(viewController: vcont, context: ctxt, source: src, callback: cbfunc)
+				}
+			})
 		}
-		ctxt.set(name: "enterView", function: enterfunc)
+		ctxt.set(name: "_enterView", function: enterfunc)
 
 		/* leaveView function */
 		let leavefunc: @convention(block) (_ retval: JSValue) -> JSValue = {
@@ -75,9 +77,7 @@ public class KMLibraryCompiler: AMBLibraryCompiler
 					cbfunc.call(withArguments: [val.toJSValue(context: ctxt)])
 				})
 			}
-			CNExecuteInMainThread(doSync: false, execute: {
-				parent.pushViewController(source: src, callback: vcallback)
-			})
+			parent.pushViewController(source: src, callback: vcallback)
 		} else {
 			CNLog(logLevel: .error, message: "[Error] No parent controller")
 		}
