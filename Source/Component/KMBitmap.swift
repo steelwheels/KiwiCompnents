@@ -160,12 +160,14 @@ public class KMBitmap: KCBitmapView, AMBComponent
 		return nil
 	}
 
-	public override func draw(bitmapContext ctxt: CNBitmapContext, count cnt: Int32) {
+	public override func update(bitmapContext ctxt: CNBitmapContext, count cnt: Int32) {
 		if let drawfnc = mDrawFunc, let cntval = JSValue(int32: cnt, in: reactObject.context) {
-			//NSLog("columnCount=\(self.columnCount) rowCounr=\(self.rowCount)")
-			let bmctxt = KLBitmapContext(bitmapContext: ctxt, scriptContext: reactObject.context, console: mConsole)
-			/* Call event function */
-			drawfnc.call(withArguments: [reactObject, bmctxt, cntval])	// (self, context, count)
+			//CNExecuteInUserThread(level: .event, execute: {
+			//	() -> Void in
+				let bmctxt = KLBitmapContext(bitmapContext: ctxt, scriptContext: self.reactObject.context, console: self.mConsole)
+				/* Call event function */
+				drawfnc.call(withArguments: [self.reactObject, bmctxt, cntval])	// (self, context, count)
+			//})
 		} else {
 			NSLog("No function to draw at \(#function)")
 		}
