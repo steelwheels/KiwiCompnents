@@ -12,7 +12,7 @@ import KiwiLibrary
 import CoconutData
 import JavaScriptCore
 
-public class KMLibraryCompiler: AMBLibraryCompiler
+public class KMLibraryCompiler
 {
 	private var mViewController: 	KMComponentViewController
 
@@ -20,15 +20,11 @@ public class KMLibraryCompiler: AMBLibraryCompiler
 		mViewController = vcont
 	}
 
-	open override func compileThreadFunctions(context ctxt: KEContext, resource res: KEResource, processManager procmgr: CNProcessManager, environment env: CNEnvironment, console cons: CNConsole, config conf: KEConfig) -> Bool {
-		if super.compileThreadFunctions(context: ctxt, resource: res, processManager: procmgr, environment: env, console: cons, config: conf) {
-			defineComponentFuntion(context: ctxt, viewController: mViewController, resource: res)
-			defineThreadFunction(context: ctxt, viewController: mViewController, resource: res, processManager: procmgr, environment: env, console: cons, config: conf)
-			importBuiltinLibrary(context: ctxt, console: cons, config: conf)
-			return true
-		} else {
-			return false
-		}
+	public func compile(context ctxt: KEContext, resource res: KEResource, processManager procmgr: CNProcessManager, terminalInfo terminfo: CNTerminalInfo, environment env: CNEnvironment, console cons: CNConsole, config conf: KEConfig) -> Bool {
+		defineComponentFuntion(context: ctxt, viewController: mViewController, resource: res)
+		defineThreadFunction(context: ctxt, viewController: mViewController, resource: res, processManager: procmgr, environment: env, console: cons, config: conf)
+		importBuiltinLibrary(context: ctxt, console: cons, config: conf)
+		return true
 	}
 
 	private func defineComponentFuntion(context ctxt: KEContext, viewController vcont: KMComponentViewController, resource res: KEResource) {
@@ -152,6 +148,18 @@ public class KMLibraryCompiler: AMBLibraryCompiler
 			cons.error(string: "Failed to read built-in script in KiwiComponents")
 		}
 	}
+
+	public func compile(context ctxt: KEContext, statement stmt: String, console cons: CNConsole, config conf: KEConfig) -> JSValue? {
+		switch conf.logLevel {
+		case .nolog, .error, .warning, .debug:
+			break
+		case .detail:
+			cons.print(string: stmt)
+		@unknown default:
+			break
+		}
+		return ctxt.evaluateScript(stmt)
+	}
 	
 	private func pathExtension(string str: String) -> String {
 		let nsstr = str as NSString
@@ -181,19 +189,4 @@ public class KMLibraryCompiler: AMBLibraryCompiler
 	}
 }
 
-/*
-public class KMLibraryCompiler: AMBLibraryCompiler2
-{
-	public func compile(context ctxt: KEContext, viewController vcont: KMComponentViewController, resource res: KEResource, processManager procmgr: CNProcessManager, console cons: CNFileConsole, environment env: CNEnvironment, config conf: KEConfig) -> Bool {
-		/* Compile for the amber layer */
-		super.compile(context: ctxt, resource: res, console: cons)
-		/* Compile for this layer */
-		defineComponentFuntion(context: ctxt, viewController: vcont, resource: res)
-		defineThreadFunction(context: ctxt, viewController: vcont, resource: res, processManager: procmgr, environment: env, console: cons, config: conf)
-		return true
-	}
-
-
-}
-*/
 

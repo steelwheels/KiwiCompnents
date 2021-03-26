@@ -111,8 +111,7 @@ open class KMComponentViewController: KCSingleViewController
 		}
 
 		/* Compile library */
-		let libcompiler = KMLibraryCompiler(viewController: self)
-		guard libcompiler.compile(context: mContext, resource: resource, processManager: procmgr, terminalInfo: terminfo, environment: mEnvironment, console: console, config: config) else {
+		guard self.compile(viewController: self, context: self.context, resource: resource, processManager: procmgr, terminalInfo: terminfo, environment: mEnvironment, console: console, config: config) else {
 			console.error(string: "Failed to compile base\n")
 			return nil
 		}
@@ -166,6 +165,19 @@ open class KMComponentViewController: KCSingleViewController
 
 		/* Setup root view*/
 		return topcomp as? KCView
+	}
+
+	private func compile(viewController vcont: KMComponentViewController, context ctxt: KEContext, resource res: KEResource, processManager procmgr: CNProcessManager, terminalInfo terminfo: CNTerminalInfo, environment env: CNEnvironment, console cons: CNFileConsole, config conf: KEConfig) -> Bool {
+		var result      = false
+		let libcompiler = KLLibraryCompiler()
+		if libcompiler.compile(context: ctxt, resource: res, processManager: procmgr, terminalInfo: terminfo, environment: env, console: cons, config: conf) {
+			let ambcompiler = AMBLibraryCompiler()
+			if ambcompiler.compile(context: ctxt, resource: res, processManager: procmgr, environment: env, console: cons, config: conf) {
+				let compcompiler = KMLibraryCompiler(viewController: vcont)
+				result = compcompiler.compile(context: ctxt, resource: res, processManager: procmgr, terminalInfo: terminfo, environment: env, console: cons, config: conf)
+			}
+		}
+		return result
 	}
 
 	open override func errorContext() -> KCView {
