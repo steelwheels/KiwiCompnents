@@ -29,7 +29,7 @@ open class KMComponentViewController: KCSingleViewController
 	private var mSource:		KMSource?
 	private var mProcessManager:	CNProcessManager?
 	private var mResource:		KEResource?
-	private var mEnvironment:	CNEnvironment
+	private var mEnvironment:	CNEnvironment?
 	private var mDidAlreadyLinked:	Bool
 
 	public override init(parentViewController parent: KCMultiViewController){
@@ -40,7 +40,7 @@ open class KMComponentViewController: KCSingleViewController
 		mSource			= nil
 		mProcessManager		= nil
 		mResource		= nil
-		mEnvironment		= CNEnvironment()
+		mEnvironment		= nil
 		mDidAlreadyLinked	= false
 		super.init(parentViewController: parent)
 	}
@@ -53,16 +53,28 @@ open class KMComponentViewController: KCSingleViewController
 		mSource			= nil
 		mProcessManager		= nil
 		mResource		= nil
-		mEnvironment		= CNEnvironment()
+		mEnvironment		= nil
 		mDidAlreadyLinked	= false
 		super.init(coder: coder)
 	}
 
 	public var context: KEContext { get { return mContext }}
 
-	public func setup(source src: KMSource, processManager pmgr: CNProcessManager) {
+	private var environment: CNEnvironment {
+		get {
+			if let env = mEnvironment {
+				return env
+			} else {
+				NSLog("[FatalError] No inherited environment")
+				return CNEnvironment()
+			}
+		}
+	}
+
+	public func setup(source src: KMSource, processManager pmgr: CNProcessManager, environment env: CNEnvironment) {
 		mSource		= src
 		mProcessManager	= pmgr
+		mEnvironment	= env
 	}
 
 	open override func loadContext() -> KCView? {
@@ -111,7 +123,7 @@ open class KMComponentViewController: KCSingleViewController
 		}
 
 		/* Compile library */
-		guard self.compile(viewController: self, context: self.context, resource: resource, processManager: procmgr, terminalInfo: terminfo, environment: mEnvironment, console: console, config: config) else {
+		guard self.compile(viewController: self, context: self.context, resource: resource, processManager: procmgr, terminalInfo: terminfo, environment: self.environment, console: console, config: config) else {
 			console.error(string: "Failed to compile base\n")
 			return nil
 		}
@@ -141,7 +153,7 @@ open class KMComponentViewController: KCSingleViewController
 		let compiler = AMBFrameCompiler()
 		let mapper   = KMComponentMapper()
 		let topcomp: AMBComponent
-		switch compiler.compile(frame: frame, mapper: mapper, context: context, processManager: procmgr, resource: resource, environment: mEnvironment, config: config, console: console) {
+		switch compiler.compile(frame: frame, mapper: mapper, context: context, processManager: procmgr, resource: resource, environment: self.environment, config: config, console: console) {
 		case .ok(let comp):
 			topcomp = comp
 			/* dump the component */

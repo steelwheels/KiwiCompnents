@@ -19,6 +19,7 @@ open class KMMultiComponentViewController: KCMultiViewController
 		case	none
 	}
 
+	private var mEnvironment:			CNEnvironment
 	private var mResource: KEResource?		= nil
 	private var mProcessManager			= CNProcessManager()
 
@@ -26,11 +27,13 @@ open class KMMultiComponentViewController: KCMultiViewController
 	public var processManager: CNProcessManager { get { return mProcessManager }}
 
 	@objc required dynamic public init?(coder: NSCoder) {
+		mEnvironment = CNEnvironment()
 		super.init(coder: coder)
 	}
 
 	open override func viewDidLoad() {
-		mResource = loadResource()
+		mEnvironment = CNEnvironment()
+		mResource    = loadResource()
 		super.viewDidLoad()
 	}
 
@@ -40,7 +43,7 @@ open class KMMultiComponentViewController: KCMultiViewController
 
 	public func pushViewController(source src: KMSource, callback cbfunc: @escaping ViewSwitchCallback) {
 		let viewctrl = KMComponentViewController(parentViewController: self)
-		viewctrl.setup(source: src, processManager: mProcessManager)
+		viewctrl.setup(source: src, processManager: mProcessManager, environment: mEnvironment)
 		super.pushViewController(viewController: viewctrl, callback: cbfunc)
 	}
 
