@@ -21,12 +21,7 @@ public class KMThreadLauncher: KLThreadLauncher
 	}
 
 	open override func allocateThread(source src: KLSource, processManager procmgr: CNProcessManager, input instrm: CNFileStream, output outstrm: CNFileStream, error errstrm: CNFileStream, environment env: CNEnvironment, config conf: KEConfig) -> KLThread {
-		let uconf = updateConfig(config: conf)
-		let result = KMScriptThread(viewController: mViewController, source: src, processManager: procmgr, input: instrm, output: outstrm, error: errstrm, environment: env, config: uconf)
+		let result = KMScriptThread(viewController: mViewController, source: src, processManager: procmgr, input: instrm, output: outstrm, error: errstrm, environment: env, config: conf)
 		return result
-	}
-
-	private func updateConfig(config conf: KEConfig) -> KHConfig {
-		return KHConfig(applicationType: conf.applicationType, hasMainFunction: true, doStrict: conf.doStrict, logLevel: conf.logLevel)
 	}
 }

@@ -50,7 +50,7 @@ public class KMShell: AMBComponentObject
 
 	private func startScript(viewController vcont: KMComponentViewController, resource res: KEResource, inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream) {
 		setupEnvironment(environment: reactObject.environment)
-		let conf   = KHConfig(applicationType: .window, hasMainFunction: true, doStrict: true, logLevel: .warning)
+		let conf   = KEConfig(applicationType: .window, doStrict: true, logLevel: .warning)
 		let thread = KMScriptThread(viewController: vcont, source: .application(res), processManager: reactObject.processManager, input: instrm, output: outstrm, error: errstrm, environment: reactObject.environment, config: conf)
 		thread.start(argument: .nullValue)
 		mScriptThread = thread
