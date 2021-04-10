@@ -22,7 +22,7 @@ public class KMLibraryCompiler
 
 	public func compile(context ctxt: KEContext, resource res: KEResource, processManager procmgr: CNProcessManager, terminalInfo terminfo: CNTerminalInfo, environment env: CNEnvironment, console cons: CNConsole, config conf: KEConfig) -> Bool {
 		defineComponentFuntion(context: ctxt, viewController: mViewController, resource: res)
-		defineThreadFunction(context: ctxt, viewController: mViewController, resource: res, processManager: procmgr, environment: env, console: cons, config: conf)
+		defineThreadFunction(context: ctxt, viewController: mViewController, resource: res, processManager: procmgr, terminalInfo: terminfo, environment: env, console: cons, config: conf)
 		importBuiltinLibrary(context: ctxt, console: cons, config: conf)
 		return true
 	}
@@ -114,11 +114,11 @@ public class KMLibraryCompiler
 		})
 	}
 
-	private func defineThreadFunction(context ctxt: KEContext, viewController vcont: KMComponentViewController, resource res: KEResource, processManager procmgr: CNProcessManager, environment env: CNEnvironment, console cons: CNConsole, config conf: KEConfig) {
+	private func defineThreadFunction(context ctxt: KEContext, viewController vcont: KMComponentViewController, resource res: KEResource, processManager procmgr: CNProcessManager, terminalInfo terminfo: CNTerminalInfo, environment env: CNEnvironment, console cons: CNConsole, config conf: KEConfig) {
 		/* Override Thread which is defined in KiwiLibrary */
 		let thfunc: @convention(block) (_ pathval: JSValue, _ inval: JSValue, _ outval: JSValue, _ errval: JSValue) -> JSValue = {
 			(_ pathval: JSValue, _ inval: JSValue, _ outval: JSValue, _ errval: JSValue) -> JSValue in
-			let launcher = KMThreadLauncher(viewController: vcont, context: ctxt, resource: res, processManager: procmgr, environment: env, config: conf)
+			let launcher = KMThreadLauncher(viewController: vcont, context: ctxt, resource: res, processManager: procmgr, terminalInfo: terminfo, environment: env, config: conf)
 			return launcher.run(path: pathval, input: inval, output: outval, error: errval)
 		}
 		ctxt.set(name: "Thread", function: thfunc)
@@ -126,7 +126,7 @@ public class KMLibraryCompiler
 		/* Override run which is defined in KiwiLibrary */
 		let runfunc: @convention(block) (_ pathval: JSValue, _ inval: JSValue, _ outval: JSValue, _ errval: JSValue) -> JSValue = {
 			(_ pathval: JSValue, _ inval: JSValue, _ outval: JSValue, _ errval: JSValue) -> JSValue in
-			let launcher = KMThreadLauncher(viewController: vcont, context: ctxt, resource: res, processManager: procmgr, environment: env, config: conf)
+			let launcher = KMThreadLauncher(viewController: vcont, context: ctxt, resource: res, processManager: procmgr, terminalInfo: terminfo, environment: env, config: conf)
 			return launcher.run(path: pathval, input: inval, output: outval, error: errval)
 		}
 		ctxt.set(name: "_run", function: runfunc)

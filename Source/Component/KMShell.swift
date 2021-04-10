@@ -24,34 +24,34 @@ public class KMShell: AMBComponentObject
 		super.init()
 	}
 
-	public func start(viewController vcont: KMComponentViewController, inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream, resource res: KEResource) {
+	public func start(viewController vcont: KMComponentViewController, inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream, terminalInfo terminfo: CNTerminalInfo, resource res: KEResource) {
 		if let srcname = reactObject.stringValue(forProperty: KMShell.ScriptItem) {
 			if let url = res.URLOfThread(identifier: srcname) {
 				let res = KEResource(singleFileURL: url)
-				startScript(viewController: vcont, resource: res, inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
+				startScript(viewController: vcont, resource: res, inputStream: instrm, outputStream: outstrm, errorStream: errstrm, terminalInfo: terminfo)
 			} else {
 				/* Failed to get source file */
 				CNLog(logLevel: .error, message: "Failed to load scripte source: \(srcname)")
-				startShell(viewController: vcont, inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
+				startShell(viewController: vcont, inputStream: instrm, outputStream: outstrm, errorStream: errstrm, terminalInfo: terminfo)
 			}
 		} else {
 			/* No startup source file */
-			startShell(viewController: vcont, inputStream: instrm, outputStream: outstrm, errorStream: errstrm)
+			startShell(viewController: vcont, inputStream: instrm, outputStream: outstrm, errorStream: errstrm, terminalInfo: terminfo)
 		}
 	}
 
-	private func startShell(viewController vcont: KMComponentViewController, inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream) {
+	private func startShell(viewController vcont: KMComponentViewController, inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream, terminalInfo terminfo: CNTerminalInfo) {
 		setupEnvironment(environment: reactObject.environment)
 		let conf = KEConfig(applicationType: .window, doStrict: true, logLevel: .defaultLevel)
-		let thread = KMShellThread(viewController: vcont, processManager: reactObject.processManager, input: instrm, output: outstrm, error: errstrm, environment: reactObject.environment, config: conf)
+		let thread = KMShellThread(viewController: vcont, processManager: reactObject.processManager, input: instrm, output: outstrm, error: errstrm, terminalInfo: terminfo, environment: reactObject.environment, config: conf)
 		thread.start(argument: .nullValue)
 		mShellThread = thread
 	}
 
-	private func startScript(viewController vcont: KMComponentViewController, resource res: KEResource, inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream) {
+	private func startScript(viewController vcont: KMComponentViewController, resource res: KEResource, inputStream instrm: CNFileStream, outputStream outstrm: CNFileStream, errorStream errstrm: CNFileStream, terminalInfo terminfo: CNTerminalInfo) {
 		setupEnvironment(environment: reactObject.environment)
 		let conf   = KEConfig(applicationType: .window, doStrict: true, logLevel: .warning)
-		let thread = KMScriptThread(viewController: vcont, source: .application(res), processManager: reactObject.processManager, input: instrm, output: outstrm, error: errstrm, environment: reactObject.environment, config: conf)
+		let thread = KMScriptThread(viewController: vcont, source: .application(res), processManager: reactObject.processManager, input: instrm, output: outstrm, error: errstrm, terminalInfo: terminfo, environment: reactObject.environment, config: conf)
 		thread.start(argument: .nullValue)
 		mScriptThread = thread
 	}

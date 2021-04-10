@@ -71,7 +71,7 @@ public class KMTerminalView: KCTerminalView, AMBComponent
 				let instrm:  CNFileStream = .fileHandle(self.inputFileHandle )
 				let outstrm: CNFileStream = .fileHandle(self.outputFileHandle)
 				let errstrm: CNFileStream = .fileHandle(self.errorFileHandle )
-				shell.start(viewController: vcont, inputStream: instrm, outputStream: outstrm, errorStream: errstrm, resource: res)
+				shell.start(viewController: vcont, inputStream: instrm, outputStream: outstrm, errorStream: errstrm, terminalInfo: self.terminalInfo, resource: res)
 			}
 		}
 	}

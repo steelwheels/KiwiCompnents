@@ -16,9 +16,9 @@ public class KMShellThread: KHShellThread
 {
 	private var mViewController:	KMComponentViewController
 
-	public init(viewController vcont: KMComponentViewController, processManager procmgr: CNProcessManager, input instrm: CNFileStream, output outstrm: CNFileStream, error errstrm: CNFileStream, environment env: CNEnvironment, config conf: KEConfig) {
+	public init(viewController vcont: KMComponentViewController, processManager procmgr: CNProcessManager, input instrm: CNFileStream, output outstrm: CNFileStream, error errstrm: CNFileStream, terminalInfo terminfo: CNTerminalInfo, environment env: CNEnvironment, config conf: KEConfig) {
 		mViewController = vcont
-		super.init(processManager: procmgr, input: instrm, output: outstrm, error: errstrm, environment: env, config: conf)
+		super.init(processManager: procmgr, input: instrm, output: outstrm, error: errstrm, terminalInfo: terminfo, environment: env, config: conf)
 	}
 
 	public override func compile(context ctxt: KEContext, resource res: KEResource, processManager procmgr: CNProcessManager, terminalInfo terminfo: CNTerminalInfo, environment env: CNEnvironment, console cons: CNFileConsole, config conf: KEConfig) -> Bool {
