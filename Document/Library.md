@@ -11,7 +11,7 @@ This document describes list of classes and functions for component programming.
 * [Graphics2D](Components/Graphics2D.md): 2D graphics
 * [Icon](Components/Icon.md): The pressable icon
 * [Image](Components/Image.md): The graphical image
-* [PopupMenu](Components/Image.md): Popup menu which has multiple string items.
+* [PopupMenu](Components/PopupMenu.md): Popup menu which has multiple string items.
 * [Table](Components/TextField.md): N x M cells on the table
 * [TextField](Components/TextField.md): The text field
 
