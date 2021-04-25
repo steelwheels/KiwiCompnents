@@ -126,10 +126,7 @@ public class KMComponentLinker: KMVisitor
 	public override func visit(terminalView view: KMTerminalView){
 		view.startShell(viewController: mParentController, resource: mResource)
 		if mFileConsole == nil {
-			let instrm  = view.inputFileHandle
-			let outstrm = view.outputFileHandle
-			let errstrm = view.errorFileHandle
-			mFileConsole = CNFileConsole(input: instrm, output: outstrm, error: errstrm)
+			mFileConsole = CNFileConsole(input: view.inputFile, output: view.outputFile, error: view.errorFile)
 		}
 	}
 }

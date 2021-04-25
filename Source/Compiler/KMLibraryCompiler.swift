@@ -176,17 +176,6 @@ public class KMLibraryCompiler
 		}
 		return result
 	}
-
-	private class func vallueToFileStream(value val: JSValue) -> CNFileStream? {
-		if let obj = val.toObject() {
-			if let file = obj as? KLFile {
-				return .fileHandle(file.fileHandle)
-			} else if let pipe = obj as? KLPipe {
-				return .pipe(pipe.pipe)
-			}
-		}
-		return nil
-	}
 }
 
 

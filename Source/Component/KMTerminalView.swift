@@ -68,10 +68,7 @@ public class KMTerminalView: KCTerminalView, AMBComponent
 	public func startShell(viewController vcont: KMComponentViewController, resource res: KEResource) {
 		for child in mChildComponents {
 			if let shell = child as? KMShell {
-				let instrm:  CNFileStream = .fileHandle(self.inputFileHandle )
-				let outstrm: CNFileStream = .fileHandle(self.outputFileHandle)
-				let errstrm: CNFileStream = .fileHandle(self.errorFileHandle )
-				shell.start(viewController: vcont, inputStream: instrm, outputStream: outstrm, errorStream: errstrm, terminalInfo: self.terminalInfo, resource: res)
+				shell.start(viewController: vcont, input: self.inputFile, output: self.outputFile, error: self.outputFile, terminalInfo: self.terminalInfo, resource: res)
 			}
 		}
 	}
