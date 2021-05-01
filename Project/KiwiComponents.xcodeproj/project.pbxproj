@@ -15,6 +15,11 @@
 		050FD7A925ADCDE90063675D /* KMIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050FD7A725ADCDE90063675D /* KMIcon.swift */; };
 		052AD76D2545B04700929F67 /* KMThreadLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052AD76C2545B04700929F67 /* KMThreadLauncher.swift */; };
 		052AD76E2545B04700929F67 /* KMThreadLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052AD76C2545B04700929F67 /* KMThreadLauncher.swift */; };
+		05376DEE263D6D7E0066A498 /* window.ts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 051CAAB5263D54FC00E508B9 /* window.ts */; };
+		05376DF2263D6D940066A498 /* Builtin.d.ts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05D24AF0263D6CB5000F66B2 /* Builtin.d.ts */; };
+		05376DF3263D6D940066A498 /* KiwiComponent.d.ts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05D24AF1263D6CB5000F66B2 /* KiwiComponent.d.ts */; };
+		05376DF4263D6D940066A498 /* KiwiLibrary.d.ts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05D24AF2263D6CB5000F66B2 /* KiwiLibrary.d.ts */; };
+		05376DF5263D6D940066A498 /* window.d.ts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05D24AF3263D6CB5000F66B2 /* window.d.ts */; };
 		054772BA2538592500A7EC5F /* KMMultiComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */; };
 		054772BB2538592500A7EC5F /* KMMultiComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */; };
 		054C99D425FFA8FF00026A52 /* window.js in CopyFiles */ = {isa = PBXBuildFile; fileRef = 054C99D225FFA8DB00026A52 /* window.js */; };
@@ -84,6 +89,11 @@
 		05CAEB6725445D36002AD83E /* KMLibraryCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CAEB6525445D36002AD83E /* KMLibraryCompiler.swift */; };
 		05D0CABF252B6AFC0041C196 /* KMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0CABE252B6AFC0041C196 /* KMButton.swift */; };
 		05D0CAC0252B6AFC0041C196 /* KMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D0CABE252B6AFC0041C196 /* KMButton.swift */; };
+		05D24AF4263D6CE9000F66B2 /* window.ts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 051CAAB5263D54FC00E508B9 /* window.ts */; };
+		05D24AF8263D6D3A000F66B2 /* Builtin.d.ts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05D24AF0263D6CB5000F66B2 /* Builtin.d.ts */; };
+		05D24AF9263D6D3A000F66B2 /* KiwiComponent.d.ts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05D24AF1263D6CB5000F66B2 /* KiwiComponent.d.ts */; };
+		05D24AFA263D6D3A000F66B2 /* KiwiLibrary.d.ts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05D24AF2263D6CB5000F66B2 /* KiwiLibrary.d.ts */; };
+		05D24AFB263D6D3A000F66B2 /* window.d.ts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05D24AF3263D6CB5000F66B2 /* window.d.ts */; };
 		05D6CECA25CAEC8B0055801C /* KMBitmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D6CEC925CAEC8B0055801C /* KMBitmap.swift */; };
 		05D6CECB25CAEC8B0055801C /* KMBitmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D6CEC925CAEC8B0055801C /* KMBitmap.swift */; };
 		05EC69412544629B008932EB /* KMComponentLinker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC69402544629B008932EB /* KMComponentLinker.swift */; };
@@ -93,6 +103,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		051CAABE263D577300E508B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0543978325176ADC0060F4E4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 051CAAB6263D576300E508B9;
+			remoteInfo = Transpile;
+		};
 		05676AFE251863C800C1D29C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0543978325176ADC0060F4E4 /* Project object */;
@@ -117,6 +134,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		05376DF1263D6D850066A498 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Library/types;
+			dstSubfolderSpec = 7;
+			files = (
+				05376DF2263D6D940066A498 /* Builtin.d.ts in CopyFiles */,
+				05376DF3263D6D940066A498 /* KiwiComponent.d.ts in CopyFiles */,
+				05376DF4263D6D940066A498 /* KiwiLibrary.d.ts in CopyFiles */,
+				05376DF5263D6D940066A498 /* window.d.ts in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		054C99D325FFA8EE00026A52 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -124,6 +154,7 @@
 			dstSubfolderSpec = 7;
 			files = (
 				054C99D425FFA8FF00026A52 /* window.js in CopyFiles */,
+				05D24AF4263D6CE9000F66B2 /* window.ts in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,6 +164,7 @@
 			dstPath = Library;
 			dstSubfolderSpec = 7;
 			files = (
+				05376DEE263D6D7E0066A498 /* window.ts in CopyFiles */,
 				054C99D825FFA91C00026A52 /* window.js in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -154,12 +186,26 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		05D24AF7263D6D1A000F66B2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Library/types;
+			dstSubfolderSpec = 7;
+			files = (
+				05D24AF8263D6D3A000F66B2 /* Builtin.d.ts in CopyFiles */,
+				05D24AF9263D6D3A000F66B2 /* KiwiComponent.d.ts in CopyFiles */,
+				05D24AFA263D6D3A000F66B2 /* KiwiLibrary.d.ts in CopyFiles */,
+				05D24AFB263D6D3A000F66B2 /* window.d.ts in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0508118825519EF800407987 /* KMTextEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMTextEdit.swift; sourceTree = "<group>"; };
 		050ED8F6253AF74200DF294C /* KMVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMVisitor.swift; sourceTree = "<group>"; };
 		050FD7A725ADCDE90063675D /* KMIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMIcon.swift; sourceTree = "<group>"; };
+		051CAAB5263D54FC00E508B9 /* window.ts */ = {isa = PBXFileReference; explicitFileType = sourcecode.javascript; fileEncoding = 4; path = window.ts; sourceTree = "<group>"; };
 		052AD76C2545B04700929F67 /* KMThreadLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMThreadLauncher.swift; sourceTree = "<group>"; };
 		054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMMultiComponentViewController.swift; sourceTree = "<group>"; };
 		054C99D225FFA8DB00026A52 /* window.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = window.js; sourceTree = "<group>"; };
@@ -200,6 +246,10 @@
 		05B1AC54257A7A5600A5BF62 /* KMImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMImage.swift; sourceTree = "<group>"; };
 		05CAEB6525445D36002AD83E /* KMLibraryCompiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLibraryCompiler.swift; sourceTree = "<group>"; };
 		05D0CABE252B6AFC0041C196 /* KMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMButton.swift; sourceTree = "<group>"; };
+		05D24AF0263D6CB5000F66B2 /* Builtin.d.ts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Builtin.d.ts; sourceTree = "<group>"; };
+		05D24AF1263D6CB5000F66B2 /* KiwiComponent.d.ts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = KiwiComponent.d.ts; sourceTree = "<group>"; };
+		05D24AF2263D6CB5000F66B2 /* KiwiLibrary.d.ts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = KiwiLibrary.d.ts; sourceTree = "<group>"; };
+		05D24AF3263D6CB5000F66B2 /* window.d.ts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = window.d.ts; sourceTree = "<group>"; };
 		05D6CEC925CAEC8B0055801C /* KMBitmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMBitmap.swift; sourceTree = "<group>"; };
 		05EC69402544629B008932EB /* KMComponentLinker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMComponentLinker.swift; sourceTree = "<group>"; };
 		05F95CEC25B2E278004560F4 /* KMTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMTableView.swift; sourceTree = "<group>"; };
@@ -286,6 +336,8 @@
 		054C99D125FFA83700026A52 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				05D24AEF263D6C98000F66B2 /* types */,
+				051CAAB5263D54FC00E508B9 /* window.ts */,
 				054C99D225FFA8DB00026A52 /* window.js */,
 			);
 			path = Library;
@@ -418,6 +470,17 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		05D24AEF263D6C98000F66B2 /* types */ = {
+			isa = PBXGroup;
+			children = (
+				05D24AF0263D6CB5000F66B2 /* Builtin.d.ts */,
+				05D24AF1263D6CB5000F66B2 /* KiwiComponent.d.ts */,
+				05D24AF2263D6CB5000F66B2 /* KiwiLibrary.d.ts */,
+				05D24AF3263D6CB5000F66B2 /* window.d.ts */,
+			);
+			path = types;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -440,6 +503,20 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXLegacyTarget section */
+		051CAAB6263D576300E508B9 /* Transpile */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "-f ../Script/transpile.mk";
+			buildConfigurationList = 051CAAB7263D576300E508B9 /* Build configuration list for PBXLegacyTarget "Transpile" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = Transpile;
+			passBuildSettingsInEnvironment = 1;
+			productName = Transpile;
+		};
 		05676AFA251863AA00C1D29C /* Install */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = "-f ../Script/install_xc.mk";
@@ -449,6 +526,7 @@
 			buildToolPath = /usr/bin/make;
 			buildWorkingDirectory = "";
 			dependencies = (
+				051CAABF263D577300E508B9 /* PBXTargetDependency */,
 				05676AFF251863C800C1D29C /* PBXTargetDependency */,
 				05676B01251863C800C1D29C /* PBXTargetDependency */,
 			);
@@ -467,6 +545,7 @@
 				056A6CC125176B0C00E6379D /* Sources */,
 				056A6CC225176B0C00E6379D /* Frameworks */,
 				054C99D325FFA8EE00026A52 /* CopyFiles */,
+				05D24AF7263D6D1A000F66B2 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -485,6 +564,7 @@
 				056A6CD025176B2C00E6379D /* Sources */,
 				056A6CD125176B2C00E6379D /* Frameworks */,
 				054C99D725FFA90800026A52 /* CopyFiles */,
+				05376DF1263D6D850066A498 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -523,6 +603,9 @@
 				LastSwiftUpdateCheck = 1200;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
+					051CAAB6263D576300E508B9 = {
+						CreatedOnToolsVersion = 12.4;
+					};
 					05676AFA251863AA00C1D29C = {
 						CreatedOnToolsVersion = 12.0;
 					};
@@ -554,6 +637,7 @@
 			targets = (
 				056A6CC425176B0C00E6379D /* KiwiComponents_macOS */,
 				056A6CD325176B2C00E6379D /* KiwiComponents_iOS */,
+				051CAAB6263D576300E508B9 /* Transpile */,
 				05676AFA251863AA00C1D29C /* Install */,
 				059AB1D4251C09FA0094B268 /* UnitTest */,
 			);
@@ -646,6 +730,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		051CAABF263D577300E508B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 051CAAB6263D576300E508B9 /* Transpile */;
+			targetProxy = 051CAABE263D577300E508B9 /* PBXContainerItemProxy */;
+		};
 		05676AFF251863C800C1D29C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 056A6CD325176B2C00E6379D /* KiwiComponents_iOS */;
@@ -675,6 +764,75 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		051CAAB8263D576300E508B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = TR2DNF3P93;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		051CAAB9263D576300E508B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = TR2DNF3P93;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		0543978725176ADC0060F4E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1341,6 +1499,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		051CAAB7263D576300E508B9 /* Build configuration list for PBXLegacyTarget "Transpile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				051CAAB8263D576300E508B9 /* Debug */,
+				051CAAB9263D576300E508B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		0543978625176ADC0060F4E4 /* Build configuration list for PBXProject "KiwiComponents" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
