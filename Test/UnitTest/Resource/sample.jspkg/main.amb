@@ -94,8 +94,6 @@ top: VBox {
 		}
     }
 	dataTable: DataTable {
-		columnCount:	Int	3
-		rowCount:	Int	2
 	}
     table: ComponentTable {
 		columnCount:	Int	3

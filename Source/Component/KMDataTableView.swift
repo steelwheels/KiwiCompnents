@@ -15,15 +15,14 @@ import Foundation
 
 public class KMDataTableView: KCTableView, AMBComponent
 {
-	public static let RowCountItem		= "rowCount"
-	public static let ColumnCountItem	= "columnCount"
-	public static let PressedItem		= "pressed"
+	public static let TableItem	= "table"
+	public static let PressedItem	= "pressed"
 
 	private var mReactObject:	AMBReactObject?
 	private var mConsole:		CNConsole
 	private var mCellTable:		KCCellTable
-	private var mColumnCount:	Int
-	private var mRowCount:		Int
+	private var mNativeTable:	CNNativeValueTable
+	private var mValueTable:	KLValueTable?
 
 	public var reactObject: AMBReactObject	{ get {
 		if let robj = mReactObject {
@@ -38,9 +37,9 @@ public class KMDataTableView: KCTableView, AMBComponent
 	public init(){
 		mReactObject		= nil
 		mConsole		= CNFileConsole()
-		mColumnCount		= 1
-		mRowCount		= 1
 		mCellTable		= KCCellTable()
+		mNativeTable		= CNNativeValueTable()
+		mValueTable		= nil
 		#if os(OSX)
 			let frame = NSRect(x: 0.0, y: 0.0, width: 160, height: 60)
 		#else
@@ -52,9 +51,9 @@ public class KMDataTableView: KCTableView, AMBComponent
 	@objc required dynamic init?(coder: NSCoder) {
 		mReactObject		= nil
 		mConsole		= CNFileConsole()
-		mColumnCount		= 1
-		mRowCount		= 1
 		mCellTable		= KCCellTable()
+		mNativeTable		= CNNativeValueTable()
+		mValueTable		= nil
 		super.init(coder: coder)
 	}
 
@@ -62,37 +61,25 @@ public class KMDataTableView: KCTableView, AMBComponent
 		mReactObject	= robj
 		mConsole	= cons
 
-		/* Get column and row numbers */
-		if let val = robj.int32Value(forProperty: KMDataTableView.ColumnCountItem) {
-			if val >= 1 {
-				mColumnCount = Int(val)
-			}
-		} else {
-			cons.error(string: "No column count property: \(KMDataTableView.ColumnCountItem)")
-			mColumnCount = 1
-		}
-		if let val = robj.int32Value(forProperty: KMDataTableView.RowCountItem) {
-			if val >= 1 {
-				mRowCount = Int(val)
-			}
-		} else {
-			cons.error(string: "No row count property: \(KMDataTableView.RowCountItem)")
-			mRowCount = 1
+		/* If the value table is empty, set 1 cell */
+		if mNativeTable.columnCount == 0 {
+			NSLog("[KMDataTableView: Fill dummy cell into empty native value table")
+			let newcol = CNNativeValueColumn()
+			newcol.appendValue(value: .nullValue)
+			mNativeTable.appendColumn(column: newcol)
 		}
 
+		/* Allocate value table */
+		let valtable = KLValueTable(nativeTable: mNativeTable, context: robj.context)
+		mValueTable = valtable
+
+		/* Define property */
+		robj.setImmediateValue(value: JSValue(object: valtable, in: robj.context),
+				       forProperty: KMDataTableView.TableItem)
+		robj.addScriptedPropertyName(name: KMDataTableView.TableItem)
+
 		/* Allocate columns and rows and set default values */
-		for i in 0..<mColumnCount {
-			let colname = "\(i)"
-			if mCellTable.addColumn(title: colname) {
-				for _ in 0..<mRowCount {
-					/* Allocate */
-					let nullvalue: CNNativeValue = .nullValue
-					mCellTable.append(colmunName: colname, value: nullvalue)
-				}
-			} else {
-				cons.print(string: "Failed to add new column")
-			}
-		}
+		setupCells(valueTable: mNativeTable)
 
 		/* allocae callback */
 		self.cellPressedCallback = {
@@ -111,6 +98,30 @@ public class KMDataTableView: KCTableView, AMBComponent
 		/* Set database */
 		super.cellTable = mCellTable
 		return nil
+	}
+
+	private func setupCells(valueTable valtable: CNNativeValueTable){
+		var colid = 0
+		valtable.forEach({
+			(ncol: CNNativeValueColumn) -> Void in
+			/* Decide column title */
+			let title: String
+			if let t = ncol.title {
+				title = t
+			} else {
+				title = "\(colid)"
+				ncol.title = title
+			}
+			/* Allocate new column */
+			if mCellTable.addColumn(title: title) {
+				ncol.forEach({
+					(val: CNNativeValue) -> Void in
+					mCellTable.append(colmunName: title, value: val)
+				})
+			}
+			/* update column id */
+			colid += 1
+		})
 	}
 
 	public func accept(visitor vst: KMVisitor) {
