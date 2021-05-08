@@ -67,14 +67,14 @@ public class KMComponentLinker: KMVisitor
 		}
 	}
 
-	public override func visit(tableView view: KMTableView){
+	public override func visit(componentTableView view: KMComponentTableView){
 		if let celltable = view.cellTable {
 			let colnum = celltable.numberOfColumns()
 			for cidx in 0..<colnum {
 				if let rownum = celltable.numberOfRows(columnIndex: cidx) {
 					for ridx in 0..<rownum {
 						if let child = view.view(atColumn: cidx, row: ridx) {
-							linkEvents(tableView: view, colunm: cidx, row: ridx, childView: child)
+							linkEvents(componentTableView: view, colunm: cidx, row: ridx, childView: child)
 						}
 					}
 				}
@@ -82,7 +82,7 @@ public class KMComponentLinker: KMVisitor
 		}
 	}
 
-	private func linkEvents(tableView table: KMTableView, colunm cidx: Int, row ridx: Int, childView cview: KCView) {
+	private func linkEvents(componentTableView table: KMComponentTableView, colunm cidx: Int, row ridx: Int, childView cview: KCView) {
 		let tobj = table.reactObject
 		if let button = cview as? KMButton {
 			button.buttonPressedCallback = {
@@ -103,7 +103,7 @@ public class KMComponentLinker: KMVisitor
 	}
 
 	static private func cellPressed(reactObject robj: AMBReactObject, column cidx: Int, row ridx: Int) {
-		if let pressed = robj.immediateValue(forProperty: KMTableView.PressedItem) {
+		if let pressed = robj.immediateValue(forProperty: KMComponentTableView.PressedItem) {
 			if let colval = JSValue(int32: Int32(cidx), in: robj.context),
 			   let rowval = JSValue(int32: Int32(ridx), in: robj.context) {
 				CNExecuteInUserThread(level: .event, execute: {

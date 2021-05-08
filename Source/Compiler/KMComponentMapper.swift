@@ -58,8 +58,8 @@ public class KMComponentMapper: AMBComponentMapper
 		case "PopupMenu":
 			newcomp     = KMPopupMenu()
 			hassubview  = false
-		case "Table":
-			newcomp     = KMTableView()
+		case "ComponentTable":
+			newcomp     = KMComponentTableView()
 			hassubview  = false
 		case "Terminal":
 			newcomp     = KMTerminalView()

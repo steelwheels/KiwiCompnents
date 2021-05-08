@@ -92,7 +92,7 @@ top: VBox {
 			items: String ["a", "b", "c"]
 		}
     }
-    table: Table {
+    table: ComponentTable {
 		columnCount:	Int	3
 		rowCount:		Int	2
 		cell: Icon {
@@ -116,7 +116,7 @@ top: VBox {
 		self.image = image ;
 	%}
     pressed: Event(col, row) %{
-		console.log("Table Pressed col=" + col + ", row=" + row) ;
+		console.log("Component table Pressed col=" + col + ", row=" + row) ;
 	%}
     }
     button_a: Button {

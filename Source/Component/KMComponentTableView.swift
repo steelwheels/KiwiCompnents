@@ -1,6 +1,6 @@
 /**
- * @file	KMTableView.swift
- * @brief	Define KMTableView class
+ * @file	KMComponentTableView.swift
+ * @brief	Define KMComponentTableView class
  * @par Copyright
  *   Copyright (C) 2021 Steel Wheels Project
  */
@@ -16,7 +16,7 @@ import Foundation
 import UIKit
 #endif
 
-public class KMTableView: KCTableView, AMBComponent
+public class KMComponentTableView: KCTableView, AMBComponent
 {
 	public static let RowCountItem		= "rowCount"
 	public static let ColumnCountItem	= "columnCount"
@@ -26,7 +26,7 @@ public class KMTableView: KCTableView, AMBComponent
 
 	private var mReactObject:	AMBReactObject?
 	private var mChildComponents:	Array<AMBComponent>
-	private var mCellTable:		KMCellTable
+	private var mCellTable:		KMComponentTable
 	private var mColumnCount:	Int
 	private var mRowCount:		Int
 	private var mCellComponent:	AMBComponent?
@@ -46,7 +46,7 @@ public class KMTableView: KCTableView, AMBComponent
 		mReactObject		= nil
 		mColumnCount		= 1
 		mRowCount		= 1
-		mCellTable		= KMCellTable()
+		mCellTable		= KMComponentTable()
 		mChildComponents	= []
 		mCellComponent		= nil
 		mMakeEvent		= nil
@@ -62,7 +62,7 @@ public class KMTableView: KCTableView, AMBComponent
 		mReactObject		= nil
 		mColumnCount		= 1
 		mRowCount		= 1
-		mCellTable		= KMCellTable()
+		mCellTable		= KMComponentTable()
 		mChildComponents	= []
 		mCellComponent		= nil
 		mMakeEvent		= nil
@@ -74,26 +74,26 @@ public class KMTableView: KCTableView, AMBComponent
 		mCellTable.console	= cons
 
 		/* Get column and row numbers */
-		if let val = robj.int32Value(forProperty: KMTableView.ColumnCountItem) {
+		if let val = robj.int32Value(forProperty: KMComponentTableView.ColumnCountItem) {
 			if val >= 1 {
 				mColumnCount = Int(val)
 			}
 		} else {
-			cons.error(string: "No column count property: \(KMTableView.ColumnCountItem)")
+			cons.error(string: "No column count property: \(KMComponentTableView.ColumnCountItem)")
 			mColumnCount = 1
 		}
-		if let val = robj.int32Value(forProperty: KMTableView.RowCountItem) {
+		if let val = robj.int32Value(forProperty: KMComponentTableView.RowCountItem) {
 			if val >= 1 {
 				mRowCount = Int(val)
 			}
 		} else {
-			cons.error(string: "No row count property: \(KMTableView.RowCountItem)")
+			cons.error(string: "No row count property: \(KMComponentTableView.RowCountItem)")
 			mRowCount = 1
 		}
 
 		/* Get cell */
 		let cellcomp: AMBComponent
-		if let cell = searchChild(byName: KMTableView.CellItem) {
+		if let cell = searchChild(byName: KMComponentTableView.CellItem) {
 			cellcomp = cell
 		} else {
 			cons.error(string: "[Error] Table does not have \"cell\" component\n")
@@ -124,7 +124,7 @@ public class KMTableView: KCTableView, AMBComponent
 		}
 
 		/* get make event */
-		if let evtval = robj.immediateValue(forProperty: KMTableView.MakeItem) {
+		if let evtval = robj.immediateValue(forProperty: KMComponentTableView.MakeItem) {
 			mMakeEvent = evtval
 		}
 
@@ -141,7 +141,7 @@ public class KMTableView: KCTableView, AMBComponent
 		/* allocae callback */
 		self.cellPressedCallback = {
 			(_ col: Int, _ row: Int) -> Void in
-			if let pressed = robj.immediateValue(forProperty: KMTableView.PressedItem) {
+			if let pressed = robj.immediateValue(forProperty: KMComponentTableView.PressedItem) {
 				if let colval = JSValue(int32: Int32(col), in: robj.context),
 				   let rowval = JSValue(int32: Int32(row), in: robj.context) {
 					CNExecuteInUserThread(level: .event, execute: {
@@ -202,7 +202,7 @@ public class KMTableView: KCTableView, AMBComponent
 	}
 
 	public func accept(visitor vst: KMVisitor) {
-		vst.visit(tableView: self)
+		vst.visit(componentTableView: self)
 	}
 
 	public func addChild(component comp: AMBComponent) {
@@ -210,7 +210,7 @@ public class KMTableView: KCTableView, AMBComponent
 	}
 }
 
-public class KMCellColumn {
+public class KMComponentColumn {
 	public var 	title: 		String
 	public var	values:		Array<AMBReactObject>
 
@@ -224,11 +224,11 @@ public class KMCellColumn {
 	}
 }
 
-public class KMCellTable: KCCellTableInterface
+public class KMComponentTable: KCCellTableInterface
 {
 	private var mConsole:	CNConsole
 	private var mTitles:	Dictionary<String, Int>		// <Title, Index>
-	private var mColumns:	Array<KMCellColumn>
+	private var mColumns:	Array<KMComponentColumn>
 
 	public init() {
 		mConsole	= CNFileConsole()
@@ -247,7 +247,7 @@ public class KMCellTable: KCCellTableInterface
 
 	public func addColumn(title ttl: String) -> Bool {
 		if mTitles[ttl] == nil {
-			let newcol   = KMCellColumn(title: ttl)
+			let newcol   = KMComponentColumn(title: ttl)
 			mTitles[ttl] = mColumns.count
 			mColumns.append(newcol)
 			return true
@@ -269,7 +269,7 @@ public class KMCellTable: KCCellTableInterface
 		return mTitles[nm]
 	}
 
-	public func column(named name: String) -> KMCellColumn? {
+	public func column(named name: String) -> KMComponentColumn? {
 		if let idx = mTitles[name] {
 			return column(index: idx)
 		} else {
@@ -277,7 +277,7 @@ public class KMCellTable: KCCellTableInterface
 		}
 	}
 
-	public func column(index idx: Int) -> KMCellColumn? {
+	public func column(index idx: Int) -> KMComponentColumn? {
 		if 0<=idx && idx<mColumns.count {
 			return mColumns[idx]
 		} else {

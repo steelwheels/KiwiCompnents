@@ -98,8 +98,8 @@
 		05D6CECB25CAEC8B0055801C /* KMBitmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D6CEC925CAEC8B0055801C /* KMBitmap.swift */; };
 		05EC69412544629B008932EB /* KMComponentLinker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC69402544629B008932EB /* KMComponentLinker.swift */; };
 		05EC69422544629B008932EB /* KMComponentLinker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC69402544629B008932EB /* KMComponentLinker.swift */; };
-		05F95CED25B2E278004560F4 /* KMTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F95CEC25B2E278004560F4 /* KMTableView.swift */; };
-		05F95CEE25B2E278004560F4 /* KMTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F95CEC25B2E278004560F4 /* KMTableView.swift */; };
+		05F95CED25B2E278004560F4 /* KMComponentTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F95CEC25B2E278004560F4 /* KMComponentTableView.swift */; };
+		05F95CEE25B2E278004560F4 /* KMComponentTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F95CEC25B2E278004560F4 /* KMComponentTableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -259,7 +259,7 @@
 		05D24AF3263D6CB5000F66B2 /* window.d.ts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = window.d.ts; sourceTree = "<group>"; };
 		05D6CEC925CAEC8B0055801C /* KMBitmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMBitmap.swift; sourceTree = "<group>"; };
 		05EC69402544629B008932EB /* KMComponentLinker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMComponentLinker.swift; sourceTree = "<group>"; };
-		05F95CEC25B2E278004560F4 /* KMTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMTableView.swift; sourceTree = "<group>"; };
+		05F95CEC25B2E278004560F4 /* KMComponentTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMComponentTableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -404,7 +404,7 @@
 				05AE214425DAABE700A8E238 /* KMPopupMenu.swift */,
 				0596162F25327D2800F6059F /* KMShell.swift */,
 				056719DD252DE73100201386 /* KMStackView.swift */,
-				05F95CEC25B2E278004560F4 /* KMTableView.swift */,
+				05F95CEC25B2E278004560F4 /* KMComponentTableView.swift */,
 				059545AA252EF2AB00E019B2 /* KMTerminalView.swift */,
 				0508118825519EF800407987 /* KMTextEdit.swift */,
 			);
@@ -692,7 +692,7 @@
 				05D0CABF252B6AFC0041C196 /* KMButton.swift in Sources */,
 				056719DE252DE73100201386 /* KMStackView.swift in Sources */,
 				057F891025C4586F00C12C77 /* KMGraphics2D.swift in Sources */,
-				05F95CED25B2E278004560F4 /* KMTableView.swift in Sources */,
+				05F95CED25B2E278004560F4 /* KMComponentTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -722,7 +722,7 @@
 				05D0CAC0252B6AFC0041C196 /* KMButton.swift in Sources */,
 				056719DF252DE73100201386 /* KMStackView.swift in Sources */,
 				057F891125C4586F00C12C77 /* KMGraphics2D.swift in Sources */,
-				05F95CEE25B2E278004560F4 /* KMTableView.swift in Sources */,
+				05F95CEE25B2E278004560F4 /* KMComponentTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
