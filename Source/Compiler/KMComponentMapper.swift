@@ -61,6 +61,9 @@ public class KMComponentMapper: AMBComponentMapper
 		case "ComponentTable":
 			newcomp     = KMComponentTableView()
 			hassubview  = false
+		case "DataTable":
+			newcomp     = KMDataTableView()
+			hassubview  = false
 		case "Terminal":
 			newcomp     = KMTerminalView()
 			hassubview  = false

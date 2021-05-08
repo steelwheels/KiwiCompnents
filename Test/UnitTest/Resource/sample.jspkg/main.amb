@@ -38,6 +38,7 @@ top: VBox {
 				self.start(1.0, 10.0) ;
 			%}
 		}
+
     }
     boxes: HBox {
 		checkBox0: CheckBox {
@@ -92,6 +93,10 @@ top: VBox {
 			items: String ["a", "b", "c"]
 		}
     }
+	dataTable: DataTable {
+		columnCount:	Int	3
+		rowCount:	Int	2
+	}
     table: ComponentTable {
 		columnCount:	Int	3
 		rowCount:		Int	2
