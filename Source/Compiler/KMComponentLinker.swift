@@ -68,15 +68,12 @@ public class KMComponentLinker: KMVisitor
 	}
 
 	public override func visit(componentTableView view: KMComponentTableView){
-		if let celltable = view.cellTable {
-			let colnum = celltable.numberOfColumns()
-			for cidx in 0..<colnum {
-				if let rownum = celltable.numberOfRows(columnIndex: cidx) {
-					for ridx in 0..<rownum {
-						if let child = view.view(atColumn: cidx, row: ridx) {
-							linkEvents(componentTableView: view, colunm: cidx, row: ridx, childView: child)
-						}
-					}
+		let colnum = view.numberOfColumns
+		let rownum = view.numberOfRows
+		for cidx in 0..<colnum {
+			for ridx in 0..<rownum {
+				if let child = view.view(atColumn: cidx, row: ridx) {
+					linkEvents(componentTableView: view, colunm: cidx, row: ridx, childView: child)
 				}
 			}
 		}

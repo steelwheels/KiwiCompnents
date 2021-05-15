@@ -16,13 +16,12 @@ import Foundation
 public class KMDataTableView: KCTableView, AMBComponent
 {
 	public static let TableItem	= "table"
+	public static let ReloadItem	= "reload"
 	public static let PressedItem	= "pressed"
 
 	private var mReactObject:	AMBReactObject?
+	private var mTableData:		KMTableData?
 	private var mConsole:		CNConsole
-	private var mCellTable:		KCCellTable
-	private var mNativeTable:	CNNativeValueTable
-	private var mValueTable:	KLValueTable?
 
 	public var reactObject: AMBReactObject	{ get {
 		if let robj = mReactObject {
@@ -36,10 +35,8 @@ public class KMDataTableView: KCTableView, AMBComponent
 
 	public init(){
 		mReactObject		= nil
+		mTableData		= nil
 		mConsole		= CNFileConsole()
-		mCellTable		= KCCellTable()
-		mNativeTable		= CNNativeValueTable()
-		mValueTable		= nil
 		#if os(OSX)
 			let frame = NSRect(x: 0.0, y: 0.0, width: 160, height: 60)
 		#else
@@ -50,10 +47,8 @@ public class KMDataTableView: KCTableView, AMBComponent
 
 	@objc required dynamic init?(coder: NSCoder) {
 		mReactObject		= nil
+		mTableData		= nil
 		mConsole		= CNFileConsole()
-		mCellTable		= KCCellTable()
-		mNativeTable		= CNNativeValueTable()
-		mValueTable		= nil
 		super.init(coder: coder)
 	}
 
@@ -61,25 +56,20 @@ public class KMDataTableView: KCTableView, AMBComponent
 		mReactObject	= robj
 		mConsole	= cons
 
+		let dtable = KMTableData(console: cons)
+		mTableData = dtable
+
 		/* If the value table is empty, set 1 cell */
-		if mNativeTable.columnCount == 0 {
-			NSLog("[KMDataTableView: Fill dummy cell into empty native value table")
-			let newcol = CNNativeValueColumn()
-			newcol.appendValue(value: .nullValue)
-			mNativeTable.appendColumn(column: newcol)
+		if dtable.rowCount == 0 {
+			dtable.setValue(column: 0, row: 0, value: .nullValue)
 		}
 
 		/* Allocate value table */
-		let valtable = KLValueTable(nativeTable: mNativeTable, context: robj.context)
-		mValueTable = valtable
-
+		let valtable = KLValueTable(table: dtable, context: robj.context)
 		/* Define property */
 		robj.setImmediateValue(value: JSValue(object: valtable, in: robj.context),
 				       forProperty: KMDataTableView.TableItem)
 		robj.addScriptedPropertyName(name: KMDataTableView.TableItem)
-
-		/* Allocate columns and rows and set default values */
-		setupCells(valueTable: mNativeTable)
 
 		/* allocae callback */
 		self.cellPressedCallback = {
@@ -95,33 +85,19 @@ public class KMDataTableView: KCTableView, AMBComponent
 			}
 		}
 
-		/* Set database */
-		super.cellTable = mCellTable
-		return nil
-	}
+		/* add reload method */
+		let reloadfunc: @convention(block) () -> JSValue = {
+			() -> JSValue in
+			self.reload()
+			return JSValue(bool: true, in: robj.context)
+		}
+		robj.setImmediateValue(value: JSValue(object: reloadfunc, in: robj.context), forProperty: KMDataTableView.ReloadItem)
+		robj.addScriptedPropertyName(name: KMDataTableView.ReloadItem)
 
-	private func setupCells(valueTable valtable: CNNativeValueTable){
-		var colid = 0
-		valtable.forEach({
-			(ncol: CNNativeValueColumn) -> Void in
-			/* Decide column title */
-			let title: String
-			if let t = ncol.title {
-				title = t
-			} else {
-				title = "\(colid)"
-				ncol.title = title
-			}
-			/* Allocate new column */
-			if mCellTable.addColumn(title: title) {
-				ncol.forEach({
-					(val: CNNativeValue) -> Void in
-					mCellTable.append(colmunName: title, value: val)
-				})
-			}
-			/* update column id */
-			colid += 1
-		})
+		/* Set database and reload context */
+		super.tableDelegate = dtable
+
+		return nil
 	}
 
 	public func accept(visitor vst: KMVisitor) {
@@ -129,21 +105,8 @@ public class KMDataTableView: KCTableView, AMBComponent
 	}
 
 	public func addChild(component comp: AMBComponent) {
-		NSLog("Not supported: addChild at \(#file)")
+		mConsole.error(string: "Not supported: addChild at \(#function) in \(#file)")
 	}
 }
 
-public class KMDataColumn {
-	public var 	title: 		String
-	public var	values:		Array<CNNativeValue>
-
-	public init(title str: String) {
-		title	= str
-		values	= []
-	}
-
-	public var numberOfRows: Int {
-		get { return values.count }
-	}
-}
 

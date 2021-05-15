@@ -26,9 +26,8 @@ public class KMComponentTableView: KCTableView, AMBComponent
 
 	private var mReactObject:	AMBReactObject?
 	private var mChildComponents:	Array<AMBComponent>
-	private var mCellTable:		KMComponentTable
-	private var mColumnCount:	Int
-	private var mRowCount:		Int
+	private var mTableData:		KMTableData?
+	private var mConsole:		CNConsole?
 	private var mCellComponent:	AMBComponent?
 	private var mMakeEvent:		JSValue?
 
@@ -44,9 +43,8 @@ public class KMComponentTableView: KCTableView, AMBComponent
 
 	public init(){
 		mReactObject		= nil
-		mColumnCount		= 1
-		mRowCount		= 1
-		mCellTable		= KMComponentTable()
+		mTableData		= nil
+		mConsole		= nil
 		mChildComponents	= []
 		mCellComponent		= nil
 		mMakeEvent		= nil
@@ -60,9 +58,8 @@ public class KMComponentTableView: KCTableView, AMBComponent
 
 	@objc required dynamic init?(coder: NSCoder) {
 		mReactObject		= nil
-		mColumnCount		= 1
-		mRowCount		= 1
-		mCellTable		= KMComponentTable()
+		mTableData		= nil
+		mConsole		= nil
 		mChildComponents	= []
 		mCellComponent		= nil
 		mMakeEvent		= nil
@@ -71,24 +68,27 @@ public class KMComponentTableView: KCTableView, AMBComponent
 
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject		= robj
-		mCellTable.console	= cons
+		mConsole		= cons
+
+		let dtable = KMTableData(console: cons)
+		mTableData = dtable
 
 		/* Get column and row numbers */
+		var columnnum: Int = 1
 		if let val = robj.int32Value(forProperty: KMComponentTableView.ColumnCountItem) {
 			if val >= 1 {
-				mColumnCount = Int(val)
+				columnnum = Int(val)
 			}
 		} else {
 			cons.error(string: "No column count property: \(KMComponentTableView.ColumnCountItem)")
-			mColumnCount = 1
 		}
+		var rownum: Int = 1
 		if let val = robj.int32Value(forProperty: KMComponentTableView.RowCountItem) {
 			if val >= 1 {
-				mRowCount = Int(val)
+				rownum = Int(val)
 			}
 		} else {
 			cons.error(string: "No row count property: \(KMComponentTableView.RowCountItem)")
-			mRowCount = 1
 		}
 
 		/* Get cell */
@@ -102,24 +102,19 @@ public class KMComponentTableView: KCTableView, AMBComponent
 		mCellComponent = cellcomp
 
 		/* Allocate columns and rows and set default values */
-		for i in 0..<mColumnCount {
-			let colname = "\(i)"
-			if mCellTable.addColumn(title: colname) {
-				for j in 0..<mRowCount {
-					/* Allocate */
-					let cobj = AMBReactObject(frame: cellcomp.reactObject.frame, context: robj.context, processManager: robj.processManager, resource: robj.resource, environment: robj.environment)
-					mCellTable.append(colmunName: colname, value: cobj)
-					/* Copy values */
-					for pname in cellcomp.reactObject.scriptedPropertyNames {
-						if let pval = cellcomp.reactObject.immediateValue(forProperty: pname) {
-							cobj.setImmediateValue(value: pval, forProperty: pname)
-						}
+		for cidx in 0..<columnnum {
+			for ridx in 0..<rownum {
+				/* Allocate */
+				let cobj = AMBReactObject(frame: cellcomp.reactObject.frame, context: robj.context, processManager: robj.processManager, resource: robj.resource, environment: robj.environment)
+				dtable.setValue(column: cidx, row: ridx, value: .objectValue(cobj))
+				/* Copy values */
+				for pname in cellcomp.reactObject.scriptedPropertyNames {
+					if let pval = cellcomp.reactObject.immediateValue(forProperty: pname) {
+						cobj.setImmediateValue(value: pval, forProperty: pname)
 					}
-					/* Define cell properties */
-					defineCellProperty(colmunName: colname, rowIndex: j, context: robj.context, console: cons)
 				}
-			} else {
-				cons.print(string: "Failed to add new column")
+				/* Define cell properties */
+				defineCellProperty(column: cidx, row: ridx, context: robj.context, console: cons)
 			}
 		}
 
@@ -129,12 +124,9 @@ public class KMComponentTableView: KCTableView, AMBComponent
 		}
 
 		/* initialize */
-		for i in 0..<mColumnCount {
-			if let col = mCellTable.column(index: i) {
-				let rowcnt = col.numberOfRows
-				for j in 0..<rowcnt {
-					updateCell(colmunName: col.title, rowIndex: j, context: robj.context, console: cons)
-				}
+		for cidx in 0..<columnnum{
+			for ridx in 0..<rownum {
+				updateCell(column: cidx, row: ridx, context: robj.context, console: cons)
 			}
 		}
 
@@ -152,8 +144,9 @@ public class KMComponentTableView: KCTableView, AMBComponent
 			}
 		}
 
-		/* Set database */
-		super.cellTable = mCellTable
+		/* Set database and reload */
+		super.tableDelegate = dtable
+
 		return nil
 	}
 
@@ -170,34 +163,51 @@ public class KMComponentTableView: KCTableView, AMBComponent
 		}
 	}
 
-	private func updateCell(colmunName cname: String, rowIndex ridx: Int, context ctxt: KEContext, console cons: CNConsole) {
-		if let makefunc = mMakeEvent, let cidx = mCellTable.columnIndex(name: cname) {
-			if let robj = mCellTable.get(colmunName: cname, rowIndex: ridx) {
-				if let cval = JSValue(int32: Int32(cidx), in: ctxt), let rval = JSValue(int32: Int32(ridx), in: ctxt){
-					CNExecuteInUserThread(level: .event, execute: {
-						let args = [robj, cval, rval]
-						makefunc.call(withArguments: args)
-					})
+	private func updateCell(column cidx: Int, row ridx: Int, context ctxt: KEContext, console cons: CNConsole) {
+		if let makefunc = mMakeEvent, let table = mTableData {
+			switch table.value(column: cidx, row: ridx) {
+			case .objectValue(let obj):
+				if let robj = obj as? AMBReactObject {
+					if let cval = JSValue(int32: Int32(cidx), in: ctxt), let rval = JSValue(int32: Int32(ridx), in: ctxt){
+						CNExecuteInUserThread(level: .event, execute: {
+							let args = [robj, cval, rval]
+							makefunc.call(withArguments: args)
+						})
+					} else {
+						cons.error(string: "Can not happen (1) at \(#function) in \(#file)")
+					}
 				} else {
-					cons.error(string: "Can not happen at \(#function)")
+					cons.error(string: "Can not happen (2) at \(#function) in \(#file)")
 				}
+			default:
+				break
 			}
 		}
 	}
 
-	private func defineCellProperty(colmunName cname: String, rowIndex ridx: Int, context ctxt: KEContext, console cons: CNConsole) {
+	private func defineCellProperty(column cidx: Int, row ridx: Int, context ctxt: KEContext, console cons: CNConsole) {
 		let TEMPORARY_VARIABLE_NAME = "_amber_temp_cell_"
-		if let robj = mCellTable.get(colmunName: cname, rowIndex: ridx) {
-			for pname in robj.allPropertyNames {
-				let varname = TEMPORARY_VARIABLE_NAME + "\(cname)_\(ridx)_\(pname)"
-				ctxt.setObject(robj, forKeyedSubscript: varname as NSString)
-				let script =   "Object.defineProperty(\(varname), '\(pname)',{ \n"
-					     + "  get()    { return this.get(\"\(pname)\") ; }, \n"
-					     + "  set(val) { return this.set(\"\(pname)\", val) ; }, \n"
-					     + "}) ;\n"
-				ctxt.evaluateScript(script)
-				//NSLog("script = \(script)")
+		if let table = mTableData {
+			let rval = table.value(column: cidx, row: ridx)
+			switch rval {
+			case .objectValue(let obj):
+				if let robj = obj as? AMBReactObject {
+					for pname in robj.allPropertyNames {
+						let varname = TEMPORARY_VARIABLE_NAME + "\(cidx)_\(ridx)_\(pname)"
+						ctxt.setObject(robj, forKeyedSubscript: varname as NSString)
+						let script =   "Object.defineProperty(\(varname), '\(pname)',{ \n"
+							     + "  get()    { return this.get(\"\(pname)\") ; }, \n"
+							     + "  set(val) { return this.set(\"\(pname)\", val) ; }, \n"
+							     + "}) ;\n"
+						ctxt.evaluateScript(script)
+						//NSLog("script = \(script)")
+					}
+				}
+			default:
+				break
 			}
+		} else {
+			NSLog("Can not happen at \(#function) in \(#file)")
 		}
 	}
 
@@ -210,188 +220,4 @@ public class KMComponentTableView: KCTableView, AMBComponent
 	}
 }
 
-public class KMComponentColumn {
-	public var 	title: 		String
-	public var	values:		Array<AMBReactObject>
-
-	public init(title str: String) {
-		title	= str
-		values	= []
-	}
-
-	public var numberOfRows: Int {
-		get { return values.count }
-	}
-}
-
-public class KMComponentTable: KCCellTableInterface
-{
-	private var mConsole:	CNConsole
-	private var mTitles:	Dictionary<String, Int>		// <Title, Index>
-	private var mColumns:	Array<KMComponentColumn>
-
-	public init() {
-		mConsole	= CNFileConsole()
-		mTitles		= [:]
-		mColumns	= []
-	}
-
-	public var console: CNConsole {
-		get		{ return mConsole }
-		set(newcons)	{ mConsole = newcons}
-	}
-
-	public func numberOfColumns() -> Int {
-		return mColumns.count
-	}
-
-	public func addColumn(title ttl: String) -> Bool {
-		if mTitles[ttl] == nil {
-			let newcol   = KMComponentColumn(title: ttl)
-			mTitles[ttl] = mColumns.count
-			mColumns.append(newcol)
-			return true
-		} else {
-			mConsole.error(string: "Already exist: \(ttl) at \(#function)")
-			return false
-		}
-	}
-
-	public func columnTitle(index idx: Int) -> String? {
-		if let col = column(index: idx) {
-			return col.title
-		} else {
-			return nil
-		}
-	}
-
-	public func columnIndex(name nm: String) -> Int? {
-		return mTitles[nm]
-	}
-
-	public func column(named name: String) -> KMComponentColumn? {
-		if let idx = mTitles[name] {
-			return column(index: idx)
-		} else {
-			return nil
-		}
-	}
-
-	public func column(index idx: Int) -> KMComponentColumn? {
-		if 0<=idx && idx<mColumns.count {
-			return mColumns[idx]
-		} else {
-			return nil
-		}
-	}
-
-	public func numberOfRows(columnIndex idx: Int) -> Int? {
-		if 0<=idx && idx<mColumns.count {
-			return mColumns[idx].values.count
-		} else {
-			return nil
-		}
-	}
-
-	public func numberOfRows(columnName name: String) -> Int? {
-		if let idx = mTitles[name] {
-			return mColumns[idx].numberOfRows
-		} else {
-			return nil
-		}
-	}
-
-	public func maxNumberOfRows() -> Int {
-		var result = 0
-		for col in mColumns {
-			result = max(result, col.values.count)
-		}
-		return result
-	}
-
-	public func view(colmunName cname: String, rowIndex ridx: Int) -> KCView? {
-		if let cidx = mTitles[cname] {
-			let col = mColumns[cidx]
-			if 0<=ridx && ridx<col.values.count {
-				let val = col.values[ridx]
-				return valueToView(value: val)
-			}
-		}
-		return nil
-	}
-
-	public func view(colmunIndex cidx: Int, rowIndex ridx: Int) -> KCView? {
-		if 0<=cidx && cidx<mColumns.count {
-			let col = mColumns[cidx]
-			if 0<=ridx && ridx<col.values.count {
-				let val = col.values[ridx]
-				return valueToView(value: val)
-			}
-		}
-		return nil
-	}
-
-	public func set(colmunName cname: String, rowIndex ridx: Int, data dat: Any?) {
-		if let val = dat as? AMBReactObject {
-			set(colmunName: cname, rowIndex: ridx, value: val)
-		} else {
-			mConsole.error(string: "Failed to set at \(#function)")
-		}
-	}
-
-	public func set(colmunName cname: String, rowIndex ridx: Int, value val: AMBReactObject) {
-		if let cidx = mTitles[cname] {
-			let col = mColumns[cidx]
-			if 0<=ridx && ridx<col.values.count {
-				col.values[ridx] = val
-				return
-			}
-		}
-		mConsole.error(string: "Failed to set at \(#function)")
-	}
-
-	public func get(colmunName cname: String, rowIndex ridx: Int) -> AMBReactObject? {
-		if let cidx = mTitles[cname] {
-			let col = mColumns[cidx]
-			if 0<=ridx && ridx<col.values.count {
-				return col.values[ridx]
-			}
-		}
-		return nil
-	}
-
-	public func append(colmunName cname: String, data dat: Any?) {
-		if let val = dat as? AMBReactObject {
-			append(colmunName: cname, value: val)
-		} else {
-			mConsole.error(string: "Failed to append at \(#function)")
-		}
-	}
-
-	public func append(colmunName cname: String, value val: AMBReactObject) {
-		if let cidx = mTitles[cname] {
-			let col = mColumns[cidx]
-			col.values.append(val)
-		} else {
-			mConsole.error(string: "Failed to append at \(#function)")
-		}
-	}
-
-	private func valueToView(value val: AMBReactObject) -> KCView? {
-		let mapper = KMComponentMapper()
-		switch mapper.map(object: val, console: mConsole) {
-		case .ok(let comp):
-			if let view = comp as? KCView {
-				return view
-			} else {
-				mConsole.error(string: "Not view object")
-			}
-		case .error(let err):
-			mConsole.error(string: "[Error] \(err.description)")
-		@unknown default:
-			mConsole.error(string: "[Error] Unknown case")
-		}
-		return nil
-	}
-}
 
