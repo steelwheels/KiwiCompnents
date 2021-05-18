@@ -25,12 +25,13 @@ public enum KMSource {
 
 open class KMComponentViewController: KCSingleViewController
 {
-	private var mContext:		KEContext
-	private var mSource:		KMSource?
-	private var mProcessManager:	CNProcessManager?
-	private var mResource:		KEResource?
-	private var mEnvironment:	CNEnvironment?
-	private var mDidAlreadyLinked:	Bool
+	private var mContext:			KEContext
+	private var mSource:			KMSource?
+	private var mProcessManager:		CNProcessManager?
+	private var mResource:			KEResource?
+	private var mEnvironment:		CNEnvironment?
+	private var mDidAlreadyLinked:		Bool
+	private var mDidAlreadyInitialized:	Bool
 
 	public override init(parentViewController parent: KCMultiViewController){
 		guard let vm = JSVirtualMachine() else {
@@ -42,6 +43,7 @@ open class KMComponentViewController: KCSingleViewController
 		mResource		= nil
 		mEnvironment		= nil
 		mDidAlreadyLinked	= false
+		mDidAlreadyInitialized	= false
 		super.init(parentViewController: parent)
 	}
 
@@ -55,6 +57,7 @@ open class KMComponentViewController: KCSingleViewController
 		mResource		= nil
 		mEnvironment		= nil
 		mDidAlreadyLinked	= false
+		mDidAlreadyInitialized	= false
 		super.init(coder: coder)
 	}
 
@@ -171,10 +174,6 @@ open class KMComponentViewController: KCSingleViewController
 			return nil
 		}
 
-		/* Execute the component */
-		let exec = AMBComponentExecutor(console: console)
-		exec.exec(component: topcomp)
-
 		/* Setup root view*/
 		return topcomp as? KCView
 	}
@@ -219,6 +218,30 @@ open class KMComponentViewController: KCSingleViewController
 		box.addArrangedSubView(subView: button)
 
 		return box
+	}
+
+	#if os(OSX)
+	open override func viewDidLoad() {
+		super.viewDidLoad()
+		doViewDidLoad()
+	}
+	#else
+	open override func viewDidLoad() {
+		super.viewDidLoad()
+		doViewDidLoad()
+	}
+	#endif
+
+	private func doViewDidLoad() {
+		/* call init methods */
+		if !mDidAlreadyInitialized {
+			/* Execute the component */
+			if let root = super.rootView {
+				let exec = AMBComponentExecutor(console: self.globalConsole)
+				exec.exec(component: root.getCoreView())
+			}
+			mDidAlreadyInitialized = true
+		}
 	}
 
 	#if os(OSX)

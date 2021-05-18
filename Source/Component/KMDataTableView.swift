@@ -71,7 +71,7 @@ public class KMDataTableView: KCTableView, AMBComponent
 				       forProperty: KMDataTableView.TableItem)
 		robj.addScriptedPropertyName(name: KMDataTableView.TableItem)
 
-		/* allocae callback */
+		/* allocate callback */
 		self.cellPressedCallback = {
 			(_ col: Int, _ row: Int) -> Void in
 			if let pressed = robj.immediateValue(forProperty: KMDataTableView.PressedItem) {
@@ -88,7 +88,7 @@ public class KMDataTableView: KCTableView, AMBComponent
 		/* add reload method */
 		let reloadfunc: @convention(block) () -> JSValue = {
 			() -> JSValue in
-			self.reload()
+			self.updateContents()
 			return JSValue(bool: true, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: reloadfunc, in: robj.context), forProperty: KMDataTableView.ReloadItem)

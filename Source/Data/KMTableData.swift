@@ -39,6 +39,8 @@ public class KMTableData: CNNativeValueTable, KCTableDelegate
 	private func valueToView(value val: CNNativeValue) -> KCView {
 		let result: KCView
 		switch val {
+		case .stringValue(let str):
+			result = textToView(text: str)
 		case .imageValue(let img):
 			let view = KCImageView()
 			view.set(image: img)
@@ -53,6 +55,10 @@ public class KMTableData: CNNativeValueTable, KCTableDelegate
 			let str = val.toText().toStrings(terminal: "").joined(separator: "\n")
 			result = textToView(text: str)
 		}
+		#if os(OSX)
+		let size = result.fittingSize
+		result.setFrameSize(size)
+		#endif
 		return result
 	}
 
@@ -73,6 +79,10 @@ public class KMTableData: CNNativeValueTable, KCTableDelegate
 			mConsole.error(string: "[Error] Unknown case")
 			result = textToView(text: "<Unk>")
 		}
+		#if os(OSX)
+			let fsize = result.fittingSize
+			result.setFrameSize(fsize)
+		#endif
 		return result
 	}
 
