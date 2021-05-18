@@ -12,7 +12,8 @@ This document describes list of classes and functions for component programming.
 * [Icon](Components/Icon.md): The pressable icon
 * [Image](Components/Image.md): The graphical image
 * [PopupMenu](Components/PopupMenu.md): Popup menu which has multiple string items.
-* [Table](Components/TextField.md): N x M cells on the table
+* [ComlumnTable](Components/ColumnTable.md): N x M cells on the table. The cell is GUI component.
+* [DataTable](Components/DataTable.md): N x M cells on the table. The cell is immediate data such as number and string.
 * [TextField](Components/TextField.md): The text field
 
 ### Functions
