@@ -89,6 +89,7 @@ public class KMTableData: CNNativeValueTable, KCTableDelegate
 	private func textToView(text txt: String) -> KCView {
 		let textview  = KCTextEdit()
 		textview.text = txt
+		textview.isBezeled = false
 		return textview
 	}
 }
