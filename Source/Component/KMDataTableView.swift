@@ -88,7 +88,10 @@ public class KMDataTableView: KCTableView, AMBComponent
 		/* add reload method */
 		let reloadfunc: @convention(block) () -> JSValue = {
 			() -> JSValue in
-			self.updateContents()
+			CNExecuteInMainThread(doSync: false, execute: {
+				() -> Void in
+				self.reloadData()
+			})
 			return JSValue(bool: true, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: reloadfunc, in: robj.context), forProperty: KMDataTableView.ReloadItem)
