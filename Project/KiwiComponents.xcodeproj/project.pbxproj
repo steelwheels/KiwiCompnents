@@ -83,8 +83,6 @@
 		05A88F1B252B65E80036432D /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
 		05AE214525DAABE700A8E238 /* KMPopupMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AE214425DAABE700A8E238 /* KMPopupMenu.swift */; };
 		05AE214625DAABE700A8E238 /* KMPopupMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AE214425DAABE700A8E238 /* KMPopupMenu.swift */; };
-		05AE7657264EC6640099481C /* KMTableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AE7656264EC6640099481C /* KMTableData.swift */; };
-		05AE7658264EC6640099481C /* KMTableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AE7656264EC6640099481C /* KMTableData.swift */; };
 		05B1AC55257A7A5600A5BF62 /* KMImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B1AC54257A7A5600A5BF62 /* KMImage.swift */; };
 		05B1AC56257A7A5600A5BF62 /* KMImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B1AC54257A7A5600A5BF62 /* KMImage.swift */; };
 		05C9034B25609E8200ECDA1E /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
@@ -255,7 +253,6 @@
 		059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = KiwiComponents.xcframework; path = ../../../Library/Frameworks/KiwiComponents.xcframework; sourceTree = "<group>"; };
 		05A88F18252B65D60036432D /* Amber.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Amber.xcframework; path = ../../../Library/Frameworks/Amber.xcframework; sourceTree = "<group>"; };
 		05AE214425DAABE700A8E238 /* KMPopupMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMPopupMenu.swift; sourceTree = "<group>"; };
-		05AE7656264EC6640099481C /* KMTableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMTableData.swift; sourceTree = "<group>"; };
 		05B1AC54257A7A5600A5BF62 /* KMImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMImage.swift; sourceTree = "<group>"; };
 		05CAEB6525445D36002AD83E /* KMLibraryCompiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLibraryCompiler.swift; sourceTree = "<group>"; };
 		05D0CABE252B6AFC0041C196 /* KMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMButton.swift; sourceTree = "<group>"; };
@@ -390,7 +387,6 @@
 				057BB83B252E04750007D9EB /* Window */,
 				05A88F1D252B68350036432D /* Compiler */,
 				056A6CEB25176D1A00E6379D /* Component */,
-				05AE7655264EC6420099481C /* Data */,
 				0537976D25442B86003FB301 /* Process */,
 			);
 			name = Source;
@@ -475,14 +471,6 @@
 				05CAEB6525445D36002AD83E /* KMLibraryCompiler.swift */,
 			);
 			path = Compiler;
-			sourceTree = "<group>";
-		};
-		05AE7655264EC6420099481C /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				05AE7656264EC6640099481C /* KMTableData.swift */,
-			);
-			path = Data;
 			sourceTree = "<group>";
 		};
 		05BD9A3E252C7A5200106ED9 /* Resource */ = {
@@ -700,7 +688,6 @@
 				05AE214525DAABE700A8E238 /* KMPopupMenu.swift in Sources */,
 				056A6CF925176D4E00E6379D /* KMComponentMapper.swift in Sources */,
 				0516CB9A26462A6D00BE6F3E /* KMDataTableView.swift in Sources */,
-				05AE7657264EC6640099481C /* KMTableData.swift in Sources */,
 				052AD76D2545B04700929F67 /* KMThreadLauncher.swift in Sources */,
 				05D6CECA25CAEC8B0055801C /* KMBitmap.swift in Sources */,
 				05EC69412544629B008932EB /* KMComponentLinker.swift in Sources */,
@@ -732,7 +719,6 @@
 				05AE214625DAABE700A8E238 /* KMPopupMenu.swift in Sources */,
 				056A6CFA25176D4E00E6379D /* KMComponentMapper.swift in Sources */,
 				0516CB9B26462A6D00BE6F3E /* KMDataTableView.swift in Sources */,
-				05AE7658264EC6640099481C /* KMTableData.swift in Sources */,
 				052AD76E2545B04700929F67 /* KMThreadLauncher.swift in Sources */,
 				05D6CECB25CAEC8B0055801C /* KMBitmap.swift in Sources */,
 				05EC69422544629B008932EB /* KMComponentLinker.swift in Sources */,

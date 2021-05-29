@@ -20,7 +20,6 @@ public class KMDataTableView: KCTableView, AMBComponent
 	public static let PressedItem	= "pressed"
 
 	private var mReactObject:	AMBReactObject?
-	private var mTableData:		KMTableData?
 	private var mConsole:		CNConsole
 
 	public var reactObject: AMBReactObject	{ get {
@@ -35,10 +34,9 @@ public class KMDataTableView: KCTableView, AMBComponent
 
 	public init(){
 		mReactObject		= nil
-		mTableData		= nil
 		mConsole		= CNFileConsole()
 		#if os(OSX)
-			let frame = NSRect(x: 0.0, y: 0.0, width: 160, height: 60)
+			let frame = NSRect(x: 0.0, y: 0.0, width: 480, height: 160)
 		#else
 			let frame = CGRect(x: 0.0, y: 0.0, width: 160, height: 60)
 		#endif
@@ -47,7 +45,6 @@ public class KMDataTableView: KCTableView, AMBComponent
 
 	@objc required dynamic init?(coder: NSCoder) {
 		mReactObject		= nil
-		mTableData		= nil
 		mConsole		= CNFileConsole()
 		super.init(coder: coder)
 	}
@@ -56,18 +53,15 @@ public class KMDataTableView: KCTableView, AMBComponent
 		mReactObject	= robj
 		mConsole	= cons
 
-		let dtable = KMTableData(console: cons)
-		mTableData = dtable
-
 		/* If the value table is empty, set 1 cell */
-		if dtable.rowCount == 0 {
-			dtable.setValue(column: 0, row: 0, value: .nullValue)
+		let valtable = super.valueTable
+		if valtable.rowCount == 0 {
+			valtable.setValue(column: 0, row: 0, value: .nullValue)
 		}
 
-		/* Allocate value table */
-		let valtable = KLValueTable(table: dtable, context: robj.context)
 		/* Define property */
-		robj.setImmediateValue(value: JSValue(object: valtable, in: robj.context),
+		let valobj = KLValueTable(table: valtable, context: robj.context)
+		robj.setImmediateValue(value: JSValue(object: valobj, in: robj.context),
 				       forProperty: KMDataTableView.TableItem)
 		robj.addScriptedPropertyName(name: KMDataTableView.TableItem)
 
@@ -90,15 +84,12 @@ public class KMDataTableView: KCTableView, AMBComponent
 			() -> JSValue in
 			CNExecuteInMainThread(doSync: false, execute: {
 				() -> Void in
-				self.reloadData()
+				super.reloadTable()
 			})
 			return JSValue(bool: true, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: reloadfunc, in: robj.context), forProperty: KMDataTableView.ReloadItem)
 		robj.addScriptedPropertyName(name: KMDataTableView.ReloadItem)
-
-		/* Set database and reload context */
-		super.tableDelegate = dtable
 
 		return nil
 	}
