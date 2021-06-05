@@ -122,7 +122,7 @@ open class KMComponentViewController: KCSingleViewController
 		if loglevel.isIncluded(in: .detail) {
 			let txt = resource.toText()
 			console.print(string: "Resource for amber view\n")
-			console.print(string: txt.toStrings(terminal: "").joined(separator: "\n"))
+			console.print(string: txt.toStrings().joined(separator: "\n"))
 		}
 
 		/* Compile library */
@@ -141,8 +141,8 @@ open class KMComponentViewController: KCSingleViewController
 			if loglevel.isIncluded(in: .detail) {
 				console.print(string: "[Output of Amber Parser]\n")
 				let dumper = AMBFrameDumper()
-				let txt    = dumper.dumpToText(frame: frm)
-				txt.print(console: console, terminal: "")
+				let txt = dumper.dumpToText(frame: frm).toStrings().joined(separator: "\n")
+				console.print(string: txt + "\n")
 			}
 		case .error(let err):
 			console.error(string: "Error: \(err.toString())\n")
@@ -163,8 +163,8 @@ open class KMComponentViewController: KCSingleViewController
 			if loglevel.isIncluded(in: .detail) {
 				console.print(string: "[Output of Amber Compiler]\n")
 				let dumper = AMBComponentDumper()
-				let txt    = dumper.dumpToText(component: comp)
-				txt.print(console: console, terminal: "")
+				let txt    = dumper.dumpToText(component: comp).toStrings().joined(separator: "\n")
+				console.print(string: txt + "\n")
 			}
 		case .error(let err):
 			console.error(string: "Error: \(err.toString())\n")
