@@ -49,9 +49,10 @@ public class KMComponentMapper: AMBComponentMapper
 			hassubview  = false
 		case "Label":
 			let comp    = KMTextEdit()
-			comp.mode   = .label
-			newcomp     = comp
-			hassubview  = false
+			comp.format	= .line
+			comp.isEditable	= false
+			newcomp		= comp
+			hassubview	= false
 		case "LabelBox":
 			newcomp     = KMLabeledStackView()
 			hassubview  = true
@@ -69,9 +70,10 @@ public class KMComponentMapper: AMBComponentMapper
 			hassubview  = false
 		case "TextField":
 			let comp    = KMTextEdit()
-			comp.mode   = .view(40)
-			newcomp     = comp
-			hassubview  = false
+			comp.format	= .text
+			comp.isEditable	= false
+			newcomp		= comp
+			hassubview	= false
 		case "VBox":
 			let comp    = KMStackView()
 			comp.axis   = .vertical
