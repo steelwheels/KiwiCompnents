@@ -101,7 +101,7 @@ public class KMComponentTableView: KCTableView, AMBComponent
 			for ridx in 0..<rownum {
 				/* Allocate */
 				let cobj = AMBReactObject(frame: cellcomp.reactObject.frame, context: robj.context, processManager: robj.processManager, resource: robj.resource, environment: robj.environment)
-				valtable.setValue(column: cidx, row: ridx, value: .objectValue(cobj))
+				valtable.setValue(columnIndex: .number(cidx), row: ridx, value: .objectValue(cobj))
 				/* Copy values */
 				for pname in cellcomp.reactObject.scriptedPropertyNames {
 					if let pval = cellcomp.reactObject.immediateValue(forProperty: pname) {
@@ -161,7 +161,7 @@ public class KMComponentTableView: KCTableView, AMBComponent
 	private func updateCell(column cidx: Int, row ridx: Int, context ctxt: KEContext, console cons: CNConsole) {
 		if let makefunc = mMakeEvent {
 			let valtable = super.valueTable
-			switch valtable.value(column: cidx, row: ridx) {
+			switch valtable.value(columnIndex: .number(cidx), row: ridx) {
 			case .objectValue(let obj):
 				if let robj = obj as? AMBReactObject {
 					if let cval = JSValue(int32: Int32(cidx), in: ctxt), let rval = JSValue(int32: Int32(ridx), in: ctxt){
@@ -185,7 +185,7 @@ public class KMComponentTableView: KCTableView, AMBComponent
 		let TEMPORARY_VARIABLE_NAME = "_amber_temp_cell_"
 		let valtable = super.valueTable
 
-		let rval = valtable.value(column: cidx, row: ridx)
+		let rval = valtable.value(columnIndex: .number(cidx), row: ridx)
 		switch rval {
 		case .objectValue(let obj):
 			if let robj = obj as? AMBReactObject {
@@ -205,12 +205,12 @@ public class KMComponentTableView: KCTableView, AMBComponent
 		}
 	}
 
-	public override func valueToView(value val: CNNativeValue) -> KCView? {
+	public override func valueToView(value val: CNNativeValue, isEditable edt: Bool) -> KCView? {
 		let result: KCView?
 		switch val {
 		case .objectValue(let obj):
 			if let ambobj = obj as? AMBReactObject {
-				result = objectToView(object: ambobj)
+				result = objectToView(object: ambobj, isEditable: edt)
 			} else {
 				result = nil
 			}
@@ -220,7 +220,7 @@ public class KMComponentTableView: KCTableView, AMBComponent
 		return result
 	}
 
-	private func objectToView(object obj: AMBReactObject) -> KCView? {
+	private func objectToView(object obj: AMBReactObject, isEditable edt: Bool) -> KCView? {
 		guard let cons = mConsole else {
 			NSLog("Can not happen at \(#function)")
 			return nil
@@ -228,7 +228,7 @@ public class KMComponentTableView: KCTableView, AMBComponent
 
 		let result: KCView?
 		let mapper = KMComponentMapper()
-		switch mapper.map(object: obj, console: cons) {
+		switch mapper.map(object: obj, isEditable: edt, console: cons) {
 		case .ok(let comp):
 			if let view = comp as? KCView {
 				result = view

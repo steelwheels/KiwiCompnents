@@ -56,7 +56,7 @@ public class KMDataTableView: KCTableView, AMBComponent
 		/* If the value table is empty, set 1 cell */
 		let valtable = super.valueTable
 		if valtable.rowCount == 0 {
-			valtable.setValue(column: 0, row: 0, value: .nullValue)
+			valtable.setValue(columnIndex: .number(0), row: 0, value: .nullValue)
 		}
 
 		/* Define property */
