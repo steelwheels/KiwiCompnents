@@ -18,6 +18,7 @@ public class KMDataTableView: KCTableView, AMBComponent
 	public static let TableItem	= "table"
 	public static let ReloadItem	= "reload"
 	public static let PressedItem	= "pressed"
+	public static let EditableItem	= "editable"
 
 	private var mReactObject:	AMBReactObject?
 	private var mConsole:		CNConsole
@@ -54,16 +55,27 @@ public class KMDataTableView: KCTableView, AMBComponent
 		mConsole	= cons
 
 		/* If the value table is empty, set 1 cell */
+/*
 		let valtable = super.valueTable
 		if valtable.rowCount == 0 {
 			valtable.setValue(columnIndex: .number(0), row: 0, value: .nullValue)
 		}
+*/
 
 		/* Define property */
-		let valobj = KLValueTable(table: valtable, context: robj.context)
+		let valobj = KLValueTable(table: super.valueTable, context: robj.context)
 		robj.setImmediateValue(value: JSValue(object: valobj, in: robj.context),
 				       forProperty: KMDataTableView.TableItem)
 		robj.addScriptedPropertyName(name: KMDataTableView.TableItem)
+
+		/* Sync initial value: editable */
+		if let val = robj.boolValue(forProperty: KMDataTableView.EditableItem) {
+			CNExecuteInMainThread(doSync: false, execute: {
+				self.isEditable = val
+			})
+		} else {
+			robj.setBoolValue(value: self.isEditable, forProperty: KMDataTableView.EditableItem)
+		}
 
 		/* allocate callback */
 		self.cellPressedCallback = {
