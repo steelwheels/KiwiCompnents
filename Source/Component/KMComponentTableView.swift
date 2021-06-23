@@ -26,6 +26,7 @@ public class KMComponentTableView: KCTableView, AMBComponent
 
 	private var mReactObject:	AMBReactObject?
 	private var mChildComponents:	Array<AMBComponent>
+	private var mTable:		CNNativeValueTable
 	private var mConsole:		CNConsole?
 	private var mCellComponent:	AMBComponent?
 	private var mMakeEvent:		JSValue?
@@ -44,6 +45,7 @@ public class KMComponentTableView: KCTableView, AMBComponent
 		mReactObject		= nil
 		mConsole		= nil
 		mChildComponents	= []
+		mTable			= CNNativeValueTable()
 		mCellComponent		= nil
 		mMakeEvent		= nil
 		#if os(OSX)
@@ -58,6 +60,7 @@ public class KMComponentTableView: KCTableView, AMBComponent
 		mReactObject		= nil
 		mConsole		= nil
 		mChildComponents	= []
+		mTable			= CNNativeValueTable()
 		mCellComponent		= nil
 		mMakeEvent		= nil
 		super.init(coder: coder)
@@ -96,12 +99,11 @@ public class KMComponentTableView: KCTableView, AMBComponent
 		mCellComponent = cellcomp
 
 		/* Allocate columns and rows and set default values */
-		let valtable = super.valueTable
 		for cidx in 0..<columnnum {
 			for ridx in 0..<rownum {
 				/* Allocate */
 				let cobj = AMBReactObject(frame: cellcomp.reactObject.frame, context: robj.context, processManager: robj.processManager, resource: robj.resource, environment: robj.environment)
-				valtable.setValue(columnIndex: .number(cidx), row: ridx, value: .objectValue(cobj))
+				mTable.setValue(columnIndex: .number(cidx), row: ridx, value: .objectValue(cobj))
 				/* Copy values */
 				for pname in cellcomp.reactObject.scriptedPropertyNames {
 					if let pval = cellcomp.reactObject.immediateValue(forProperty: pname) {
@@ -140,7 +142,7 @@ public class KMComponentTableView: KCTableView, AMBComponent
 		}
 
 		/* Reload data */
-		super.reloadTable()
+		super.reloadTable(table: mTable)
 
 		return nil
 	}
@@ -160,8 +162,7 @@ public class KMComponentTableView: KCTableView, AMBComponent
 
 	private func updateCell(column cidx: Int, row ridx: Int, context ctxt: KEContext, console cons: CNConsole) {
 		if let makefunc = mMakeEvent {
-			let valtable = super.valueTable
-			switch valtable.value(columnIndex: .number(cidx), row: ridx) {
+			switch mTable.value(columnIndex: .number(cidx), row: ridx) {
 			case .objectValue(let obj):
 				if let robj = obj as? AMBReactObject {
 					if let cval = JSValue(int32: Int32(cidx), in: ctxt), let rval = JSValue(int32: Int32(ridx), in: ctxt){
@@ -183,9 +184,8 @@ public class KMComponentTableView: KCTableView, AMBComponent
 
 	private func defineCellProperty(column cidx: Int, row ridx: Int, context ctxt: KEContext, console cons: CNConsole) {
 		let TEMPORARY_VARIABLE_NAME = "_amber_temp_cell_"
-		let valtable = super.valueTable
 
-		let rval = valtable.value(columnIndex: .number(cidx), row: ridx)
+		let rval = mTable.value(columnIndex: .number(cidx), row: ridx)
 		switch rval {
 		case .objectValue(let obj):
 			if let robj = obj as? AMBReactObject {

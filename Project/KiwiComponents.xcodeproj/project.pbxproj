@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0508118925519EF800407987 /* KMTextEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0508118825519EF800407987 /* KMTextEdit.swift */; };
 		0508118A25519EF800407987 /* KMTextEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0508118825519EF800407987 /* KMTextEdit.swift */; };
+		050BAFE22680D3EA0058FF15 /* CoconutDatabase.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050BAFE12680D3EA0058FF15 /* CoconutDatabase.xcframework */; };
+		050BAFE52680D3FC0058FF15 /* CoconutDatabase.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 050BAFE12680D3EA0058FF15 /* CoconutDatabase.xcframework */; };
 		050ED8F7253AF74200DF294C /* KMVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050ED8F6253AF74200DF294C /* KMVisitor.swift */; };
 		050ED8F8253AF74200DF294C /* KMVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050ED8F6253AF74200DF294C /* KMVisitor.swift */; };
 		050FD7A825ADCDE90063675D /* KMIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050FD7A725ADCDE90063675D /* KMIcon.swift */; };
@@ -212,6 +214,7 @@
 
 /* Begin PBXFileReference section */
 		0508118825519EF800407987 /* KMTextEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMTextEdit.swift; sourceTree = "<group>"; };
+		050BAFE12680D3EA0058FF15 /* CoconutDatabase.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = CoconutDatabase.xcframework; path = ../../../Library/Frameworks/CoconutDatabase.xcframework; sourceTree = "<group>"; };
 		050ED8F6253AF74200DF294C /* KMVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMVisitor.swift; sourceTree = "<group>"; };
 		050FD7A725ADCDE90063675D /* KMIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMIcon.swift; sourceTree = "<group>"; };
 		0516CB9926462A6D00BE6F3E /* KMDataTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMDataTableView.swift; sourceTree = "<group>"; };
@@ -270,6 +273,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				050BAFE22680D3EA0058FF15 /* CoconutDatabase.xcframework in Frameworks */,
 				05676AF62518630800C1D29C /* CoconutShell.xcframework in Frameworks */,
 				05676AE82518629300C1D29C /* KiwiLibrary.xcframework in Frameworks */,
 				056A6CFF25176D7300E6379D /* CoconutData.xcframework in Frameworks */,
@@ -284,6 +288,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				050BAFE52680D3FC0058FF15 /* CoconutDatabase.xcframework in Frameworks */,
 				05676AF82518631D00C1D29C /* CoconutShell.xcframework in Frameworks */,
 				056A6D0325176D9500E6379D /* CoconutData.xcframework in Frameworks */,
 				05676AE42518626F00C1D29C /* KiwiControls.xcframework in Frameworks */,
@@ -418,6 +423,7 @@
 		056A6CFD25176D7300E6379D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				050BAFE12680D3EA0058FF15 /* CoconutDatabase.xcframework */,
 				05A88F18252B65D60036432D /* Amber.xcframework */,
 				059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */,
 				05676AF52518630800C1D29C /* CoconutShell.xcframework */,

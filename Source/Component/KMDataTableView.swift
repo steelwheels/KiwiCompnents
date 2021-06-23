@@ -21,6 +21,7 @@ public class KMDataTableView: KCTableView, AMBComponent
 	public static let EditableItem	= "editable"
 
 	private var mReactObject:	AMBReactObject?
+	private var mTable:		CNNativeValueTable
 	private var mConsole:		CNConsole
 
 	public var reactObject: AMBReactObject	{ get {
@@ -36,6 +37,8 @@ public class KMDataTableView: KCTableView, AMBComponent
 	public init(){
 		mReactObject		= nil
 		mConsole		= CNFileConsole()
+		mTable			= CNNativeValueTable()
+		mTable.setValue(columnIndex: .number(0), row: 0, value: .nullValue)
 		#if os(OSX)
 			let frame = NSRect(x: 0.0, y: 0.0, width: 480, height: 160)
 		#else
@@ -47,6 +50,8 @@ public class KMDataTableView: KCTableView, AMBComponent
 	@objc required dynamic init?(coder: NSCoder) {
 		mReactObject		= nil
 		mConsole		= CNFileConsole()
+		mTable			= CNNativeValueTable()
+		mTable.setValue(columnIndex: .number(0), row: 0, value: .nullValue)
 		super.init(coder: coder)
 	}
 
@@ -54,17 +59,9 @@ public class KMDataTableView: KCTableView, AMBComponent
 		mReactObject	= robj
 		mConsole	= cons
 
-		/* If the value table is empty, set 1 cell */
-/*
-		let valtable = super.valueTable
-		if valtable.rowCount == 0 {
-			valtable.setValue(columnIndex: .number(0), row: 0, value: .nullValue)
-		}
-*/
-
 		/* Define property */
-		let valobj = KLValueTable(table: super.valueTable, context: robj.context)
-		robj.setImmediateValue(value: JSValue(object: valobj, in: robj.context),
+		let tblobj = KLValueTable(table: mTable, context: robj.context)
+		robj.setImmediateValue(value: JSValue(object: tblobj, in: robj.context),
 				       forProperty: KMDataTableView.TableItem)
 		robj.addScriptedPropertyName(name: KMDataTableView.TableItem)
 
@@ -96,7 +93,7 @@ public class KMDataTableView: KCTableView, AMBComponent
 			() -> JSValue in
 			CNExecuteInMainThread(doSync: false, execute: {
 				() -> Void in
-				super.reloadTable()
+				super.reloadTable(table: self.mTable)
 			})
 			return JSValue(bool: true, in: robj.context)
 		}
