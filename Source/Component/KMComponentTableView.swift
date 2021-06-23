@@ -21,6 +21,7 @@ public class KMComponentTableView: KCTableView, AMBComponent
 	public static let RowCountItem		= "rowCount"
 	public static let ColumnCountItem	= "columnCount"
 	public static let CellItem		= "cell"
+	public static let HasHeaderItem		= "hasHeader"
 	public static let MakeItem		= "make"
 	public static let PressedItem		= "pressed"
 
@@ -86,6 +87,15 @@ public class KMComponentTableView: KCTableView, AMBComponent
 			}
 		} else {
 			cons.error(string: "No row count property: \(KMComponentTableView.RowCountItem)")
+		}
+
+		/* Sync initial value: hasHeader */
+		if let val = robj.boolValue(forProperty: KMComponentTableView.HasHeaderItem) {
+			CNExecuteInMainThread(doSync: false, execute: {
+				self.hasHeader = val
+			})
+		} else {
+			robj.setBoolValue(value: self.hasHeader, forProperty: KMComponentTableView.HasHeaderItem)
 		}
 
 		/* Get cell */

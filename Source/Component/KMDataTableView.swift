@@ -19,6 +19,7 @@ public class KMDataTableView: KCTableView, AMBComponent
 	public static let ReloadItem	= "reload"
 	public static let PressedItem	= "pressed"
 	public static let EditableItem	= "editable"
+	public static let HasHeaderItem	= "hasHeader"
 
 	private var mReactObject:	AMBReactObject?
 	private var mTable:		CNNativeValueTable
@@ -72,6 +73,15 @@ public class KMDataTableView: KCTableView, AMBComponent
 			})
 		} else {
 			robj.setBoolValue(value: self.isEditable, forProperty: KMDataTableView.EditableItem)
+		}
+
+		/* Sync initial value: hasHeader */
+		if let val = robj.boolValue(forProperty: KMDataTableView.HasHeaderItem) {
+			CNExecuteInMainThread(doSync: false, execute: {
+				self.hasHeader = val
+			})
+		} else {
+			robj.setBoolValue(value: self.hasHeader, forProperty: KMDataTableView.HasHeaderItem)
 		}
 
 		/* allocate callback */
