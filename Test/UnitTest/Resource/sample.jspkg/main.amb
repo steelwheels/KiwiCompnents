@@ -96,12 +96,12 @@ top: VBox {
     dataTable: DataTable {
 	hasHeader: Bool true
 	init: Init %{
-		let table  = self.table ;
+		let table = WorkSheet() ;
 		table.setValue(0, 0, "0/0") ;
 		table.setValue(0, 1, "0/1") ;
 		table.setValue(1, 0, "1/0") ;
 		table.setValue(1, 1, "1/0") ;
-		self.reload() ;
+		self.reload(table) ;
 	%}
     }
     table: ComponentTable {

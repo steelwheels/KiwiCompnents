@@ -15,14 +15,14 @@ import Foundation
 
 public class KMDataTableView: KCTableView, AMBComponent
 {
-	public static let TableItem	= "table"
-	public static let ReloadItem	= "reload"
-	public static let PressedItem	= "pressed"
-	public static let EditableItem	= "editable"
-	public static let HasHeaderItem	= "hasHeader"
+	public static let ReloadItem		= "reload"
+	public static let PressedItem		= "pressed"
+	public static let EditableItem		= "editable"
+	public static let HasHeaderItem		= "hasHeader"
+	public static let RowCountItem		= "rowCount"
+	public static let ColumnCountItem	= "columnCount"
 
 	private var mReactObject:	AMBReactObject?
-	private var mTable:		CNNativeValueTable
 	private var mConsole:		CNConsole
 
 	public var reactObject: AMBReactObject	{ get {
@@ -38,8 +38,6 @@ public class KMDataTableView: KCTableView, AMBComponent
 	public init(){
 		mReactObject		= nil
 		mConsole		= CNFileConsole()
-		mTable			= CNNativeValueTable()
-		mTable.setValue(columnIndex: .number(0), row: 0, value: .nullValue)
 		#if os(OSX)
 			let frame = NSRect(x: 0.0, y: 0.0, width: 480, height: 160)
 		#else
@@ -51,20 +49,12 @@ public class KMDataTableView: KCTableView, AMBComponent
 	@objc required dynamic init?(coder: NSCoder) {
 		mReactObject		= nil
 		mConsole		= CNFileConsole()
-		mTable			= CNNativeValueTable()
-		mTable.setValue(columnIndex: .number(0), row: 0, value: .nullValue)
 		super.init(coder: coder)
 	}
 
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject	= robj
 		mConsole	= cons
-
-		/* Define property */
-		let tblobj = KLValueTable(table: mTable, context: robj.context)
-		robj.setImmediateValue(value: JSValue(object: tblobj, in: robj.context),
-				       forProperty: KMDataTableView.TableItem)
-		robj.addScriptedPropertyName(name: KMDataTableView.TableItem)
 
 		/* Sync initial value: editable */
 		if let val = robj.boolValue(forProperty: KMDataTableView.EditableItem) {
@@ -99,18 +89,36 @@ public class KMDataTableView: KCTableView, AMBComponent
 		}
 
 		/* add reload method */
-		let reloadfunc: @convention(block) () -> JSValue = {
-			() -> JSValue in
-			CNExecuteInMainThread(doSync: false, execute: {
-				() -> Void in
-				super.reloadTable(table: self.mTable)
-			})
-			return JSValue(bool: true, in: robj.context)
+		let reloadfunc: @convention(block) (_ tblval: JSValue) -> JSValue = {
+			(_ tblval: JSValue) -> JSValue in
+			var result = false
+			if tblval.isObject {
+				if let tblobj = tblval.toObject() as? KLValueTable {
+					CNExecuteInMainThread(doSync: false, execute: {
+						() -> Void in
+						super.reloadTable(table: tblobj.core)
+					})
+					result = true
+				}
+			}
+			return JSValue(bool: result, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: reloadfunc, in: robj.context), forProperty: KMDataTableView.ReloadItem)
 		robj.addScriptedPropertyName(name: KMDataTableView.ReloadItem)
 
+		setupSizeInfo()
 		return nil
+	}
+
+	private func setupSizeInfo() {
+		let robj = reactObject
+		robj.setInt32Value(value: Int32(self.numberOfRows),	forProperty: KMDataTableView.RowCountItem)
+		robj.setInt32Value(value: Int32(self.numberOfColumns),	forProperty: KMDataTableView.ColumnCountItem)
+	}
+
+	open override func reloadTable(table tbl: CNNativeTableInterface?) {
+		super.reloadTable(table: tbl)
+		setupSizeInfo()
 	}
 
 	public func accept(visitor vst: KMVisitor) {
