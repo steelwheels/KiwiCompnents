@@ -31,10 +31,8 @@ open class KMVisitor
 			visit(popupMenu: pmenu)
 		} else if let stack = comp as? KMStackView {
 			visit(stackView: stack)
-		} else if let table = comp as? KMComponentTableView {
-			visit(componentTableView: table)
-		} else if let table = comp as? KMDataTableView {
-			visit(dataTableView: table)
+		} else if let table = comp as? KMTableView {
+			visit(tableView: table)
 		} else if let term = comp as? KMTerminalView {
 			visit(terminalView: term)
 		} else {
@@ -51,8 +49,7 @@ open class KMVisitor
 	open func visit(labeledStackView view: KMLabeledStackView) { }
 	open func visit(popupMenu view: KMPopupMenu){ }
 	open func visit(stackView view: KMStackView){ }
-	open func visit(componentTableView view: KMComponentTableView){ }
-	open func visit(dataTableView view: KMDataTableView){ }
+	open func visit(tableView view: KMTableView){ }
 	open func visit(terminalView view: KMTerminalView){ }
 	open func visit(textEdit view: KMTextEdit){ }
 }

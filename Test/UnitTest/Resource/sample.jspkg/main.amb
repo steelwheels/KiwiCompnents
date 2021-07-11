@@ -93,42 +93,14 @@ top: VBox {
 			items: String ["a", "b", "c"]
 		}
     }
-    dataTable: DataTable {
-	hasHeader: Bool true
+    dataTable: Table {
 	init: Init %{
-		let table = WorkSheet() ;
+		let table = ValueTable() ;
 		table.setValue(0, 0, "0/0") ;
 		table.setValue(0, 1, "0/1") ;
 		table.setValue(1, 0, "1/0") ;
 		table.setValue(1, 1, "1/0") ;
 		self.reload(table) ;
-	%}
-    }
-    table: ComponentTable {
-	columnCount:	Int	3
-	rowCount:	Int	2
-	cell: Icon {
-		image: String "calendar"
-		title: String "calendar"
-	}
-	make: Event(col, row) %{
-		let msg   = "make event: " + col + "," + row ;
-		let idx   = (row * 2 + col) % 6 ;
-		let image = "?" ;
-		switch(idx){
-			case 0: image = "bag" ;		break ;
-			case 1: image = "book" ; 	break ;
-			case 2: image = "calendar" ;	break ;
-			case 3: image = "clock" ;	break ;
-			case 4: image = "telescope" ;	break ;
-			case 5: image = "umblrella" ;	break ;
-		}
-		console.log(msg) ;
-		self.title = msg ;
-		self.image = image ;
-	%}
-    	pressed: Event(col, row) %{
-		console.log("Component table Pressed col=" + col + ", row=" + row) ;
 	%}
     }
     button_a: Button {

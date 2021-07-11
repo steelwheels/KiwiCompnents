@@ -1,6 +1,6 @@
 /**
- * @file	KMDataTableView.swift
- * @brief	Define KMDataTableView class
+ * @file	KMTableView.swift
+ * @brief	Define KMTableView class
  * @par Copyright
  *   Copyright (C) 2021 Steel Wheels Project
  */
@@ -13,7 +13,7 @@ import CoconutData
 import JavaScriptCore
 import Foundation
 
-public class KMDataTableView: KCTableView, AMBComponent
+public class KMTableView: KCTableView, AMBComponent
 {
 	public static let ReloadItem		= "reload"
 	public static let PressedItem		= "pressed"
@@ -55,29 +55,31 @@ public class KMDataTableView: KCTableView, AMBComponent
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject	= robj
 		mConsole	= cons
+		//self.isEditable = true
+		self.isEnable = true
 
 		/* Sync initial value: editable */
-		if let val = robj.boolValue(forProperty: KMDataTableView.EditableItem) {
+		if let val = robj.boolValue(forProperty: KMTableView.EditableItem) {
 			CNExecuteInMainThread(doSync: false, execute: {
 				self.isEditable = val
 			})
 		} else {
-			robj.setBoolValue(value: self.isEditable, forProperty: KMDataTableView.EditableItem)
+			robj.setBoolValue(value: self.isEditable, forProperty: KMTableView.EditableItem)
 		}
 
 		/* Sync initial value: hasHeader */
-		if let val = robj.boolValue(forProperty: KMDataTableView.HasHeaderItem) {
+		if let val = robj.boolValue(forProperty: KMTableView.HasHeaderItem) {
 			CNExecuteInMainThread(doSync: false, execute: {
 				self.hasHeader = val
 			})
 		} else {
-			robj.setBoolValue(value: self.hasHeader, forProperty: KMDataTableView.HasHeaderItem)
+			robj.setBoolValue(value: self.hasHeader, forProperty: KMTableView.HasHeaderItem)
 		}
 
 		/* allocate callback */
-		self.cellPressedCallback = {
-			(_ col: Int, _ row: Int) -> Void in
-			if let pressed = robj.immediateValue(forProperty: KMDataTableView.PressedItem) {
+		self.cellClickedCallback = {
+			(_ isdouble: Bool, _ col: Int, _ row: Int) -> Void in
+			if let pressed = robj.immediateValue(forProperty: KMTableView.PressedItem) {
 				if let colval = JSValue(int32: Int32(col), in: robj.context),
 				   let rowval = JSValue(int32: Int32(row), in: robj.context) {
 					CNExecuteInUserThread(level: .event, execute: {
@@ -96,15 +98,15 @@ public class KMDataTableView: KCTableView, AMBComponent
 				if let tblobj = tblval.toObject() as? KLValueTable {
 					CNExecuteInMainThread(doSync: false, execute: {
 						() -> Void in
-						super.reloadTable(table: tblobj.core)
+						self.reload(table: tblobj.core)
 					})
 					result = true
 				}
 			}
 			return JSValue(bool: result, in: robj.context)
 		}
-		robj.setImmediateValue(value: JSValue(object: reloadfunc, in: robj.context), forProperty: KMDataTableView.ReloadItem)
-		robj.addScriptedPropertyName(name: KMDataTableView.ReloadItem)
+		robj.setImmediateValue(value: JSValue(object: reloadfunc, in: robj.context), forProperty: KMTableView.ReloadItem)
+		robj.addScriptedPropertyName(name: KMTableView.ReloadItem)
 
 		setupSizeInfo()
 		return nil
@@ -112,17 +114,17 @@ public class KMDataTableView: KCTableView, AMBComponent
 
 	private func setupSizeInfo() {
 		let robj = reactObject
-		robj.setInt32Value(value: Int32(self.numberOfRows),	forProperty: KMDataTableView.RowCountItem)
-		robj.setInt32Value(value: Int32(self.numberOfColumns),	forProperty: KMDataTableView.ColumnCountItem)
+		robj.setInt32Value(value: Int32(self.numberOfRows),	forProperty: KMTableView.RowCountItem)
+		robj.setInt32Value(value: Int32(self.numberOfColumns),	forProperty: KMTableView.ColumnCountItem)
 	}
 
-	open override func reloadTable(table tbl: CNNativeTableInterface?) {
-		super.reloadTable(table: tbl)
+	open override func reload(table tbl: CNNativeTableInterface?) {
+		super.reload(table: tbl)
 		setupSizeInfo()
 	}
 
 	public func accept(visitor vst: KMVisitor) {
-		vst.visit(dataTableView: self)
+		vst.visit(tableView: self)
 	}
 
 	public func addChild(component comp: AMBComponent) {
