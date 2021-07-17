@@ -95,10 +95,18 @@ public class KMTableView: KCTableView, AMBComponent
 			(_ tblval: JSValue) -> JSValue in
 			var result = false
 			if tblval.isObject {
+				var tblif: CNNativeTableInterface?
 				if let tblobj = tblval.toObject() as? KLValueTable {
+					tblif = tblobj.core
+				} else if let tblobj = tblval.toObject() as? KLContactTable {
+					tblif = tblobj.core
+				} else {
+					tblif = nil
+				}
+				if let core = tblif {
 					CNExecuteInMainThread(doSync: false, execute: {
 						() -> Void in
-						self.reload(table: tblobj.core)
+						self.reload(table: core)
 					})
 					result = true
 				}
