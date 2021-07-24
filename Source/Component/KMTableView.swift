@@ -17,7 +17,6 @@ public class KMTableView: KCTableView, AMBComponent
 {
 	public static let ReloadItem		= "reload"
 	public static let PressedItem		= "pressed"
-	public static let EditableItem		= "editable"
 	public static let HasHeaderItem		= "hasHeader"
 	public static let RowCountItem		= "rowCount"
 	public static let ColumnCountItem	= "columnCount"
@@ -57,15 +56,6 @@ public class KMTableView: KCTableView, AMBComponent
 		mConsole	= cons
 		//self.isEditable = true
 		self.isEnable = true
-
-		/* Sync initial value: editable */
-		if let val = robj.boolValue(forProperty: KMTableView.EditableItem) {
-			CNExecuteInMainThread(doSync: false, execute: {
-				self.isEditable = val
-			})
-		} else {
-			robj.setBoolValue(value: self.isEditable, forProperty: KMTableView.EditableItem)
-		}
 
 		/* Sync initial value: hasHeader */
 		if let val = robj.boolValue(forProperty: KMTableView.HasHeaderItem) {
