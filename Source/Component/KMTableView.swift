@@ -20,6 +20,7 @@ public class KMTableView: KCTableView, AMBComponent
 	public static let HasHeaderItem		= "hasHeader"
 	public static let RowCountItem		= "rowCount"
 	public static let ColumnCountItem	= "columnCount"
+	public static let IsDirtyItem		= "isDirty"
 
 	private var mReactObject:	AMBReactObject?
 	private var mConsole:		CNConsole
@@ -78,6 +79,25 @@ public class KMTableView: KCTableView, AMBComponent
 					})
 				}
 			}
+		}
+
+		/* allocate status listner */
+		robj.setBoolValue(value: false, forProperty: KMTableView.IsDirtyItem)
+		robj.addScriptedPropertyName(name: KMTableView.IsDirtyItem)
+
+		NSLog("addStateListner:")
+		super.stateListner = {
+			(_ state: DataState) -> Void in
+			CNLog(logLevel: .error, message: "Accept table state", atFunction: #function, inFile: #file)
+			let isdirty: Bool
+			switch state {
+			case .clean:	isdirty = false
+			case .dirty:	isdirty = true
+			@unknown default:
+				CNLog(logLevel: .error, message: "Unknown case", atFunction: #function, inFile: #file)
+				isdirty = false
+			}
+			robj.setBoolValue(value: isdirty, forProperty: KMTableView.IsDirtyItem)
 		}
 
 		/* add reload method */
