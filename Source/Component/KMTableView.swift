@@ -16,6 +16,7 @@ import Foundation
 public class KMTableView: KCTableView, AMBComponent
 {
 	public static let ReloadItem		= "reload"
+	public static let SaveItem		= "save"
 	public static let PressedItem		= "pressed"
 	public static let HasHeaderItem		= "hasHeader"
 	public static let RowCountItem		= "rowCount"
@@ -85,10 +86,9 @@ public class KMTableView: KCTableView, AMBComponent
 		robj.setBoolValue(value: false, forProperty: KMTableView.IsDirtyItem)
 		robj.addScriptedPropertyName(name: KMTableView.IsDirtyItem)
 
-		NSLog("addStateListner:")
 		super.stateListner = {
 			(_ state: DataState) -> Void in
-			CNLog(logLevel: .error, message: "Accept table state", atFunction: #function, inFile: #file)
+			CNLog(logLevel: .detail, message: "Detect updated table state", atFunction: #function, inFile: #file)
 			let isdirty: Bool
 			switch state {
 			case .clean:	isdirty = false
@@ -125,6 +125,15 @@ public class KMTableView: KCTableView, AMBComponent
 		}
 		robj.setImmediateValue(value: JSValue(object: reloadfunc, in: robj.context), forProperty: KMTableView.ReloadItem)
 		robj.addScriptedPropertyName(name: KMTableView.ReloadItem)
+
+		/* add save method */
+		let savefunc: @convention(block) () -> JSValue = {
+			() -> JSValue in
+			self.save()
+			return JSValue(bool: true, in: robj.context)
+		}
+		robj.setImmediateValue(value: JSValue(object: savefunc, in: robj.context), forProperty: KMTableView.SaveItem)
+		robj.addScriptedPropertyName(name: KMTableView.SaveItem)
 
 		setupSizeInfo()
 		return nil
