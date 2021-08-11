@@ -105,18 +105,10 @@ public class KMTableView: KCTableView, AMBComponent
 			(_ tblval: JSValue) -> JSValue in
 			var result = false
 			if tblval.isObject {
-				var tblif: CNNativeTableInterface?
-				if let tblobj = tblval.toObject() as? KLValueTable {
-					tblif = tblobj.core
-				} else if let tblobj = tblval.toObject() as? KLContactTable {
-					tblif = tblobj.core
-				} else {
-					tblif = nil
-				}
-				if let core = tblif {
+				if let tblobj = tblval.toObject() as? KLTableCore {
 					CNExecuteInMainThread(doSync: false, execute: {
 						() -> Void in
-						self.reload(table: core)
+						self.reload(table: tblobj.core())
 					})
 					result = true
 				}
@@ -145,7 +137,7 @@ public class KMTableView: KCTableView, AMBComponent
 		robj.setInt32Value(value: Int32(self.numberOfColumns),	forProperty: KMTableView.ColumnCountItem)
 	}
 
-	open override func reload(table tbl: CNNativeTableInterface?) {
+	open override func reload(table tbl: CNTable?) {
 		super.reload(table: tbl)
 		setupSizeInfo()
 	}

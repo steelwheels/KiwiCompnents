@@ -52,6 +52,20 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject	= robj
 
+		/* Sync initial value: title */
+		if let val = robj.stringValue(forProperty: KMLabeledStackView.TitleItem) {
+			self.title = val
+		} else {
+			robj.setStringValue(value: self.title, forProperty: KMLabeledStackView.TitleItem)
+		}
+		/* Add listner: title */
+		robj.addObserver(forProperty: KMLabeledStackView.TitleItem, callback:  {
+			(_ val: Any) -> Void in
+			if let val = robj.stringValue(forProperty: KMLabeledStackView.TitleItem) {
+				self.title = val
+			}
+		})
+
 		/* Sync initial value: axis */
 		if let val = robj.int32Value(forProperty: KMStackView.AxisItem) {
 			if let axisval = CNAxis(rawValue: Int32(val)) {
