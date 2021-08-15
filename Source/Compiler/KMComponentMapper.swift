@@ -53,7 +53,7 @@ public class KMComponentMapper: AMBComponentMapper
 			comp.isEditable	= false
 			newcomp		= comp
 			hassubview	= false
-		case "LabelBox":
+		case "LabeledBox":
 			newcomp     = KMLabeledStackView()
 			hassubview  = true
 		case "PopupMenu":
@@ -101,6 +101,8 @@ public class KMComponentMapper: AMBComponentMapper
 		switch classname {
 		case "Shell":
 			newcomp = KMShell()
+		case "AddressBook":
+			newcomp = KMContactDatabase()
 		default:
 			return super.mapObject(object: robj, isEditable: edt, console: cons)
 		}

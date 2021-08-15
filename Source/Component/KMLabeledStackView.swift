@@ -23,6 +23,7 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 	static let TitleItem		= "title"
 
 	private var mReactObject:	AMBReactObject?
+	private var mChildObjects:	Array<AMBComponentObject>
 
 	public var reactObject: AMBReactObject {
 		get {
@@ -36,6 +37,7 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 
 	public init(){
 		mReactObject	= nil
+		mChildObjects	= []
 		#if os(OSX)
 			let frame = NSRect(x: 0.0, y: 0.0, width: 188, height: 21)
 		#else
@@ -46,6 +48,7 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 
 	public required init?(coder: NSCoder) {
 		mReactObject	= nil
+		mChildObjects	= []
 		super.init(coder: coder)
 	}
 
@@ -143,13 +146,14 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 
 	public var children: Array<AMBComponent> {
 		get {
-			var views: Array<AMBComponent> = []
+			var result: Array<AMBComponent> = []
 			for subview in self.contentsView.arrangedSubviews() {
 				if let comp = subview as? AMBComponent {
-					views.append(comp)
+					result.append(comp)
 				}
 			}
-			return views
+			result.append(contentsOf: mChildObjects)
+			return result
 		}
 	}
 
@@ -159,9 +163,10 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 				() -> Void in
 				super.contentsView.addArrangedSubView(subView: view)
 			})
+		} else if let obj = comp as? AMBComponentObject {
+			mChildObjects.append(obj)
 		} else {
-			let cname = comp.reactObject.frame.className
-			CNLog(logLevel: .error, message: "Unknown object: class=\(cname)")
+			CNLog(logLevel: .error, message: "Failed to add child component", atFunction: #function, inFile: #file)
 		}
 	}
 

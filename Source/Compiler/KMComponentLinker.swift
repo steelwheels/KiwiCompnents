@@ -42,6 +42,10 @@ public class KMComponentLinker: KMVisitor
 		/* Do nothing */
 	}
 
+	public override func visit(contactDatabase db: KMContactDatabase){
+		/* Do nothing */
+	}
+
 	public override func visit(graphics2D view: KMGraphics2D){
 		/* Do nothing */
 	}

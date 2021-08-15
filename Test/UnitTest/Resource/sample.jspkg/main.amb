@@ -1,10 +1,15 @@
 top: VBox {
+    index: Int 0
+    adbook: AddressBook {
+    }
     message: HBox {
 	    logo: Image {
 			name: String "logo"
 	    }
 	    text_a: TextField {
-			text: String "This is text field"
+			text: String Listner(index: top.index) %{
+				return "index: " + top.adbook.value(index, "family_name") ;
+			%}
 	    }
 		graphics: Graphics2D {
 			origin_x: Float -1.0
@@ -112,7 +117,7 @@ top: VBox {
 		self.reload(table) ;
 	%}
     }
-    labelBox: LabelBox {
+    labelBox: LabeledBox {
 	title: String "Label Box"
 	box: HBox {
 		firstName: Label {

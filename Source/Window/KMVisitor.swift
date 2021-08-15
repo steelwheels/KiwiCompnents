@@ -19,6 +19,8 @@ open class KMVisitor
 			visit(button: button)
 		} else if let cbox = comp as? KMCheckBox {
 			visit(checkBox: cbox)
+		} else if let cbox = comp as? KMContactDatabase {
+			visit(contactDatabase: cbox)
 		} else if let gr2d  = comp as? KMGraphics2D {
 			visit(graphics2D: gr2d)
 		} else if let icon  = comp as? KMIcon {
@@ -43,6 +45,7 @@ open class KMVisitor
 	open func visit(bitmap view: KMBitmap){ }
 	open func visit(button view: KMButton){ }
 	open func visit(checkBox view: KMCheckBox){ }
+	open func visit(contactDatabase view: KMContactDatabase){ }
 	open func visit(graphics2D view: KMGraphics2D){ }
 	open func visit(image view: KMImage){ }
 	open func visit(icon view: KMIcon){ }
