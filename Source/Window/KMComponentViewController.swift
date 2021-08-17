@@ -202,7 +202,7 @@ open class KMComponentViewController: KCSingleViewController
 		box.addArrangedSubView(subView: message)
 
 		let button = KCButton()
-		button.title = "Continue"
+		button.value = .text("Continue")
 		button.buttonPressedCallback = {
 			() -> Void in
 			let cons  = super.globalConsole

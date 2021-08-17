@@ -21,7 +21,7 @@ public class KMContactDatabase: AMBComponentObject
 {
 	private static let ValueItem		= "value"
 	private static let SetValueItem		= "setValue"
-
+	private static let CountItem		= "count"
 
 	public override func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		if let err = super.setup(reactObject: robj, console: cons) {
@@ -61,6 +61,10 @@ public class KMContactDatabase: AMBComponentObject
 		}
 		robj.setImmediateValue(value: JSValue(object: setvalfunc, in: robj.context), forProperty: KMContactDatabase.SetValueItem)
 		robj.addScriptedPropertyName(name: KMContactDatabase.SetValueItem)
+
+		/* Set initial value: count */
+		robj.setInt32Value(value: Int32(db.recordCount), forProperty: KMContactDatabase.CountItem)
+		robj.addScriptedPropertyName(name: KMContactDatabase.CountItem)
 
 		return nil
 	}

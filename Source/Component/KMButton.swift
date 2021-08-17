@@ -81,16 +81,32 @@ public class KMButton: KCButton, AMBComponent
 
 		/* Sync initial value: title */
 		if let val = robj.stringValue(forProperty: KMButton.TitleItem) {
-			self.title = val
+			switch val {
+			case "<-":	self.value = .symbol(.leftArrow)
+			case "->":	self.value = .symbol(.rightArrow)
+			default:	self.value = .text(val)
+			}
 		} else {
-			robj.setStringValue(value: self.title, forProperty: KMButton.TitleItem)
+			let str: String
+			switch self.value {
+			case .text(let txt):	str = txt
+			case .symbol(let sym):
+				switch sym {
+				case .leftArrow:	str = "<-"
+				case .rightArrow:	str = "->"
+				@unknown default:	str = "?"
+				}
+			@unknown default:
+				str = "?"
+			}
+			robj.setStringValue(value: str, forProperty: KMButton.TitleItem)
 		}
 		/* Add listner: title */
 		robj.addObserver(forProperty: KMButton.TitleItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.stringValue(forProperty: KMButton.TitleItem) {
 				CNExecuteInMainThread(doSync: false, execute: {
-					self.title = val
+					self.value = .text(val)
 				})
 			}
 		})
