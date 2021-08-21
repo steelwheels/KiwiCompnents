@@ -15,7 +15,7 @@ import Foundation
 
 public class KMTableView: KCTableView, AMBComponent
 {
-	public static let ReloadItem		= "reload"
+	public static let LoadItem		= "load"
 	public static let SaveItem		= "save"
 	public static let PressedItem		= "pressed"
 	public static let HasHeaderItem		= "hasHeader"
@@ -100,23 +100,24 @@ public class KMTableView: KCTableView, AMBComponent
 			robj.setBoolValue(value: isdirty, forProperty: KMTableView.IsDirtyItem)
 		}
 
-		/* add reload method */
-		let reloadfunc: @convention(block) (_ tblval: JSValue) -> JSValue = {
+		/* add load table method */
+		let loadfunc: @convention(block) (_ tblval: JSValue) -> JSValue = {
 			(_ tblval: JSValue) -> JSValue in
 			var result = false
 			if tblval.isObject {
 				if let tblobj = tblval.toObject() as? KLTableCore {
 					CNExecuteInMainThread(doSync: false, execute: {
 						() -> Void in
-						self.reload(table: tblobj.core())
+						self.load(table: tblobj.core())
 					})
 					result = true
 				}
 			}
 			return JSValue(bool: result, in: robj.context)
 		}
-		robj.setImmediateValue(value: JSValue(object: reloadfunc, in: robj.context), forProperty: KMTableView.ReloadItem)
-		robj.addScriptedPropertyName(name: KMTableView.ReloadItem)
+		robj.setImmediateValue(value: JSValue(object: loadfunc, in: robj.context), forProperty: KMTableView.LoadItem)
+		robj.addScriptedPropertyName(name: KMTableView.LoadItem)
+
 
 		/* add save method */
 		let savefunc: @convention(block) () -> JSValue = {
@@ -137,8 +138,8 @@ public class KMTableView: KCTableView, AMBComponent
 		robj.setInt32Value(value: Int32(self.numberOfColumns),	forProperty: KMTableView.ColumnCountItem)
 	}
 
-	open override func reload(table tbl: CNTable?) {
-		super.reload(table: tbl)
+	open override func load(table tbl: CNTable?) {
+		super.load(table: tbl)
 		setupSizeInfo()
 	}
 
