@@ -71,6 +71,10 @@ public class KMComponentMapper: AMBComponentMapper
 			comp.isEditable	= edt
 			newcomp		= comp
 			hassubview	= false
+		case "ValueField":
+			let comp    = KMValueView()
+			newcomp	    = comp
+			hassubview  = false
 		case "VBox":
 			let comp    = KMStackView()
 			comp.axis   = .vertical

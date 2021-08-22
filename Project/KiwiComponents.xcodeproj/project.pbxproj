@@ -83,6 +83,8 @@
 		059AB1F4251C0C490094B268 /* KiwiShell.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF0251862D500C1D29C /* KiwiShell.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		059AB1F6251C0C490094B268 /* KiwiComponents.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */; };
 		059AB1F7251C0C490094B268 /* KiwiComponents.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		05A0068026D147CF0069BBA9 /* KMValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A0067F26D147CF0069BBA9 /* KMValueView.swift */; };
+		05A0068126D147CF0069BBA9 /* KMValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A0067F26D147CF0069BBA9 /* KMValueView.swift */; };
 		05A88F19252B65D60036432D /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
 		05A88F1B252B65E80036432D /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
 		05AE214525DAABE700A8E238 /* KMPopupMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AE214425DAABE700A8E238 /* KMPopupMenu.swift */; };
@@ -255,6 +257,7 @@
 		059AB1E0251C09FD0094B268 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		059AB1E1251C09FD0094B268 /* UnitTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnitTest.entitlements; sourceTree = "<group>"; };
 		059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = KiwiComponents.xcframework; path = ../../../Library/Frameworks/KiwiComponents.xcframework; sourceTree = "<group>"; };
+		05A0067F26D147CF0069BBA9 /* KMValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMValueView.swift; sourceTree = "<group>"; };
 		05A88F18252B65D60036432D /* Amber.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Amber.xcframework; path = ../../../Library/Frameworks/Amber.xcframework; sourceTree = "<group>"; };
 		05AE214425DAABE700A8E238 /* KMPopupMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMPopupMenu.swift; sourceTree = "<group>"; };
 		05B1AC54257A7A5600A5BF62 /* KMImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMImage.swift; sourceTree = "<group>"; };
@@ -416,6 +419,7 @@
 				0516CB9926462A6D00BE6F3E /* KMTableView.swift */,
 				059545AA252EF2AB00E019B2 /* KMTerminalView.swift */,
 				0508118825519EF800407987 /* KMTextEdit.swift */,
+				05A0067F26D147CF0069BBA9 /* KMValueView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -686,6 +690,7 @@
 				0550E5AB25442BF600B10AD7 /* KMShellThread.swift in Sources */,
 				0596163025327D2800F6059F /* KMShell.swift in Sources */,
 				050ED8F7253AF74200DF294C /* KMVisitor.swift in Sources */,
+				05A0068026D147CF0069BBA9 /* KMValueView.swift in Sources */,
 				050FD7A825ADCDE90063675D /* KMIcon.swift in Sources */,
 				059545AB252EF2AB00E019B2 /* KMTerminalView.swift in Sources */,
 				05CAEB6625445D36002AD83E /* KMLibraryCompiler.swift in Sources */,
@@ -717,6 +722,7 @@
 				0550E5AC25442BF600B10AD7 /* KMShellThread.swift in Sources */,
 				0596163125327D2800F6059F /* KMShell.swift in Sources */,
 				050ED8F8253AF74200DF294C /* KMVisitor.swift in Sources */,
+				05A0068126D147CF0069BBA9 /* KMValueView.swift in Sources */,
 				050FD7A925ADCDE90063675D /* KMIcon.swift in Sources */,
 				059545AC252EF2AB00E019B2 /* KMTerminalView.swift in Sources */,
 				05CAEB6725445D36002AD83E /* KMLibraryCompiler.swift in Sources */,

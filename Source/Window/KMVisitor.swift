@@ -37,6 +37,8 @@ open class KMVisitor
 			visit(tableView: table)
 		} else if let term = comp as? KMTerminalView {
 			visit(terminalView: term)
+		} else if let value = comp as? KMValueView {
+			visit(valueView: value)
 		} else {
 			CNLog(logLevel: .error, message: "Unknown component")
 		}
@@ -55,4 +57,5 @@ open class KMVisitor
 	open func visit(tableView view: KMTableView){ }
 	open func visit(terminalView view: KMTerminalView){ }
 	open func visit(textEdit view: KMTextEdit){ }
+	open func visit(valueView view: KMValueView){ }
 }

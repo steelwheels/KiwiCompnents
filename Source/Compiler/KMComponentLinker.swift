@@ -62,6 +62,10 @@ public class KMComponentLinker: KMVisitor
 		/* Do nothing */
 	}
 
+	public override func visit(valueView view: KMValueView){
+		/* Do nothing */
+	}
+
 	public override func visit(stackView view: KMStackView){
 		let subviews = view.arrangedSubviews()
 		for subview in subviews {
