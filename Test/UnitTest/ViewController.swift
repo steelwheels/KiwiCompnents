@@ -44,7 +44,7 @@ class ViewController: KMMultiComponentViewController
 		/* add sub view */
 		if let res = self.resource {
 			let callback: KMMultiComponentViewController.ViewSwitchCallback = {
-				(_ val: CNNativeValue) -> Void in
+				(_ val: CNValue) -> Void in
 				let msg: String
 				if let str = val.toString() {
 					msg = str

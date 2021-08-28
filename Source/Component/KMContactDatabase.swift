@@ -70,7 +70,7 @@ public class KMContactDatabase: AMBComponentObject
 	}
 
 	private func value(index idx: JSValue, property prop: JSValue, reactObject robj: AMBReactObject) -> JSValue {
-		var result: CNNativeValue = .nullValue
+		var result: CNValue = .nullValue
 		if idx.isNumber && prop.isString {
 			let db = CNContactDatabase.shared
 			if let rec = db.record(at: Int(idx.toInt32())) {

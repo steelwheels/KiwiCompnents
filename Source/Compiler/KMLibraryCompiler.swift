@@ -68,7 +68,7 @@ public class KMLibraryCompiler
 	private func enterView(viewController vcont: KMComponentViewController, context ctxt: KEContext, source src: KMSource, callback cbfunc: JSValue) {
 		if let parent = vcont.parent as? KMMultiComponentViewController {
 			let vcallback: KMMultiComponentViewController.ViewSwitchCallback = {
-				(_ val: CNNativeValue) -> Void in
+				(_ val: CNValue) -> Void in
 				CNExecuteInUserThread(level: .event, execute: {
 					cbfunc.call(withArguments: [val.toJSValue(context: ctxt)])
 				})
@@ -79,7 +79,7 @@ public class KMLibraryCompiler
 		}
 	}
 
-	private func leaveView(viewController vcont: KMComponentViewController, returnValue retval: CNNativeValue) {
+	private func leaveView(viewController vcont: KMComponentViewController, returnValue retval: CNValue) {
 		CNExecuteInMainThread(doSync: false, execute: {
 			() -> Void in
 			if let parent = vcont.parent as? KMMultiComponentViewController {

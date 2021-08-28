@@ -47,7 +47,7 @@ open class KMMultiComponentViewController: KCMultiViewController
 		super.pushViewController(viewController: viewctrl, callback: cbfunc)
 	}
 
-	public override func popViewController(returnValue retval: CNNativeValue) -> Bool {
+	public override func popViewController(returnValue retval: CNValue) -> Bool {
 		/* Pop the view */
 		return super.popViewController(returnValue: retval)
 	}
