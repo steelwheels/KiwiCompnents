@@ -117,11 +117,11 @@ top: VBox {
 		self.load(table) ;
 	%}
     }
-    valuteTable: ValueField {
-	init: Init %{
-		let dict0  = { a:0, b:1 } ;
-		self.value = dict0 ;
-	%}
+    dataDictionary: DictionaryView {
+            init: Init %{
+                let dict = { a:10, b:20} ;
+                self.load(dict) ;
+            %}
     }
     labelBox: LabeledBox {
 	title: String "Label Box"

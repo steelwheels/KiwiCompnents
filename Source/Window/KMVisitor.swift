@@ -21,6 +21,8 @@ open class KMVisitor
 			visit(checkBox: cbox)
 		} else if let cbox = comp as? KMContactDatabase {
 			visit(contactDatabase: cbox)
+		} else if let dict = comp as? KMDictionaryView {
+			visit(dictionaryView: dict)
 		} else if let gr2d  = comp as? KMGraphics2D {
 			visit(graphics2D: gr2d)
 		} else if let icon  = comp as? KMIcon {
@@ -37,8 +39,6 @@ open class KMVisitor
 			visit(tableView: table)
 		} else if let term = comp as? KMTerminalView {
 			visit(terminalView: term)
-		} else if let value = comp as? KMValueView {
-			visit(valueView: value)
 		} else {
 			CNLog(logLevel: .error, message: "Unknown component")
 		}
@@ -48,6 +48,7 @@ open class KMVisitor
 	open func visit(button view: KMButton){ }
 	open func visit(checkBox view: KMCheckBox){ }
 	open func visit(contactDatabase view: KMContactDatabase){ }
+	open func visit(dictionaryView view: KMDictionaryView){ }
 	open func visit(graphics2D view: KMGraphics2D){ }
 	open func visit(image view: KMImage){ }
 	open func visit(icon view: KMIcon){ }
@@ -57,5 +58,4 @@ open class KMVisitor
 	open func visit(tableView view: KMTableView){ }
 	open func visit(terminalView view: KMTerminalView){ }
 	open func visit(textEdit view: KMTextEdit){ }
-	open func visit(valueView view: KMValueView){ }
 }

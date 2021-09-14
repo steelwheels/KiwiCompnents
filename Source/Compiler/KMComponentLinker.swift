@@ -46,6 +46,10 @@ public class KMComponentLinker: KMVisitor
 		/* Do nothing */
 	}
 
+	public override func visit(dictionaryView db: KMDictionaryView){
+		/* Do nothing */
+	}
+
 	public override func visit(graphics2D view: KMGraphics2D){
 		/* Do nothing */
 	}
@@ -59,10 +63,6 @@ public class KMComponentLinker: KMVisitor
 	}
 
 	public override func visit(popupMenu view: KMPopupMenu){
-		/* Do nothing */
-	}
-
-	public override func visit(valueView view: KMValueView){
 		/* Do nothing */
 	}
 
