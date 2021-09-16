@@ -102,8 +102,6 @@
 		05D24AFB263D6D3A000F66B2 /* window.d.ts in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05D24AF3263D6CB5000F66B2 /* window.d.ts */; };
 		05D6CECA25CAEC8B0055801C /* KMBitmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D6CEC925CAEC8B0055801C /* KMBitmap.swift */; };
 		05D6CECB25CAEC8B0055801C /* KMBitmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D6CEC925CAEC8B0055801C /* KMBitmap.swift */; };
-		05E5FE3726EF861A00E1235F /* KMDictionaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E5FE3626EF861A00E1235F /* KMDictionaryView.swift */; };
-		05E5FE3826EF861A00E1235F /* KMDictionaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E5FE3626EF861A00E1235F /* KMDictionaryView.swift */; };
 		05EC69412544629B008932EB /* KMComponentLinker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC69402544629B008932EB /* KMComponentLinker.swift */; };
 		05EC69422544629B008932EB /* KMComponentLinker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EC69402544629B008932EB /* KMComponentLinker.swift */; };
 /* End PBXBuildFile section */
@@ -267,7 +265,6 @@
 		05D24AF2263D6CB5000F66B2 /* KiwiLibrary.d.ts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = KiwiLibrary.d.ts; sourceTree = "<group>"; };
 		05D24AF3263D6CB5000F66B2 /* window.d.ts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = window.d.ts; sourceTree = "<group>"; };
 		05D6CEC925CAEC8B0055801C /* KMBitmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMBitmap.swift; sourceTree = "<group>"; };
-		05E5FE3626EF861A00E1235F /* KMDictionaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMDictionaryView.swift; sourceTree = "<group>"; };
 		05EC69402544629B008932EB /* KMComponentLinker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMComponentLinker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -409,7 +406,6 @@
 				05D0CABE252B6AFC0041C196 /* KMButton.swift */,
 				0570672125A8810C003C02B1 /* KMCheckBox.swift */,
 				0543E9CC26C7BEFA0022828E /* KMContactDatabase.swift */,
-				05E5FE3626EF861A00E1235F /* KMDictionaryView.swift */,
 				057F890F25C4586F00C12C77 /* KMGraphics2D.swift */,
 				050FD7A725ADCDE90063675D /* KMIcon.swift */,
 				05B1AC54257A7A5600A5BF62 /* KMImage.swift */,
@@ -699,7 +695,6 @@
 				056A6CF925176D4E00E6379D /* KMComponentMapper.swift in Sources */,
 				0516CB9A26462A6D00BE6F3E /* KMTableView.swift in Sources */,
 				052AD76D2545B04700929F67 /* KMThreadLauncher.swift in Sources */,
-				05E5FE3726EF861A00E1235F /* KMDictionaryView.swift in Sources */,
 				05D6CECA25CAEC8B0055801C /* KMBitmap.swift in Sources */,
 				05EC69412544629B008932EB /* KMComponentLinker.swift in Sources */,
 				0543E9CD26C7BEFA0022828E /* KMContactDatabase.swift in Sources */,
@@ -731,7 +726,6 @@
 				056A6CFA25176D4E00E6379D /* KMComponentMapper.swift in Sources */,
 				0516CB9B26462A6D00BE6F3E /* KMTableView.swift in Sources */,
 				052AD76E2545B04700929F67 /* KMThreadLauncher.swift in Sources */,
-				05E5FE3826EF861A00E1235F /* KMDictionaryView.swift in Sources */,
 				05D6CECB25CAEC8B0055801C /* KMBitmap.swift in Sources */,
 				05EC69422544629B008932EB /* KMComponentLinker.swift in Sources */,
 				0543E9CE26C7BEFA0022828E /* KMContactDatabase.swift in Sources */,

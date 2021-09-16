@@ -117,12 +117,6 @@ top: VBox {
 		self.load(table) ;
 	%}
     }
-    dataDictionary: DictionaryView {
-            init: Init %{
-                let dict = { a:10, b:20} ;
-                self.load(dict) ;
-            %}
-    }
     labelBox: LabeledBox {
 	title: String "Label Box"
 	box: HBox {
