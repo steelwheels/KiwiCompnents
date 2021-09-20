@@ -9,6 +9,7 @@ import Foundation
 import KiwiControls
 import Amber
 import KiwiEngine
+import KiwiLibrary
 import JavaScriptCore
 import CoconutDatabase
 import CoconutData
@@ -21,6 +22,7 @@ public class KMContactDatabase: AMBComponentObject
 {
 	private static let ValueItem		= "value"
 	private static let SetValueItem		= "setValue"
+	private static let RecordItem		= "record"
 	private static let CountItem		= "count"
 
 	public override func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
@@ -46,7 +48,7 @@ public class KMContactDatabase: AMBComponentObject
 			}
 		})
 
-		/* add value method: value(index:number, propert:string) */
+		/* add method: value(index:number, propert:string) */
 		let valuefunc: @convention(block) (_ idx: JSValue, _ prop: JSValue) -> JSValue = {
 			(_ idx: JSValue, _ prop: JSValue) -> JSValue in
 			return self.value(index: idx, property: prop, reactObject: robj)
@@ -54,13 +56,27 @@ public class KMContactDatabase: AMBComponentObject
 		robj.setImmediateValue(value: JSValue(object: valuefunc, in: robj.context), forProperty: KMContactDatabase.ValueItem)
 		robj.addScriptedPropertyName(name: KMContactDatabase.ValueItem)
 
-		/* add value method: setValue(index:number, propert:string, value: any) */
+		/* add method: setValue(index:number, propert:string, value: any) */
 		let setvalfunc: @convention(block) (_ idx: JSValue, _ prop: JSValue, _ val: JSValue) -> JSValue = {
 			(_ idx: JSValue, _ prop: JSValue, _ val: JSValue) -> JSValue in
 			return self.setValue(index: idx, property: prop, value: val, reactObject: robj)
 		}
 		robj.setImmediateValue(value: JSValue(object: setvalfunc, in: robj.context), forProperty: KMContactDatabase.SetValueItem)
 		robj.addScriptedPropertyName(name: KMContactDatabase.SetValueItem)
+
+		/* add method: record(index:number) -> KLRecord */
+		let recordfunc: @convention(block) (_ idx: JSValue) -> JSValue = {
+			(_ idx: JSValue) -> JSValue in
+			if idx.isNumber {
+				if let record = db.record(at: Int(idx.toInt32())) as? CNContactRecord {
+					let recobj = KLContactRecord(contact: record, context: robj.context)
+					return JSValue(object: recobj, in: robj.context)
+				}
+			}
+			return JSValue(nullIn: robj.context)
+		}
+		robj.setImmediateValue(value: JSValue(object: recordfunc, in: robj.context), forProperty: KMContactDatabase.RecordItem)
+		robj.addScriptedPropertyName(name: KMContactDatabase.RecordItem)
 
 		/* Set initial value: count */
 		robj.setInt32Value(value: Int32(db.recordCount), forProperty: KMContactDatabase.CountItem)
