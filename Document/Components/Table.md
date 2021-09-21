@@ -31,6 +31,13 @@ table: Table {
 |isDirty        |Bool   |Presents the database is updated or not.|
 
 ## Method
+
+### `load`
+Reload the content of database into the table view.
+
+### `clear`
+Replace all values by `nil`.
+
 ### `pressed`
 The event method to accept clicked event:
 ````
@@ -38,9 +45,6 @@ pressed: Event(col: Int, row: Int) %{
 %}
 ````
 The parameter is `col` and `row` which presents the location of clicked cell.
-
-### `reload`
-Reload the content of database into the table view.
 
 # Reference
 * [README](https://github.com/steelwheels/KiwiCompnents): Top page of KiwiComponents project.
