@@ -126,17 +126,21 @@ public class KMTableView: KCTableView, AMBComponent
 				for (key, aval) in dictobj {
 					if let keystr = key as? String, let val = CNValue.anyToValue(object: aval) {
 						dict[keystr] = val
+					} else {
+						CNLog(logLevel: .error, message: "Unexpected value type", atFunction: #function, inFile: #file)
 					}
 				}
-				if dict.count > 0 {
-					let table = KCDictionaryTableBridge(dictionary: dict)
-					CNExecuteInMainThread(doSync: false, execute: {
-						() -> Void in
-						self.load(table: table)
-					})
-					result = true
-				}
+				let table = KCDictionaryTableBridge(dictionary: dict)
+				CNExecuteInMainThread(doSync: false, execute: {
+					() -> Void in
+					self.load(table: table)
+				})
+				result = true
+			} else {
+				CNLog(logLevel: .error, message: "Unexpected input type (1)", atFunction: #function, inFile: #file)
 			}
+		} else {
+			CNLog(logLevel: .error, message: "Unexpected input type (2)", atFunction: #function, inFile: #file)
 		}
 		return JSValue(bool: result, in: ctxt)
 	}
