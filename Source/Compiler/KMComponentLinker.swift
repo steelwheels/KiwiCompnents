@@ -80,6 +80,15 @@ public class KMComponentLinker: KMVisitor
 		}
 	}
 
+	public override func visit(valueView view: KMValueView) {
+		let subviews = view.arrangedSubviews()
+		for subview in subviews {
+			if let subcomp = subview as? AMBComponent {
+				self.visit(component: subcomp)
+			}
+		}
+	}
+
 	public override func visit(terminalView view: KMTerminalView){
 		view.startShell(viewController: mParentController, resource: mResource)
 		if mFileConsole == nil {

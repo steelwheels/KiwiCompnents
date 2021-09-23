@@ -128,6 +128,21 @@ top: VBox {
 		}
         }
     }
+    valueBox: Value {
+	init: Init %{
+		let src = {
+			sec0: {
+				subsec0: "s0",
+				subsec1: 10
+			},
+			sec1: {
+				subsec2: "s0",
+				subsec3: true
+			}
+		} ;
+		self.load(src) ;
+	%}
+    }
     button_a: Button {
         title:  String "Go to Second"
         pressed: Event() %{
