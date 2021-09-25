@@ -15,7 +15,7 @@ import Foundation
 
 public class KMTableView: KCTableView, AMBComponent
 {
-	public static let LoadItem		= "load"
+	public static let StoreItem		= "store"
 	public static let PressedItem		= "pressed"
 	public static let HasHeaderItem		= "hasHeader"
 	public static let RowCountItem		= "rowCount"
@@ -100,25 +100,24 @@ public class KMTableView: KCTableView, AMBComponent
 		}
 
 		/* add load table method */
-		let loadfunc: @convention(block) (_ tblval: JSValue) -> JSValue = {
+		let storefunc: @convention(block) (_ tblval: JSValue) -> JSValue = {
 			(_ tblval: JSValue) -> JSValue in
-			self.callLoadMethod(tableValue: tblval, context: robj.context)
+			self.callStoreMethod(tableValue: tblval, context: robj.context)
 		}
-		robj.setImmediateValue(value: JSValue(object: loadfunc, in: robj.context), forProperty: KMTableView.LoadItem)
-		robj.addScriptedPropertyName(name: KMTableView.LoadItem)
+		robj.setImmediateValue(value: JSValue(object: storefunc, in: robj.context), forProperty: KMTableView.StoreItem)
+		robj.addScriptedPropertyName(name: KMTableView.StoreItem)
 
 		setupSizeInfo()
 		return nil
 	}
 
-	private func callLoadMethod(tableValue tblval: JSValue, context ctxt: KEContext) -> JSValue {
+	private func callStoreMethod(tableValue tblval: JSValue, context ctxt: KEContext) -> JSValue {
 		var result = false
 		if tblval.isObject {
 			if let tblobj = tblval.toObject() as? KLTableCore {
-				let table = KCTableBridge(table: tblobj.core())
 				CNExecuteInMainThread(doSync: false, execute: {
 					() -> Void in
-					self.load(table: table)
+					self.store(table: tblobj.core())
 				})
 				result = true
 			} else if let dictobj = tblval.toDictionary() {
@@ -130,10 +129,9 @@ public class KMTableView: KCTableView, AMBComponent
 						CNLog(logLevel: .error, message: "Unexpected value type", atFunction: #function, inFile: #file)
 					}
 				}
-				let table = KCDictionaryTableBridge(dictionary: dict)
 				CNExecuteInMainThread(doSync: false, execute: {
 					() -> Void in
-					self.load(table: table)
+					self.store(dictionary: dict)
 				})
 				result = true
 			} else {
@@ -151,8 +149,13 @@ public class KMTableView: KCTableView, AMBComponent
 		robj.setInt32Value(value: Int32(self.numberOfColumns),	forProperty: KMTableView.ColumnCountItem)
 	}
 
-	open override func load(table tbl: KCTableInterface?) {
-		super.load(table: tbl)
+	open override func store(table tbl: CNTable?){
+		super.store(table: tbl)
+		setupSizeInfo()
+	}
+
+	open override func store(dictionary dict: Dictionary<String, CNValue>?){
+		super.store(dictionary: dict)
 		setupSizeInfo()
 	}
 

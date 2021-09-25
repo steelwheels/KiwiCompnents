@@ -53,7 +53,7 @@ public class KMValueView: KCValueView, AMBComponent
 			let nval = srcval.toNativeValue()
 			CNExecuteInMainThread(doSync: false, execute: {
 				() -> Void in
-				self.load(value: nval)
+				self.value = nval
 			})
 			return JSValue(bool: true, in: robj.context)
 		}

@@ -89,7 +89,7 @@ public class KMImage: KCImageView, AMBComponent
 
 	private func setImage(byName name: String, console cons: CNConsole) {
 		if let img = reactObject.resource.loadImage(identifier: name) {
-			super.set(image: img)
+			super.image = img
 		} else {
 			cons.error(string: "Failed to load image named: \(name)\n")
 		}
