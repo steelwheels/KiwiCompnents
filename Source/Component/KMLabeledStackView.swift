@@ -17,9 +17,9 @@ import UIKit
 
 public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 {
-	static let AxisItem		= CNAxis.typeName
-	static let AlignmentItem	= CNAlignment.typeName
-	static let DistributionItem	= CNDistribution.typeName
+	static let AxisItem		= "axis"
+	static let AlignmentItem	= "align"
+	static let DistributionItem	= "distribution"
 	static let TitleItem		= "title"
 
 	private var mReactObject:	AMBReactObject?
@@ -70,19 +70,19 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 		})
 
 		/* Sync initial value: axis */
-		if let val = robj.int32Value(forProperty: KMStackView.AxisItem) {
+		if let val = robj.int32Value(forProperty: KMLabeledStackView.AxisItem) {
 			if let axisval = CNAxis(rawValue: Int32(val)) {
 				self.contentsView.axis = axisval
 			} else {
 				cons.error(string: "Invalid raw value for axis: \(val)\n")
 			}
 		} else {
-			robj.setInt32Value(value: self.contentsView.axis.rawValue, forProperty: KMStackView.AxisItem)
+			robj.setInt32Value(value: self.contentsView.axis.rawValue, forProperty: KMLabeledStackView.AxisItem)
 		}
 		/* Add listner: axis */
-		robj.addObserver(forProperty: KMStackView.AxisItem, callback:  {
+		robj.addObserver(forProperty: KMLabeledStackView.AxisItem, callback:  {
 			(_ val: Any) -> Void in
-			if let val = robj.int32Value(forProperty: KMStackView.AxisItem) {
+			if let val = robj.int32Value(forProperty: KMLabeledStackView.AxisItem) {
 				if let axisval = CNAxis(rawValue: val) {
 					CNExecuteInMainThread(doSync: false, execute: {
 						self.contentsView.axis = axisval
@@ -94,19 +94,19 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 		})
 
 		/* Sync initial value: alignment */
-		if let val = robj.int32Value(forProperty: KMStackView.AlignmentItem) {
+		if let val = robj.int32Value(forProperty: KMLabeledStackView.AlignmentItem) {
 			if let alignval = CNAlignment(rawValue: val) {
 				self.contentsView.alignment = alignval
 			} else {
 				cons.error(string: "Invalid raw value for alignment: \(val)\n")
 			}
 		} else {
-			robj.setInt32Value(value: self.contentsView.alignment.rawValue, forProperty: KMStackView.AlignmentItem)
+			robj.setInt32Value(value: self.contentsView.alignment.rawValue, forProperty: KMLabeledStackView.AlignmentItem)
 		}
 		/* Add listner: alignment */
-		robj.addObserver(forProperty: KMStackView.AlignmentItem, callback: {
+		robj.addObserver(forProperty: KMLabeledStackView.AlignmentItem, callback: {
 			(_ param: Any) -> Void in
-			if let val = robj.int32Value(forProperty: KMStackView.AxisItem) {
+			if let val = robj.int32Value(forProperty: KMLabeledStackView.AxisItem) {
 				if let alignval = CNAlignment(rawValue: val) {
 					CNExecuteInMainThread(doSync: false, execute: {
 						self.contentsView.alignment = alignval
@@ -118,19 +118,19 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 		})
 
 		/* Sync initial value: distribution */
-		if let val = robj.int32Value(forProperty: KMStackView.DistributionItem) {
+		if let val = robj.int32Value(forProperty: KMLabeledStackView.DistributionItem) {
 			if let distval = CNDistribution(rawValue: val) {
 				self.contentsView.distribution = distval
 			} else {
 				cons.error(string: "Invalid raw value for distribution: \(val)\n")
 			}
 		} else {
-			robj.setInt32Value(value: self.contentsView.distribution.rawValue, forProperty: KMStackView.DistributionItem)
+			robj.setInt32Value(value: self.contentsView.distribution.rawValue, forProperty: KMLabeledStackView.DistributionItem)
 		}
 		/* Add listner: distribution */
-		robj.addObserver(forProperty: KMStackView.DistributionItem, callback: {
+		robj.addObserver(forProperty: KMLabeledStackView.DistributionItem, callback: {
 			(_ param: Any) -> Void in
-			if let val = robj.int32Value(forProperty: KMStackView.DistributionItem) {
+			if let val = robj.int32Value(forProperty: KMLabeledStackView.DistributionItem) {
 				if let distval = CNDistribution(rawValue: val) {
 					CNExecuteInMainThread(doSync: false, execute: {
 						self.contentsView.distribution = distval

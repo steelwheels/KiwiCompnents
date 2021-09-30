@@ -114,7 +114,7 @@ top: VBox {
 		rec1.setValue(2, "c2") ;
 		table.append(rec1) ;
 
-		self.load(table) ;
+		self.store(table) ;
 	%}
     }
     labelBox: LabeledBox {
@@ -128,7 +128,7 @@ top: VBox {
 		}
         }
     }
-    valueBox: Value {
+    valueBox: ValueView {
 	init: Init %{
 		let src = {
 			sec0: {
@@ -140,7 +140,7 @@ top: VBox {
 				subsec3: true
 			}
 		} ;
-		self.load(src) ;
+		self.value = src ;
 	%}
     }
     button_a: Button {

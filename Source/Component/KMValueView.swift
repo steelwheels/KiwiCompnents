@@ -8,7 +8,6 @@
 import Amber
 import KiwiControls
 import KiwiEngine
-import JavaScriptCore
 import CoconutData
 import Foundation
 #if os(iOS)
@@ -17,9 +16,10 @@ import UIKit
 
 public class KMValueView: KCValueView, AMBComponent
 {
-	private static let LoadItem		= "load"
+	static let ValueItem =		"value"
 
 	private var mReactObject:	AMBReactObject?
+	private var mChildComponents:	Array<AMBComponent>
 
 	public var reactObject: AMBReactObject	{ get {
 		if let robj = mReactObject {
@@ -29,59 +29,55 @@ public class KMValueView: KCValueView, AMBComponent
 		}
 	}}
 
+	public var children: Array<AMBComponent> { get { return [] }}
+
 	public init(){
-		mReactObject	= nil
+		mReactObject		= nil
+		mChildComponents	= []
 		#if os(OSX)
-			let frame = NSRect(x: 0.0, y: 0.0, width: 188, height: 21)
+			let frame = NSRect(x: 0.0, y: 0.0, width: 160, height: 60)
 		#else
-			let frame = CGRect(x: 0.0, y: 0.0, width: 160, height: 32)
+			let frame = CGRect(x: 0.0, y: 0.0, width: 160, height: 60)
 		#endif
 		super.init(frame: frame)
 	}
 
-	public required init?(coder: NSCoder) {
-		mReactObject	= nil
+	@objc required dynamic init?(coder: NSCoder) {
+		mReactObject		= nil
+		mChildComponents	= []
 		super.init(coder: coder)
 	}
 
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject	= robj
 
-		/* add load table method */
-		let loadfunc: @convention(block) (_ srcval: JSValue) -> JSValue = {
-			(_ srcval: JSValue) -> JSValue in
-			let nval = srcval.toNativeValue()
-			CNExecuteInMainThread(doSync: false, execute: {
-				() -> Void in
-				self.value = nval
-			})
-			return JSValue(bool: true, in: robj.context)
+		/* Sync initial value: "value" */
+		if let val = robj.immediateValue(forProperty: KMValueView.ValueItem) {
+			self.value = val.toNativeValue()
+		} else {
+			let val = self.value.toJSValue(context: robj.context)
+			robj.setImmediateValue(value: val, forProperty: KMValueView.ValueItem)
 		}
-		robj.setImmediateValue(value: JSValue(object: loadfunc, in: robj.context), forProperty: KMValueView.LoadItem)
-		robj.addScriptedPropertyName(name: KMValueView.LoadItem)
+		/* Add listner: title */
+		robj.addObserver(forProperty: KMValueView.ValueItem, callback: {
+			(_ param: Any) -> Void in
+			if let val = robj.immediateValue(forProperty: KMValueView.ValueItem) {
+				CNExecuteInMainThread(doSync: false, execute: {
+					self.value = val.toNativeValue()
+				})
+			}
+		})
+		robj.addScriptedPropertyName(name: KMValueView.ValueItem)
 
 		return nil
-	}
-
-	public func addChild(component comp: AMBComponent) {
-		CNLog(logLevel: .error, message: "Unsupported method: addChild")
-	}
-	
-	public var children: Array<AMBComponent> {
-		get {
-			var result: Array<AMBComponent> = []
-			for subview in self.arrangedSubviews() {
-				if let comp = subview as? AMBComponent {
-					result.append(comp)
-				}
-			}
-			return result
-		}
 	}
 
 	public func accept(visitor vst: KMVisitor) {
 		vst.visit(valueView: self)
 	}
-	
+
+	public func addChild(component comp: AMBComponent) {
+		CNLog(logLevel: .error, message: "Unsupported method: addChild")
+	}
 }
 

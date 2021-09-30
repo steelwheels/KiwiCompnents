@@ -35,7 +35,7 @@ public class KMContactDatabase: AMBComponentObject
 		db.authorize(callback: {
 			(_ granted: Bool) -> Void in
 			if granted {
-				switch db.load(URL: nil){
+				switch db.store(URL: nil){
 				case .ok:
 					CNLog(logLevel: .detail, message: "Contacts data has been loaded", atFunction: #function, inFile: #file)
 				case .error(let err):
