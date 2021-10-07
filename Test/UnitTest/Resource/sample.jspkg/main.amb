@@ -7,6 +7,7 @@ top: VBox {
 			name: String "logo"
 	    }
 	    text_a: TextField {
+			minWidth: Int 20
 			text: String Listner(index: top.index) %{
 				return "index: " + top.adbook.value(index, "family_name") ;
 			%}
