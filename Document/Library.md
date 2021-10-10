@@ -18,6 +18,7 @@ This document describes list of classes and functions for component programming.
 * [Table](Components/Table.md): N x M cells on the table.
 * [Terminal](): Terminal view based on escape sequence.
 * [TextField](Components/TextField.md): The editable text field.
+* [ValueView](Components/ValueView.md): The data structure viewer such as dictionary, array and etc...
 
 ### Functions
 * [enterView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/enterView.md): Allocate new view and move to it. 
