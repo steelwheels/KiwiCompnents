@@ -80,6 +80,14 @@ public class KMComponentLinker: KMVisitor
 		}
 	}
 
+	public override func visit(tableView view: KMTableView) {
+		/* Do nothing */
+	}
+
+	public override func visit(collectionView view: KMCollectionView) {
+		/* Do nothing */
+	}
+
 	public override func visit(terminalView view: KMTerminalView){
 		view.startShell(viewController: mParentController, resource: mResource)
 		if mFileConsole == nil {

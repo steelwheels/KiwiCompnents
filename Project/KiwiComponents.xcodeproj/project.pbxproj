@@ -30,6 +30,8 @@
 		054772BB2538592500A7EC5F /* KMMultiComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */; };
 		054C99D425FFA8FF00026A52 /* window.js in CopyFiles */ = {isa = PBXBuildFile; fileRef = 054C99D225FFA8DB00026A52 /* window.js */; };
 		054C99D825FFA91C00026A52 /* window.js in CopyFiles */ = {isa = PBXBuildFile; fileRef = 054C99D225FFA8DB00026A52 /* window.js */; };
+		054CCB9827255EA60030F892 /* KMCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054CCB9727255EA60030F892 /* KMCollectionView.swift */; };
+		054CCB9927255EA60030F892 /* KMCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054CCB9727255EA60030F892 /* KMCollectionView.swift */; };
 		054FC7E4253F2B0200808777 /* sample.jspkg in Resources */ = {isa = PBXBuildFile; fileRef = 054FC7E3253F2B0200808777 /* sample.jspkg */; };
 		0550E5A825442BDC00B10AD7 /* KMScriptThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0550E5A725442BDC00B10AD7 /* KMScriptThread.swift */; };
 		0550E5A925442BDC00B10AD7 /* KMScriptThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0550E5A725442BDC00B10AD7 /* KMScriptThread.swift */; };
@@ -225,6 +227,7 @@
 		0543E9CC26C7BEFA0022828E /* KMContactDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMContactDatabase.swift; sourceTree = "<group>"; };
 		054772B92538592500A7EC5F /* KMMultiComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMMultiComponentViewController.swift; sourceTree = "<group>"; };
 		054C99D225FFA8DB00026A52 /* window.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = window.js; sourceTree = "<group>"; };
+		054CCB9727255EA60030F892 /* KMCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMCollectionView.swift; sourceTree = "<group>"; };
 		054FC7E3253F2B0200808777 /* sample.jspkg */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = sample.jspkg; sourceTree = "<group>"; };
 		0550E5A725442BDC00B10AD7 /* KMScriptThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMScriptThread.swift; sourceTree = "<group>"; };
 		0550E5AA25442BF600B10AD7 /* KMShellThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMShellThread.swift; sourceTree = "<group>"; };
@@ -408,6 +411,7 @@
 				05D6CEC925CAEC8B0055801C /* KMBitmap.swift */,
 				05D0CABE252B6AFC0041C196 /* KMButton.swift */,
 				0570672125A8810C003C02B1 /* KMCheckBox.swift */,
+				054CCB9727255EA60030F892 /* KMCollectionView.swift */,
 				0543E9CC26C7BEFA0022828E /* KMContactDatabase.swift */,
 				057F890F25C4586F00C12C77 /* KMGraphics2D.swift */,
 				050FD7A725ADCDE90063675D /* KMIcon.swift */,
@@ -702,6 +706,7 @@
 				052AD76D2545B04700929F67 /* KMThreadLauncher.swift in Sources */,
 				05D6CECA25CAEC8B0055801C /* KMBitmap.swift in Sources */,
 				05EC69412544629B008932EB /* KMComponentLinker.swift in Sources */,
+				054CCB9827255EA60030F892 /* KMCollectionView.swift in Sources */,
 				0543E9CD26C7BEFA0022828E /* KMContactDatabase.swift in Sources */,
 				0570672225A8810C003C02B1 /* KMCheckBox.swift in Sources */,
 				057CCC92252E04D40012EA0C /* KMComponentViewController.swift in Sources */,
@@ -734,6 +739,7 @@
 				052AD76E2545B04700929F67 /* KMThreadLauncher.swift in Sources */,
 				05D6CECB25CAEC8B0055801C /* KMBitmap.swift in Sources */,
 				05EC69422544629B008932EB /* KMComponentLinker.swift in Sources */,
+				054CCB9927255EA60030F892 /* KMCollectionView.swift in Sources */,
 				0543E9CE26C7BEFA0022828E /* KMContactDatabase.swift in Sources */,
 				0570672325A8810C003C02B1 /* KMCheckBox.swift in Sources */,
 				057CCC93252E04D40012EA0C /* KMComponentViewController.swift in Sources */,

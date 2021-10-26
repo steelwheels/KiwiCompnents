@@ -144,6 +144,22 @@ top: VBox {
 		self.value = src ;
 	%}
     }
+    collection: CollectionView {
+        init: Init %{
+                let col0 = Collection() ;
+                let paths = [
+                        Symbols.chevronBackward,
+                        Symbols.chevronForward,
+			Symbols.characterA,
+			Symbols.handRaised,
+			Symbols.paintbrush,
+			Symbols.pencil
+
+                ] ;
+                col0.add("Header", "Footer", paths) ;
+                self.store(col0) ;
+        %}
+    }
     button_a: Button {
         title:  String "Go to Second"
         pressed: Event() %{

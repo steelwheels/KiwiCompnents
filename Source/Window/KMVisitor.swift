@@ -37,6 +37,8 @@ open class KMVisitor
 			visit(stackView: stack)
 		} else if let table = comp as? KMTableView {
 			visit(tableView: table)
+		} else if let col = comp as? KMCollectionView {
+			visit(collectionView: col)
 		} else if let term = comp as? KMTerminalView {
 			visit(terminalView: term)
 		} else {
@@ -55,6 +57,7 @@ open class KMVisitor
 	open func visit(popupMenu view: KMPopupMenu){ }
 	open func visit(stackView view: KMStackView){ }
 	open func visit(tableView view: KMTableView){ }
+	open func visit(collectionView view: KMCollectionView){ }
 	open func visit(terminalView view: KMTerminalView){ }
 	open func visit(textEdit view: KMTextEdit){ }
 	open func visit(valueView view: KMValueView){ }
