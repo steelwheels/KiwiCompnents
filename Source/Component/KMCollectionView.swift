@@ -22,6 +22,7 @@ public class KMCollectionView: KCCollectionView, AMBComponent
 	static let 	SectionCountItem	= "sectionCount"
 	static let	ItemCountItem		= "itemCount"
 	static let 	IsSelectableItem	= "isSelectable"
+	static let	SelectedItem		= "selected"
 	static let 	StoreItem		= "store"
 
 	private var mReactObject:	AMBReactObject?
@@ -87,10 +88,21 @@ public class KMCollectionView: KCCollectionView, AMBComponent
 		robj.setImmediateValue(value: JSValue(object: storefunc, in: robj.context), forProperty: KMCollectionView.StoreItem)
 		robj.addScriptedPropertyName(name: KMCollectionView.StoreItem)
 
+
 		/* Set callback */
 		self.set(callback: {
 			(_ section: Int, _ item: Int) -> Void in
-			NSLog("Selected sec=\(section), item=\(item)")
+			if let evtval = robj.immediateValue(forProperty: KMCollectionView.SelectedItem) {
+				if let secval  = JSValue(int32: Int32(section), in: robj.context),
+				   let itemval = JSValue(int32: Int32(item),    in: robj.context) {
+					CNExecuteInUserThread(level: .event, execute: {
+						evtval.call(withArguments: [robj, secval, itemval])	// insert self
+					})
+				} else {
+					CNLog(logLevel: .error, message: "Failed to generate parameter",
+					      atFunction: #function, inFile: #file)
+				}
+			}
 		})
 
 		return nil
