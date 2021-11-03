@@ -50,6 +50,10 @@ public class KMComponentLinker: KMVisitor
 		/* Do nothing */
 	}
 
+	public override func visit(drawingView view: KMDrawingView) {
+		/* Do nothing */
+	}
+
 	public override func visit(icon view: KMIcon){
 		/* Do nothing */
 	}

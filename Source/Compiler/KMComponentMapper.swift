@@ -36,6 +36,9 @@ public class KMComponentMapper: AMBComponentMapper
 		case "CollectionView":
 			newcomp	    = KMCollectionView()
 			hassubview  = false
+		case "DrawingView":
+			newcomp	    = KMDrawingView()
+			hassubview  = false
 		case "Graphics2D":
 			newcomp	    = KMGraphics2D()
 			hassubview  = false

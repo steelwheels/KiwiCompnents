@@ -23,6 +23,8 @@ open class KMVisitor
 			visit(contactDatabase: cbox)
 		} else if let gr2d  = comp as? KMGraphics2D {
 			visit(graphics2D: gr2d)
+		} else if let drw = comp as? KMDrawingView {
+			visit(drawingView: drw)
 		} else if let icon  = comp as? KMIcon {
 			visit(icon: icon)
 		} else if let image = comp as? KMImage {
@@ -50,6 +52,7 @@ open class KMVisitor
 	open func visit(button view: KMButton){ }
 	open func visit(checkBox view: KMCheckBox){ }
 	open func visit(contactDatabase view: KMContactDatabase){ }
+	open func visit(drawingView view: KMDrawingView){ }
 	open func visit(graphics2D view: KMGraphics2D){ }
 	open func visit(image view: KMImage){ }
 	open func visit(icon view: KMIcon){ }

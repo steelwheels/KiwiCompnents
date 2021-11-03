@@ -85,6 +85,8 @@
 		059AB1F4251C0C490094B268 /* KiwiShell.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05676AF0251862D500C1D29C /* KiwiShell.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		059AB1F6251C0C490094B268 /* KiwiComponents.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */; };
 		059AB1F7251C0C490094B268 /* KiwiComponents.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		059BD6D0273027B400D3DDCB /* KMDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059BD6CF273027B400D3DDCB /* KMDrawingView.swift */; };
+		059BD6D1273027B400D3DDCB /* KMDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059BD6CF273027B400D3DDCB /* KMDrawingView.swift */; };
 		05A88F19252B65D60036432D /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
 		05A88F1B252B65E80036432D /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
 		05AE214525DAABE700A8E238 /* KMPopupMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AE214425DAABE700A8E238 /* KMPopupMenu.swift */; };
@@ -260,6 +262,7 @@
 		059AB1E0251C09FD0094B268 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		059AB1E1251C09FD0094B268 /* UnitTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnitTest.entitlements; sourceTree = "<group>"; };
 		059AB1F5251C0C490094B268 /* KiwiComponents.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = KiwiComponents.xcframework; path = ../../../Library/Frameworks/KiwiComponents.xcframework; sourceTree = "<group>"; };
+		059BD6CF273027B400D3DDCB /* KMDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMDrawingView.swift; sourceTree = "<group>"; };
 		05A88F18252B65D60036432D /* Amber.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Amber.xcframework; path = ../../../Library/Frameworks/Amber.xcframework; sourceTree = "<group>"; };
 		05AE214425DAABE700A8E238 /* KMPopupMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMPopupMenu.swift; sourceTree = "<group>"; };
 		05B1AC54257A7A5600A5BF62 /* KMImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMImage.swift; sourceTree = "<group>"; };
@@ -413,6 +416,7 @@
 				0570672125A8810C003C02B1 /* KMCheckBox.swift */,
 				054CCB9727255EA60030F892 /* KMCollectionView.swift */,
 				0543E9CC26C7BEFA0022828E /* KMContactDatabase.swift */,
+				059BD6CF273027B400D3DDCB /* KMDrawingView.swift */,
 				057F890F25C4586F00C12C77 /* KMGraphics2D.swift */,
 				050FD7A725ADCDE90063675D /* KMIcon.swift */,
 				05B1AC54257A7A5600A5BF62 /* KMImage.swift */,
@@ -700,6 +704,7 @@
 				05CAEB6625445D36002AD83E /* KMLibraryCompiler.swift in Sources */,
 				05B1AC55257A7A5600A5BF62 /* KMImage.swift in Sources */,
 				056A6CEE25176D2F00E6379D /* KMAlert.swift in Sources */,
+				059BD6D0273027B400D3DDCB /* KMDrawingView.swift in Sources */,
 				05AE214525DAABE700A8E238 /* KMPopupMenu.swift in Sources */,
 				056A6CF925176D4E00E6379D /* KMComponentMapper.swift in Sources */,
 				0516CB9A26462A6D00BE6F3E /* KMTableView.swift in Sources */,
@@ -733,6 +738,7 @@
 				05CAEB6725445D36002AD83E /* KMLibraryCompiler.swift in Sources */,
 				05B1AC56257A7A5600A5BF62 /* KMImage.swift in Sources */,
 				056A6CEF25176D2F00E6379D /* KMAlert.swift in Sources */,
+				059BD6D1273027B400D3DDCB /* KMDrawingView.swift in Sources */,
 				05AE214625DAABE700A8E238 /* KMPopupMenu.swift in Sources */,
 				056A6CFA25176D4E00E6379D /* KMComponentMapper.swift in Sources */,
 				0516CB9B26462A6D00BE6F3E /* KMTableView.swift in Sources */,

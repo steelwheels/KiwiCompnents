@@ -9,6 +9,7 @@ This document describes list of classes and functions for component programming.
 * [Button](Components/Button.md): The press button
 * [CheckBox](Components/CheckBox.md): The check box. It has toggle switch and text label. 
 * [CollectionView](Components/CollectionView.md): The table of images which can be selected by the user.
+* [DrawingView](Components/DrawingView.md): The canvas which is drawn by the user.
 * [Graphics2D](Components/Graphics2D.md): 2D graphics
 * [HBox/VBox](Components/Box.md): Holizontal view box
 * [Icon](Components/Icon.md): The pressable icon

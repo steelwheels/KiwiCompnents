@@ -192,7 +192,32 @@ open class KMComponentViewController: KCSingleViewController
 	}
 
 	open override func errorContext() -> KCView {
-		let box = KCStackView()
+		let procmgr: CNProcessManager
+		if let mgr = mProcessManager {
+			procmgr = mgr
+		} else {
+			procmgr = CNProcessManager()
+		}
+		let resource: KEResource
+		if let res = mResource {
+			resource = res
+		} else {
+			resource = KEResource(baseURL: Bundle.main.bundleURL)
+		}
+		let environment: CNEnvironment
+		if let env = mEnvironment {
+			environment = env
+		} else {
+			environment = CNEnvironment()
+		}
+
+		let frame = AMBFrame(className: "Object", instanceName: "ErrorContext")
+		let robj  = AMBReactObject(frame: frame, context: mContext, processManager: procmgr, resource: resource, environment: environment)
+
+		let box  = KMStackView()
+		if let err = box.setup(reactObject: robj, console: super.globalConsole) {
+			super.globalConsole.error(string: "Failed to setup error context: \(err.description)")
+		}
 		box.axis = .vertical
 
 		let message  = KCTextEdit()
@@ -238,8 +263,13 @@ open class KMComponentViewController: KCSingleViewController
 		if !mDidAlreadyInitialized {
 			/* Execute the component */
 			if let root = super.rootView {
-				let exec = AMBComponentExecutor(console: self.globalConsole)
-				exec.exec(component: root.getCoreView())
+				if root.hasCoreView {
+					let exec = AMBComponentExecutor(console: self.globalConsole)
+					let comp:AMBComponent = root.getCoreView()
+					exec.exec(component: comp)
+				} else {
+					CNLog(logLevel: .error, message: "No core view in root", atFunction: #function, inFile: #file)
+				}
 			}
 			mDidAlreadyInitialized = true
 		}
