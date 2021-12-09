@@ -22,6 +22,8 @@ public class KMDrawingView: KCDrawingView, AMBComponent
 {
 	private static let WidthItem	= "width"
 	private static let HeightItem	= "height"
+	private static let LoadItem	= "load"
+	private static let StoreItem	= "store"
 
 	private var mReactObject:	AMBReactObject?
 
@@ -66,6 +68,32 @@ public class KMDrawingView: KCDrawingView, AMBComponent
 			let height: CGFloat = self.drawingHeight ?? -1.0
 			robj.setFloatValue(value: Double(height), forProperty: KMDrawingView.HeightItem)
 		}
+
+		/* Add method: load */
+		let loadfunc: @convention(block) () -> JSValue = { () in
+			let val: CNValue = .dictionaryValue(self.toValue())
+			return val.toJSValue(context: robj.context)
+		}
+		robj.setImmediateValue(value: JSValue(object: loadfunc, in: robj.context), forProperty: KMDrawingView.LoadItem)
+		robj.addScriptedPropertyName(name: KMDrawingView.LoadItem)
+
+		/* Add method: store */
+		let storefunc: @convention(block) (_ urlval: JSValue) -> JSValue = {
+			(_ urlval: JSValue) in
+			let result: Bool
+			if let urlobj = urlval.toObject() as? KLURL {
+				if let u = urlobj.url {
+					result = super.store(URL: u)
+				} else {
+					result = false
+				}
+			} else {
+				result = false
+			}
+			return JSValue(bool: result, in: robj.context)
+		}
+		robj.setImmediateValue(value: JSValue(object: storefunc, in: robj.context), forProperty: KMDrawingView.StoreItem)
+		robj.addScriptedPropertyName(name: KMDrawingView.StoreItem)
 
 		return nil
 	}

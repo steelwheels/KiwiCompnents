@@ -37,7 +37,7 @@ public class KMCollectionView: KCCollectionView, AMBComponent
 
 	public init() {
 		mReactObject = nil
-		let frame = KCRect(x: 0.0, y: 0.0, width: 188, height: 21)
+		let frame = CGRect(x: 0.0, y: 0.0, width: 188, height: 21)
 		super.init(frame: frame)
 	}
 
@@ -90,7 +90,7 @@ public class KMCollectionView: KCCollectionView, AMBComponent
 
 
 		/* Set callback */
-		self.set(callback: {
+		self.set(selectionCallback: {
 			(_ section: Int, _ item: Int) -> Void in
 			if let evtval = robj.immediateValue(forProperty: KMCollectionView.SelectedItem) {
 				if let secval  = JSValue(int32: Int32(section), in: robj.context),

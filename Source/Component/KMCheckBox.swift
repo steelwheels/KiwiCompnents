@@ -34,7 +34,7 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 
 	public init() {
 		mReactObject = nil
-		let frame = KCRect(x: 0.0, y: 0.0, width: 188, height: 21)
+		let frame = CGRect(x: 0.0, y: 0.0, width: 188, height: 21)
 		super.init(frame: frame)
 	}
 
