@@ -70,9 +70,15 @@ public class KMDrawingView: KCDrawingView, AMBComponent
 		}
 
 		/* Add method: load */
-		let loadfunc: @convention(block) () -> JSValue = { () in
-			let val: CNValue = .dictionaryValue(self.toValue())
-			return val.toJSValue(context: robj.context)
+		let loadfunc: @convention(block) (_ urlval: JSValue) -> JSValue = {
+			(_ urlval: JSValue) in
+			var result = false
+			if let urlobj = urlval.toObject() as? KLURL {
+				if let u = urlobj.url {
+					result = super.load(from: u)
+				}
+			}
+			return JSValue(bool: result, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: loadfunc, in: robj.context), forProperty: KMDrawingView.LoadItem)
 		robj.addScriptedPropertyName(name: KMDrawingView.LoadItem)
@@ -80,15 +86,12 @@ public class KMDrawingView: KCDrawingView, AMBComponent
 		/* Add method: store */
 		let storefunc: @convention(block) (_ urlval: JSValue) -> JSValue = {
 			(_ urlval: JSValue) in
-			let result: Bool
+			var result = false
 			if let urlobj = urlval.toObject() as? KLURL {
 				if let u = urlobj.url {
-					result = super.store(URL: u)
-				} else {
-					result = false
+					let val = self.toValue()
+					result = u.storeValue(value: .dictionaryValue(val))
 				}
-			} else {
-				result = false
 			}
 			return JSValue(bool: result, in: robj.context)
 		}
