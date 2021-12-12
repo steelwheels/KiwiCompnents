@@ -43,7 +43,7 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 		#endif
 		super.init(frame: frame)
 	}
-	
+
 	@objc required dynamic init?(coder: NSCoder) {
 		mReactObject		= nil
 		mChildComponents	= []
@@ -52,7 +52,7 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject	= robj
-		
+
 		/* Setup: text */
 		if let val = robj.stringValue(forProperty: KMTextEdit.TextItem) {
 			super.text = val

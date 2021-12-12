@@ -75,7 +75,13 @@ public class KMDrawingView: KCDrawingView, AMBComponent
 			var result = false
 			if let urlobj = urlval.toObject() as? KLURL {
 				if let u = urlobj.url {
-					result = super.load(from: u)
+					CNExecuteInMainThread(doSync: false, execute: {
+						() -> Void in
+						if !super.load(from: u) {
+							CNLog(logLevel: .error, message: "Failed to load", atFunction: #function, inFile: #file)
+						}
+					})
+					result = true
 				}
 			}
 			return JSValue(bool: result, in: robj.context)
@@ -90,7 +96,7 @@ public class KMDrawingView: KCDrawingView, AMBComponent
 			if let urlobj = urlval.toObject() as? KLURL {
 				if let u = urlobj.url {
 					let val = self.toValue()
-					result = u.storeValue(value: .dictionaryValue(val))
+					result = u.storeValue(value: val)
 				}
 			}
 			return JSValue(bool: result, in: robj.context)
@@ -106,7 +112,7 @@ public class KMDrawingView: KCDrawingView, AMBComponent
 	public func addChild(component comp: AMBComponent) {
 		NSLog("Can not add child components to Button component")
 	}
-	
+
 	public func accept(visitor vst: KMVisitor) {
 		vst.visit(drawingView: self)
 	}

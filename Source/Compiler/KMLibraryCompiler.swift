@@ -160,7 +160,7 @@ public class KMLibraryCompiler
 		}
 		return ctxt.evaluateScript(stmt)
 	}
-	
+
 	private func pathExtension(string str: String) -> String {
 		let nsstr = str as NSString
 		return nsstr.pathExtension
