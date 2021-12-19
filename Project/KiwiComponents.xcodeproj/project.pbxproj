@@ -93,6 +93,8 @@
 		05AE214625DAABE700A8E238 /* KMPopupMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AE214425DAABE700A8E238 /* KMPopupMenu.swift */; };
 		05B1AC55257A7A5600A5BF62 /* KMImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B1AC54257A7A5600A5BF62 /* KMImage.swift */; };
 		05B1AC56257A7A5600A5BF62 /* KMImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B1AC54257A7A5600A5BF62 /* KMImage.swift */; };
+		05BDAE0E276EA29500729B0E /* KMCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BDAE0D276EA29500729B0E /* KMCardView.swift */; };
+		05BDAE0F276EA29500729B0E /* KMCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BDAE0D276EA29500729B0E /* KMCardView.swift */; };
 		05C9034B25609E8200ECDA1E /* Amber.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; };
 		05C9034C25609E8200ECDA1E /* Amber.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05A88F18252B65D60036432D /* Amber.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05CAEB6625445D36002AD83E /* KMLibraryCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CAEB6525445D36002AD83E /* KMLibraryCompiler.swift */; };
@@ -266,6 +268,7 @@
 		05A88F18252B65D60036432D /* Amber.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Amber.xcframework; path = ../../../Library/Frameworks/Amber.xcframework; sourceTree = "<group>"; };
 		05AE214425DAABE700A8E238 /* KMPopupMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMPopupMenu.swift; sourceTree = "<group>"; };
 		05B1AC54257A7A5600A5BF62 /* KMImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMImage.swift; sourceTree = "<group>"; };
+		05BDAE0D276EA29500729B0E /* KMCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMCardView.swift; sourceTree = "<group>"; };
 		05CAEB6525445D36002AD83E /* KMLibraryCompiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLibraryCompiler.swift; sourceTree = "<group>"; };
 		05CD899127020F6700E6D6D8 /* KMValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMValueView.swift; sourceTree = "<group>"; };
 		05D0CABE252B6AFC0041C196 /* KMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMButton.swift; sourceTree = "<group>"; };
@@ -413,6 +416,7 @@
 				056A6CEC25176D2F00E6379D /* KMAlert.swift */,
 				05D6CEC925CAEC8B0055801C /* KMBitmap.swift */,
 				05D0CABE252B6AFC0041C196 /* KMButton.swift */,
+				05BDAE0D276EA29500729B0E /* KMCardView.swift */,
 				0570672125A8810C003C02B1 /* KMCheckBox.swift */,
 				054CCB9727255EA60030F892 /* KMCollectionView.swift */,
 				0543E9CC26C7BEFA0022828E /* KMContactDatabase.swift */,
@@ -700,6 +704,7 @@
 				050ED8F7253AF74200DF294C /* KMVisitor.swift in Sources */,
 				05CD899227020F6700E6D6D8 /* KMValueView.swift in Sources */,
 				050FD7A825ADCDE90063675D /* KMIcon.swift in Sources */,
+				05BDAE0E276EA29500729B0E /* KMCardView.swift in Sources */,
 				059545AB252EF2AB00E019B2 /* KMTerminalView.swift in Sources */,
 				05CAEB6625445D36002AD83E /* KMLibraryCompiler.swift in Sources */,
 				05B1AC55257A7A5600A5BF62 /* KMImage.swift in Sources */,
@@ -734,6 +739,7 @@
 				050ED8F8253AF74200DF294C /* KMVisitor.swift in Sources */,
 				05CD899327020F6700E6D6D8 /* KMValueView.swift in Sources */,
 				050FD7A925ADCDE90063675D /* KMIcon.swift in Sources */,
+				05BDAE0F276EA29500729B0E /* KMCardView.swift in Sources */,
 				059545AC252EF2AB00E019B2 /* KMTerminalView.swift in Sources */,
 				05CAEB6725445D36002AD83E /* KMLibraryCompiler.swift in Sources */,
 				05B1AC56257A7A5600A5BF62 /* KMImage.swift in Sources */,

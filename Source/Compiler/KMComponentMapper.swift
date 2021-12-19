@@ -30,6 +30,9 @@ public class KMComponentMapper: AMBComponentMapper
 		case "Button":
 			newcomp     = KMButton()
 			hassubview  = false
+		case "Card":
+			newcomp	    = KMCardView()
+			hassubview  = true
 		case "CheckBox":
 			newcomp     = KMCheckBox()
 			hassubview  = false

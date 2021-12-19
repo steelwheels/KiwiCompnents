@@ -38,6 +38,15 @@ public class KMComponentLinker: KMVisitor
 		/* Do nothing */
 	}
 
+	public override func visit(cardView view: KMCardView){
+		let subviews = view.arrangedSubviews()
+		for subview in subviews {
+			if let subcomp = subview as? AMBComponent {
+				self.visit(component: subcomp)
+			}
+		}
+	}
+
 	public override func visit(checkBox view: KMCheckBox){
 		/* Do nothing */
 	}

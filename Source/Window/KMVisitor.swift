@@ -17,6 +17,8 @@ open class KMVisitor
 			visit(bitmap: bitmap)
 		} else if let button = comp as? KMButton {
 			visit(button: button)
+		} else if let card = comp as? KMCardView {
+			visit(cardView: card)
 		} else if let cbox = comp as? KMCheckBox {
 			visit(checkBox: cbox)
 		} else if let cbox = comp as? KMContactDatabase {
@@ -50,6 +52,7 @@ open class KMVisitor
 
 	open func visit(bitmap view: KMBitmap){ }
 	open func visit(button view: KMButton){ }
+	open func visit(cardView view: KMCardView){ }
 	open func visit(checkBox view: KMCheckBox){ }
 	open func visit(contactDatabase view: KMContactDatabase){ }
 	open func visit(drawingView view: KMDrawingView){ }
