@@ -135,24 +135,15 @@ public class KMCardView: KCCardView, AMBComponent
 			if let val = robj.int32Value(forProperty: KMCardView.IndexItem) {
 				if self.currentIndex != val {
 					CNExecuteInMainThread(doSync: false, execute: {
-						self.currentIndex = Int(val)
+						if !super.setIndex(index: Int(val)) {
+							cons.error(string: "Failed to update index of card: \(val)")
+						}
 					})
 				}
 			}
 		})
-
+		robj.addScriptedPropertyName(name: KMCardView.IndexItem)
 		return nil
-	}
-
-	open override func setIndex(index idx: Int) -> Bool {
-		if super.setIndex(index: idx) {
-			if let robj = mReactObject {
-				robj.setInt32Value(value: Int32(idx), forProperty: KMCardView.IndexItem)
-			}
-			return true
-		} else {
-			return false
-		}
 	}
 
 	public var children: Array<AMBComponent> {

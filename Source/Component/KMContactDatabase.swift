@@ -20,10 +20,11 @@ import UIKit
 
 public class KMContactDatabase: AMBComponentObject
 {
-	private static let ValueItem		= "value"
-	private static let SetValueItem		= "setValue"
 	private static let RecordItem		= "record"
 	private static let CountItem		= "count"
+	private static let IndexItem		= "index"
+
+	private var mCurrentIndex: Int = 0
 
 	public override func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		if let err = super.setup(reactObject: robj, console: cons) {
@@ -38,6 +39,7 @@ public class KMContactDatabase: AMBComponentObject
 				switch db.store(URL: nil){
 				case .ok:
 					CNLog(logLevel: .detail, message: "Contacts data has been loaded", atFunction: #function, inFile: #file)
+					self.setIndex(index: self.mCurrentIndex, reactObject: robj)
 				case .error(let err):
 					CNLog(logLevel: .error, message: err.toString(), atFunction: #function, inFile: #file)
 				@unknown default:
@@ -48,34 +50,22 @@ public class KMContactDatabase: AMBComponentObject
 			}
 		})
 
-		/* add method: value(index:number, propert:string) */
-		let valuefunc: @convention(block) (_ idx: JSValue, _ prop: JSValue) -> JSValue = {
-			(_ idx: JSValue, _ prop: JSValue) -> JSValue in
-			return self.value(index: idx, property: prop, reactObject: robj)
+		/* Index property */
+		if let val = robj.int32Value(forProperty: KMContactDatabase.IndexItem) {
+			mCurrentIndex = Int(val)
+		} else {
+			robj.setInt32Value(value: Int32(mCurrentIndex), forProperty: KMContactDatabase.IndexItem)
 		}
-		robj.setImmediateValue(value: JSValue(object: valuefunc, in: robj.context), forProperty: KMContactDatabase.ValueItem)
-		robj.addScriptedPropertyName(name: KMContactDatabase.ValueItem)
-
-		/* add method: setValue(index:number, propert:string, value: any) */
-		let setvalfunc: @convention(block) (_ idx: JSValue, _ prop: JSValue, _ val: JSValue) -> JSValue = {
-			(_ idx: JSValue, _ prop: JSValue, _ val: JSValue) -> JSValue in
-			return self.setValue(index: idx, property: prop, value: val, reactObject: robj)
-		}
-		robj.setImmediateValue(value: JSValue(object: setvalfunc, in: robj.context), forProperty: KMContactDatabase.SetValueItem)
-		robj.addScriptedPropertyName(name: KMContactDatabase.SetValueItem)
-
-		/* add method: record(index:number) -> KLRecord */
-		let recordfunc: @convention(block) (_ idx: JSValue) -> JSValue = {
-			(_ idx: JSValue) -> JSValue in
-			if idx.isNumber {
-				if let record = db.record(at: Int(idx.toInt32())) as? CNContactRecord {
-					let recobj = KLContactRecord(contact: record, context: robj.context)
-					return JSValue(object: recobj, in: robj.context)
-				}
+		/* Add listner: index */
+		robj.addObserver(forProperty: KMContactDatabase.IndexItem, callback: {
+			(_ param: Any) -> Void in
+			if let val = robj.int32Value(forProperty: KMContactDatabase.IndexItem) {
+				self.setIndex(index: Int(val), reactObject: robj)
 			}
-			return JSValue(nullIn: robj.context)
-		}
-		robj.setImmediateValue(value: JSValue(object: recordfunc, in: robj.context), forProperty: KMContactDatabase.RecordItem)
+		})
+
+		/* Record property */
+		//robj.setImmediateValue(value: JSValue(nullIn: robj.context), forProperty: KMContactDatabase.RecordItem)
 		robj.addScriptedPropertyName(name: KMContactDatabase.RecordItem)
 
 		/* Set initial value: count */
@@ -85,41 +75,23 @@ public class KMContactDatabase: AMBComponentObject
 		return nil
 	}
 
-	private func value(index idx: JSValue, property prop: JSValue, reactObject robj: AMBReactObject) -> JSValue {
-		var result: CNValue = .nullValue
-		if idx.isNumber && prop.isString {
-			let db = CNContactDatabase.shared
-			if let rec = db.record(at: Int(idx.toInt32())) {
-				if let val = rec.value(ofField: prop.toString()) {
-					result = val
-				} else {
-					CNLog(logLevel: .error, message: "Invalid property name: \(String(describing: prop.toString()))", atFunction: #function, inFile: #file)
-				}
-			} else {
-				CNLog(logLevel: .error, message: "Invalid row index: \(idx.toInt32())", atFunction: #function, inFile: #file)
-			}
-		} else {
-			CNLog(logLevel: .error, message: "Invalid parameter", atFunction: #function, inFile: #file)
-		}
-		return result.toJSValue(context: robj.context)
-	}
+	private func setIndex(index idx: Int, reactObject robj: AMBReactObject) {
+		/* Update index */
+		mCurrentIndex = idx
 
-	private func setValue(index idx: JSValue, property prop: JSValue, value val: JSValue, reactObject robj: AMBReactObject) -> JSValue {
-		var result = false
-		if idx.isNumber && prop.isString {
-			let db = CNContactDatabase.shared
-			if let rec = db.record(at: Int(idx.toInt32())) {
-				if rec.setValue(value: val.toNativeValue(), forField: prop.toString()) {
-					result = true
-				} else {
-					let valtxt = val.toText().toStrings().joined(separator: "\n")
-					CNLog(logLevel: .error, message: "Invalid property name or data: name=\(String(describing: prop.toString())), value=\(valtxt)", atFunction: #function, inFile: #file)
-				}
-			} else {
-				CNLog(logLevel: .error, message: "Invalid row index: \(idx.toInt32())", atFunction: #function, inFile: #file)
-			}
+		/* Update record */
+		NSLog("setIndex: \(idx)")
+		let newobj: JSValue
+		let db = CNContactDatabase.shared
+		if let rec = db.record(at: idx) as? CNContactRecord {
+			let newrec = KLContactRecord(contact: rec, context: robj.context)
+			newobj = JSValue(object: newrec, in: robj.context)
+			NSLog("new rec")
+		} else {
+			newobj = JSValue(nullIn: robj.context)
+			NSLog("new null")
 		}
-		return JSValue(bool: result, in: robj.context)
+		robj.setImmediateValue(value: newobj, forProperty: KMContactDatabase.RecordItem)
 	}
 
 	public func accept(visitor vst: KMVisitor) {
