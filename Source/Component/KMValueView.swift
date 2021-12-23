@@ -16,7 +16,8 @@ import UIKit
 
 public class KMValueView: KCValueView, AMBComponent
 {
-	static let ValueItem =		"value"
+	static let ValueItem    =	"value"
+	static let IsEditableItem =	"isEditable"
 
 	private var mReactObject:	AMBReactObject?
 	private var mChildComponents:	Array<AMBComponent>
@@ -67,8 +68,22 @@ public class KMValueView: KCValueView, AMBComponent
 				})
 			}
 		})
-		robj.addScriptedPropertyName(name: KMValueView.ValueItem)
 
+		/* Sync initial value: "isEditable" */
+		if let val = robj.boolValue(forProperty: KMValueView.IsEditableItem) {
+			self.isEditable = val
+		} else {
+			robj.setBoolValue(value: self.isEditable, forProperty: KMValueView.IsEditableItem)
+		}
+		/* Add listner: title */
+		robj.addObserver(forProperty: KMValueView.IsEditableItem, callback: {
+			(_ param: Any) -> Void in
+			if let val = robj.boolValue(forProperty: KMValueView.IsEditableItem) {
+				CNExecuteInMainThread(doSync: false, execute: {
+					self.isEditable = val
+				})
+			}
+		})
 		return nil
 	}
 
