@@ -80,16 +80,13 @@ public class KMContactDatabase: AMBComponentObject
 		mCurrentIndex = idx
 
 		/* Update record */
-		NSLog("setIndex: \(idx)")
 		let newobj: JSValue
 		let db = CNContactDatabase.shared
 		if let rec = db.record(at: idx) as? CNContactRecord {
 			let newrec = KLContactRecord(contact: rec, context: robj.context)
 			newobj = JSValue(object: newrec, in: robj.context)
-			NSLog("new rec")
 		} else {
 			newobj = JSValue(nullIn: robj.context)
-			NSLog("new null")
 		}
 		robj.setImmediateValue(value: newobj, forProperty: KMContactDatabase.RecordItem)
 	}
