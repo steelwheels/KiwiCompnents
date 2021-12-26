@@ -17,6 +17,7 @@ This document describes list of classes and functions for component programming.
 * [Label](Components/TextField.md): The fixed text label.
 * [LabeledBox](): Labeled view box
 * [PopupMenu](Components/PopupMenu.md): Popup menu which has multiple string items.
+* [Stepper](Components/Stepper.md): Set the value of limited number.
 * [Table](Components/Table.md): N x M cells on the table.
 * [Terminal](): Terminal view based on escape sequence.
 * [TextField](Components/TextField.md): The editable text field.

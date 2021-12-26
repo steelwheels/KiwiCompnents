@@ -12,6 +12,7 @@ The `image_name` is defined in [manifest.json](https://github.com/steelwheels/JS
 The `scale` define the size of image in the view. The default value is 1.0.
 
 ## Reference
+* [Library](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Library.md): The list of components. 
 * [README](https://github.com/steelwheels/KiwiCompnents): Top page of KiwiComponents project.
 * [Steel Wheels Project](https://steelwheels.github.io): Developer's web site
 

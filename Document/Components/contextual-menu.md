@@ -29,5 +29,5 @@ The id of selected menu item is outputted after user select it.
 
 
 ## Related links
-* [Amber components](https://github.com/steelwheels/Amber/blob/master/Document/amber-component.md): Definitions of amber components
+* [Library](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Library.md): The list of components. 
 * [Steel Wheels Project](https://steelwheels.github.io): Developer's web site

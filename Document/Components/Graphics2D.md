@@ -65,9 +65,10 @@ grp.resume() ;
 Resume the suspende anumation.
 
 ## Reference
-* [README](https://github.com/steelwheels/KiwiCompnents): Top page of KiwiComponents project.
 * [GraphicsContext class](
 https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/GraphicsContext.md): The object to draw 2D graphics.
+* [Library](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Library.md): The list of components. 
+* [README](https://github.com/steelwheels/KiwiCompnents): Top page of KiwiComponents project.
 * [Steel Wheels Project](https://steelwheels.github.io): Developer's web site
 
 

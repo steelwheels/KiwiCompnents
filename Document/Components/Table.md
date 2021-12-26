@@ -47,5 +47,7 @@ pressed: Event(col: Int, row: Int) %{
 The parameter is `col` and `row` which presents the location of clicked cell.
 
 # Reference
+* [Library](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Library.md): The list of components. 
 * [README](https://github.com/steelwheels/KiwiCompnents): Top page of KiwiComponents project.
 * [Steel Wheels Project](https://steelwheels.github.io): Developer's web site
+

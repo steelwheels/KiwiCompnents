@@ -42,5 +42,6 @@ Return the count of items in the specified section by argument `secno`.
 If the argument is not valid or there are no matched section, the return value will be 0.
 
 # Reference
+* [Library](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Library.md): The list of components. 
 * [README](https://github.com/steelwheels/KiwiCompnents): Top page of KiwiComponents project.
 * [Steel Wheels Project](https://steelwheels.github.io): Developer's web site

@@ -22,5 +22,6 @@ There are 2 kind of box component: VBox and HBox.
 
 
 ## Related links
+* [Library](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Library.md): The list of components. 
 * [README](https://github.com/steelwheels/KiwiCompnents): Top page of KiwiComponents project.
 * [Steel Wheels Project](https://steelwheels.github.io): Developer's web site
