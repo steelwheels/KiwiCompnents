@@ -84,6 +84,10 @@ public class KMComponentLinker: KMVisitor
 		}
 	}
 
+	public override func visit(stepper view: KMStepper){
+		/* Do nothing */
+	}
+	
 	public override func visit(labeledStackView view: KMLabeledStackView) {
 		let subviews = view.contentsView.arrangedSubviews()
 		for subview in subviews {
