@@ -58,8 +58,8 @@ public class KMValueView: KCValueView, AMBComponent
 		} else {
 			let val = self.value.toJSValue(context: robj.context)
 			robj.setImmediateValue(value: val, forProperty: KMValueView.ValueItem)
+			robj.addScriptedPropertyName(name: KMValueView.ValueItem)
 		}
-		/* Add listner: title */
 		robj.addObserver(forProperty: KMValueView.ValueItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.immediateValue(forProperty: KMValueView.ValueItem) {
