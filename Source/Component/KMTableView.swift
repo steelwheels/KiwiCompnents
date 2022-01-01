@@ -113,10 +113,8 @@ public class KMTableView: KCTableView, AMBComponent
 	}
 
 	private func callStoreMethod(tableValue tblval: JSValue, context ctxt: KEContext) -> JSValue {
-		NSLog("cSM (0)")
 		var result = false
 		if let vtable = tblval.toObject() as? KLValueTable {
-			NSLog("cSM (1)")
 			if let table = vtable.core() as? CNValueTable {
 				updateContents(valueTable: table)
 				result = true
@@ -124,7 +122,6 @@ public class KMTableView: KCTableView, AMBComponent
 				CNLog(logLevel: .error, message: "Can not happen", atFunction: #function, inFile: #file)
 			}
 		} else if let vtable = tblval.toObject() as? KLTableCore {
-			NSLog("cSM (2)")
 			if let table = vtable.core() as? CNValueTable {
 				updateContents(valueTable: table)
 				result = true
@@ -132,10 +129,8 @@ public class KMTableView: KCTableView, AMBComponent
 				CNLog(logLevel: .error, message: "Can not happen", atFunction: #function, inFile: #file)
 			}
 		} else if let dictobj = tblval.toDictionary() {
-			NSLog("cSM (3)")
 			var dict: Dictionary<String, CNValue> = [:]
 			for (key, aval) in dictobj {
-				NSLog("cSM (1.1) \(key) \(aval)")
 				if let keystr = key as? String, let val = CNValue.anyToValue(object: aval) {
 					dict[keystr] = val
 				} else {
@@ -145,10 +140,8 @@ public class KMTableView: KCTableView, AMBComponent
 			updateContents(dictionary: dict)
 			result = true
 		} else {
-			NSLog("cSM (4)")
 			CNLog(logLevel: .error, message: "Unexpected input type (2)", atFunction: #function, inFile: #file)
 		}
-		NSLog("cSM (E) \(result)")
 		return JSValue(bool: result, in: ctxt)
 	}
 
