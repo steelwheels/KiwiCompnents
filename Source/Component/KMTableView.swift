@@ -102,7 +102,8 @@ public class KMTableView: KCTableView, AMBComponent
 		/* add load table method */
 		let storefunc: @convention(block) (_ tblval: JSValue) -> JSValue = {
 			(_ tblval: JSValue) -> JSValue in
-			self.callStoreMethod(tableValue: tblval, context: robj.context)
+			let retval = self.callStoreMethod(tableValue: tblval, context: robj.context)
+			return retval
 		}
 		robj.setImmediateValue(value: JSValue(object: storefunc, in: robj.context), forProperty: KMTableView.StoreItem)
 		robj.addScriptedPropertyName(name: KMTableView.StoreItem)
@@ -112,35 +113,59 @@ public class KMTableView: KCTableView, AMBComponent
 	}
 
 	private func callStoreMethod(tableValue tblval: JSValue, context ctxt: KEContext) -> JSValue {
+		NSLog("cSM (0)")
 		var result = false
-		if tblval.isObject {
-			if let tblobj = tblval.toObject() as? KLTableCore {
-				CNExecuteInMainThread(doSync: false, execute: {
-					() -> Void in
-					self.store(table: tblobj.core())
-				})
-				result = true
-			} else if let dictobj = tblval.toDictionary() {
-				var dict: Dictionary<String, CNValue> = [:]
-				for (key, aval) in dictobj {
-					if let keystr = key as? String, let val = CNValue.anyToValue(object: aval) {
-						dict[keystr] = val
-					} else {
-						CNLog(logLevel: .error, message: "Unexpected value type", atFunction: #function, inFile: #file)
-					}
-				}
-				CNExecuteInMainThread(doSync: false, execute: {
-					() -> Void in
-					self.store(dictionary: dict)
-				})
+		if let vtable = tblval.toObject() as? KLValueTable {
+			NSLog("cSM (1)")
+			if let table = vtable.core() as? CNValueTable {
+				updateContents(valueTable: table)
 				result = true
 			} else {
-				CNLog(logLevel: .error, message: "Unexpected input type (1)", atFunction: #function, inFile: #file)
+				CNLog(logLevel: .error, message: "Can not happen", atFunction: #function, inFile: #file)
 			}
+		} else if let vtable = tblval.toObject() as? KLTableCore {
+			NSLog("cSM (2)")
+			if let table = vtable.core() as? CNValueTable {
+				updateContents(valueTable: table)
+				result = true
+			} else {
+				CNLog(logLevel: .error, message: "Can not happen", atFunction: #function, inFile: #file)
+			}
+		} else if let dictobj = tblval.toDictionary() {
+			NSLog("cSM (3)")
+			var dict: Dictionary<String, CNValue> = [:]
+			for (key, aval) in dictobj {
+				NSLog("cSM (1.1) \(key) \(aval)")
+				if let keystr = key as? String, let val = CNValue.anyToValue(object: aval) {
+					dict[keystr] = val
+				} else {
+					CNLog(logLevel: .error, message: "Unexpected value type", atFunction: #function, inFile: #file)
+				}
+			}
+			updateContents(dictionary: dict)
+			result = true
 		} else {
+			NSLog("cSM (4)")
 			CNLog(logLevel: .error, message: "Unexpected input type (2)", atFunction: #function, inFile: #file)
 		}
+		NSLog("cSM (E) \(result)")
 		return JSValue(bool: result, in: ctxt)
+	}
+
+	private func updateContents(valueTable vtable: CNValueTable) {
+		CNExecuteInMainThread(doSync: false, execute: {
+			() -> Void in
+			self.store(table: vtable)
+			self.requireDisplay()
+		})
+	}
+
+	private func updateContents(dictionary dict: Dictionary<String, CNValue>) {
+		CNExecuteInMainThread(doSync: false, execute: {
+			() -> Void in
+			self.store(dictionary: dict)
+			self.requireDisplay()
+		})
 	}
 
 	private func setupSizeInfo() {
