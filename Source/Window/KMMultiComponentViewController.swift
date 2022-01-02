@@ -38,7 +38,7 @@ open class KMMultiComponentViewController: KCMultiViewController
 	}
 
 	open func loadResource() -> KEResource {
-		return KEResource(baseURL: Bundle.main.bundleURL)
+		return KEResource(directoryURL: Bundle.main.bundleURL)
 	}
 
 	public func pushViewController(source src: KMSource, callback cbfunc: @escaping ViewSwitchCallback) {
