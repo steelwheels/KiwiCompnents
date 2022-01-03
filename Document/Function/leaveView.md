@@ -3,7 +3,7 @@ Switch to the previous view
 
 ## Prototype
 ````
-leaveView(returnValue: Object)
+leaveView(retval: number) ;
 ````
 
 ## Description
@@ -12,7 +12,7 @@ The `leaveView` function switch to the previous view. The function [enterView](h
 ## Parameters(s)
 |Name |Type |Description |
 |:--  |:--  |:--         |
-|returnValue |Object |The object which passed to the caller view. |
+|retval |number |The return value.|
 
 The parameter is used as the return value. See [enterView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/enterView.md) function.
 
@@ -21,5 +21,6 @@ None. The operation after calling this function will NOT be executed because the
 
 ## References
 * [enterView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/enterView.md): Move to new view
+* [Library](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Library.md): Library for GUI 
 * [Kiwi Component Framework](https://github.com/steelwheels/KiwiCompnents): Document of this framework.
 
