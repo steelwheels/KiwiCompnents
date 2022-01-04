@@ -202,7 +202,7 @@ open class KMComponentViewController: KCSingleViewController
 		if let res = mResource {
 			resource = res
 		} else {
-			resource = KEResource(directoryURL: Bundle.main.bundleURL)
+			resource = KEResource(packageDirectory: Bundle.main.bundleURL)
 		}
 		let environment: CNEnvironment
 		if let env = mEnvironment {
