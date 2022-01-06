@@ -108,6 +108,14 @@ public class KMTableView: KCTableView, AMBComponent
 		robj.setImmediateValue(value: JSValue(object: storefunc, in: robj.context), forProperty: KMTableView.StoreItem)
 		robj.addScriptedPropertyName(name: KMTableView.StoreItem)
 
+		/* Add row/column count properties */
+		if robj.int32Value(forProperty: KMTableView.RowCountItem) == nil {
+			robj.addScriptedPropertyName(name: KMTableView.RowCountItem)
+		}
+		if robj.int32Value(forProperty: KMTableView.ColumnCountItem) == nil {
+			robj.addScriptedPropertyName(name: KMTableView.ColumnCountItem)
+		}
+
 		setupSizeInfo()
 		return nil
 	}

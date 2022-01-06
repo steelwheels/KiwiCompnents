@@ -8,35 +8,29 @@ It is displayed in a row in the table.
 ````
 table: Table {
     init: Init %{
-       // Allocate table
-       let table  = ContactTable() ;
-       // ... setup data in the table ...
-       // Load into table
-       self.reload() ;
+        // Allocate table
+        let table = ValueTable() ;
+        ...
+
+        // Load into table
+        self.store(table) ;
     %}
-    rowsCount:   Int 10
-    columnCount: Int 20
     pressed: Event(col: Int, row: Int) %{
         console.log("clicked col=" + col + ", row=" + row) ;
     %}
 }
 ````
 
+![Table View](./Images/table-view.png)
+
 ## Property values
 |Property name  |Type   |Description        |
 |:--            |:--    |:--                | 
-|rowCount       |Int    |Number of rows in table |
-|columnCount    |Int    |Number of columns in table |
+|rowCount       |Int    |Number of rows in table (Reference only)|
+|columnCount    |Int    |Number of columns in table (Reference only)|
 |hasHeader      |Bool   |The visibility of column title view|
-|isDirty        |Bool   |Presents the database is updated or not.|
 
 ## Method
-
-### `load`
-Reload the content of database into the table view.
-
-### `clear`
-Replace all values by `nil`.
 
 ### `pressed`
 The event method to accept clicked event:
