@@ -238,8 +238,8 @@ interface URLIF {
 }
 
 interface ValueStorageIF {
-	value(path: string[]): any ;
-	set(value: any, path: string[]): boolean ;
+	value(path: string): any ;
+	set(value: any, path: string): boolean ;
 	store(): void ;
 }
 
@@ -351,7 +351,7 @@ declare function Size(width: number, height: number): SizeIF ;
 declare function Collection(): CollectionIF ;
 declare function URL(path: string): URLIF | null ;
 declare function ValueStorage(path: string): ValueStorageIF | null ;
-declare function ValueTable(path: string[], storage: ValueStorageIF): ValueTableIF | null ;
+declare function ValueTable(path: string, storage: ValueStorageIF): ValueTableIF | null ;
 
 declare function isArray(value: any): boolean ;
 declare function isBitmap(value: any): boolean ;
