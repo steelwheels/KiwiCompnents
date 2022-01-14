@@ -240,7 +240,7 @@ interface URLIF {
 interface ValueStorageIF {
 	value(path: string): any ;
 	set(value: any, path: string): boolean ;
-	store(): void ;
+	store(): boolean ;
 }
 
 interface ValueRecordIF {
