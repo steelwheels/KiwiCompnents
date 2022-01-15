@@ -274,7 +274,7 @@
 		05CAEB6525445D36002AD83E /* KMLibraryCompiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLibraryCompiler.swift; sourceTree = "<group>"; };
 		05CD899127020F6700E6D6D8 /* KMValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMValueView.swift; sourceTree = "<group>"; };
 		05D0CABE252B6AFC0041C196 /* KMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMButton.swift; sourceTree = "<group>"; };
-		05D24AF0263D6CB5000F66B2 /* Builtin.d.ts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Builtin.d.ts; sourceTree = "<group>"; };
+		05D24AF0263D6CB5000F66B2 /* Builtin.d.ts */ = {isa = PBXFileReference; explicitFileType = sourcecode.javascript; fileEncoding = 4; path = Builtin.d.ts; sourceTree = "<group>"; };
 		05D24AF1263D6CB5000F66B2 /* KiwiComponent.d.ts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = KiwiComponent.d.ts; sourceTree = "<group>"; };
 		05D24AF2263D6CB5000F66B2 /* KiwiLibrary.d.ts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = KiwiLibrary.d.ts; sourceTree = "<group>"; };
 		05D24AF3263D6CB5000F66B2 /* window.d.ts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = window.d.ts; sourceTree = "<group>"; };

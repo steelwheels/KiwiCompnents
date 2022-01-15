@@ -17,6 +17,7 @@ public class KMTableView: KCTableView, AMBComponent
 {
 	public static let StoreItem		= "store"
 	public static let PressedItem		= "pressed"
+	public static let FieldNamesItem	= "fieldNames"
 	public static let HasHeaderItem		= "hasHeader"
 	public static let RowCountItem		= "rowCount"
 	public static let ColumnCountItem	= "columnCount"
@@ -102,11 +103,30 @@ public class KMTableView: KCTableView, AMBComponent
 		/* add load table method */
 		let storefunc: @convention(block) (_ tblval: JSValue) -> JSValue = {
 			(_ tblval: JSValue) -> JSValue in
+			NSLog("store table")
 			let retval = self.callStoreMethod(tableValue: tblval, context: robj.context)
 			return retval
 		}
 		robj.setImmediateValue(value: JSValue(object: storefunc, in: robj.context), forProperty: KMTableView.StoreItem)
 		robj.addScriptedPropertyName(name: KMTableView.StoreItem)
+
+		/* Add fieldNames property */
+		if let fvals = robj.arrayValue(forProperty: KMTableView.FieldNamesItem) {
+			var result: Array<String> = []
+			for elm in fvals {
+				if let str = elm as? String {
+					result.append(str)
+				} else {
+					CNLog(logLevel: .error, message: "Not string: \(elm)", atFunction: #function, inFile: #file)
+				}
+			}
+			if result.count > 0 {
+				self.activeFieldNames = result
+			}
+		} else {
+			robj.setArrayValue(value: [], forProperty: KMTableView.FieldNamesItem)
+			robj.addScriptedPropertyName(name: KMTableView.FieldNamesItem)
+		}
 
 		/* Add row/column count properties */
 		if robj.int32Value(forProperty: KMTableView.RowCountItem) == nil {
