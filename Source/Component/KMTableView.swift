@@ -15,6 +15,8 @@ import Foundation
 
 public class KMTableView: KCTableView, AMBComponent
 {
+	public typealias ActiveFieldName = KCTableViewCore.ActiveFieldName
+
 	public static let StoreItem		= "store"
 	public static let PressedItem		= "pressed"
 	public static let FieldNamesItem	= "fieldNames"
@@ -112,12 +114,17 @@ public class KMTableView: KCTableView, AMBComponent
 
 		/* Add fieldNames property */
 		if let fvals = robj.arrayValue(forProperty: KMTableView.FieldNamesItem) {
-			var result: Array<String> = []
+			var result: Array<ActiveFieldName> = []
 			for elm in fvals {
-				if let str = elm as? String {
-					result.append(str)
+				if let dict = elm as? Dictionary<String, String> {
+					if let field = dict["field"], let title = dict["title"] {
+						let fname = ActiveFieldName(field: field, title: title)
+						result.append(fname)
+					} else {
+						CNLog(logLevel: .error, message: "Invalid active field name: field and title properties are required")
+					}
 				} else {
-					CNLog(logLevel: .error, message: "Not string: \(elm)", atFunction: #function, inFile: #file)
+					CNLog(logLevel: .error, message: "Invalid active field name: dictionary data is required")
 				}
 			}
 			if result.count > 0 {

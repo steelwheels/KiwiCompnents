@@ -101,6 +101,14 @@ top: VBox {
     }
     dataTable: Table {
 	init: Init %{
+		/* Set column titles */
+		self.fieldNames = [
+			{field:"c0", title:"col[0]"},
+			{field:"c1", title:"col[1]"},
+			{field:"c2", title:"col[2]"}
+		] ;
+
+		/* Set data */
 		let table = ValueTable() ;
 
 		let rec0  = table.newRecord() ;

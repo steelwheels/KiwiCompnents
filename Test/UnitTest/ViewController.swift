@@ -18,7 +18,7 @@ class ViewController: KMMultiComponentViewController
 {
 	open override func loadResource() -> KEResource {
 		if let path = Bundle.main.path(forResource: "sample", ofType: "jspkg") {
-			let resource = KEResource.init(baseURL: URL(fileURLWithPath: path))
+			let resource = KEResource.init(packageDirectory: URL(fileURLWithPath: path))
 			let loader   = KEManifestLoader()
 			if let err = loader.load(into: resource) {
 				CNLog(logLevel: .error, message: "Failed to load contents of sample.jspkg: \(err.toString())")
