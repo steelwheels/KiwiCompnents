@@ -79,8 +79,12 @@ public class KMPopupMenu: KCPopupMenu, AMBComponent
 		})
 
 		/* Index */
+		if let _ = robj.int32Value(forProperty: KMPopupMenu.IndexItem) {
+			/* Already allocated, but the parameter is ignored */
+		} else {
+			robj.addScriptedPropertyName(name: KMPopupMenu.IndexItem)
+		}
 		robj.setInt32Value(value: Int32(self.indexOfSelectedItem), forProperty: KMPopupMenu.IndexItem)
-		robj.addScriptedPropertyName(name: KMPopupMenu.IndexItem)
 
 		/* Callback */
 		super.callbackFunction = {

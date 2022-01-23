@@ -2,19 +2,24 @@
 
 ## Syntax
 ````
-menu0: PopupMenu {
-    items:          String          ["a", "b", "c"]
-    index:          Int             0
-    selected: Event(selected_index) %{
-    %}   
+menu: PopupMenu {
+  items: Array ["a", "b", "c"]
+  //index: Int   0
+  selected: Event(index) %{
+    console.log("selected = " + index) ;
+  %}
 }
 ````
+
+![Popup-menu View](./Images/popup-menu-view.png)
 
 ### Properties
 |Name   |Type           |Description                        |
 |:--    |:--            |:--                                |
 |items  |Array<String>  |Array of menu items                |
 |index  |Int            |Index of selected item (read only) |
+
+Note: The `index` property is read only. You can declare the property but the value will not set.
 
 ### Event functions
 #### `selected` event
