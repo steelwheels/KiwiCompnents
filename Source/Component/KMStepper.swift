@@ -21,7 +21,9 @@ public class KMStepper: KCStepper, AMBComponent
 {
 	static let MaxValueItem		= "maxValue"
 	static let MinValueItem		= "minValue"
+	static let DeltaValueItem	= "deltaValue"
 	static let CurrentValueItem	= "currentValue"
+	static let DecimalPlacesItem	= "decimalPlaces"
 	static let ChangedItem		= "changed"
 	
 	private var mReactObject:	AMBReactObject?
@@ -88,12 +90,38 @@ public class KMStepper: KCStepper, AMBComponent
 			}
 		})
 
+		/* Define property: deltaValue */
+		if let val = robj.floatValue(forProperty: KMStepper.DeltaValueItem) {
+			self.deltaValue = val
+		} else {
+			robj.setFloatValue(value: self.deltaValue, forProperty: KMStepper.DeltaValueItem)
+		}
+		robj.addObserver(forProperty: KMStepper.DeltaValueItem, callback:  {
+			(_ val: Any) -> Void in
+			if let val = robj.floatValue(forProperty: KMStepper.DeltaValueItem) {
+				self.deltaValue = val
+			}
+		})
+
 		/* Define property: currentValue */
 		if let val = robj.floatValue(forProperty: KMStepper.CurrentValueItem) {
 			self.currentValue = val
 		} else {
 			robj.setFloatValue(value: self.currentValue, forProperty: KMStepper.CurrentValueItem)
 		}
+
+		/* Define property: decimalPlaces */
+		if let val = robj.int32Value(forProperty: KMStepper.DecimalPlacesItem) {
+			self.decimalPlaces = Int(val)
+		} else {
+			robj.setInt32Value(value: Int32(self.decimalPlaces), forProperty: KMStepper.DecimalPlacesItem)
+		}
+		robj.addObserver(forProperty: KMStepper.DecimalPlacesItem, callback:  {
+			(_ val: Any) -> Void in
+			if let val = robj.int32Value(forProperty: KMStepper.DecimalPlacesItem) {
+				self.decimalPlaces = Int(val)
+			}
+		})
 
 		/* Add callbacks */
 		self.updateValueCallback = {

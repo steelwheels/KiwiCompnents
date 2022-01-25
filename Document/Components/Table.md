@@ -4,13 +4,12 @@ The content of the database is defined by table object.
 See [ValueTable](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/ValueTable.md),
 [ContactTable](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/ContactTable.md).
 
-![Table View](./Images/table-view.png)
-
-## Syntax
+This is sample script and it's view:
 ````
 top: VBox {
   table: Table {
-	hasHeader: Bool true
+	hasHeader:    Bool true
+        isSelectable: Bool true
 	fieldNames: Array [
 		{field:"c0", title:"column 0"},
 		{field:"c1", title:"column 1"},
@@ -28,13 +27,18 @@ top: VBox {
 		// Set table into this view
                 self.store(table) ;        
         %}
-	pressed: Event(row, col) %{
-		console.log("row    = " + row + "/" + self.rowCount) ;
-		console.log("column = " + col + "/" + self.columnCount) ;
+	pressed: Event(colname, rowidx) %{
+                console.log("column_name = " + colname) ;
+		console.log("row_index   = " + rowidx ) ;
+		
 	%}
   }
 }
 ````
+
+![Table View](./Images/table-view.png)
+
+## Syntax
 
 ## Property values
 |Property name  |Type   |Description        |
@@ -42,6 +46,7 @@ top: VBox {
 |rowCount       |Int    |Number of rows in table (Reference only)|
 |columnCount    |Int    |Number of columns in table (Reference only)|
 |hasHeader      |Bool   |The visibility of column title view|
+|isSelectable   |Bool   |You can select row or not |
 |fieldNames     |Array  |Active field names |
 
 The `fieldNames` property used to decide following thigs:
@@ -61,10 +66,11 @@ The `fieldNames` is an array of following objects:
 ### `pressed`
 The event method to accept clicked event:
 ````
-pressed: Event(col: Int, row: Int) %{
+pressed: Event(col: string, row: number) %{
 %}
 ````
-The parameter is `col` and `row` which presents the location of clicked cell.
+The parameter `col` is clicked column name.
+The `row` is row number.
 
 ## Note
 In the above example, the contents of [ValueTable](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/ValueTable.md) is displayed in the view.

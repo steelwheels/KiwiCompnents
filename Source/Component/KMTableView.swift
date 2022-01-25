@@ -21,6 +21,7 @@ public class KMTableView: KCTableView, AMBComponent
 	public static let PressedItem		= "pressed"
 	public static let FieldNamesItem	= "fieldNames"
 	public static let HasHeaderItem		= "hasHeader"
+	public static let IsSelectableItem	= "isSelectable"
 	public static let RowCountItem		= "rowCount"
 	public static let ColumnCountItem	= "columnCount"
 	public static let IsDirtyItem		= "isDirty"
@@ -141,6 +142,14 @@ public class KMTableView: KCTableView, AMBComponent
 		}
 		if robj.int32Value(forProperty: KMTableView.ColumnCountItem) == nil {
 			robj.addScriptedPropertyName(name: KMTableView.ColumnCountItem)
+		}
+
+		/* Add selectable properties */
+		if let val = robj.boolValue(forProperty: KMTableView.IsSelectableItem) {
+			self.allowsRowSelection = val
+		} else {
+			robj.setBoolValue(value: self.allowsRowSelection, forProperty: KMTableView.IsSelectableItem)
+			robj.addScriptedPropertyName(name: KMTableView.IsSelectableItem)
 		}
 
 		setupSizeInfo()
