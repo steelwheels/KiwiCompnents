@@ -22,6 +22,7 @@ public class KMTableView: KCTableView, AMBComponent
 	public static let FieldNamesItem	= "fieldNames"
 	public static let HasHeaderItem		= "hasHeader"
 	public static let IsSelectableItem	= "isSelectable"
+	public static let DidSelectedItem	= "didSelected"
 	public static let RowCountItem		= "rowCount"
 	public static let ColumnCountItem	= "columnCount"
 	public static let IsDirtyItem		= "isDirty"
@@ -144,12 +145,24 @@ public class KMTableView: KCTableView, AMBComponent
 			robj.addScriptedPropertyName(name: KMTableView.ColumnCountItem)
 		}
 
-		/* Add selectable properties */
+		/* Add isSelectable properties */
 		if let val = robj.boolValue(forProperty: KMTableView.IsSelectableItem) {
-			self.allowsRowSelection = val
+			self.isSelectable = val
 		} else {
-			robj.setBoolValue(value: self.allowsRowSelection, forProperty: KMTableView.IsSelectableItem)
+			robj.setBoolValue(value: self.isSelectable, forProperty: KMTableView.IsSelectableItem)
 			robj.addScriptedPropertyName(name: KMTableView.IsSelectableItem)
+		}
+
+		/* Add didSelected properties */
+		if let val = robj.boolValue(forProperty: KMTableView.DidSelectedItem) {
+			robj.setBoolValue(value: val, forProperty: KMTableView.DidSelectedItem)
+		} else {
+			robj.setBoolValue(value: false, forProperty: KMTableView.DidSelectedItem)
+			robj.addScriptedPropertyName(name: KMTableView.DidSelectedItem)
+		}
+		super.didSelectedCallback = {
+			(_ selected: Bool) -> Void in
+			robj.setBoolValue(value: selected, forProperty: KMTableView.DidSelectedItem)
 		}
 
 		setupSizeInfo()
