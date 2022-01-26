@@ -7,36 +7,38 @@ See [ValueTable](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibra
 This is sample script and it's view:
 ````
 top: VBox {
-  table: Table {
-	hasHeader:    Bool true
+    table: Table {
+        hasHeader: Bool true
         isSelectable: Bool true
-	fieldNames: Array [
-		{field:"c0", title:"column 0"},
-		{field:"c1", title:"column 1"},
-		{field:"c2", title:"column 2"}
-	]
-	init: Init %{
-                let storage = ValueStorage("storage") ;
-	        if(storage == null){
-		        console.log("Failed to allocate storage") ;
-	        }
-	        let table = ValueTable("data", storage) ;
-	        if(table == null){
-		        console.log("Failed to allocate table") ;
-	        }
-		// Set table into this view
-                self.store(table) ;        
+        fieldNames: Array [
+                {field:"c0", title:"column 0"},
+                {field:"c1", title:"column 1"},
+                {field:"c2", title:"column 2"}
+        ]
+        init: Init %{
+                ...
+                let table = ValueTable("data", storage) ;
+                self.store(table) ;
         %}
-	pressed: Event(colname, rowidx) %{
-                console.log("column_name = " + colname) ;
-		console.log("row_index   = " + rowidx ) ;
-		
-	%}
-  }
+        pressed: Event(row, col) %{
+                console.log("row    = " + row + "/" + self.rowCount) ;
+                console.log("column = " + col + "/" + self.columnCount) ;
+        %}
+    }
+    selected_button: Button {
+        title: String "Selected"
+        isEnabled: Bool Listner(selected: top.table.didSelected) %{
+                /* Did selected property of Table is used here !! */
+                return selected ;
+        %}
+    }
+    ...
 }
 ````
 
 ![Table View](./Images/table-view.png)
+
+You can see the entire script at [value-table-3.jspkg](https://github.com/steelwheels/JSTerminal/tree/master/Resource/Sample/value-table-3.jspkg).
 
 ## Syntax
 
@@ -47,6 +49,7 @@ top: VBox {
 |columnCount    |Int    |Number of columns in table (Reference only)|
 |hasHeader      |Bool   |The visibility of column title view|
 |isSelectable   |Bool   |You can select row or not |
+|didSelected    |Bool   |Has true when the row of table is selected. |
 |fieldNames     |Array  |Active field names |
 
 The `fieldNames` property used to decide following thigs:
@@ -60,6 +63,8 @@ The `fieldNames` is an array of following objects:
   title:  "col0"  // The header name in the table
 }
 ````
+
+In usually, the `didSelected` property will be listned by the other component to tell the state of the table.
 
 ## Method
 
