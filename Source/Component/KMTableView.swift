@@ -24,6 +24,7 @@ public class KMTableView: KCTableView, AMBComponent
 	public static let IsSelectableItem	= "isSelectable"
 	public static let DidSelectedItem	= "didSelected"
 	public static let RowCountItem		= "rowCount"
+	public static let VisibleRowCountItem	= "visibleRowCount"
 	public static let ColumnCountItem	= "columnCount"
 	public static let IsDirtyItem		= "isDirty"
 
@@ -163,6 +164,14 @@ public class KMTableView: KCTableView, AMBComponent
 		super.didSelectedCallback = {
 			(_ selected: Bool) -> Void in
 			robj.setBoolValue(value: selected, forProperty: KMTableView.DidSelectedItem)
+		}
+
+		/* Add visibleRowCount property */
+		if let val = robj.int32Value(forProperty: KMTableView.VisibleRowCountItem) {
+			self.visibleRowCount = Int(val)
+		} else {
+			robj.setInt32Value(value: Int32(self.visibleRowCount), forProperty: KMTableView.VisibleRowCountItem)
+			robj.addScriptedPropertyName(name: KMTableView.VisibleRowCountItem)
 		}
 
 		setupSizeInfo()
