@@ -1,25 +1,48 @@
 # TextField component
 text field. You can choose editable or non-editable.
 
-## Syntax
+This is sample script and the view:
 ````
-field: TextField {
-    text:       String      "The label string"
-    minWidth:   Int         40
-    fontSize:   FontSize    [small | regular | large]
-    isEditable: Bool        false
-    isBezeled:  Bool        false
+top: VBox {
+    label_str: Label {
+        text:     String   "Text Field"
+        fontSize: FontSize large
+    }
+    label_int: Label {
+        number:    Int  1234
+        isBezeled: Bool true
+        isEnabled: Bool false
+    }
+    edit_str: TextField {
+        text:       String "Editable Field"
+        isEnabled:  Bool   true
+        edited: Event(str) %{
+                console.log("edited result = " + str) ;
+        %}
+    }
+    quit_button: Button {
+        title: String "Quit"
+        pressed: Event() %{
+                leaveView(1) ;
+        %}
+    }
 }
-````
 
+````
+![TextField](./Images/text-field-view.png)
+
+You can find the entire example at [text-field-1.jspkg](https://github.com/steelwheels/JSTerminal/tree/master/Resource/Sample/text-field-1.jspkg).
+
+## Syntax
 ## Property values
 |Property name  |Type    |Description            |
 |:--            |:--     |:--                    | 
-|text           |string  |Content text           |
-|minWidth       |number  |Minimum field width (unsigned integer) |
+|text           |string  |Set the string in the field |
+|number         |numner  |Set the string describing it |
+|fontSize       |[FontSize](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Enum/FontSize.md) | Size of font |
 |isEditable     |boolean |Set editable or not    |
 |isBezeled      |boolean |Set bezele ON/OFF      |
-|fontSize       |[FontSize](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Enum/FontSize.md) | Size of font |
+|edited         |event   |The Event function (See the specification of [amber language](https://github.com/steelwheels/Amber/blob/master/Document/amber-language.md)) which is called when the context is edited. |
 
 ## Reference
 * [Library](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Library.md): The list of components. 

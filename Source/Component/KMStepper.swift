@@ -69,6 +69,7 @@ public class KMStepper: KCStepper, AMBComponent
 			self.maxValue = val
 		} else {
 			robj.setFloatValue(value: self.maxValue, forProperty: KMStepper.MaxValueItem)
+			robj.addScriptedPropertyName(name: KMStepper.MaxValueItem)
 		}
 		robj.addObserver(forProperty: KMStepper.MaxValueItem, callback:  {
 			(_ val: Any) -> Void in
@@ -82,6 +83,7 @@ public class KMStepper: KCStepper, AMBComponent
 			self.minValue = val
 		} else {
 			robj.setFloatValue(value: self.minValue, forProperty: KMStepper.MinValueItem)
+			robj.addScriptedPropertyName(name: KMStepper.MinValueItem)
 		}
 		robj.addObserver(forProperty: KMStepper.MinValueItem, callback:  {
 			(_ val: Any) -> Void in
@@ -95,6 +97,7 @@ public class KMStepper: KCStepper, AMBComponent
 			self.deltaValue = val
 		} else {
 			robj.setFloatValue(value: self.deltaValue, forProperty: KMStepper.DeltaValueItem)
+			robj.addScriptedPropertyName(name: KMStepper.DeltaValueItem)
 		}
 		robj.addObserver(forProperty: KMStepper.DeltaValueItem, callback:  {
 			(_ val: Any) -> Void in
@@ -108,6 +111,7 @@ public class KMStepper: KCStepper, AMBComponent
 			self.currentValue = val
 		} else {
 			robj.setFloatValue(value: self.currentValue, forProperty: KMStepper.CurrentValueItem)
+			robj.addScriptedPropertyName(name: KMStepper.CurrentValueItem)
 		}
 
 		/* Define property: decimalPlaces */
@@ -115,6 +119,7 @@ public class KMStepper: KCStepper, AMBComponent
 			self.decimalPlaces = Int(val)
 		} else {
 			robj.setInt32Value(value: Int32(self.decimalPlaces), forProperty: KMStepper.DecimalPlacesItem)
+			robj.addScriptedPropertyName(name: KMStepper.DecimalPlacesItem)
 		}
 		robj.addObserver(forProperty: KMStepper.DecimalPlacesItem, callback:  {
 			(_ val: Any) -> Void in
