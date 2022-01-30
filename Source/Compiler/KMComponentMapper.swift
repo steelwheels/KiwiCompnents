@@ -15,11 +15,11 @@ public class KMComponentMapper: AMBComponentMapper
 {
 	public typealias  MapResult = AMBComponentMapper.MapResult
 
-	open override func map(object robj: AMBReactObject, isEditable edt: Bool, console cons: CNConsole) -> MapResult {
-		return mapView(object: robj, isEditable: edt, console: cons)
+	open override func map(object robj: AMBReactObject, console cons: CNConsole) -> MapResult {
+		return mapView(object: robj, console: cons)
 	}
 
-	public func mapView(object robj: AMBReactObject, isEditable edt: Bool, console cons: CNConsole) -> MapResult {
+	public func mapView(object robj: AMBReactObject, console cons: CNConsole) -> MapResult {
 		let classname = robj.frame.className
 		let newcomp    : AMBComponent
 		let hassubview : Bool
@@ -80,7 +80,7 @@ public class KMComponentMapper: AMBComponentMapper
 		case "TextField":
 			let comp    = KMTextEdit()
 			comp.format	= .text
-			comp.isEditable	= edt
+			comp.isEditable	= true
 			newcomp		= comp
 			hassubview	= false
 		case "ValueView":
@@ -93,14 +93,14 @@ public class KMComponentMapper: AMBComponentMapper
 			hassubview  = true
 		default:
 			/* Not view object */
-			return mapData(object: robj, isEditable: edt, console: cons)
+			return mapData(object: robj, console: cons)
 		}
 		if hassubview {
-			if let err = mapChildView(component: newcomp, reactObject: robj, isEditable: edt, console: cons) {
+			if let err = mapChildView(component: newcomp, reactObject: robj, console: cons) {
 				return .error(err)
 			}
 		} else {
-			if let err = mapChildData(component: newcomp, reactObject: robj, isEditable: edt, console: cons) {
+			if let err = mapChildData(component: newcomp, reactObject: robj, console: cons) {
 				return .error(err)
 			}
 		}
@@ -110,7 +110,7 @@ public class KMComponentMapper: AMBComponentMapper
 		return .ok(newcomp)
 	}
 
-	public func mapData(object robj: AMBReactObject, isEditable edt: Bool, console cons: CNConsole) -> MapResult {
+	public func mapData(object robj: AMBReactObject, console cons: CNConsole) -> MapResult {
 		let classname = robj.frame.className
 		let newcomp    : AMBComponent
 		switch classname {
@@ -119,9 +119,9 @@ public class KMComponentMapper: AMBComponentMapper
 		case "AddressBook":
 			newcomp = KMContactDatabase()
 		default:
-			return super.mapObject(object: robj, isEditable: edt, console: cons)
+			return super.mapObject(object: robj, console: cons)
 		}
-		if let err = mapChildData(component: newcomp, reactObject: robj, isEditable: edt, console: cons) {
+		if let err = mapChildData(component: newcomp, reactObject: robj, console: cons) {
 			return .error(err)
 		}
 		if let err = newcomp.setup(reactObject: robj, console: cons) {
@@ -131,10 +131,10 @@ public class KMComponentMapper: AMBComponentMapper
 		}
 	}
 
-	public func mapChildView(component comp: AMBComponent, reactObject robj: AMBReactObject, isEditable edt: Bool, console cons: CNConsole) -> NSError? {
+	public func mapChildView(component comp: AMBComponent, reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		for prop in robj.scriptedPropertyNames {
 			if let child = robj.childFrame(forProperty: prop) {
-				switch mapView(object: child, isEditable: edt, console: cons) {
+				switch mapView(object: child, console: cons) {
 				case .ok(let childcomp):
 					comp.addChild(component: childcomp)
 				case .error(let err):
@@ -147,10 +147,10 @@ public class KMComponentMapper: AMBComponentMapper
 		return nil
 	}
 
-	public func mapChildData(component comp: AMBComponent, reactObject robj: AMBReactObject, isEditable edt: Bool, console cons: CNConsole) -> NSError? {
+	public func mapChildData(component comp: AMBComponent, reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		for prop in robj.scriptedPropertyNames {
 			if let child = robj.childFrame(forProperty: prop) {
-				switch mapData(object: child, isEditable: edt, console: cons) {
+				switch mapData(object: child, console: cons) {
 				case .ok(let childcomp):
 					comp.addChild(component: childcomp)
 				case .error(let err):

@@ -13,12 +13,12 @@ field: TextField {
 ````
 
 ## Property values
-|Property name  |Type   |Description            |
-|:--            |:--    |:--                    | 
-|text           |String |Content text           |
-|minWidth       |Int    |Minimum field width    |
-|isEditable     |Bool   |Set editable or not    |
-|isBezeled      |Bool   |Set bezele ON/OFF      |
+|Property name  |Type    |Description            |
+|:--            |:--     |:--                    | 
+|text           |string  |Content text           |
+|minWidth       |number  |Minimum field width (unsigned integer) |
+|isEditable     |boolean |Set editable or not    |
+|isBezeled      |boolean |Set bezele ON/OFF      |
 |fontSize       |[FontSize](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Enum/FontSize.md) | Size of font |
 
 ## Reference

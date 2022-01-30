@@ -17,6 +17,7 @@ import UIKit
 public class KMTextEdit: KCTextEdit, AMBComponent
 {
 	public static let TextItem		= "text"
+	public static let NumberItem		= "number"
 	public static let IsBezeledItem		= "isBezeled"
 	public static let FontSizeItem		= "fontSize"
 
@@ -64,6 +65,21 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 			if let val = robj.stringValue(forProperty: KMTextEdit.TextItem) {
 				CNExecuteInMainThread(doSync: false, execute: {
 					self.text = val
+				})
+			}
+		})
+
+		/* Setup: number */
+		if let val = robj.numberValue(forProperty: KMTextEdit.TextItem) {
+			super.number = val
+		} else {
+			robj.setNumberValue(value: self.number, forProperty: KMTextEdit.NumberItem)
+		}
+		robj.addObserver(forProperty: KMTextEdit.NumberItem, callback: {
+			(_ param: Any) -> Void in
+			if let val = robj.numberValue(forProperty: KMTextEdit.NumberItem) {
+				CNExecuteInMainThread(doSync: false, execute: {
+					self.number = val
 				})
 			}
 		})
