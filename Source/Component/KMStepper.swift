@@ -19,6 +19,7 @@ import AppKit
 
 public class KMStepper: KCStepper, AMBComponent
 {
+	static let IsEnabledItem	= "isEnabled"
 	static let MaxValueItem		= "maxValue"
 	static let MinValueItem		= "minValue"
 	static let DeltaValueItem	= "deltaValue"
@@ -63,6 +64,20 @@ public class KMStepper: KCStepper, AMBComponent
 
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject = robj
+
+		/* Define property: isEnabled */
+		if let val = robj.boolValue(forProperty: KMStepper.IsEnabledItem) {
+			self.isEnabled = val
+		} else {
+			robj.setBoolValue(value: self.isEnabled, forProperty: KMStepper.IsEnabledItem)
+			robj.addScriptedPropertyName(name: KMStepper.IsEnabledItem)
+		}
+		robj.addObserver(forProperty: KMStepper.IsEnabledItem, callback:  {
+			(_ val: Any) -> Void in
+			if let val = robj.boolValue(forProperty: KMStepper.IsEnabledItem) {
+				self.isEnabled = val
+			}
+		})
 
 		/* Define property: maxValue */
 		if let val = robj.floatValue(forProperty: KMStepper.MaxValueItem) {
@@ -133,6 +148,9 @@ public class KMStepper: KCStepper, AMBComponent
 			(_ newval: Double) -> Void in
 			if let evtval = robj.immediateValue(forProperty: KMStepper.ChangedItem) {
 				if let valobj = JSValue(double: newval, in: robj.context) {
+					/* Update current value */
+					robj.setFloatValue(value: self.currentValue, forProperty: KMStepper.CurrentValueItem)
+					/* Callback */
 					CNExecuteInUserThread(level: .event, execute: {
 						evtval.call(withArguments: [robj, valobj])	// insert self
 					})
