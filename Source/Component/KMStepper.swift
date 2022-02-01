@@ -19,7 +19,8 @@ import AppKit
 
 public class KMStepper: KCStepper, AMBComponent
 {
-	static let IsEnabledItem	= "isEnabled"
+	static let IsIncrementableItem	= "isIncrementable"
+	static let IsDecrementableItem	= "isDecrementable"
 	static let MaxValueItem		= "maxValue"
 	static let MinValueItem		= "minValue"
 	static let DeltaValueItem	= "deltaValue"
@@ -65,17 +66,31 @@ public class KMStepper: KCStepper, AMBComponent
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject = robj
 
-		/* Define property: isEnabled */
-		if let val = robj.boolValue(forProperty: KMStepper.IsEnabledItem) {
-			self.isEnabled = val
+		/* Define property: isIncrementable */
+		if let val = robj.boolValue(forProperty: KMStepper.IsIncrementableItem) {
+			self.isIncrementable = val
 		} else {
-			robj.setBoolValue(value: self.isEnabled, forProperty: KMStepper.IsEnabledItem)
-			robj.addScriptedPropertyName(name: KMStepper.IsEnabledItem)
+			robj.setBoolValue(value: self.isIncrementable, forProperty: KMStepper.IsIncrementableItem)
+			robj.addScriptedPropertyName(name: KMStepper.IsIncrementableItem)
 		}
-		robj.addObserver(forProperty: KMStepper.IsEnabledItem, callback:  {
+		robj.addObserver(forProperty: KMStepper.IsIncrementableItem, callback:  {
 			(_ val: Any) -> Void in
-			if let val = robj.boolValue(forProperty: KMStepper.IsEnabledItem) {
-				self.isEnabled = val
+			if let val = robj.boolValue(forProperty: KMStepper.IsIncrementableItem) {
+				self.isIncrementable = val
+			}
+		})
+
+		/* Define property: isDecrementable */
+		if let val = robj.boolValue(forProperty: KMStepper.IsDecrementableItem) {
+			self.isDecrementable = val
+		} else {
+			robj.setBoolValue(value: self.isDecrementable, forProperty: KMStepper.IsDecrementableItem)
+			robj.addScriptedPropertyName(name: KMStepper.IsDecrementableItem)
+		}
+		robj.addObserver(forProperty: KMStepper.IsDecrementableItem, callback:  {
+			(_ val: Any) -> Void in
+			if let val = robj.boolValue(forProperty: KMStepper.IsDecrementableItem) {
+				self.isDecrementable = val
 			}
 		})
 

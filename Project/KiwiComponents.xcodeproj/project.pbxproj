@@ -53,8 +53,6 @@
 		0569496125AFF1C200461235 /* KMLabeledStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0569495F25AFF1C200461235 /* KMLabeledStackView.swift */; };
 		056A6CCA25176B0C00E6379D /* KiwiComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 056A6CC825176B0C00E6379D /* KiwiComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		056A6CD825176B2C00E6379D /* KiwiComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 056A6CD625176B2C00E6379D /* KiwiComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		056A6CEE25176D2F00E6379D /* KMAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CEC25176D2F00E6379D /* KMAlert.swift */; };
-		056A6CEF25176D2F00E6379D /* KMAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CEC25176D2F00E6379D /* KMAlert.swift */; };
 		056A6CF925176D4E00E6379D /* KMComponentMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMComponentMapper.swift */; };
 		056A6CFA25176D4E00E6379D /* KMComponentMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056A6CF625176D4E00E6379D /* KMComponentMapper.swift */; };
 		056A6CFF25176D7300E6379D /* CoconutData.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056A6CFE25176D7300E6379D /* CoconutData.xcframework */; };
@@ -250,7 +248,6 @@
 		056A6CD425176B2C00E6379D /* KiwiComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KiwiComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		056A6CD625176B2C00E6379D /* KiwiComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KiwiComponents.h; sourceTree = "<group>"; };
 		056A6CD725176B2C00E6379D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		056A6CEC25176D2F00E6379D /* KMAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMAlert.swift; sourceTree = "<group>"; };
 		056A6CF625176D4E00E6379D /* KMComponentMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMComponentMapper.swift; sourceTree = "<group>"; };
 		056A6CFE25176D7300E6379D /* CoconutData.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = CoconutData.xcframework; path = ../../../Library/Frameworks/CoconutData.xcframework; sourceTree = "<group>"; };
 		0570672125A8810C003C02B1 /* KMCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMCheckBox.swift; sourceTree = "<group>"; };
@@ -416,7 +413,6 @@
 		056A6CEB25176D1A00E6379D /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				056A6CEC25176D2F00E6379D /* KMAlert.swift */,
 				05D6CEC925CAEC8B0055801C /* KMBitmap.swift */,
 				05D0CABE252B6AFC0041C196 /* KMButton.swift */,
 				05BDAE0D276EA29500729B0E /* KMCardView.swift */,
@@ -712,7 +708,6 @@
 				059545AB252EF2AB00E019B2 /* KMTerminalView.swift in Sources */,
 				05CAEB6625445D36002AD83E /* KMLibraryCompiler.swift in Sources */,
 				05B1AC55257A7A5600A5BF62 /* KMImage.swift in Sources */,
-				056A6CEE25176D2F00E6379D /* KMAlert.swift in Sources */,
 				059BD6D0273027B400D3DDCB /* KMDrawingView.swift in Sources */,
 				05AE214525DAABE700A8E238 /* KMPopupMenu.swift in Sources */,
 				056A6CF925176D4E00E6379D /* KMComponentMapper.swift in Sources */,
@@ -748,7 +743,6 @@
 				059545AC252EF2AB00E019B2 /* KMTerminalView.swift in Sources */,
 				05CAEB6725445D36002AD83E /* KMLibraryCompiler.swift in Sources */,
 				05B1AC56257A7A5600A5BF62 /* KMImage.swift in Sources */,
-				056A6CEF25176D2F00E6379D /* KMAlert.swift in Sources */,
 				059BD6D1273027B400D3DDCB /* KMDrawingView.swift in Sources */,
 				05AE214625DAABE700A8E238 /* KMPopupMenu.swift in Sources */,
 				056A6CFA25176D4E00E6379D /* KMComponentMapper.swift in Sources */,

@@ -73,6 +73,7 @@ public class KMBitmap: KCBitmapView, AMBComponent
 		mConsole	= cons
 
 		/* width */
+		addScriptedProperty(object: robj, forProperty: KMBitmap.WidthItem)
 		if let val = robj.floatValue(forProperty: KMBitmap.WidthItem) {
 			self.minimumSize.width = CGFloat(val)
 		} else {
@@ -80,6 +81,7 @@ public class KMBitmap: KCBitmapView, AMBComponent
 		}
 
 		/* height */
+		addScriptedProperty(object: robj, forProperty: KMBitmap.HeightItem)
 		if let val = robj.floatValue(forProperty: KMBitmap.HeightItem) {
 			self.minimumSize.height = CGFloat(val)
 		} else {
@@ -87,6 +89,7 @@ public class KMBitmap: KCBitmapView, AMBComponent
 		}
 
 		/* rowCount */
+		addScriptedProperty(object: robj, forProperty: KMBitmap.RowCountItem)
 		if let val = robj.int32Value(forProperty: KMBitmap.RowCountItem) {
 			self.rowCount = Int(val)
 		} else {
@@ -94,21 +97,23 @@ public class KMBitmap: KCBitmapView, AMBComponent
 		}
 
 		/* columnCount */
+		addScriptedProperty(object: robj, forProperty: KMBitmap.ColumnCountItem)
 		if let val = robj.int32Value(forProperty: KMBitmap.ColumnCountItem) {
 			self.columnCount = Int(val)
 		} else {
 			robj.setInt32Value(value: Int32(self.columnCount), forProperty: KMBitmap.ColumnCountItem)
 		}
 
-		/* state property */
+		/* state: readonly */
+		addScriptedProperty(object: robj, forProperty: KMBitmap.StateItem)
 		robj.setInt32Value(value: Int32(self.state.rawValue), forProperty: KMBitmap.StateItem)
 		self.setCallback(updateStateCallback: {
 			(_ newstate: CNAnimationState) -> Void in
 			robj.setInt32Value(value: Int32(newstate.rawValue), forProperty: KMBitmap.StateItem)
 		})
-		robj.addScriptedPropertyName(name: KMBitmap.StateItem)
 
 		/* add start method */
+		addScriptedProperty(object: robj, forProperty: KMBitmap.StartItem)
 		let startfunc: @convention(block) (_ durval: JSValue, _ repval: JSValue) -> JSValue = {
 			(_ durval: JSValue, _ repval: JSValue) -> JSValue in
 			if durval.isNumber && repval.isNumber {
@@ -121,34 +126,33 @@ public class KMBitmap: KCBitmapView, AMBComponent
 			}
 		}
 		robj.setImmediateValue(value: JSValue(object: startfunc, in: robj.context), forProperty: KMBitmap.StartItem)
-		robj.addScriptedPropertyName(name: KMBitmap.StartItem)
 
 		/* add stop method */
+		addScriptedProperty(object: robj, forProperty: KMBitmap.StopItem)
 		let stopfunc: @convention(block) () -> JSValue = {
 			() -> JSValue in
 			self.stop()
 			return JSValue(bool: true, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: stopfunc, in: robj.context), forProperty: KMBitmap.StopItem)
-		robj.addScriptedPropertyName(name: KMBitmap.StopItem)
 
 		/* add suspend method */
+		addScriptedProperty(object: robj, forProperty: KMBitmap.SuspendItem)
 		let suspendfunc: @convention(block) () -> JSValue = {
 			() -> JSValue in
 			self.suspend()
 			return JSValue(bool: true, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: suspendfunc, in: robj.context), forProperty: KMBitmap.SuspendItem)
-		robj.addScriptedPropertyName(name: KMBitmap.SuspendItem)
 
 		/* add resume method */
+		addScriptedProperty(object: robj, forProperty: KMBitmap.ResumeItem)
 		let resumefunc: @convention(block) () -> JSValue = {
 			() -> JSValue in
 			self.resume()
 			return JSValue(bool: true, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: resumefunc, in: robj.context), forProperty: KMBitmap.ResumeItem)
-		robj.addScriptedPropertyName(name: KMBitmap.ResumeItem)
 
 		/* draw */
 		if let drawfnc = robj.immediateValue(forProperty: KMBitmap.DrawItem) {
