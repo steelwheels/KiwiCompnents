@@ -49,17 +49,20 @@ public class KMCollectionView: KCCollectionView, AMBComponent
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject	= robj
 
-		/* Sync initial value: isSelectable */
+		/* isSelectable */
+		addScriptedProperty(object: robj, forProperty: KMCollectionView.IsSelectableItem)
 		if let val = robj.boolValue(forProperty: KMCollectionView.IsSelectableItem) {
 			self.isSelectable = val
 		} else {
 			robj.setBoolValue(value: self.isSelectable, forProperty: KMCollectionView.IsSelectableItem)
 		}
 
-		/* Set initial value: sectionCount */
+		/* sectionCount (read only) */
+		addScriptedProperty(object: robj, forProperty: KMCollectionView.SectionCountItem)
 		robj.setInt32Value(value: 0, forProperty: KMCollectionView.SectionCountItem)
 
-		/* Add method: itemCount */
+		/* itemCount (method) */
+		addScriptedProperty(object: robj, forProperty: KMCollectionView.ItemCountItem)
 		let countfunc: @convention(block) (_ idx: JSValue) -> JSValue = {
 			(_ idx: JSValue) -> JSValue in
 			let result: JSValue
@@ -71,9 +74,9 @@ public class KMCollectionView: KCCollectionView, AMBComponent
 			return result
 		}
 		robj.setImmediateValue(value: JSValue(object: countfunc, in: robj.context), forProperty: KMCollectionView.ItemCountItem)
-		robj.addScriptedPropertyName(name: KMCollectionView.ItemCountItem)
 
-		/* Add method: store */
+		/* store (method) */
+		addScriptedProperty(object: robj, forProperty: KMCollectionView.StoreItem)
 		let storefunc: @convention(block) (_ value: JSValue) -> JSValue = {
 			(_ value: JSValue)  in
 			let result: Bool
@@ -86,10 +89,8 @@ public class KMCollectionView: KCCollectionView, AMBComponent
 			return JSValue(bool: result, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: storefunc, in: robj.context), forProperty: KMCollectionView.StoreItem)
-		robj.addScriptedPropertyName(name: KMCollectionView.StoreItem)
 
-
-		/* Set callback */
+		/* selected (callback) */
 		self.set(selectionCallback: {
 			(_ section: Int, _ item: Int) -> Void in
 			if let evtval = robj.immediateValue(forProperty: KMCollectionView.SelectedItem) {
