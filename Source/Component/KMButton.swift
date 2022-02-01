@@ -52,6 +52,7 @@ public class KMButton: KCButton, AMBComponent
 
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject	= robj
+
 		/* Add callbacks */
 		self.buttonPressedCallback = {
 			() -> Void in
@@ -62,14 +63,13 @@ public class KMButton: KCButton, AMBComponent
 			}
 		}
 
-		/* Sync initial value: isEnabled */
+		/* isEnabled property */
+		addScriptedProperty(object: robj, forProperty: KMButton.IsEnabledItem)
 		if let val = robj.boolValue(forProperty: KMButton.IsEnabledItem) {
 			self.isEnabled = val
 		} else {
 			robj.setBoolValue(value: self.isEnabled, forProperty: KMButton.IsEnabledItem)
 		}
-
-		/* Add listner: isEnabled */
 		robj.addObserver(forProperty: KMButton.IsEnabledItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.boolValue(forProperty: KMButton.IsEnabledItem) {
@@ -79,29 +79,14 @@ public class KMButton: KCButton, AMBComponent
 			}
 		})
 
-		/* Sync initial value: title */
+		/* title */
+		addScriptedProperty(object: robj, forProperty: KMButton.TitleItem)
 		if let val = robj.stringValue(forProperty: KMButton.TitleItem) {
-			switch val {
-			case "<-":	self.value = .symbol(.leftArrow)
-			case "->":	self.value = .symbol(.rightArrow)
-			default:	self.value = .text(val)
-			}
+			self.value = stringToValue(string: val)
 		} else {
-			let str: String
-			switch self.value {
-			case .text(let txt):	str = txt
-			case .symbol(let sym):
-				switch sym {
-				case .leftArrow:	str = "<-"
-				case .rightArrow:	str = "->"
-				@unknown default:	str = "?"
-				}
-			@unknown default:
-				str = "?"
-			}
+			let str = valueToString(value: self.value)
 			robj.setStringValue(value: str, forProperty: KMButton.TitleItem)
 		}
-		/* Add listner: title */
 		robj.addObserver(forProperty: KMButton.TitleItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.stringValue(forProperty: KMButton.TitleItem) {
@@ -112,6 +97,32 @@ public class KMButton: KCButton, AMBComponent
 		})
 
 		return nil
+	}
+
+	private func stringToValue(string str: String) -> KCButtonValue {
+		let result: KCButtonValue
+		switch str {
+		case "<-":	result = .symbol(.leftArrow)
+		case "->":	result = .symbol(.rightArrow)
+		default:	result = .text(str)
+		}
+		return result
+	}
+
+	private func valueToString(value val: KCButtonValue) -> String {
+		let result: String
+		switch val {
+		case .text(let txt):		result = txt
+		case .symbol(let sym):
+			switch sym {
+			case .leftArrow:	result = "<-"
+			case .rightArrow:	result = "->"
+			@unknown default:	result = "?"
+			}
+		@unknown default:
+			result = "?"
+		}
+		return result
 	}
 
 	public func accept(visitor vst: KMVisitor) {

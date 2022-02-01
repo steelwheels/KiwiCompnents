@@ -41,7 +41,7 @@ top: VBox {
 You can see the full implementation at [bitmap.jspkg](https://github.com/steelwheels/JSTerminal/tree/master/Resource/Sample/bitmap.jspkg).
 
 
-## Syntax
+## Properties
 
 |Property name  |Type       |Description        |
 |:--            |:--        |:--                |
