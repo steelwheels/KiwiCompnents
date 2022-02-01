@@ -54,7 +54,8 @@ public class KMCardView: KCCardView, AMBComponent
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject	= robj
 
-		/* Sync initial value: axis */
+		/* axis */
+		addScriptedProperty(object: robj, forProperty: KMCardView.AxisItem)
 		if let val = robj.int32Value(forProperty: KMCardView.AxisItem) {
 			if let axisval = CNAxis(rawValue: Int32(val)) {
 				self.axis = axisval
@@ -64,7 +65,6 @@ public class KMCardView: KCCardView, AMBComponent
 		} else {
 			robj.setInt32Value(value: self.axis.rawValue, forProperty: KMCardView.AxisItem)
 		}
-		/* Add listner: axis */
 		robj.addObserver(forProperty: KMCardView.AxisItem, callback:  {
 			(_ val: Any) -> Void in
 			if let val = robj.int32Value(forProperty: KMCardView.AxisItem) {
@@ -78,7 +78,8 @@ public class KMCardView: KCCardView, AMBComponent
 			}
 		})
 
-		/* Sync initial value: alignment */
+		/* alignment */
+		addScriptedProperty(object: robj, forProperty: KMCardView.AlignmentItem)
 		if let val = robj.int32Value(forProperty: KMCardView.AlignmentItem) {
 			if let alignval = CNAlignment(rawValue: val) {
 				CNExecuteInMainThread(doSync: false, execute: {
@@ -90,7 +91,6 @@ public class KMCardView: KCCardView, AMBComponent
 		} else {
 			robj.setInt32Value(value: self.alignment.rawValue, forProperty: KMCardView.AlignmentItem)
 		}
-		/* Add listner: alignment */
 		robj.addObserver(forProperty: KMCardView.AlignmentItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.int32Value(forProperty: KMCardView.AxisItem) {
@@ -104,7 +104,8 @@ public class KMCardView: KCCardView, AMBComponent
 			}
 		})
 
-		/* Sync initial value: distribution */
+		/* distribution */
+		addScriptedProperty(object: robj, forProperty: KMCardView.DistributionItem)
 		if let val = robj.int32Value(forProperty: KMCardView.DistributionItem) {
 			if let distval = CNDistribution(rawValue: val) {
 				self.distribution = distval
@@ -114,7 +115,6 @@ public class KMCardView: KCCardView, AMBComponent
 		} else {
 			robj.setInt32Value(value: self.distribution.rawValue, forProperty: KMCardView.DistributionItem)
 		}
-		/* Add listner: distribution */
 		robj.addObserver(forProperty: KMCardView.DistributionItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.int32Value(forProperty: KMCardView.DistributionItem) {
@@ -128,8 +128,13 @@ public class KMCardView: KCCardView, AMBComponent
 			}
 		})
 
-		/* Set initial value for index */
-		robj.setInt32Value(value: Int32(self.currentIndex), forProperty: KMCardView.IndexItem)
+		/* Set index */
+		addScriptedProperty(object: robj, forProperty: KMCardView.IndexItem)
+		if let val = robj.int32Value(forProperty: KMCardView.IndexItem) {
+			let _ = self.setIndex(index: Int(val))
+		} else {
+			robj.setInt32Value(value: Int32(self.currentIndex), forProperty: KMCardView.IndexItem)
+		}
 		robj.addObserver(forProperty: KMCardView.IndexItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.int32Value(forProperty: KMCardView.IndexItem) {
@@ -143,6 +148,7 @@ public class KMCardView: KCCardView, AMBComponent
 			}
 		})
 		robj.addScriptedPropertyName(name: KMCardView.IndexItem)
+
 		return nil
 	}
 

@@ -51,13 +51,13 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject	= robj
 
-		/* Sync initial value: status */
+		/* status */
+		addScriptedProperty(object: robj, forProperty: KMCheckBox.StatusItem)
 		if let val = robj.boolValue(forProperty: KMCheckBox.StatusItem) {
 			self.status = val
 		} else {
 			robj.setBoolValue(value: self.status, forProperty: KMCheckBox.StatusItem)
 		}
-		/* Add listner: status */
 		robj.addObserver(forProperty: KMCheckBox.StatusItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.boolValue(forProperty: KMCheckBox.StatusItem) {
@@ -69,13 +69,13 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 			}
 		})
 
-		/* Sync initial value: isEnabled */
+		/* isEnabled */
+		addScriptedProperty(object: robj, forProperty: KMCheckBox.IsEnabledItem)
 		if let val = robj.boolValue(forProperty: KMCheckBox.IsEnabledItem) {
 			self.isEnabled = val
 		} else {
 			robj.setBoolValue(value: self.isEnabled, forProperty: KMCheckBox.IsEnabledItem)
 		}
-		/* Add listner: isEnabled */
 		robj.addObserver(forProperty: KMCheckBox.IsEnabledItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.boolValue(forProperty: KMCheckBox.IsEnabledItem) {
@@ -87,13 +87,13 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 			}
 		})
 
-		/* Sync initial value: title */
+		/* Sync title */
+		addScriptedProperty(object: robj, forProperty: KMCheckBox.TitleItem)
 		if let val = robj.stringValue(forProperty: KMCheckBox.TitleItem) {
 			self.title = val
 		} else {
 			robj.setStringValue(value: self.title, forProperty: KMCheckBox.TitleItem)
 		}
-		/* Add listner: title */
 		robj.addObserver(forProperty: KMCheckBox.TitleItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.stringValue(forProperty: KMCheckBox.TitleItem) {

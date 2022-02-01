@@ -1,15 +1,37 @@
 # CheckBox component
 The check box to toggle ON/OFF value.
 
-## Syntax
+## Samble
 ````
-box: CheckBox {
-    isEnabled:  Bool true,
-    title:      String "Button title",
-    pressed: Event(status: Bool) %{
-        console.log("status = " status) ;
-    %}
+top: VBox {
+    checkbox: CheckBox {
+        title:     String "Do you understand ?"
+        isEnabled: Bool  true
+        pressed: Event() %{
+                console.log("pressed: " + self.status) ;
+        %}
+    }
+    ...
 }
+````
+
+![CheckBox View](./Images/checkbox-view.png)
+
+You can see the entire script at [checkbox.jspkg](https://github.com/steelwheels/JSTerminal/tree/master/Resource/Sample/checkbox.jspkg).
+
+## Properties
+|Property name  |Type       |Description        |
+|:--            |:--        |:--                |
+|status         |bool       |The status of checkbox. True: checked, False: Not checked. |
+|title          |string     |The label of the checkbox |
+|isEnabled      |boolean    |Activate/inactivate check box |
+
+## Methods
+### `pressed` method
+````
+pressed: Event() %{
+        ...
+%}
 ````
 
 ## Reference

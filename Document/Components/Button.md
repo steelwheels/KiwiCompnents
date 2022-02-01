@@ -1,6 +1,7 @@
 # Button component
 The button to be pressed.
 
+## Sample
 ````
 top: VBox {
     ok_button: Button {
