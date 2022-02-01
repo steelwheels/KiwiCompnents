@@ -50,13 +50,13 @@ public class KMContactDatabase: AMBComponentObject
 			}
 		})
 
-		/* Index property */
+		/* Index */
+		addScriptedProperty(object: robj, forProperty: KMContactDatabase.IndexItem)
 		if let val = robj.int32Value(forProperty: KMContactDatabase.IndexItem) {
 			mCurrentIndex = Int(val)
 		} else {
 			robj.setInt32Value(value: Int32(mCurrentIndex), forProperty: KMContactDatabase.IndexItem)
 		}
-		/* Add listner: index */
 		robj.addObserver(forProperty: KMContactDatabase.IndexItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.int32Value(forProperty: KMContactDatabase.IndexItem) {
@@ -64,13 +64,13 @@ public class KMContactDatabase: AMBComponentObject
 			}
 		})
 
-		/* Record property */
-		//robj.setImmediateValue(value: JSValue(nullIn: robj.context), forProperty: KMContactDatabase.RecordItem)
-		robj.addScriptedPropertyName(name: KMContactDatabase.RecordItem)
+		/* record */
+		addScriptedProperty(object: robj, forProperty: KMContactDatabase.RecordItem)
+		robj.setImmediateValue(value: JSValue(nullIn: robj.context), forProperty: KMContactDatabase.RecordItem)
 
-		/* Set initial value: count */
+		/* count */
+		addScriptedProperty(object: robj, forProperty: KMContactDatabase.CountItem)
 		robj.setInt32Value(value: Int32(db.recordCount), forProperty: KMContactDatabase.CountItem)
-		robj.addScriptedPropertyName(name: KMContactDatabase.CountItem)
 
 		return nil
 	}

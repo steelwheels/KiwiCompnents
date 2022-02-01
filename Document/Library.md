@@ -4,6 +4,7 @@
 This document describes list of classes and functions for component programming.
 
 ### Components
+* [AddressBook](Components/AddressBook.md): The addressbook database
 * [Bitmap](Components/Bitmap.md): 2D bitmap
 * [Box](Components/Box.md): The box to contain multiple modules vertically or holizontaly.
 * [Button](Components/Button.md): The press button
