@@ -13,10 +13,10 @@ top: VBox {
 			%}
 	    }
 		graphics: Graphics2D {
-			origin_x: Float -1.0
-			origin_y: Float -1.0
-			size_x:   Float  2.0
-			size_y:   Float  2.0
+			xOrigin:  Float -1.0
+			yOrigin:  Float -1.0
+			xSize:    Float  2.0
+			ySize:    Float  2.0
 			draw: Event(context, count) %{
 				//console.log("[Grahics2D] " + count) ;
 				let lframe = context.logicalFrame ;

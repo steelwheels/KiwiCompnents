@@ -20,10 +20,10 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 {
 	public static let 	WidthItem	= "width"
 	public static let	HeightItem	= "height"
-	public static let 	SizeXItem	= "size_x"
-	public static let 	SizeYItem	= "size_y"
-	public static let 	OriginXItem	= "origin_x"
-	public static let 	OriginYItem	= "origin_y"
+	public static let 	SizeXItem	= "xSize"
+	public static let 	SizeYItem	= "ySize"
+	public static let 	OriginXItem	= "xOrigin"
+	public static let 	OriginYItem	= "yOrigin"
 	public static let	StateItem	= "state"
 	public static let 	StartItem	= "start"
 	public static let	StopItem	= "stop"
@@ -75,6 +75,7 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 		mConsole	= cons
 
 		/* width */
+		addScriptedProperty(object: robj, forProperty: KMGraphics2D.WidthItem)
 		if let val = robj.floatValue(forProperty: KMGraphics2D.WidthItem) {
 			self.minimumSize.width = CGFloat(val)
 		} else {
@@ -82,49 +83,55 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 		}
 
 		/* height */
+		addScriptedProperty(object: robj, forProperty: KMGraphics2D.HeightItem)
 		if let val = robj.floatValue(forProperty: KMGraphics2D.HeightItem) {
 			self.minimumSize.height = CGFloat(val)
 		} else {
 			robj.setFloatValue(value: Double(self.minimumSize.height), forProperty: KMGraphics2D.HeightItem)
 		}
 
-		/* size-x */
+		/* xSize */
+		addScriptedProperty(object: robj, forProperty: KMGraphics2D.SizeXItem)
 		if let val = robj.floatValue(forProperty: KMGraphics2D.SizeXItem) {
 			self.logicalFrame.size.width = CGFloat(val)
 		} else {
 			robj.setFloatValue(value: Double(self.logicalFrame.size.width), forProperty: KMGraphics2D.SizeXItem)
 		}
 
-		/* size-y */
+		/* ySize */
+		addScriptedProperty(object: robj, forProperty: KMGraphics2D.SizeYItem)
 		if let val = robj.floatValue(forProperty: KMGraphics2D.SizeYItem) {
 			self.logicalFrame.size.height = CGFloat(val)
 		} else {
 			robj.setFloatValue(value: Double(self.logicalFrame.size.height), forProperty: KMGraphics2D.SizeYItem)
 		}
 
-		/* origin-x */
+		/* xOrigin */
+		addScriptedProperty(object: robj, forProperty: KMGraphics2D.OriginXItem)
 		if let val = robj.floatValue(forProperty: KMGraphics2D.OriginXItem) {
 			self.logicalFrame.origin.x = CGFloat(val)
 		} else {
 			robj.setFloatValue(value: Double(self.logicalFrame.origin.x), forProperty: KMGraphics2D.OriginXItem)
 		}
 
-		/* origin-y */
+		/* yOrigin */
+		addScriptedProperty(object: robj, forProperty: KMGraphics2D.OriginYItem)
 		if let val = robj.floatValue(forProperty: KMGraphics2D.OriginYItem) {
 			self.logicalFrame.origin.y = CGFloat(val)
 		} else {
 			robj.setFloatValue(value: Double(self.logicalFrame.origin.y), forProperty: KMGraphics2D.OriginYItem)
 		}
 
-		/* state property */
+		/* state */
+		addScriptedProperty(object: robj, forProperty: KMGraphics2D.StateItem)
 		robj.setInt32Value(value: Int32(self.state.rawValue), forProperty: KMGraphics2D.StateItem)
 		self.setCallback(updateStateCallback: {
 			(_ newstate: CNAnimationState) -> Void in
 			robj.setInt32Value(value: Int32(newstate.rawValue), forProperty: KMGraphics2D.StateItem)
 		})
-		robj.addScriptedPropertyName(name: KMGraphics2D.StateItem)
 
-		/* add start method */
+		/* start method */
+		addScriptedProperty(object: robj, forProperty: KMGraphics2D.StartItem)
 		let startfunc: @convention(block) (_ durval: JSValue, _ repval: JSValue) -> JSValue = {
 			(_ durval: JSValue, _ repval: JSValue) -> JSValue in
 			if durval.isNumber && repval.isNumber {
@@ -137,34 +144,33 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 			}
 		}
 		robj.setImmediateValue(value: JSValue(object: startfunc, in: robj.context), forProperty: KMGraphics2D.StartItem)
-		robj.addScriptedPropertyName(name: KMGraphics2D.StartItem)
 
 		/* add stop method */
+		addScriptedProperty(object: robj, forProperty: KMGraphics2D.StopItem)
 		let stopfunc: @convention(block) () -> JSValue = {
 			() -> JSValue in
 			self.stop()
 			return JSValue(bool: true, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: stopfunc, in: robj.context), forProperty: KMGraphics2D.StopItem)
-		robj.addScriptedPropertyName(name: KMGraphics2D.StopItem)
 
 		/* add suspend method */
+		addScriptedProperty(object: robj, forProperty: KMGraphics2D.SuspendItem)
 		let suspendfunc: @convention(block) () -> JSValue = {
 			() -> JSValue in
 			self.suspend()
 			return JSValue(bool: true, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: suspendfunc, in: robj.context), forProperty: KMGraphics2D.SuspendItem)
-		robj.addScriptedPropertyName(name: KMGraphics2D.SuspendItem)
 
 		/* add resume method */
+		addScriptedProperty(object: robj, forProperty: KMGraphics2D.ResumeItem)
 		let resumefunc: @convention(block) () -> JSValue = {
 			() -> JSValue in
 			self.resume()
 			return JSValue(bool: true, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: resumefunc, in: robj.context), forProperty: KMGraphics2D.ResumeItem)
-		robj.addScriptedPropertyName(name: KMGraphics2D.ResumeItem)
 
 		/* draw */
 		if let drawfnc = robj.immediateValue(forProperty: KMGraphics2D.DrawItem) {
