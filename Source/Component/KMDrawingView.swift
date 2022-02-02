@@ -54,6 +54,7 @@ public class KMDrawingView: KCDrawingView, AMBComponent
 		mReactObject	= robj
 
 		/* width */
+		addScriptedProperty(object: robj, forProperty: KMDrawingView.WidthItem)
 		if let val = robj.floatValue(forProperty: KMDrawingView.WidthItem) {
 			self.drawingWidth = CGFloat(val)
 		} else {
@@ -62,6 +63,7 @@ public class KMDrawingView: KCDrawingView, AMBComponent
 		}
 
 		/* height */
+		addScriptedProperty(object: robj, forProperty: KMDrawingView.HeightItem)
 		if let val = robj.floatValue(forProperty: KMDrawingView.HeightItem) {
 			self.drawingHeight = CGFloat(val)
 		} else {
@@ -70,6 +72,7 @@ public class KMDrawingView: KCDrawingView, AMBComponent
 		}
 
 		/* Add method: load */
+		addScriptedProperty(object: robj, forProperty: KMDrawingView.LoadItem)
 		let loadfunc: @convention(block) (_ urlval: JSValue) -> JSValue = {
 			(_ urlval: JSValue) in
 			var result = false
@@ -87,9 +90,9 @@ public class KMDrawingView: KCDrawingView, AMBComponent
 			return JSValue(bool: result, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: loadfunc, in: robj.context), forProperty: KMDrawingView.LoadItem)
-		robj.addScriptedPropertyName(name: KMDrawingView.LoadItem)
 
 		/* Add method: store */
+		addScriptedProperty(object: robj, forProperty: KMDrawingView.StoreItem)
 		let storefunc: @convention(block) (_ urlval: JSValue) -> JSValue = {
 			(_ urlval: JSValue) in
 			var result = false
@@ -102,7 +105,6 @@ public class KMDrawingView: KCDrawingView, AMBComponent
 			return JSValue(bool: result, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: storefunc, in: robj.context), forProperty: KMDrawingView.StoreItem)
-		robj.addScriptedPropertyName(name: KMDrawingView.StoreItem)
 
 		return nil
 	}
