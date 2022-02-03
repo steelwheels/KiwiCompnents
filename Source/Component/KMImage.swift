@@ -48,13 +48,13 @@ public class KMImage: KCImageView, AMBComponent
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject	= robj
 
-		/* Sync initial value: name */
+		/* name */
+		addScriptedProperty(object: robj, forProperty: KMImage.NameItem)
 		if let name = robj.stringValue(forProperty: KMImage.NameItem) {
 			setImage(byName: name, console: cons)
 		} else {
 			robj.setStringValue(value: "", forProperty: KMImage.NameItem)
 		}
-		/* Add listner: name */
 		robj.addObserver(forProperty: KMImage.NameItem, callback: {
 			(_ param: Any) -> Void in
 			if let name = robj.stringValue(forProperty: KMImage.NameItem) {
@@ -66,13 +66,13 @@ public class KMImage: KCImageView, AMBComponent
 			}
 		})
 
-		/* Sync initial value: scale */
+		/* scale */
+		addScriptedProperty(object: robj, forProperty: KMImage.ScaleItem)
 		if let scale = robj.floatValue(forProperty: KMImage.ScaleItem) {
 			self.scale = CGFloat(scale)
 		} else {
 			robj.setFloatValue(value: Double(self.scale), forProperty: KMImage.ScaleItem)
 		}
-		/* Add listner: scale */
 		robj.addObserver(forProperty: KMImage.ScaleItem, callback: {
 			(_ param: Any) -> Void in
 			if let scale = robj.floatValue(forProperty: KMImage.ScaleItem) {

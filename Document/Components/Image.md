@@ -1,14 +1,25 @@
 # Image component
 The graphics image
 
-## Syntax
+## Sanple
 ````
-mig: Image {
-    name:   String "image_name",       
-    scale:  Float 1.0
+img: Image {
+  name:   String "amber"
+  scale:  Float  0.5
 }
 ````
-The `image_name` is defined in [manifest.json](https://github.com/steelwheels/JSTools/blob/master/Document/jspkg.md) as a part of image section.
+
+![Image View](./Images/image-view.png)
+
+You can see the full implementation at [image.jspkg](https://github.com/steelwheels/JSTerminal/tree/master/Resource/Sample/image.jspkg).
+
+## Properties
+|Property name  |Type   |Description            |
+|:--            |:--    |:--                    | 
+|name           |string |Name of image          |
+|scale          |number |Scale of the image. The default value is 1.0. |
+
+The `name` must be defined in [manifest.json](https://github.com/steelwheels/JSTools/blob/master/Document/jspkg.md) as a part of image section.
 The `scale` define the size of image in the view. The default value is 1.0.
 
 ## Reference
