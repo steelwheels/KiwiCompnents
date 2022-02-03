@@ -6,6 +6,7 @@ The icon which can be clicked.
 icon: Icon {
   image:  String "terminal"
   title:  String "Terminal Icon"
+  scale:  Float  0.0
   selected: Event() %{
     console.log("clicked") ;
   %}

@@ -60,13 +60,13 @@ public class KMIcon: KCIconView, AMBComponent
 			}
 		}
 
-		/* Sync initial value: image */
+		/* image */
+		addScriptedProperty(object: robj, forProperty: KMIcon.ImageItem)
 		if let name = robj.stringValue(forProperty: KMIcon.ImageItem) {
 			setIcon(byName: name, console: cons)
 		} else {
 			robj.setStringValue(value: "", forProperty: KMIcon.ImageItem)
 		}
-		/* Add listner: image */
 		robj.addObserver(forProperty: KMIcon.ImageItem, callback: {
 			(_ param: Any) -> Void in
 			if let name = robj.stringValue(forProperty: KMIcon.ImageItem) {
@@ -78,13 +78,13 @@ public class KMIcon: KCIconView, AMBComponent
 			}
 		})
 
-		/* Sync initial value: title */
+		/* title */
+		addScriptedProperty(object: robj, forProperty: KMIcon.TitleItem)
 		if let ttl = robj.stringValue(forProperty: KMIcon.TitleItem) {
 			self.title = ttl
 		} else {
 			robj.setStringValue(value: "Untitled", forProperty: KMIcon.TitleItem)
 		}
-		/* Add listner: title */
 		robj.addObserver(forProperty: KMIcon.TitleItem, callback: {
 			(_ param: Any) -> Void in
 			if let ttl = robj.stringValue(forProperty: KMIcon.TitleItem) {
@@ -96,13 +96,13 @@ public class KMIcon: KCIconView, AMBComponent
 			}
 		})
 
-		/* Sync initial value: scale */
+		/* scale */
+		addScriptedProperty(object: robj, forProperty: KMIcon.ScaleItem)
 		if let sclval = robj.floatValue(forProperty: KMIcon.ScaleItem) {
 			self.scale = CGFloat(sclval)
 		} else {
 			robj.setFloatValue(value: 1.0, forProperty: KMIcon.ScaleItem)
 		}
-		/* Add listner: label */
 		robj.addObserver(forProperty: KMIcon.ScaleItem, callback: {
 			(_ param: Any) -> Void in
 			if let sclval = robj.floatValue(forProperty: KMIcon.ScaleItem) {
