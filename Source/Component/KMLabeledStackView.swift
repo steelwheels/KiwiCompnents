@@ -18,7 +18,7 @@ import UIKit
 public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 {
 	static let AxisItem		= "axis"
-	static let AlignmentItem	= "align"
+	static let AlignmentItem	= "alignment"
 	static let DistributionItem	= "distribution"
 	static let TitleItem		= "title"
 

@@ -17,7 +17,7 @@ import UIKit
 public class KMStackView: KCStackView, AMBComponent
 {
 	static let AxisItem		= "axis"
-	static let AlignmentItem	= "align"
+	static let AlignmentItem	= "alignment"
 	static let DistributionItem	= "distribution"
 
 	private var mReactObject:	AMBReactObject?

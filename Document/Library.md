@@ -6,17 +6,15 @@ This document describes list of classes and functions for component programming.
 ### Components
 * [AddressBook](Components/AddressBook.md): The addressbook database
 * [Bitmap](Components/Bitmap.md): 2D bitmap
-* [Box](Components/Box.md): The box to contain multiple modules vertically or holizontaly.
+* [Box](Components/Box.md): The box to contain multiple modules vertically or holizontaly. There are `HBox`, `VBox` and `LabeledBox`.
 * [Button](Components/Button.md): The press button
 * [CheckBox](Components/CheckBox.md): The check box. It has toggle switch and text label. 
 * [CollectionView](Components/CollectionView.md): The table of images which can be selected by the user.
 * [DrawingView](Components/DrawingView.md): The canvas which is drawn by the user.
 * [Graphics2D](Components/Graphics2D.md): 2D graphics
-* [HBox/VBox](Components/Box.md): Holizontal view box
 * [Icon](Components/Icon.md): The pressable icon
 * [Image](Components/Image.md): The graphical image
 * [Label](Components/TextField.md): The fixed text label.
-* [LabeledBox](): Labeled view box
 * [PopupMenu](Components/PopupMenu.md): Popup menu which has multiple string items.
 * [Stepper](Components/Stepper.md): Set the value of limited number.
 * [Table](Components/Table.md): N x M cells on the table.
