@@ -53,6 +53,7 @@ public class KMPopupMenu: KCPopupMenu, AMBComponent
 		mReactObject	= robj
 
 		/* items */
+		addScriptedProperty(object: robj, forProperty: KMPopupMenu.ItemsItem)
 		if let val = robj.arrayValue(forProperty: KMPopupMenu.ItemsItem) {
 			if let arr = val as? Array<String> {
 				super.removeAllItems()
@@ -78,12 +79,8 @@ public class KMPopupMenu: KCPopupMenu, AMBComponent
 			}
 		})
 
-		/* Index */
-		if let _ = robj.int32Value(forProperty: KMPopupMenu.IndexItem) {
-			/* Already allocated, but the parameter is ignored */
-		} else {
-			robj.addScriptedPropertyName(name: KMPopupMenu.IndexItem)
-		}
+		/* Index (readonly) */
+		addScriptedProperty(object: robj, forProperty: KMPopupMenu.IndexItem)
 		robj.setInt32Value(value: Int32(self.indexOfSelectedItem), forProperty: KMPopupMenu.IndexItem)
 
 		/* Callback */

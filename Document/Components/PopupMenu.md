@@ -1,17 +1,29 @@
 # PopupMenu Component
 
-## Syntax
+## Sample
 ````
-menu: PopupMenu {
-  items: Array ["a", "b", "c"]
-  //index: Int   0
-  selected: Event(index) %{
-    console.log("selected = " + index) ;
-  %}
+top: VBox {
+    index: Int 0
+    menu: PopupMenu {
+        items: Array ["item-a", "item-b", "item-c"]
+        selected: Event(index) %{
+                console.log("selected = " + index) ;
+                top.index = index ;
+        %}
+    }
+    ok_button: Button {
+        title:  String "OK"
+        pressed: Event() %{
+                console.log("pressed: OK -> " + top.index) ;
+                leaveView(1) ;
+        %}
+    }
 }
 ````
 
 ![Popup-menu View](./Images/popup-menu-view.png)
+
+You can find the entire implementation at [popup-menu.jspkg](https://github.com/steelwheels/JSTerminal/tree/master/Resource/Sample/popup-menu.jspkg).
 
 ### Properties
 |Name   |Type           |Description                        |
