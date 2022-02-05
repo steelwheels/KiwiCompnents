@@ -76,7 +76,9 @@ public class KMStepper: KCStepper, AMBComponent
 		robj.addObserver(forProperty: KMStepper.IsIncrementableItem, callback:  {
 			(_ val: Any) -> Void in
 			if let val = robj.boolValue(forProperty: KMStepper.IsIncrementableItem) {
-				self.isIncrementable = val
+				CNExecuteInMainThread(doSync: false, execute: {
+					() -> Void in self.isIncrementable = val
+				})
 			}
 		})
 
@@ -90,7 +92,9 @@ public class KMStepper: KCStepper, AMBComponent
 		robj.addObserver(forProperty: KMStepper.IsDecrementableItem, callback:  {
 			(_ val: Any) -> Void in
 			if let val = robj.boolValue(forProperty: KMStepper.IsDecrementableItem) {
-				self.isDecrementable = val
+				CNExecuteInMainThread(doSync: false, execute: {
+					() -> Void in self.isDecrementable = val
+				})
 			}
 		})
 
@@ -104,7 +108,9 @@ public class KMStepper: KCStepper, AMBComponent
 		robj.addObserver(forProperty: KMStepper.MaxValueItem, callback:  {
 			(_ val: Any) -> Void in
 			if let val = robj.floatValue(forProperty: KMStepper.MaxValueItem) {
-				self.maxValue = val
+				CNExecuteInMainThread(doSync: false, execute: {
+					() -> Void in self.maxValue = val
+				})
 			}
 		})
 
@@ -118,7 +124,9 @@ public class KMStepper: KCStepper, AMBComponent
 		robj.addObserver(forProperty: KMStepper.MinValueItem, callback:  {
 			(_ val: Any) -> Void in
 			if let val = robj.floatValue(forProperty: KMStepper.MinValueItem) {
-				self.minValue = val
+				CNExecuteInMainThread(doSync: false, execute: {
+					() -> Void in self.minValue = val
+				})
 			}
 		})
 
@@ -132,7 +140,9 @@ public class KMStepper: KCStepper, AMBComponent
 		robj.addObserver(forProperty: KMStepper.DeltaValueItem, callback:  {
 			(_ val: Any) -> Void in
 			if let val = robj.floatValue(forProperty: KMStepper.DeltaValueItem) {
-				self.deltaValue = val
+				CNExecuteInMainThread(doSync: false, execute: {
+					() -> Void in self.deltaValue = val
+				})
 			}
 		})
 
@@ -154,7 +164,9 @@ public class KMStepper: KCStepper, AMBComponent
 		robj.addObserver(forProperty: KMStepper.DecimalPlacesItem, callback:  {
 			(_ val: Any) -> Void in
 			if let val = robj.int32Value(forProperty: KMStepper.DecimalPlacesItem) {
-				self.decimalPlaces = Int(val)
+				CNExecuteInMainThread(doSync: false, execute: {
+					() -> Void in self.decimalPlaces = Int(val)
+				})
 			}
 		})
 

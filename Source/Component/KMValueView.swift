@@ -52,12 +52,12 @@ public class KMValueView: KCValueView, AMBComponent
 		mReactObject	= robj
 
 		/* Sync initial value: "value" */
+		addScriptedProperty(object: robj, forProperty: KMValueView.ValueItem)
 		if let val = robj.immediateValue(forProperty: KMValueView.ValueItem) {
 			self.value = val.toNativeValue()
 		} else {
 			let val = self.value.toJSValue(context: robj.context)
 			robj.setImmediateValue(value: val, forProperty: KMValueView.ValueItem)
-			robj.addScriptedPropertyName(name: KMValueView.ValueItem)
 		}
 		robj.addObserver(forProperty: KMValueView.ValueItem, callback: {
 			(_ param: Any) -> Void in
