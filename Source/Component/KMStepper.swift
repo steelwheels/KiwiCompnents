@@ -66,12 +66,12 @@ public class KMStepper: KCStepper, AMBComponent
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject = robj
 
-		/* Define property: isIncrementable */
+		/* isIncrementable */
+		addScriptedProperty(object: robj, forProperty: KMStepper.IsIncrementableItem)
 		if let val = robj.boolValue(forProperty: KMStepper.IsIncrementableItem) {
 			self.isIncrementable = val
 		} else {
 			robj.setBoolValue(value: self.isIncrementable, forProperty: KMStepper.IsIncrementableItem)
-			robj.addScriptedPropertyName(name: KMStepper.IsIncrementableItem)
 		}
 		robj.addObserver(forProperty: KMStepper.IsIncrementableItem, callback:  {
 			(_ val: Any) -> Void in
@@ -80,12 +80,12 @@ public class KMStepper: KCStepper, AMBComponent
 			}
 		})
 
-		/* Define property: isDecrementable */
+		/* isDecrementable */
+		addScriptedProperty(object: robj, forProperty: KMStepper.IsDecrementableItem)
 		if let val = robj.boolValue(forProperty: KMStepper.IsDecrementableItem) {
 			self.isDecrementable = val
 		} else {
 			robj.setBoolValue(value: self.isDecrementable, forProperty: KMStepper.IsDecrementableItem)
-			robj.addScriptedPropertyName(name: KMStepper.IsDecrementableItem)
 		}
 		robj.addObserver(forProperty: KMStepper.IsDecrementableItem, callback:  {
 			(_ val: Any) -> Void in
@@ -94,12 +94,12 @@ public class KMStepper: KCStepper, AMBComponent
 			}
 		})
 
-		/* Define property: maxValue */
+		/* maxValue */
+		addScriptedProperty(object: robj, forProperty: KMStepper.MaxValueItem)
 		if let val = robj.floatValue(forProperty: KMStepper.MaxValueItem) {
 			self.maxValue = val
 		} else {
 			robj.setFloatValue(value: self.maxValue, forProperty: KMStepper.MaxValueItem)
-			robj.addScriptedPropertyName(name: KMStepper.MaxValueItem)
 		}
 		robj.addObserver(forProperty: KMStepper.MaxValueItem, callback:  {
 			(_ val: Any) -> Void in
@@ -108,12 +108,12 @@ public class KMStepper: KCStepper, AMBComponent
 			}
 		})
 
-		/* Define property: minValue */
+		/* minValue */
+		addScriptedProperty(object: robj, forProperty: KMStepper.MinValueItem)
 		if let val = robj.floatValue(forProperty: KMStepper.MinValueItem) {
 			self.minValue = val
 		} else {
 			robj.setFloatValue(value: self.minValue, forProperty: KMStepper.MinValueItem)
-			robj.addScriptedPropertyName(name: KMStepper.MinValueItem)
 		}
 		robj.addObserver(forProperty: KMStepper.MinValueItem, callback:  {
 			(_ val: Any) -> Void in
@@ -122,12 +122,12 @@ public class KMStepper: KCStepper, AMBComponent
 			}
 		})
 
-		/* Define property: deltaValue */
+		/* deltaValue */
+		addScriptedProperty(object: robj, forProperty: KMStepper.DeltaValueItem)
 		if let val = robj.floatValue(forProperty: KMStepper.DeltaValueItem) {
 			self.deltaValue = val
 		} else {
 			robj.setFloatValue(value: self.deltaValue, forProperty: KMStepper.DeltaValueItem)
-			robj.addScriptedPropertyName(name: KMStepper.DeltaValueItem)
 		}
 		robj.addObserver(forProperty: KMStepper.DeltaValueItem, callback:  {
 			(_ val: Any) -> Void in
@@ -136,20 +136,20 @@ public class KMStepper: KCStepper, AMBComponent
 			}
 		})
 
-		/* Define property: currentValue */
+		/* currentValue */
+		addScriptedProperty(object: robj, forProperty: KMStepper.CurrentValueItem)
 		if let val = robj.floatValue(forProperty: KMStepper.CurrentValueItem) {
 			self.currentValue = val
 		} else {
 			robj.setFloatValue(value: self.currentValue, forProperty: KMStepper.CurrentValueItem)
-			robj.addScriptedPropertyName(name: KMStepper.CurrentValueItem)
 		}
 
-		/* Define property: decimalPlaces */
+		/* decimalPlaces */
+		addScriptedProperty(object: robj, forProperty: KMStepper.DecimalPlacesItem)
 		if let val = robj.int32Value(forProperty: KMStepper.DecimalPlacesItem) {
 			self.decimalPlaces = Int(val)
 		} else {
 			robj.setInt32Value(value: Int32(self.decimalPlaces), forProperty: KMStepper.DecimalPlacesItem)
-			robj.addScriptedPropertyName(name: KMStepper.DecimalPlacesItem)
 		}
 		robj.addObserver(forProperty: KMStepper.DecimalPlacesItem, callback:  {
 			(_ val: Any) -> Void in
@@ -158,7 +158,7 @@ public class KMStepper: KCStepper, AMBComponent
 			}
 		})
 
-		/* Add callbacks */
+		/* "changed" callbacks */
 		self.updateValueCallback = {
 			(_ newval: Double) -> Void in
 			if let evtval = robj.immediateValue(forProperty: KMStepper.ChangedItem) {

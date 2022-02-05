@@ -22,6 +22,7 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 	public static let IsBezeledItem		= "isBezeled"
 	public static let FontSizeItem		= "fontSize"
 	public static let EditedItem		= "edited"
+	public static let DecimalPlacesItem	= "decimalPlaces"
 
 	private var mReactObject:	AMBReactObject?
 	private var mChildComponents:	Array<AMBComponent>
@@ -56,12 +57,12 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject	= robj
 
-		/* Setup: text */
+		/* text */
+		addScriptedProperty(object: robj, forProperty: KMTextEdit.TextItem)
 		if let val = robj.stringValue(forProperty: KMTextEdit.TextItem) {
 			super.text = val
 		} else {
 			robj.setStringValue(value: self.text, forProperty: KMTextEdit.TextItem)
-			robj.addScriptedPropertyName(name: KMTextEdit.TextItem)
 		}
 		robj.addObserver(forProperty: KMTextEdit.TextItem, callback: {
 			(_ param: Any) -> Void in
@@ -72,12 +73,12 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 			}
 		})
 
-		/* Setup: number */
+		/* number */
+		addScriptedProperty(object: robj, forProperty: KMTextEdit.NumberItem)
 		if let val = robj.numberValue(forProperty: KMTextEdit.NumberItem) {
 			super.number = val
 		} else {
 			/* Initialization is NOT executed because self.text will be initialized */
-			robj.addScriptedPropertyName(name: KMTextEdit.NumberItem)
 		}
 		robj.addObserver(forProperty: KMTextEdit.NumberItem, callback: {
 			(_ param: Any) -> Void in
@@ -88,12 +89,12 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 			}
 		})
 
-		/* Setup: isBezeled */
+		/* isBezeled */
+		addScriptedProperty(object: robj, forProperty: KMTextEdit.IsBezeledItem)
 		if let val = robj.boolValue(forProperty: KMTextEdit.IsBezeledItem) {
 			super.isBezeled = val
 		} else {
 			robj.setBoolValue(value: super.isBezeled, forProperty: KMTextEdit.IsBezeledItem)
-			robj.addScriptedPropertyName(name: KMTextEdit.IsBezeledItem)
 		}
 		robj.addObserver(forProperty: KMTextEdit.IsBezeledItem, callback: {
 			(_ param: Any) -> Void in
@@ -104,19 +105,35 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 			}
 		})
 
-		/* Setup: fontSize */
+		/* fontSize */
+		addScriptedProperty(object: robj, forProperty: KMTextEdit.FontSizeItem)
 		if let val = robj.int32Value(forProperty: KMTextEdit.FontSizeItem) {
 			super.font = CNFont.systemFont(ofSize: CGFloat(val))
 		} else {
 			let val = Int32(CNFont.systemFontSize)
 			robj.setInt32Value(value: val, forProperty: KMTextEdit.FontSizeItem)
-			robj.addScriptedPropertyName(name: KMTextEdit.FontSizeItem)
 		}
 		robj.addObserver(forProperty: KMTextEdit.FontSizeItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.int32Value(forProperty: KMTextEdit.FontSizeItem) {
 				CNExecuteInMainThread(doSync: false, execute: {
 					super.font = CNFont.systemFont(ofSize: CGFloat(val))
+				})
+			}
+		})
+
+		/* decimalPlaces */
+		addScriptedProperty(object: robj, forProperty: KMTextEdit.DecimalPlacesItem)
+		if let val = robj.int32Value(forProperty: KMTextEdit.DecimalPlacesItem) {
+			super.decimalPlaces = Int(val)
+		} else {
+			robj.setInt32Value(value: Int32(self.decimalPlaces), forProperty: KMTextEdit.DecimalPlacesItem)
+		}
+		robj.addObserver(forProperty: KMTextEdit.DecimalPlacesItem, callback: {
+			(_ param: Any) -> Void in
+			if let val = robj.int32Value(forProperty: KMTextEdit.DecimalPlacesItem) {
+				CNExecuteInMainThread(doSync: false, execute: {
+					self.decimalPlaces = Int(val)
 				})
 			}
 		})
