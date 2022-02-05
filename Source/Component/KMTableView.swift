@@ -65,6 +65,7 @@ public class KMTableView: KCTableView, AMBComponent
 		self.isEnable = true
 
 		/* Sync initial value: hasHeader */
+		addScriptedProperty(object: robj, forProperty: KMTableView.HasHeaderItem)
 		if let val = robj.boolValue(forProperty: KMTableView.HasHeaderItem) {
 			CNExecuteInMainThread(doSync: false, execute: {
 				self.hasHeader = val
@@ -88,8 +89,8 @@ public class KMTableView: KCTableView, AMBComponent
 		}
 
 		/* allocate status listner */
+		addScriptedProperty(object: robj, forProperty: KMTableView.IsDirtyItem)
 		robj.setBoolValue(value: false, forProperty: KMTableView.IsDirtyItem)
-		robj.addScriptedPropertyName(name: KMTableView.IsDirtyItem)
 
 		super.stateListner = {
 			(_ state: DataState) -> Void in
@@ -106,6 +107,7 @@ public class KMTableView: KCTableView, AMBComponent
 		}
 
 		/* add load table method */
+		addScriptedProperty(object: robj, forProperty: KMTableView.StoreItem)
 		let storefunc: @convention(block) (_ tblval: JSValue) -> JSValue = {
 			(_ tblval: JSValue) -> JSValue in
 			NSLog("store table")
@@ -113,9 +115,9 @@ public class KMTableView: KCTableView, AMBComponent
 			return retval
 		}
 		robj.setImmediateValue(value: JSValue(object: storefunc, in: robj.context), forProperty: KMTableView.StoreItem)
-		robj.addScriptedPropertyName(name: KMTableView.StoreItem)
 
 		/* Add fieldNames property */
+		addScriptedProperty(object: robj, forProperty: KMTableView.FieldNamesItem)
 		if let fvals = robj.arrayValue(forProperty: KMTableView.FieldNamesItem) {
 			var result: Array<ActiveFieldName> = []
 			for elm in fvals {
@@ -135,31 +137,26 @@ public class KMTableView: KCTableView, AMBComponent
 			}
 		} else {
 			robj.setArrayValue(value: [], forProperty: KMTableView.FieldNamesItem)
-			robj.addScriptedPropertyName(name: KMTableView.FieldNamesItem)
 		}
 
-		/* Add row/column count properties */
-		if robj.int32Value(forProperty: KMTableView.RowCountItem) == nil {
-			robj.addScriptedPropertyName(name: KMTableView.RowCountItem)
-		}
-		if robj.int32Value(forProperty: KMTableView.ColumnCountItem) == nil {
-			robj.addScriptedPropertyName(name: KMTableView.ColumnCountItem)
-		}
+		/* Add row/column count properties. The value will be updated in setupSizeInfo */
+		addScriptedProperty(object: robj, forProperty: KMTableView.RowCountItem)
+		addScriptedProperty(object: robj, forProperty: KMTableView.ColumnCountItem)
 
 		/* Add isSelectable properties */
+		addScriptedProperty(object: robj, forProperty: KMTableView.IsSelectableItem)
 		if let val = robj.boolValue(forProperty: KMTableView.IsSelectableItem) {
 			self.isSelectable = val
 		} else {
 			robj.setBoolValue(value: self.isSelectable, forProperty: KMTableView.IsSelectableItem)
-			robj.addScriptedPropertyName(name: KMTableView.IsSelectableItem)
 		}
 
 		/* Add didSelected properties */
+		addScriptedProperty(object: robj, forProperty: KMTableView.DidSelectedItem)
 		if let val = robj.boolValue(forProperty: KMTableView.DidSelectedItem) {
 			robj.setBoolValue(value: val, forProperty: KMTableView.DidSelectedItem)
 		} else {
 			robj.setBoolValue(value: false, forProperty: KMTableView.DidSelectedItem)
-			robj.addScriptedPropertyName(name: KMTableView.DidSelectedItem)
 		}
 		super.didSelectedCallback = {
 			(_ selected: Bool) -> Void in
@@ -167,11 +164,11 @@ public class KMTableView: KCTableView, AMBComponent
 		}
 
 		/* Add visibleRowCount property */
+		addScriptedProperty(object: robj, forProperty: KMTableView.VisibleRowCountItem)
 		if let val = robj.int32Value(forProperty: KMTableView.VisibleRowCountItem) {
 			self.visibleRowCount = Int(val)
 		} else {
 			robj.setInt32Value(value: Int32(self.visibleRowCount), forProperty: KMTableView.VisibleRowCountItem)
-			robj.addScriptedPropertyName(name: KMTableView.VisibleRowCountItem)
 		}
 
 		setupSizeInfo()

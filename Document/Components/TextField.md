@@ -32,7 +32,7 @@ top: VBox {
 ````
 ![TextField](./Images/text-field-view.png)
 
-You can find the entire example at [text-field-1.jspkg](https://github.com/steelwheels/JSTerminal/tree/master/Resource/Sample/text-field-1.jspkg).
+You can find the entire example at [text-field-1.jspkg](https://github.com/steelwheels/JSTerminal/tree/master/Resource/Sample/text-field.jspkg).
 
 ## Syntax
 ## Property values
