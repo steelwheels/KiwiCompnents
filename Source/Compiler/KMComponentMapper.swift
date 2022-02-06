@@ -58,7 +58,7 @@ public class KMComponentMapper: AMBComponentMapper
 			hassubview  = false
 		case "Label":
 			let comp    = KMTextEdit()
-			comp.format	= .text
+			comp.isBold 	= true
 			comp.isEditable	= false
 			newcomp		= comp
 			hassubview	= false
@@ -79,7 +79,7 @@ public class KMComponentMapper: AMBComponentMapper
 			hassubview  = false
 		case "TextField":
 			let comp    = KMTextEdit()
-			comp.format	= .text
+			comp.isBold	= false
 			comp.isEditable	= true
 			newcomp		= comp
 			hassubview	= false

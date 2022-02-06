@@ -9,14 +9,14 @@ top: VBox {
         fontSize: FontSize large
     }
     label_int: Label {
-        number:        Float  1234.567
-        isBezeled:     Bool   true
-        isEnabled:     Bool   false
-        deciamlPlaces: Int    2
+        number:        Float 1234.567
+        isEnabled:     Bool  false
+        decimalPlaces: Int   2
     }
     edit_str: TextField {
         text:       String "Editable Field"
         isEnabled:  Bool   true
+        isEditable: Bool   true
         edited: Event(str) %{
                 console.log("edited result = " + str) ;
         %}
@@ -28,7 +28,6 @@ top: VBox {
         %}
     }
 }
-
 ````
 ![TextField](./Images/text-field-view.png)
 
@@ -41,8 +40,9 @@ You can find the entire example at [text-field-1.jspkg](https://github.com/steel
 |text           |string  |Set the string in the field |
 |number         |numner  |Set the string describing it |
 |fontSize       |[FontSize](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Enum/FontSize.md) | Size of font |
+|isEnabled      |boolean |Activate display |
 |isEditable     |boolean |Set editable or not    |
-|isBezeled      |boolean |Set bezele ON/OFF      |
+|isBold         |boolean |Use bold font (text only) |
 |decimalPlaces  |number  |Decimal places for floating point number |
 |edited         |event   |The Event function (See the specification of [amber language](https://github.com/steelwheels/Amber/blob/master/Document/amber-language.md)) which is called when the context is edited. |
 

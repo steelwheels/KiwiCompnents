@@ -19,7 +19,8 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 {
 	public static let TextItem		= "text"
 	public static let NumberItem		= "number"
-	public static let IsBezeledItem		= "isBezeled"
+	public static let IsBoldItem		= "isBold"
+	public static let IsEditableItem	= "isEditable"
 	public static let FontSizeItem		= "fontSize"
 	public static let EditedItem		= "edited"
 	public static let DecimalPlacesItem	= "decimalPlaces"
@@ -57,50 +58,36 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject	= robj
 
-		/* text */
-		addScriptedProperty(object: robj, forProperty: KMTextEdit.TextItem)
-		if let val = robj.stringValue(forProperty: KMTextEdit.TextItem) {
-			super.text = val
+		/* isBold */
+		addScriptedProperty(object: robj, forProperty: KMTextEdit.IsBoldItem)
+		if let val = robj.boolValue(forProperty: KMTextEdit.IsBoldItem) {
+			super.isBold = val
 		} else {
-			robj.setStringValue(value: self.text, forProperty: KMTextEdit.TextItem)
+			let val = Bool(super.isBold)
+			robj.setBoolValue(value: val, forProperty: KMTextEdit.IsBoldItem)
 		}
-		robj.addObserver(forProperty: KMTextEdit.TextItem, callback: {
+		robj.addObserver(forProperty: KMTextEdit.IsBoldItem, callback: {
 			(_ param: Any) -> Void in
-			if let val = robj.stringValue(forProperty: KMTextEdit.TextItem) {
+			if let val = robj.boolValue(forProperty: KMTextEdit.IsBoldItem) {
 				CNExecuteInMainThread(doSync: false, execute: {
-					self.text = val
+					super.isBold = val
 				})
 			}
 		})
 
-		/* number */
-		addScriptedProperty(object: robj, forProperty: KMTextEdit.NumberItem)
-		if let val = robj.numberValue(forProperty: KMTextEdit.NumberItem) {
-			super.number = val
+		/* isEditable */
+		addScriptedProperty(object: robj, forProperty: KMTextEdit.IsEditableItem)
+		if let val = robj.boolValue(forProperty: KMTextEdit.IsEditableItem) {
+			super.isEditable = val
 		} else {
-			/* Initialization is NOT executed because self.text will be initialized */
+			let val = Bool(super.isEditable)
+			robj.setBoolValue(value: val, forProperty: KMTextEdit.IsEditableItem)
 		}
-		robj.addObserver(forProperty: KMTextEdit.NumberItem, callback: {
+		robj.addObserver(forProperty: KMTextEdit.IsEditableItem, callback: {
 			(_ param: Any) -> Void in
-			if let val = robj.numberValue(forProperty: KMTextEdit.NumberItem) {
+			if let val = robj.boolValue(forProperty: KMTextEdit.IsEditableItem) {
 				CNExecuteInMainThread(doSync: false, execute: {
-					self.number = val
-				})
-			}
-		})
-
-		/* isBezeled */
-		addScriptedProperty(object: robj, forProperty: KMTextEdit.IsBezeledItem)
-		if let val = robj.boolValue(forProperty: KMTextEdit.IsBezeledItem) {
-			super.isBezeled = val
-		} else {
-			robj.setBoolValue(value: super.isBezeled, forProperty: KMTextEdit.IsBezeledItem)
-		}
-		robj.addObserver(forProperty: KMTextEdit.IsBezeledItem, callback: {
-			(_ param: Any) -> Void in
-			if let val = robj.boolValue(forProperty: KMTextEdit.IsBezeledItem) {
-				CNExecuteInMainThread(doSync: false, execute: {
-					super.isBezeled = val
+					super.isEditable = val
 				})
 			}
 		})
@@ -151,6 +138,39 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 				}
 			}
 		}
+
+		/* text: this must be placed at last */
+		addScriptedProperty(object: robj, forProperty: KMTextEdit.TextItem)
+		if let val = robj.stringValue(forProperty: KMTextEdit.TextItem) {
+			super.text = val
+		} else {
+			robj.setStringValue(value: self.text, forProperty: KMTextEdit.TextItem)
+		}
+		robj.addObserver(forProperty: KMTextEdit.TextItem, callback: {
+			(_ param: Any) -> Void in
+			if let val = robj.stringValue(forProperty: KMTextEdit.TextItem) {
+				CNExecuteInMainThread(doSync: false, execute: {
+					self.text = val
+				})
+			}
+		})
+
+		/* number: this must be placed at last */
+		addScriptedProperty(object: robj, forProperty: KMTextEdit.NumberItem)
+		if let val = robj.numberValue(forProperty: KMTextEdit.NumberItem) {
+			super.number = val
+		} else {
+			/* Initialization is NOT executed because self.text will be initialized */
+		}
+		robj.addObserver(forProperty: KMTextEdit.NumberItem, callback: {
+			(_ param: Any) -> Void in
+			if let val = robj.numberValue(forProperty: KMTextEdit.NumberItem) {
+				CNExecuteInMainThread(doSync: false, execute: {
+					self.number = val
+				})
+			}
+		})
+
 		return nil
 	}
 

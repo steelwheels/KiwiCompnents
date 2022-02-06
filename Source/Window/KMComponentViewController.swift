@@ -221,7 +221,7 @@ open class KMComponentViewController: KCSingleViewController
 		box.axis = .vertical
 
 		let message  = KCTextEdit()
-		message.format	   = .text
+		message.isBold	   = true
 		message.isEditable = false
 		message.text       = "Failed to load context"
 		box.addArrangedSubView(subView: message)
