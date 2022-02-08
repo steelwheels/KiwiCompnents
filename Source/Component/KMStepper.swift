@@ -153,6 +153,14 @@ public class KMStepper: KCStepper, AMBComponent
 		} else {
 			robj.setFloatValue(value: self.currentValue, forProperty: KMStepper.CurrentValueItem)
 		}
+		robj.addObserver(forProperty: KMStepper.CurrentValueItem, callback:  {
+			(_ val: Any) -> Void in
+			if let val = robj.floatValue(forProperty: KMStepper.CurrentValueItem) {
+				CNExecuteInMainThread(doSync: false, execute: {
+					() -> Void in self.currentValue = val
+				})
+			}
+		})
 
 		/* decimalPlaces */
 		addScriptedProperty(object: robj, forProperty: KMStepper.DecimalPlacesItem)
