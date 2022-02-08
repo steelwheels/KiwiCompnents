@@ -17,7 +17,7 @@ function alert(message) {
 }
 function enterView(path) {
     let sem = new Semaphore(0);
-    let result = -1;
+    let result = null;
     _enterView(path, function (retval) {
         result = retval;
         sem.signal(); // Tell finish operation

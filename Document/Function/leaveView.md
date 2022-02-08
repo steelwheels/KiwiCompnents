@@ -1,18 +1,16 @@
 # `leaveView` function
-Switch to the previous view
+Return to the previous view
 
 ## Prototype
+The `leaveView` function switch to the previous view. The function [enterView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/enterView.md) is used to switch to the new view. This function is used to return to the previous view.
 ````
 leaveView(retval: number) ;
 ````
 
-## Description
-The `leaveView` function switch to the previous view. The function [enterView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/enterView.md) is used to switch to the new view. This function is used to return to the previous view.
-
 ## Parameters(s)
 |Name |Type |Description |
 |:--  |:--  |:--         |
-|retval |number |The return value.|
+|retval |any |The return value.|
 
 The parameter is used as the return value. See [enterView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/enterView.md) function.
 
