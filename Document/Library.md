@@ -16,6 +16,7 @@ This document describes list of classes and functions for component programming.
 * [Image](Components/Image.md): The graphical image
 * [Label](Components/TextField.md): The fixed text label.
 * [PopupMenu](Components/PopupMenu.md): Popup menu which has multiple string items.
+* [RadioButtons](Components/RadioButtons.md): The button groups to select one item.
 * [Stepper](Components/Stepper.md): Set the value of limited number.
 * [Table](Components/Table.md): N x M cells on the table.
 * [Terminal](): Terminal view based on escape sequence.
