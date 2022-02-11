@@ -21,6 +21,8 @@ open class KMVisitor
 			visit(cardView: card)
 		} else if let cbox = comp as? KMCheckBox {
 			visit(checkBox: cbox)
+		} else if let cbox = comp as? KMRadioButtons {
+			visit(radioButtons: cbox)
 		} else if let cbox = comp as? KMContactDatabase {
 			visit(contactDatabase: cbox)
 		} else if let gr2d  = comp as? KMGraphics2D {
@@ -56,6 +58,7 @@ open class KMVisitor
 	open func visit(button view: KMButton){ }
 	open func visit(cardView view: KMCardView){ }
 	open func visit(checkBox view: KMCheckBox){ }
+	open func visit(radioButtons view: KMRadioButtons){ }
 	open func visit(contactDatabase view: KMContactDatabase){ }
 	open func visit(drawingView view: KMDrawingView){ }
 	open func visit(graphics2D view: KMGraphics2D){ }

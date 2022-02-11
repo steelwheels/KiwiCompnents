@@ -51,6 +51,10 @@ public class KMComponentLinker: KMVisitor
 		/* Do nothing */
 	}
 
+	public override func visit(radioButtons view: KMRadioButtons){
+		/* Do nothing */
+	}
+
 	public override func visit(contactDatabase db: KMContactDatabase){
 		/* Do nothing */
 	}
