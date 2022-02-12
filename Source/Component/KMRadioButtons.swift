@@ -95,7 +95,9 @@ public class KMRadioButtons: KCRadioButtons, AMBComponent
 		robj.addObserver(forProperty: KMRadioButtons.IsEnabledItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.arrayValue(forProperty: KMRadioButtons.IsEnabledItem) {
-				self.setEnable(scriptValue: val)
+				CNExecuteInMainThread(doSync: false, execute: {
+					self.setEnable(scriptValue: val)
+				})
 			} else {
 				CNLog(logLevel: .error, message: "Invalid property: name=\(KMRadioButtons.IsEnabledItem)", atFunction: #function, inFile: #file)
 			}
