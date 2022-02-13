@@ -8,7 +8,7 @@ top: VBox {
         title:     String "OK"
         isEnabled: Bool  true
         pressed: Event() %{
-                console.log("pressed: OK") ;
+                console.print("pressed: OK\n") ;
                 leaveView(1) ;
         %}
     }
@@ -16,7 +16,7 @@ top: VBox {
         title:     String "->"
         isEnabled: Bool  true
         pressed: Event() %{
-                console.log("pressed: right arrow") ;
+                console.print("pressed: right arrow\n") ;
                 leaveView(1) ;
         %}
     }
@@ -24,7 +24,7 @@ top: VBox {
         title:  String "Cancel"
         isEnabled: Bool  true
         pressed: Event() %{
-                console.log("pressed: Cancel") ;
+                console.print("pressed: Cancel\n") ;
                 leaveView(0) ;
         %}
     }

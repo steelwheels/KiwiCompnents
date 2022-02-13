@@ -9,7 +9,7 @@ top: VBox {
         isEnabled:   Array      [true, true, true, false]
         columnCount: Int        3
         selected: Event(newidx) %{
-                console.log("new-index: " + newidx) ;
+                console.print("new-index: " + newidx + "\n") ;
         %}
     }
     ...

@@ -18,8 +18,8 @@ top: VBox {
                         self.store(col0) ;
                 %}
                 selected: Event(section, item) %{
-                        console.log("selected: " + section + ", " + item) ;
-                        console.log("itemCount: " + self.itemCount(section));
+                        console.print("selected: " + section + ", " + item + "\n") ;
+                        console.print("itemCount: " + self.itemCount(section) + "\n");
                 %}
         }
         ...

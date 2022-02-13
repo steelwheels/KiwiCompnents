@@ -25,12 +25,12 @@ This is main function:
 ````
 function main(args)
 {
-	console.log("Hello, world !!") ;
+	console.print("Hello, world !!\n") ;
          /* The return value will be given from
           * leaveView() function call in main view
           */
 	let retval = enterView("main") ;
-	console.log("from-main: " + retval) ;
+	console.print("from-main: " + retval + "\n") ;
 }
 ````
 
@@ -44,7 +44,7 @@ top: VBox {
                  * leaveView() function call in sub view
                  */
 		let ret = enterView("sub") ;
-		console.log("from-sub : " + ret) ;
+		console.print("from-sub : " + ret + "\n") ;
         %}
     }
     quit_button: Button {

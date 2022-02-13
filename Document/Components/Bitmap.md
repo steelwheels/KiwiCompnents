@@ -28,7 +28,7 @@ top: VBox {
                         grp.stop() ;
                     break ;
                     case AnimationState.pause:
-                        console.log("No effect") ;
+                        console.print("No effect\n") ;
                     break ;
                 }
             %}

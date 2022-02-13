@@ -12,7 +12,7 @@ The controller which to give the limited number.
   isIncrementable: Bool    true
   isDecrementable: Bool    true
   changed: Event(newval) %{
-    console.log("changed: " + newval) ;
+    console.print("changed: " + newval + "\n") ;
   %}
 }
 ````
@@ -37,7 +37,7 @@ You can find the full implementation of above script at [stepper.jspkg](https://
 The `changed` event function will be called when the current value is changed.
 ````
 changed: Event(newval: number): void %{
-    console.log("changed: " + newval) ;
+    console.print("changed: " + newval + "\n") ;
 %}
 ````
 

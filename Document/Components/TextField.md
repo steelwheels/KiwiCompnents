@@ -18,7 +18,7 @@ top: VBox {
         isEnabled:  Bool   true
         isEditable: Bool   true
         edited: Event(str) %{
-                console.log("edited result = " + str) ;
+                console.print("edited result = " + str + "\n") ;
         %}
     }
     quit_button: Button {

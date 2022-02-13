@@ -8,7 +8,7 @@ icon: Icon {
   title:  String "Terminal Icon"
   scale:  Float  0.0
   selected: Event() %{
-    console.log("clicked") ;
+    console.print("clicked\n") ;
   %}
 }
 ````

@@ -8,7 +8,7 @@ top: VBox {
         title:     String "Do you understand ?"
         isEnabled: Bool  true
         pressed: Event() %{
-                console.log("pressed: " + self.status) ;
+                console.print("pressed: " + self.status + "\n") ;
         %}
     }
     ...

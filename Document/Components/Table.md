@@ -21,8 +21,8 @@ top: VBox {
                 self.store(table) ;
         %}
         pressed: Event(row, col) %{
-                console.log("row    = " + row + "/" + self.rowCount) ;
-                console.log("column = " + col + "/" + self.columnCount) ;
+                console.print("row    = " + row + "/" + self.rowCount + "\n") ;
+                console.print("column = " + col + "/" + self.columnCount + "\n") ;
         %}
     }
     selected_button: Button {

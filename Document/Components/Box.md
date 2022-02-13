@@ -7,11 +7,11 @@ top: VBox {
         h_box: HBox {
                 button00: Button {
                         title:  String          "Button00"
-                        pressed: Event() %{ console.log("pressed: 00") ; %}
+                        pressed: Event() %{ console.print("pressed: 00\n") ; %}
                 }
                 button01: Button {
                         title:  String "Button01"
-                        pressed: Event() %{ console.log("pressed: 01") ; %}
+                        pressed: Event() %{ console.print("pressed: 01\n") ; %}
                 }
         }
         v_box: VBox {
@@ -19,11 +19,11 @@ top: VBox {
                 distribution:   Distribution    fill
                 ok_button: Button {
                         title:  String "Button10"
-                        pressed: Event() %{ console.log("pressed: 10") ; %}
+                        pressed: Event() %{ console.print("pressed: 10\n") ; %}
                 }
                 calcel_button: Button {
                         title:  String "Button11"
-                        pressed: Event() %{ console.log("pressed: 11") ; %}
+                        pressed: Event() %{ console.print("pressed: 11\n") ; %}
                 }
         }
         l_box: LabeledBox {
