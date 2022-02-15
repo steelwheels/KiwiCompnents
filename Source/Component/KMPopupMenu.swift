@@ -62,7 +62,7 @@ public class KMPopupMenu: KCPopupMenu, AMBComponent
 				cons.error(string: "Invalid value for popup menu items [0]: \(val)\n")
 			}
 		} else {
-			let empty: Array<String> = []
+			let empty: Array<CNValue> = []
 			robj.setArrayValue(value: empty, forProperty: KMPopupMenu.ItemsItem)
 		}
 		robj.addObserver(forProperty: KMPopupMenu.ItemsItem, callback: {
