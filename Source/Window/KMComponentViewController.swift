@@ -266,7 +266,7 @@ open class KMComponentViewController: KCSingleViewController
 				if root.hasCoreView {
 					let exec = AMBComponentExecutor(console: self.globalConsole)
 					let comp:AMBComponent = root.getCoreView()
-					exec.exec(component: comp)
+					exec.exec(component: comp, console: self.globalConsole)
 				} else {
 					CNLog(logLevel: .error, message: "No core view in root", atFunction: #function, inFile: #file)
 				}
