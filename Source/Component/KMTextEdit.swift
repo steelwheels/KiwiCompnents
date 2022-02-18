@@ -17,13 +17,13 @@ import UIKit
 
 public class KMTextEdit: KCTextEdit, AMBComponent
 {
-	public static let TextItem		= "text"
-	public static let NumberItem		= "number"
-	public static let IsBoldItem		= "isBold"
-	public static let IsEditableItem	= "isEditable"
-	public static let FontSizeItem		= "fontSize"
-	public static let EditedItem		= "edited"
-	public static let DecimalPlacesItem	= "decimalPlaces"
+	private static let TextItem		= "text"
+	private static let NumberItem		= "number"
+	private static let IsBoldItem		= "isBold"
+	private static let IsEditableItem	= "isEditable"
+	private static let FontSizeItem		= "fontSize"
+	private static let EditedItem		= "edited"
+	private static let DecimalPlacesItem	= "decimalPlaces"
 
 	private var mReactObject:	AMBReactObject?
 	private var mChildComponents:	Array<AMBComponent>
@@ -72,6 +72,9 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 				CNExecuteInMainThread(doSync: false, execute: {
 					super.isBold = val
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMTextEdit.IsBoldItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMTextEdit.IsBoldItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -89,6 +92,9 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 				CNExecuteInMainThread(doSync: false, execute: {
 					super.isEditable = val
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMTextEdit.IsEditableItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMTextEdit.IsEditableItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -106,6 +112,9 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 				CNExecuteInMainThread(doSync: false, execute: {
 					super.font = CNFont.systemFont(ofSize: CGFloat(val))
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMTextEdit.FontSizeItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMTextEdit.FontSizeItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -122,6 +131,9 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 				CNExecuteInMainThread(doSync: false, execute: {
 					self.decimalPlaces = Int(val)
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMTextEdit.DecimalPlacesItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMTextEdit.DecimalPlacesItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -152,6 +164,9 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 				CNExecuteInMainThread(doSync: false, execute: {
 					self.text = val
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMTextEdit.TextItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMTextEdit.TextItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -168,6 +183,9 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 				CNExecuteInMainThread(doSync: false, execute: {
 					self.number = val
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMTextEdit.NumberItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMTextEdit.NumberItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 

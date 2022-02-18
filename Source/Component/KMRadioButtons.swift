@@ -122,7 +122,8 @@ public class KMRadioButtons: KCRadioButtons, AMBComponent
 						evtval.call(withArguments: [robj, idxval])	// insert self, index
 					})
 				} else {
-					CNLog(logLevel: .error, message: "Failed to allocate object", atFunction: #function, inFile: #file)
+					let ival = robj.immediateValue(forProperty: KMRadioButtons.SelectedItem)
+					CNLog(logLevel: .error, message: "Invalid property: name=\(KMRadioButtons.SelectedItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 				}
 			}
 		}

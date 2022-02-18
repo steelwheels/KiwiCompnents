@@ -19,14 +19,14 @@ import AppKit
 
 public class KMStepper: KCStepper, AMBComponent
 {
-	static let IsIncrementableItem	= "isIncrementable"
-	static let IsDecrementableItem	= "isDecrementable"
-	static let MaxValueItem		= "maxValue"
-	static let MinValueItem		= "minValue"
-	static let DeltaValueItem	= "deltaValue"
-	static let CurrentValueItem	= "currentValue"
-	static let DecimalPlacesItem	= "decimalPlaces"
-	static let ChangedItem		= "changed"
+	private static let IsIncrementableItem	= "isIncrementable"
+	private static let IsDecrementableItem	= "isDecrementable"
+	private static let MaxValueItem		= "maxValue"
+	private static let MinValueItem		= "minValue"
+	private static let DeltaValueItem	= "deltaValue"
+	private static let CurrentValueItem	= "currentValue"
+	private static let DecimalPlacesItem	= "decimalPlaces"
+	private static let ChangedItem		= "changed"
 	
 	private var mReactObject:	AMBReactObject?
 	private var mChildObjects:	Array<AMBComponentObject>
@@ -79,6 +79,9 @@ public class KMStepper: KCStepper, AMBComponent
 				CNExecuteInMainThread(doSync: false, execute: {
 					() -> Void in self.isIncrementable = val
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMStepper.IsIncrementableItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMStepper.IsIncrementableItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -95,6 +98,9 @@ public class KMStepper: KCStepper, AMBComponent
 				CNExecuteInMainThread(doSync: false, execute: {
 					() -> Void in self.isDecrementable = val
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMStepper.IsDecrementableItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMStepper.IsDecrementableItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -111,6 +117,9 @@ public class KMStepper: KCStepper, AMBComponent
 				CNExecuteInMainThread(doSync: false, execute: {
 					() -> Void in self.maxValue = val
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMStepper.MaxValueItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMStepper.MaxValueItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -127,6 +136,9 @@ public class KMStepper: KCStepper, AMBComponent
 				CNExecuteInMainThread(doSync: false, execute: {
 					() -> Void in self.minValue = val
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMStepper.MinValueItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMStepper.MinValueItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -143,6 +155,9 @@ public class KMStepper: KCStepper, AMBComponent
 				CNExecuteInMainThread(doSync: false, execute: {
 					() -> Void in self.deltaValue = val
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMStepper.DeltaValueItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMStepper.DeltaValueItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -159,6 +174,9 @@ public class KMStepper: KCStepper, AMBComponent
 				CNExecuteInMainThread(doSync: false, execute: {
 					() -> Void in self.currentValue = val
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMStepper.CurrentValueItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMStepper.CurrentValueItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -175,6 +193,9 @@ public class KMStepper: KCStepper, AMBComponent
 				CNExecuteInMainThread(doSync: false, execute: {
 					() -> Void in self.decimalPlaces = Int(val)
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMStepper.DecimalPlacesItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMStepper.DecimalPlacesItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 

@@ -16,7 +16,7 @@ import UIKit
 
 public class KMValueView: KCValueView, AMBComponent
 {
-	static let ValueItem    =	"value"
+	private static let ValueItem    =	"value"
 
 	private var mReactObject:	AMBReactObject?
 	private var mChildComponents:	Array<AMBComponent>
@@ -65,6 +65,9 @@ public class KMValueView: KCValueView, AMBComponent
 				CNExecuteInMainThread(doSync: false, execute: {
 					self.value = val.toNativeValue()
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMValueView.ValueItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMValueView.ValueItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 		return nil

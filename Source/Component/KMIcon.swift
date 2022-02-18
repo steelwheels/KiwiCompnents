@@ -74,7 +74,8 @@ public class KMIcon: KCIconView, AMBComponent
 					self.setIcon(byName: name, console: cons)
 				})
 			} else {
-				cons.error(string: "No name to load image\n")
+				let ival = robj.immediateValue(forProperty: KMIcon.ImageItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMIcon.ImageItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -92,7 +93,8 @@ public class KMIcon: KCIconView, AMBComponent
 					super.title = ttl
 				})
 			} else {
-				cons.error(string: "No name to load image\n")
+				let ival = robj.immediateValue(forProperty: KMIcon.TitleItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMIcon.TitleItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -110,7 +112,8 @@ public class KMIcon: KCIconView, AMBComponent
 					super.scale = CGFloat(sclval)
 				})
 			} else {
-				cons.error(string: "No name to load image\n")
+				let ival = robj.immediateValue(forProperty: KMIcon.ScaleItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMIcon.ScaleItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 

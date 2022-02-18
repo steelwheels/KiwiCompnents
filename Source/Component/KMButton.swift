@@ -16,9 +16,9 @@ import UIKit
 
 public class KMButton: KCButton, AMBComponent
 {
-	static let PressedItem		= "pressed"
-	static let IsEnabledItem	= "isEnabled"
-	static let TitleItem		= "title"
+	private static let PressedItem		= "pressed"
+	private static let IsEnabledItem	= "isEnabled"
+	private static let TitleItem		= "title"
 
 	private var mReactObject:	AMBReactObject?
 
@@ -76,6 +76,9 @@ public class KMButton: KCButton, AMBComponent
 				CNExecuteInMainThread(doSync: false, execute: {
 					self.isEnabled = val
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMButton.IsEnabledItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMButton.IsEnabledItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -93,6 +96,9 @@ public class KMButton: KCButton, AMBComponent
 				CNExecuteInMainThread(doSync: false, execute: {
 					self.value = .text(val)
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMButton.TitleItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMButton.TitleItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 

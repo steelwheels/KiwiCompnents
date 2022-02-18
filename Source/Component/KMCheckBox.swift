@@ -17,10 +17,10 @@ import UIKit
 
 public class KMCheckBox: KCCheckBox, AMBComponent
 {
-	static let StatusItem		= "status"
-	static let IsEnabledItem	= "isEnabled"
-	static let PressedItem		= "pressed"
-	static let TitleItem		= "title"
+	private static let StatusItem		= "status"
+	private static let IsEnabledItem	= "isEnabled"
+	private static let PressedItem		= "pressed"
+	private static let TitleItem		= "title"
 
 	private var mReactObject:	AMBReactObject?
 
@@ -66,6 +66,9 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 						self.status = val
 					}
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMCheckBox.StatusItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMCheckBox.StatusItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -84,6 +87,9 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 						self.isEnabled = val
 					}
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMCheckBox.IsEnabledItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMCheckBox.IsEnabledItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -100,6 +106,9 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 				CNExecuteInMainThread(doSync: false, execute: {
 					self.title = val
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMCheckBox.TitleItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMCheckBox.TitleItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -115,6 +124,9 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 				} else {
 					NSLog("Failed to allocate object at \(#function)")
 				}
+			} else {
+				let ival = robj.immediateValue(forProperty: KMCheckBox.PressedItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMCheckBox.PressedItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		}
 

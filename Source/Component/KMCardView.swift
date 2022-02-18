@@ -16,10 +16,10 @@ import UIKit
 
 public class KMCardView: KCCardView, AMBComponent
 {
-	static let AxisItem		= "axis"
-	static let AlignmentItem	= "align"
-	static let DistributionItem	= "distribution"
-	static let IndexItem		= "index"
+	private static let AxisItem		= "axis"
+	private static let AlignmentItem	= "align"
+	private static let DistributionItem	= "distribution"
+	private static let IndexItem		= "index"
 
 	private var mReactObject:	AMBReactObject?
 	private var mChildObjects:	Array<AMBComponentObject>
@@ -75,6 +75,9 @@ public class KMCardView: KCCardView, AMBComponent
 				} else {
 					cons.error(string: "Invalid raw value for axis: \(val)\n")
 				}
+			} else {
+				let ival = robj.immediateValue(forProperty: KMCardView.AxisItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMCardView.AxisItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -101,6 +104,9 @@ public class KMCardView: KCCardView, AMBComponent
 				} else {
 					cons.error(string: "Invalid raw value for alignment: \(val)\n")
 				}
+			} else {
+				let ival = robj.immediateValue(forProperty: KMCardView.AlignmentItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMCardView.AlignmentItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -125,6 +131,9 @@ public class KMCardView: KCCardView, AMBComponent
 				} else {
 					cons.error(string: "Invalid raw value for distribution: \(val)\n")
 				}
+			} else {
+				let ival = robj.immediateValue(forProperty: KMCardView.DistributionItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMCardView.DistributionItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -145,6 +154,9 @@ public class KMCardView: KCCardView, AMBComponent
 						}
 					})
 				}
+			} else {
+				let ival = robj.immediateValue(forProperty: KMCardView.IndexItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMCardView.IndexItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 		robj.addScriptedPropertyName(name: KMCardView.IndexItem)

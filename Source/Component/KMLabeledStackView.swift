@@ -17,10 +17,10 @@ import UIKit
 
 public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 {
-	static let AxisItem		= "axis"
-	static let AlignmentItem	= "alignment"
-	static let DistributionItem	= "distribution"
-	static let TitleItem		= "title"
+	private static let AxisItem		= "axis"
+	private static let AlignmentItem	= "alignment"
+	private static let DistributionItem	= "distribution"
+	private static let TitleItem		= "title"
 
 	private var mReactObject:	AMBReactObject?
 	private var mChildObjects:	Array<AMBComponentObject>
@@ -66,6 +66,9 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 			(_ val: Any) -> Void in
 			if let val = robj.stringValue(forProperty: KMLabeledStackView.TitleItem) {
 				self.title = val
+			} else {
+				let ival = robj.immediateValue(forProperty: KMLabeledStackView.TitleItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMLabeledStackView.TitleItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -74,7 +77,8 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 			if let axisval = CNAxis(rawValue: Int32(val)) {
 				self.contentsView.axis = axisval
 			} else {
-				cons.error(string: "Invalid raw value for axis: \(val)\n")
+				let ival = robj.immediateValue(forProperty: KMLabeledStackView.AxisItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMLabeledStackView.AxisItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		} else {
 			robj.setInt32Value(value: self.contentsView.axis.rawValue, forProperty: KMLabeledStackView.AxisItem)
@@ -88,7 +92,8 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 						self.contentsView.axis = axisval
 					})
 				} else {
-					cons.error(string: "Invalid raw value for axis: \(val)\n")
+					let ival = robj.immediateValue(forProperty: KMLabeledStackView.AxisItem)
+					CNLog(logLevel: .error, message: "Invalid property: name=\(KMLabeledStackView.AxisItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 				}
 			}
 		})
@@ -98,7 +103,8 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 			if let alignval = CNAlignment(rawValue: val) {
 				self.contentsView.alignment = alignval
 			} else {
-				cons.error(string: "Invalid raw value for alignment: \(val)\n")
+				let ival = robj.immediateValue(forProperty: KMLabeledStackView.AlignmentItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMLabeledStackView.AlignmentItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		} else {
 			robj.setInt32Value(value: self.contentsView.alignment.rawValue, forProperty: KMLabeledStackView.AlignmentItem)
@@ -112,7 +118,8 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 						self.contentsView.alignment = alignval
 					})
 				} else {
-					cons.error(string: "Invalid raw value for alignment: \(val)\n")
+					let ival = robj.immediateValue(forProperty: KMLabeledStackView.AlignmentItem)
+					CNLog(logLevel: .error, message: "Invalid property: name=\(KMLabeledStackView.AlignmentItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 				}
 			}
 		})
@@ -122,7 +129,8 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 			if let distval = CNDistribution(rawValue: val) {
 				self.contentsView.distribution = distval
 			} else {
-				cons.error(string: "Invalid raw value for distribution: \(val)\n")
+				let ival = robj.immediateValue(forProperty: KMLabeledStackView.DistributionItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMLabeledStackView.DistributionItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		} else {
 			robj.setInt32Value(value: self.contentsView.distribution.rawValue, forProperty: KMLabeledStackView.DistributionItem)
@@ -136,7 +144,8 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 						self.contentsView.distribution = distval
 					})
 				} else {
-					cons.error(string: "Invalid raw value for distribution: \(val)\n")
+					let ival = robj.immediateValue(forProperty: KMLabeledStackView.DistributionItem)
+					CNLog(logLevel: .error, message: "Invalid property: name=\(KMLabeledStackView.DistributionItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 				}
 			}
 		})

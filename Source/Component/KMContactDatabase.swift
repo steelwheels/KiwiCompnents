@@ -61,6 +61,9 @@ public class KMContactDatabase: AMBComponentObject
 			(_ param: Any) -> Void in
 			if let val = robj.int32Value(forProperty: KMContactDatabase.IndexItem) {
 				self.setIndex(index: Int(val), reactObject: robj)
+			} else {
+				let ival = robj.immediateValue(forProperty: KMContactDatabase.IndexItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMContactDatabase.IndexItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 

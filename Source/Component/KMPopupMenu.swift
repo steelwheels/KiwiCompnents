@@ -18,9 +18,9 @@ import UIKit
 
 public class KMPopupMenu: KCPopupMenu, AMBComponent
 {
-	static let ItemsItem		= "items"
-	static let IndexItem		= "index"
-	static let SelectedItem		= "selected"
+	private static let ItemsItem		= "items"
+	private static let IndexItem		= "index"
+	private static let SelectedItem		= "selected"
 
 	private var mReactObject:	AMBReactObject?
 
@@ -74,7 +74,8 @@ public class KMPopupMenu: KCPopupMenu, AMBComponent
 						super.addItems(withTitles: arr)
 					})
 				} else {
-					cons.error(string: "Invalid value for popup menu items [1]: \(val)\n")
+					let ival = robj.immediateValue(forProperty: KMPopupMenu.ItemsItem)
+					CNLog(logLevel: .error, message: "Invalid property: name=\(KMPopupMenu.ItemsItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 				}
 			}
 		})
@@ -91,6 +92,9 @@ public class KMPopupMenu: KCPopupMenu, AMBComponent
 				CNExecuteInUserThread(level: .event, execute: {
 					evtval.call(withArguments: [robj, idxval])	// insert self, index
 				})
+			} else {
+				let ival = robj.immediateValue(forProperty: KMPopupMenu.SelectedItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMPopupMenu.SelectedItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		}
 

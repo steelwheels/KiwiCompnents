@@ -62,7 +62,8 @@ public class KMImage: KCImageView, AMBComponent
 					self.setImage(byName: name, console: cons)
 				})
 			} else {
-				cons.error(string: "No name to load image\n")
+				let ival = robj.immediateValue(forProperty: KMImage.NameItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMImage.NameItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
@@ -80,7 +81,8 @@ public class KMImage: KCImageView, AMBComponent
 					self.scale = CGFloat(scale)
 				})
 			} else {
-				cons.error(string: "No scale for image\n")
+				let ival = robj.immediateValue(forProperty: KMImage.ScaleItem)
+				CNLog(logLevel: .error, message: "Invalid property: name=\(KMImage.ScaleItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 
