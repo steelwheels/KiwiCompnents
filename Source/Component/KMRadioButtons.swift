@@ -19,7 +19,6 @@ public class KMRadioButtons: KCRadioButtons, AMBComponent
 {
 	private static let LabelsItem		= "labels"
 	private static let SelectedItem		= "selected"
-	private static let CurrentIndexItem	= "currentIndex"
 	private static let ColumnCountItem	= "columnCount"
 	private static let IsEnabledItem	= "isEnabled"
 
@@ -104,27 +103,20 @@ public class KMRadioButtons: KCRadioButtons, AMBComponent
 			}
 		})
 
-		/* Current index (read-only) */
-		addScriptedProperty(object: robj, forProperty: KMRadioButtons.CurrentIndexItem)
-		if let idx = self.currentIndex {
-			robj.setInt32Value(value: Int32(idx), forProperty: KMRadioButtons.CurrentIndexItem)
-		}
-
 		/* Add callbacks */
 		self.callback = {
-			(_ index: Int) -> Void in
-			/* Update current index */
-			robj.setInt32Value(value: Int32(index), forProperty: KMRadioButtons.CurrentIndexItem)
+			(_ index: Int?) -> Void in
+			let idxval: JSValue
+			if let idx = index {
+				idxval = JSValue(int32: Int32(idx), in: robj.context)
+			} else {
+				idxval = JSValue(nullIn: robj.context)
+			}
 			/* Call event handler */
 			if let evtval = robj.immediateValue(forProperty: KMRadioButtons.SelectedItem) {
-				if let idxval = JSValue(int32: Int32(index), in: robj.context) {
-					CNExecuteInUserThread(level: .event, execute: {
-						evtval.call(withArguments: [robj, idxval])	// insert self, index
-					})
-				} else {
-					let ival = robj.immediateValue(forProperty: KMRadioButtons.SelectedItem)
-					CNLog(logLevel: .error, message: "Invalid property: name=\(KMRadioButtons.SelectedItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
-				}
+				CNExecuteInUserThread(level: .event, execute: {
+					evtval.call(withArguments: [robj, idxval])	// insert self, index
+				})
 			}
 		}
 

@@ -8,7 +8,7 @@ top: VBox {
         labels:      Array      ["a", "b", "c", "d"]
         isEnabled:   Array      [true, true, true, false]
         columnCount: Int        3
-        selected: Event(newidx) %{
+        selected: Event(newidx: number | null) %{
                 console.print("new-index: " + newidx + "\n") ;
         %}
     }
@@ -31,7 +31,7 @@ You can see the full implementation at [radio-button.jspkg](https://github.com/s
 ### `selected` event
 This method will be called when the radio button is pressed by the user.
 ````
-selected: Event(newidx) %{
+selected: Event(newidx: number | null) %{
         ... event processing ...
 %}
 ````
