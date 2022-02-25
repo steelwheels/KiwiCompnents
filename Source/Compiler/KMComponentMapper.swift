@@ -143,7 +143,7 @@ public class KMComponentMapper: AMBComponentMapper
 				case .error(let err):
 					return err
 				@unknown default:
-					return NSError.parseError(message: "Can not happen")
+					return NSError.parseError(message: "Can not happen at function \(#function) in file \(#file)")
 				}
 			}
 		}
@@ -159,7 +159,7 @@ public class KMComponentMapper: AMBComponentMapper
 				case .error(let err):
 					return err
 				@unknown default:
-					return NSError.parseError(message: "Can not happen")
+					return NSError.parseError(message: "Can not happen at function \(#function) in file \(#file)")
 				}
 			}
 		}

@@ -16,59 +16,46 @@ The parameter can have some different data type to give the location of script f
 
 ## Return value
 This value will be given as the parameter of [leaveView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/leaveView.md) function.
-The data type is `any` or `null`. You have to cast it.
+The data type is `any`. You have to know the type of return value of `enterView`.
+It is defined by ｀leaveView` function which is corresponding to it.
 
 ## Example
 This full implementation of this example is [enter-view.jspkg](https://github.com/steelwheels/JSTerminal/tree/master/Resource/Sample/enter-view.jspkg).
 
-This is main function:
-````
-function main(args)
-{
-	console.print("Hello, world !!\n") ;
-         /* The return value will be given from
-          * leaveView() function call in main view
-          */
-	let retval = enterView("main") ;
-	console.print("from-main: " + retval + "\n") ;
-}
-````
 
-This is main view:
+This is main-view. The return value of `enterView` function is
+given by `leaveView` function in sub-view. 
+The variable `ret` will have following object:
+`{message: string, a: number, b: number}`.
+
 ````
 top: VBox {
     enter_button: Button {
    	title: String "SubView"
 	pressed: Event() %{
-                /* The return value will be given from
-                 * leaveView() function call in sub view
-                 */
 		let ret = enterView("sub") ;
-		console.print("from-sub : " + ret + "\n") ;
+		console.log("message: " + ret.message
+                        + ", a = " + ret.a 
+                        + ", b = " + ret.b
+                ) ;
         %}
     }
-    quit_button: Button {
-   	title: String "Quit"
-	pressed: Event() %{
-                /* This parameter will be passed to
-                 * to main function.
-                 */
-		leaveView("Good bye main view") ;
-        %}
-    }
+    ...
 }
 ````
 
-This is sub view:
+This is sub view. The `leaveView' function
+
 ````
 top: VBox {
     quit_button: Button {
    	title: String "Quit"
 	pressed: Event() %{
-                /* This parameter will be passed to
-                 * to main view.
-                 */
-		leaveView("Good bye sub view") ;
+		leaveView({
+                  message: "Good bye sub view",
+                  a: 10,
+                  b: 20
+                }) ;
         %}
     }
 }
