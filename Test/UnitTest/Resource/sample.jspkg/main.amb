@@ -9,7 +9,15 @@ top: VBox {
 	    text_a: TextField {
 			minWidth: Int 20
 			text: String Listner(index: top.index) %{
-				return "index: " + top.adbook.value(index, "family_name") ;
+				let label = "?" ;
+				let rec   = top.adbook.record ;
+				if(rec != null){
+					let val = rec.value("family_name") ;
+					if(isString(val)){
+						label = val ;
+					}
+				}
+				return "index: " + label ;
 			%}
 	    }
 		graphics: Graphics2D {
@@ -96,11 +104,14 @@ top: VBox {
 			%}
 		}
 		menu0: PopupMenu {
-			items: String ["a", "b", "c"]
+			items: Array ["a", "b", "c"]
 		}
     }
     dataTable: Table {
+	hasHeader: Bool true
 	init: Init %{
+		console.log("[Table] Init") ;
+
 		/* Set column titles */
 		self.fieldNames = [
 			{field:"c0", title:"col[0]"},
@@ -109,7 +120,8 @@ top: VBox {
 		] ;
 
 		/* Set data */
-		let table = ValueTable() ;
+		let storage = ValueStorage("storage") ;
+		let table   = ValueTable("root", storage) ;
 
 		let rec0  = table.newRecord() ;
 		rec0.setValue(0, "c0") ;
@@ -123,7 +135,7 @@ top: VBox {
 		rec1.setValue(2, "c2") ;
 		table.append(rec1) ;
 
-		self.store(table) ;
+		self.dataTable = table ;
 	%}
     }
     labelBox: LabeledBox {
@@ -137,23 +149,10 @@ top: VBox {
 		}
         }
     }
-    valueBox: ValueView {
-	init: Init %{
-		let src = {
-			sec0: {
-				subsec0: "s0",
-				subsec1: 10
-			},
-			sec1: {
-				subsec2: "s0",
-				subsec3: true
-			}
-		} ;
-		self.value = src ;
-	%}
-    }
     collection: CollectionView {
         init: Init %{
+		console.log("[CollectionView] Init") ;
+
                 let col0 = Collection() ;
                 let paths = [
                         Symbols.chevronBackward,
@@ -178,6 +177,7 @@ top: VBox {
         %}
     }
 	init: Init %{
+		console.log("[Main] Init") ;
 		top.boxes.menu0.items = ["Hello", "Good morning", "Good evening"]
 	%}
 }

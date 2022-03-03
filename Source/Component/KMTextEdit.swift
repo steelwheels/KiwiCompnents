@@ -166,7 +166,7 @@ public class KMTextEdit: KCTextEdit, AMBComponent
 				})
 			} else {
 				let ival = robj.immediateValue(forProperty: KMTextEdit.TextItem)
-				CNLog(logLevel: .error, message: "Invalid property: name=\(KMTextEdit.TextItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
+				CNLog(logLevel: .debug, message: "Invalid property: name=\(KMTextEdit.TextItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		})
 

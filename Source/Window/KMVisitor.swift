@@ -33,8 +33,6 @@ open class KMVisitor
 			visit(icon: icon)
 		} else if let image = comp as? KMImage {
 			visit(image: image)
-		} else if let value = comp as? KMValueView {
-			visit(valueView: value)
 		} else if let stack = comp as? KMLabeledStackView {
 			visit(labeledStackView: stack)
 		} else if let pmenu = comp as? KMPopupMenu {
@@ -72,5 +70,4 @@ open class KMVisitor
 	open func visit(collectionView view: KMCollectionView){ }
 	open func visit(terminalView view: KMTerminalView){ }
 	open func visit(textEdit view: KMTextEdit){ }
-	open func visit(valueView view: KMValueView){ }
 }

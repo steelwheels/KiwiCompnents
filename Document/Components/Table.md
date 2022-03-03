@@ -7,50 +7,58 @@ See [ValueTable](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibra
 This is sample script and it's view:
 ````
 top: VBox {
+    top: VBox {
     table: Table {
-        hasHeader: Bool true
-        isSelectable: Bool true
-        fieldNames: Array [
-                {field:"c0", title:"column 0"},
-                {field:"c1", title:"column 1"},
-                {field:"c2", title:"column 2"}
-        ]
-        init: Init %{
-                ...
-                let table = ValueTable("data", storage) ;
-                self.store(table) ;
+	hasHeader: Bool true
+	isSelectable: Bool true
+	fieldNames: Array [
+		{field:"c0", title:"column 0"},
+		{field:"c1", title:"column 1"},
+		{field:"c2", title:"column 2"}
+	]
+	init: Init %{
+                let storage = ValueStorage("storage") ;
+	        if(storage == null){
+		        console.log("Failed to allocate storage") ;
+	        }
+	        let table = ValueTable("root", storage) ;
+	        if(table == null){
+		        console.log("Failed to allocate table") ;
+	        }
+		// Set table into this view
+                self.dataTable = table ;        
         %}
-        pressed: Event(row, col) %{
-                console.print("row    = " + row + "/" + self.rowCount + "\n") ;
-                console.print("column = " + col + "/" + self.columnCount + "\n") ;
-        %}
+	pressed: Event(row, col) %{
+		console.log("row    = " + row + "/" + self.rowCount) ;
+		console.log("column = " + col + "/" + self.columnCount) ;
+	%}
     }
     selected_button: Button {
-        title: String "Selected"
-        isEnabled: Bool Listner(selected: top.table.didSelected) %{
-                /* Did selected property of Table is used here !! */
-                return selected ;
-        %}
+	title: String "Selected"
+	isEnabled: Bool Listner(selected: top.table.didSelected) %{
+		return selected ;
+	%}
     }
-    ...
 }
 ````
 
 ![Table View](./Images/table-view.png)
 
-You can see the entire script at [value-table-3.jspkg](https://github.com/steelwheels/JSTerminal/tree/master/Resource/Sample/value-table-3.jspkg).
+You can see the entire script at [value-table-4.jspkg](https://github.com/steelwheels/JSTerminal/tree/master/Resource/Sample/value-table-4.jspkg).
 
 ## Syntax
 
 ## Property values
 |Property name  |Type   |Description        |
 |:--            |:--    |:--                | 
-|rowCount       |Int    |Number of rows in table (Reference only)|
-|columnCount    |Int    |Number of columns in table (Reference only)|
-|hasHeader      |Bool   |The visibility of column title view|
-|isSelectable   |Bool   |You can select row or not |
+|dataTable      |[Table](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/Table.md) |The source table |
 |didSelected    |Bool   |Has true when the row of table is selected. |
 |fieldNames     |Array  |Active field names |
+|hasHeader      |Bool   |The visibility of column title view|
+|isSelectable   |Bool   |You can select row or not |
+|rowCount       |Int    |Number of rows in table (Reference only)|
+|columnCount    |Int    |Number of columns in table (Reference only)|
+|visibleRowCount       |Int    |Number of rows in table (Reference only)|_
 
 The `fieldNames` property used to decide following thigs:
 * Choose the fields in the record. These fields are displayed in the table.

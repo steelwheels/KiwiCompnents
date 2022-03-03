@@ -115,13 +115,4 @@ public class KMComponentLinker: KMVisitor
 			mFileConsole = CNFileConsole(input: view.inputFile, output: view.outputFile, error: view.errorFile)
 		}
 	}
-
-	public override func visit(valueView view: KMValueView) {
-		let subviews = view.arrangedSubviews()
-		for subview in subviews {
-			if let subcomp = subview as? AMBComponent {
-				self.visit(component: subcomp)
-			}
-		}
-	}
 }

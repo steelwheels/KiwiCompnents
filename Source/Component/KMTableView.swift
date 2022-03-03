@@ -10,6 +10,7 @@ import KiwiControls
 import KiwiLibrary
 import KiwiEngine
 import CoconutData
+import CoconutDatabase
 import JavaScriptCore
 import Foundation
 
@@ -17,16 +18,16 @@ public class KMTableView: KCTableView, AMBComponent
 {
 	public typealias ActiveFieldName = KCTableViewCore.ActiveFieldName
 
-	public static let StoreItem		= "store"
-	public static let PressedItem		= "pressed"
-	public static let FieldNamesItem	= "fieldNames"
-	public static let HasHeaderItem		= "hasHeader"
-	public static let IsSelectableItem	= "isSelectable"
-	public static let DidSelectedItem	= "didSelected"
-	public static let RowCountItem		= "rowCount"
-	public static let VisibleRowCountItem	= "visibleRowCount"
-	public static let ColumnCountItem	= "columnCount"
-	public static let IsDirtyItem		= "isDirty"
+	private static let PressedItem		= "pressed"
+	private static let DataTableItem	= "dataTable"
+	private static let FieldNamesItem	= "fieldNames"
+	private static let HasHeaderItem	= "hasHeader"
+	private static let IsSelectableItem	= "isSelectable"
+	private static let DidSelectedItem	= "didSelected"
+	private static let RowCountItem		= "rowCount"
+	private static let VisibleRowCountItem	= "visibleRowCount"
+	private static let ColumnCountItem	= "columnCount"
+	private static let IsDirtyItem		= "isDirty"
 
 	private var mReactObject:	AMBReactObject?
 	private var mConsole:		CNConsole
@@ -63,6 +64,54 @@ public class KMTableView: KCTableView, AMBComponent
 		mConsole	= cons
 		//self.isEditable = true
 		self.isEnable = true
+
+		/* dataTable */
+		addScriptedProperty(object: robj, forProperty: KMTableView.DataTableItem)
+		if let val = robj.immediateValue(forProperty: KMTableView.DataTableItem){
+			if val.isObject {
+				if let table = val.toObject() as? KLTableCore {
+					CNExecuteInMainThread(doSync: false, execute: {
+						super.dataTable = table.core()
+					})
+				} else {
+					CNLog(logLevel: .error, message: "Invalid object (1): \(val)", atFunction: #function, inFile: #file)
+				}
+			} else {
+				CNLog(logLevel: .error, message: "Invalid object (2): \(val)", atFunction: #function, inFile: #file)
+			}
+		} else {
+			let table = super.dataTable
+			if let vtable = table as? CNValueTable {
+				let obj = KLValueTable(table: vtable, context: robj.context)
+				if let val = JSValue(object: obj, in: robj.context) {
+					robj.setImmediateValue(value: val, forProperty: KMTableView.DataTableItem)
+				}
+			} else if let _ = table as? CNContactDatabase {
+				let obj = KLContactDatabase(context: robj.context)
+				if let val = JSValue(object: obj, in: robj.context) {
+					robj.setImmediateValue(value: val, forProperty: KMTableView.DataTableItem)
+				}
+			} else {
+				CNLog(logLevel: .error, message: "Unknown table object", atFunction: #function, inFile: #file)
+			}
+		}
+		robj.addObserver(forProperty: KMTableView.DataTableItem, callback: {
+			(_ param: Any) -> Void in
+			var didset = false
+			if let val = robj.immediateValue(forProperty: KMTableView.DataTableItem) {
+				if val.isObject {
+					if let table = val.toObject() as? KLTableCore {
+						CNExecuteInMainThread(doSync: false, execute: {
+							self.dataTable = table.core()
+						})
+						didset = true
+					}
+				}
+			}
+			if !didset {
+				CNLog(logLevel: .error, message: "Unknown object for dataTable: \(param)", atFunction: #function, inFile: #file)
+			}
+		})
 
 		/* Sync initial value: hasHeader */
 		addScriptedProperty(object: robj, forProperty: KMTableView.HasHeaderItem)
@@ -105,16 +154,6 @@ public class KMTableView: KCTableView, AMBComponent
 			}
 			robj.setBoolValue(value: isdirty, forProperty: KMTableView.IsDirtyItem)
 		}
-
-		/* add load table method */
-		addScriptedProperty(object: robj, forProperty: KMTableView.StoreItem)
-		let storefunc: @convention(block) (_ tblval: JSValue) -> JSValue = {
-			(_ tblval: JSValue) -> JSValue in
-			NSLog("store table")
-			let retval = self.callStoreMethod(tableValue: tblval, context: robj.context)
-			return retval
-		}
-		robj.setImmediateValue(value: JSValue(object: storefunc, in: robj.context), forProperty: KMTableView.StoreItem)
 
 		/* Add fieldNames property */
 		addScriptedProperty(object: robj, forProperty: KMTableView.FieldNamesItem)
@@ -175,69 +214,10 @@ public class KMTableView: KCTableView, AMBComponent
 		return nil
 	}
 
-	private func callStoreMethod(tableValue tblval: JSValue, context ctxt: KEContext) -> JSValue {
-		var result = false
-		if let vtable = tblval.toObject() as? KLValueTable {
-			if let table = vtable.core() as? CNValueTable {
-				updateContents(valueTable: table)
-				result = true
-			} else {
-				CNLog(logLevel: .error, message: "Can not happen", atFunction: #function, inFile: #file)
-			}
-		} else if let vtable = tblval.toObject() as? KLTableCore {
-			if let table = vtable.core() as? CNValueTable {
-				updateContents(valueTable: table)
-				result = true
-			} else {
-				CNLog(logLevel: .error, message: "Can not happen", atFunction: #function, inFile: #file)
-			}
-		} else if let dictobj = tblval.toDictionary() {
-			var dict: Dictionary<String, CNValue> = [:]
-			for (key, aval) in dictobj {
-				if let keystr = key as? String, let val = CNValue.anyToValue(object: aval) {
-					dict[keystr] = val
-				} else {
-					CNLog(logLevel: .error, message: "Unexpected value type", atFunction: #function, inFile: #file)
-				}
-			}
-			updateContents(dictionary: dict)
-			result = true
-		} else {
-			CNLog(logLevel: .error, message: "Unexpected input type (2)", atFunction: #function, inFile: #file)
-		}
-		return JSValue(bool: result, in: ctxt)
-	}
-
-	private func updateContents(valueTable vtable: CNValueTable) {
-		CNExecuteInMainThread(doSync: false, execute: {
-			() -> Void in
-			self.store(table: vtable)
-			self.requireDisplay()
-		})
-	}
-
-	private func updateContents(dictionary dict: Dictionary<String, CNValue>) {
-		CNExecuteInMainThread(doSync: false, execute: {
-			() -> Void in
-			self.store(dictionary: dict)
-			self.requireDisplay()
-		})
-	}
-
 	private func setupSizeInfo() {
 		let robj = reactObject
 		robj.setInt32Value(value: Int32(self.numberOfRows),	forProperty: KMTableView.RowCountItem)
 		robj.setInt32Value(value: Int32(self.numberOfColumns),	forProperty: KMTableView.ColumnCountItem)
-	}
-
-	open override func store(table tbl: CNTable?){
-		super.store(table: tbl)
-		setupSizeInfo()
-	}
-
-	open override func store(dictionary dict: Dictionary<String, CNValue>?){
-		super.store(dictionary: dict)
-		setupSizeInfo()
 	}
 
 	public func accept(visitor vst: KMVisitor) {
