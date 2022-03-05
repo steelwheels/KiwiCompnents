@@ -141,6 +141,7 @@ public class KMTableView: KCTableView, AMBComponent
 		addScriptedProperty(object: robj, forProperty: KMTableView.IsDirtyItem)
 		robj.setBoolValue(value: false, forProperty: KMTableView.IsDirtyItem)
 
+		/*
 		super.stateListner = {
 			(_ state: DataState) -> Void in
 			CNLog(logLevel: .detail, message: "Detect updated table state", atFunction: #function, inFile: #file)
@@ -153,7 +154,7 @@ public class KMTableView: KCTableView, AMBComponent
 				isdirty = false
 			}
 			robj.setBoolValue(value: isdirty, forProperty: KMTableView.IsDirtyItem)
-		}
+		}*/
 
 		/* Add fieldNames property */
 		addScriptedProperty(object: robj, forProperty: KMTableView.FieldNamesItem)

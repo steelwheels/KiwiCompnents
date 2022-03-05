@@ -41,11 +41,10 @@ public class KMLibraryCompiler
 		ctxt.set(name: "_enterView", function: enterfunc)
 
 		/* leaveView function */
-		let leavefunc: @convention(block) (_ retval: JSValue) -> JSValue = {
-			(_ retval: JSValue) -> JSValue in
+		let leavefunc: @convention(block) (_ retval: JSValue) -> Void = {
+			(_ retval: JSValue) -> Void in
 			let nval = retval.toNativeValue()
 			self.leaveView(viewController: vcont, returnValue: nval)
-			return JSValue(bool: true, in: ctxt)
 		}
 		ctxt.set(name: "leaveView", function: leavefunc)
 
