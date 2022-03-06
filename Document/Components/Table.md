@@ -10,28 +10,28 @@ top: VBox {
     top: VBox {
     table: Table {
 	hasHeader: Bool true
-	isSelectable: Bool true
-	fieldNames: Array [
-		{field:"c0", title:"column 0"},
-		{field:"c1", title:"column 1"},
-		{field:"c2", title:"column 2"}
-	]
-	init: Init %{
+        isSelectable: Bool true
+        fieldNames: Array [
+                {field:"c0", title:"column 0"},
+                {field:"c1", title:"column 1"},
+                {field:"c2", title:"column 2"}
+        ]
+        init: Init %{
                 let storage = ValueStorage("storage") ;
-	        if(storage == null){
-		        console.log("Failed to allocate storage") ;
-	        }
-	        let table = ValueTable("root", storage) ;
-	        if(table == null){
-		        console.log("Failed to allocate table") ;
-	        }
-		// Set table into this view
-                self.dataTable = table ;        
+                if(storage == null){
+                        console.log("Failed to allocate storage") ;
+                }
+                let table = ValueTable("root", storage) ;
+                if(table == null){
+                        console.log("Failed to allocate table") ;
+                }
+                // Load table into this view
+                self.reload(table) ;
         %}
-	pressed: Event(row, col) %{
-		console.log("row    = " + row + "/" + self.rowCount) ;
-		console.log("column = " + col + "/" + self.columnCount) ;
-	%}
+        pressed: Event(row, col) %{
+                console.log("row    = " + row + "/" + self.rowCount) ;
+                console.log("column = " + col + "/" + self.columnCount) ;
+        %}
     }
     selected_button: Button {
 	title: String "Selected"
@@ -51,14 +51,12 @@ You can see the entire script at [value-table-4.jspkg](https://github.com/steelw
 ## Property values
 |Property name  |Type   |Description        |
 |:--            |:--    |:--                | 
-|dataTable      |[Table](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/Table.md) |The source table |
 |didSelected    |Bool   |Has true when the row of table is selected. |
 |fieldNames     |Array  |Active field names |
 |hasHeader      |Bool   |The visibility of column title view|
 |isSelectable   |Bool   |You can select row or not |
-|rowCount       |Int    |Number of rows in table (Reference only)|
-|columnCount    |Int    |Number of columns in table (Reference only)|
-|visibleRowCount       |Int    |Number of rows in table (Reference only)|_
+|rowCount       |Int    |Number of rows in table (Read only)|
+|visibleRowCount |Int    |Number of rows in table (Read only)|
 
 The `fieldNames` property used to decide following thigs:
 * Choose the fields in the record. These fields are displayed in the table.
@@ -75,6 +73,13 @@ The `fieldNames` is an array of following objects:
 In usually, the `didSelected` property will be listned by the other component to tell the state of the table.
 
 ## Method
+
+### `reload`
+Replace entire data in the table.
+```
+reload(table: TableIF) ;
+```
+See the definition of [ValueTableIF](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/ValueTable.md).
 
 ### `pressed`
 The event method to accept clicked event:

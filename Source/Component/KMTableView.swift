@@ -16,17 +16,16 @@ import Foundation
 
 public class KMTableView: KCTableView, AMBComponent
 {
-	public typealias ActiveFieldName = KCTableViewCore.ActiveFieldName
+	public typealias FieldName = KCTableView.FieldName
 
 	private static let PressedItem		= "pressed"
-	private static let DataTableItem	= "dataTable"
 	private static let FieldNamesItem	= "fieldNames"
 	private static let HasHeaderItem	= "hasHeader"
 	private static let IsSelectableItem	= "isSelectable"
 	private static let DidSelectedItem	= "didSelected"
 	private static let RowCountItem		= "rowCount"
 	private static let VisibleRowCountItem	= "visibleRowCount"
-	private static let ColumnCountItem	= "columnCount"
+	private static let ReloadItem		= "reload"
 	private static let IsDirtyItem		= "isDirty"
 
 	private var mReactObject:	AMBReactObject?
@@ -64,54 +63,6 @@ public class KMTableView: KCTableView, AMBComponent
 		mConsole	= cons
 		//self.isEditable = true
 		self.isEnable = true
-
-		/* dataTable */
-		addScriptedProperty(object: robj, forProperty: KMTableView.DataTableItem)
-		if let val = robj.immediateValue(forProperty: KMTableView.DataTableItem){
-			if val.isObject {
-				if let table = val.toObject() as? KLTableCore {
-					CNExecuteInMainThread(doSync: false, execute: {
-						super.dataTable = table.core()
-					})
-				} else {
-					CNLog(logLevel: .error, message: "Invalid object (1): \(val)", atFunction: #function, inFile: #file)
-				}
-			} else {
-				CNLog(logLevel: .error, message: "Invalid object (2): \(val)", atFunction: #function, inFile: #file)
-			}
-		} else {
-			let table = super.dataTable
-			if let vtable = table as? CNValueTable {
-				let obj = KLValueTable(table: vtable, context: robj.context)
-				if let val = JSValue(object: obj, in: robj.context) {
-					robj.setImmediateValue(value: val, forProperty: KMTableView.DataTableItem)
-				}
-			} else if let _ = table as? CNContactDatabase {
-				let obj = KLContactDatabase(context: robj.context)
-				if let val = JSValue(object: obj, in: robj.context) {
-					robj.setImmediateValue(value: val, forProperty: KMTableView.DataTableItem)
-				}
-			} else {
-				CNLog(logLevel: .error, message: "Unknown table object", atFunction: #function, inFile: #file)
-			}
-		}
-		robj.addObserver(forProperty: KMTableView.DataTableItem, callback: {
-			(_ param: Any) -> Void in
-			var didset = false
-			if let val = robj.immediateValue(forProperty: KMTableView.DataTableItem) {
-				if val.isObject {
-					if let table = val.toObject() as? KLTableCore {
-						CNExecuteInMainThread(doSync: false, execute: {
-							self.dataTable = table.core()
-						})
-						didset = true
-					}
-				}
-			}
-			if !didset {
-				CNLog(logLevel: .error, message: "Unknown object for dataTable: \(param)", atFunction: #function, inFile: #file)
-			}
-		})
 
 		/* Sync initial value: hasHeader */
 		addScriptedProperty(object: robj, forProperty: KMTableView.HasHeaderItem)
@@ -159,11 +110,11 @@ public class KMTableView: KCTableView, AMBComponent
 		/* Add fieldNames property */
 		addScriptedProperty(object: robj, forProperty: KMTableView.FieldNamesItem)
 		if let fvals = robj.arrayValue(forProperty: KMTableView.FieldNamesItem) {
-			var result: Array<ActiveFieldName> = []
+			var result: Array<FieldName> = []
 			for elm in fvals {
 				if let dict = elm as? Dictionary<String, String> {
 					if let field = dict["field"], let title = dict["title"] {
-						let fname = ActiveFieldName(field: field, title: title)
+						let fname = FieldName(field: field, title: title)
 						result.append(fname)
 					} else {
 						CNLog(logLevel: .error, message: "Invalid active field name: field and title properties are required")
@@ -173,15 +124,15 @@ public class KMTableView: KCTableView, AMBComponent
 				}
 			}
 			if result.count > 0 {
-				self.activeFieldNames = result
+				self.fieldNames = result
 			}
 		} else {
 			robj.setArrayValue(value: [], forProperty: KMTableView.FieldNamesItem)
 		}
 
-		/* Add row/column count properties. The value will be updated in setupSizeInfo */
+		/* rowCount */
 		addScriptedProperty(object: robj, forProperty: KMTableView.RowCountItem)
-		addScriptedProperty(object: robj, forProperty: KMTableView.ColumnCountItem)
+		robj.setInt32Value(value: Int32(self.numberOfRows),	forProperty: KMTableView.RowCountItem)
 
 		/* Add isSelectable properties */
 		addScriptedProperty(object: robj, forProperty: KMTableView.IsSelectableItem)
@@ -206,19 +157,32 @@ public class KMTableView: KCTableView, AMBComponent
 		/* Add visibleRowCount property */
 		addScriptedProperty(object: robj, forProperty: KMTableView.VisibleRowCountItem)
 		if let val = robj.int32Value(forProperty: KMTableView.VisibleRowCountItem) {
-			self.visibleRowCount = Int(val)
+			self.minimumVisibleRowCount = Int(val)
 		} else {
-			robj.setInt32Value(value: Int32(self.visibleRowCount), forProperty: KMTableView.VisibleRowCountItem)
+			robj.setInt32Value(value: Int32(self.minimumVisibleRowCount), forProperty: KMTableView.VisibleRowCountItem)
 		}
 
-		setupSizeInfo()
-		return nil
-	}
+		/* reload method */
+		addScriptedProperty(object: robj, forProperty: KMTableView.ReloadItem)
+		let reloadfunc: @convention(block) (_ val: JSValue) -> JSValue = {
+			(_ val: JSValue)  in
+			var result = false
+			if val.isObject {
+				if let table = val.toObject() as? KLTableCore {
+					CNExecuteInMainThread(doSync: false, execute: {
+						() -> Void in super.reload(table: table.core())
+					})
+					result = true
+				}
+			}
+			if !result {
+				CNLog(logLevel: .error, message: "Unexpected parameter: \(val)", atFunction: #function, inFile: #file)
+			}
+			return JSValue(bool: result, in: robj.context)
+		}
+		robj.setImmediateValue(value: JSValue(object: reloadfunc, in: robj.context), forProperty: KMTableView.ReloadItem)
 
-	private func setupSizeInfo() {
-		let robj = reactObject
-		robj.setInt32Value(value: Int32(self.numberOfRows),	forProperty: KMTableView.RowCountItem)
-		robj.setInt32Value(value: Int32(self.numberOfColumns),	forProperty: KMTableView.ColumnCountItem)
+		return nil
 	}
 
 	public func accept(visitor vst: KMVisitor) {

@@ -109,33 +109,31 @@ top: VBox {
     }
     dataTable: Table {
 	hasHeader: Bool true
+	fieldNames: Array [
+		{field:"c0", title:"col[0]"},
+		{field:"c1", title:"col[1]"},
+		{field:"c2", title:"col[2]"}
+	]
 	init: Init %{
 		console.log("[Table] Init") ;
-
-		/* Set column titles */
-		self.fieldNames = [
-			{field:"c0", title:"col[0]"},
-			{field:"c1", title:"col[1]"},
-			{field:"c2", title:"col[2]"}
-		] ;
 
 		/* Set data */
 		let storage = ValueStorage("storage") ;
 		let table   = ValueTable("root", storage) ;
 
 		let rec0  = ValueRecord() ;
-		rec0.setValue(10, "c0") ;
-		rec0.setValue(11, "c1") ;
-		rec0.setValue(12, "c2") ;
+		rec0.setValue(30, "c0") ;
+		rec0.setValue(31, "c1") ;
+		rec0.setValue(32, "c2") ;
 		table.append(rec0) ;
 		
 		let rec1  = ValueRecord() ;
-		rec1.setValue(20, "c0") ;
-		rec1.setValue(21, "c1") ;
-		rec1.setValue(22, "c2") ;
+		rec1.setValue(40, "c0") ;
+		rec1.setValue(41, "c1") ;
+		rec1.setValue(42, "c2") ;
 		table.append(rec1) ;
 
-		self.dataTable = table ;
+		self.reload(table) ;
 	%}
     }
     labelBox: LabeledBox {
