@@ -257,6 +257,8 @@ interface ValueRecordIF {
 
 	value(name: string):			any ;
 	setValue(value: any, name: string):	boolean
+
+	toString(): 		string
 }
 
 interface ValueTableIF {
@@ -310,6 +312,8 @@ interface ContactRecordIF {
 
 	value(name: string): any ;
 	setValue(val: any, name: string): boolean ;
+
+	toString(): 		string
 }
 
 interface ContactDatabaseIF {
@@ -372,6 +376,7 @@ declare function isDate(value: any): boolean ;
 declare function isNull(value: any): boolean ;
 declare function isNumber(value: any): boolean ;
 declare function isDictionary(value: any): boolean ;
+declare function isRecord(value: any): boolean ;
 declare function isObject(value: any): boolean ;
 declare function isPoint(value: any): boolean ;
 declare function isRect(value: any): boolean ;
@@ -387,6 +392,7 @@ declare function toBoolean(value: any): boolean | null ;
 declare function toDate(value: any): object | null ;
 declare function toNumber(value: any): number | null ;
 declare function toDictionary(value: any): {[name:string]: any} | null ;
+declare function toRecord(value: any): ValueRecordIF | null ;
 declare function toObject(value: any): object | null ;
 declare function toPoint(value: any): PointIF | null ;
 declare function toRect(value: any): RectIF | null ;
