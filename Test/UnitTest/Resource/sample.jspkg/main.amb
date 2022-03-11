@@ -121,13 +121,13 @@ top: VBox {
 		let storage = ValueStorage("storage") ;
 		let table   = ValueTable("root", storage) ;
 
-		let rec0  = ValueRecord() ;
+		let rec0  = Record() ;
 		rec0.setValue(30, "c0") ;
 		rec0.setValue(31, "c1") ;
 		rec0.setValue(32, "c2") ;
 		table.append(rec0) ;
 		
-		let rec1  = ValueRecord() ;
+		let rec1  = Record() ;
 		rec1.setValue(40, "c0") ;
 		rec1.setValue(41, "c1") ;
 		rec1.setValue(42, "c2") ;

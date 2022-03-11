@@ -85,8 +85,8 @@ public class KMContactDatabase: AMBComponentObject
 		/* Update record */
 		let newobj: JSValue
 		let db = CNContactDatabase.shared
-		if let rec = db.record(at: idx) as? CNContactRecord {
-			let newrec = KLContactRecord(contact: rec, context: robj.context)
+		if let rec = db.record(at: idx) {
+			let newrec = KLRecord(record: rec, context: robj.context)
 			newobj = JSValue(object: newrec, in: robj.context)
 		} else {
 			newobj = JSValue(nullIn: robj.context)
