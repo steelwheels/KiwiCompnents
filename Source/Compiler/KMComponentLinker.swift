@@ -115,4 +115,8 @@ public class KMComponentLinker: KMVisitor
 			mFileConsole = CNFileConsole(input: view.inputFile, output: view.outputFile, error: view.errorFile)
 		}
 	}
+
+	public override func visit(storage strg: KMStorage) {
+		/* Do nothing */
+	}
 }

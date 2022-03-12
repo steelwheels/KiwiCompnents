@@ -47,6 +47,8 @@ open class KMVisitor
 			visit(collectionView: col)
 		} else if let term = comp as? KMTerminalView {
 			visit(terminalView: term)
+		} else if let storage = comp as? KMStorage {
+			visit(storage: storage)
 		} else {
 			CNLog(logLevel: .error, message: "Unknown component")
 		}
@@ -70,4 +72,5 @@ open class KMVisitor
 	open func visit(collectionView view: KMCollectionView){ }
 	open func visit(terminalView view: KMTerminalView){ }
 	open func visit(textEdit view: KMTextEdit){ }
+	open func visit(storage strg: KMStorage){ }
 }

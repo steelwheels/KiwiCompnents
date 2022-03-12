@@ -118,6 +118,8 @@ public class KMComponentMapper: AMBComponentMapper
 			newcomp = KMShell()
 		case "AddressBook":
 			newcomp = KMContactDatabase()
+		case "Storage":
+			newcomp = KMStorage()
 		default:
 			return super.mapObject(object: robj, console: cons)
 		}
