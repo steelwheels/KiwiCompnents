@@ -67,6 +67,9 @@ public class KMButton: KCButton, AMBComponent
 		addScriptedProperty(object: robj, forProperty: KMButton.IsEnabledItem)
 		if let val = robj.boolValue(forProperty: KMButton.IsEnabledItem) {
 			self.isEnabled = val
+		} else if let _ = robj.immediateValue(forProperty: KMButton.IsEnabledItem) {
+			/* Not boolean value: Keep it*/
+			self.isEnabled = false
 		} else {
 			robj.setBoolValue(value: self.isEnabled, forProperty: KMButton.IsEnabledItem)
 		}

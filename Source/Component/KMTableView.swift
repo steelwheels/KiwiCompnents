@@ -18,15 +18,16 @@ public class KMTableView: KCTableView, AMBComponent
 {
 	public typealias FieldName = KCTableView.FieldName
 
-	private static let PressedItem		= "pressed"
-	private static let FieldNamesItem	= "fieldNames"
-	private static let HasHeaderItem	= "hasHeader"
-	private static let IsSelectableItem	= "isSelectable"
-	private static let DidSelectedItem	= "didSelected"
-	private static let RowCountItem		= "rowCount"
-	private static let VisibleRowCountItem	= "visibleRowCount"
-	private static let ReloadItem		= "reload"
-	private static let IsDirtyItem		= "isDirty"
+	private static let PressedItem			= "pressed"
+	private static let FieldNamesItem		= "fieldNames"
+	private static let HasHeaderItem		= "hasHeader"
+	private static let IsSelectableItem		= "isSelectable"
+	private static let DidSelectedItem		= "didSelected"
+	private static let RowCountItem			= "rowCount"
+	private static let VisibleRowCountItem		= "visibleRowCount"
+	private static let RemoveSelectedRowsItem	= "removeSelectedRows"
+	private static let ReloadItem			= "reload"
+	private static let IsDirtyItem			= "isDirty"
 
 	private var mReactObject:	AMBReactObject?
 	private var mConsole:		CNConsole
@@ -92,21 +93,6 @@ public class KMTableView: KCTableView, AMBComponent
 		addScriptedProperty(object: robj, forProperty: KMTableView.IsDirtyItem)
 		robj.setBoolValue(value: false, forProperty: KMTableView.IsDirtyItem)
 
-		/*
-		super.stateListner = {
-			(_ state: DataState) -> Void in
-			CNLog(logLevel: .detail, message: "Detect updated table state", atFunction: #function, inFile: #file)
-			let isdirty: Bool
-			switch state {
-			case .clean:	isdirty = false
-			case .dirty:	isdirty = true
-			@unknown default:
-				CNLog(logLevel: .error, message: "Unknown case", atFunction: #function, inFile: #file)
-				isdirty = false
-			}
-			robj.setBoolValue(value: isdirty, forProperty: KMTableView.IsDirtyItem)
-		}*/
-
 		/* Add fieldNames property */
 		addScriptedProperty(object: robj, forProperty: KMTableView.FieldNamesItem)
 		if let fvals = robj.arrayValue(forProperty: KMTableView.FieldNamesItem) {
@@ -161,6 +147,17 @@ public class KMTableView: KCTableView, AMBComponent
 		} else {
 			robj.setInt32Value(value: Int32(self.minimumVisibleRowCount), forProperty: KMTableView.VisibleRowCountItem)
 		}
+
+		/* remove selected row method */
+		addScriptedProperty(object: robj, forProperty: KMTableView.RemoveSelectedRowsItem)
+		let rmrowsfunc: @convention(block) () -> JSValue = {
+			() -> JSValue in
+			CNExecuteInMainThread(doSync: false, execute: {
+				super.removeSelectedRows()
+			})
+			return JSValue(bool: true, in: robj.context)
+		}
+		robj.setImmediateValue(value: JSValue(object: rmrowsfunc, in: robj.context), forProperty: KMTableView.RemoveSelectedRowsItem)
 
 		/* reload method */
 		addScriptedProperty(object: robj, forProperty: KMTableView.ReloadItem)

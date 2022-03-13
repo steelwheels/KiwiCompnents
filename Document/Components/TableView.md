@@ -1,7 +1,6 @@
 # TableView component
 The table view is used to present the content of database. 
-The content of the database is defined by table object.
-See [ValueTable](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/ValueTable.md),
+The content of the table will be given by [ValueTable](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/ValueTable.md) or
 [ContactTable](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/ContactTable.md).
 
 This is sample script and it's view:
@@ -38,6 +37,9 @@ top: VBox {
 	isEnabled: Bool Listner(selected: top.table.didSelected) %{
 		return selected ;
 	%}
+        pressed: Event() %{
+                top.table.removeSelectedRows() ;
+        %}
     }
 }
 ````
@@ -79,7 +81,7 @@ Replace entire data in the table.
 ```
 reload(table: TableIF) ;
 ```
-See the definition of [ValueTableIF](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/ValueTable.md).
+See the definition of [TableIF](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/ValueTable.md).
 
 ### `pressed`
 The event method to accept clicked event:
@@ -89,6 +91,12 @@ pressed: Event(col: string, row: number) %{
 ````
 The parameter `col` is clicked column name.
 The `row` is row number.
+
+### `removeSelectedRows`
+Delete the selected rows in the table.
+`````
+removeSelectedRows() ;
+`````
 
 ## Note
 In the above example, the contents of [ValueTable](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/ValueTable.md) is displayed in the view.
