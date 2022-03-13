@@ -107,7 +107,7 @@ top: VBox {
 			items: Array ["a", "b", "c"]
 		}
     }
-    dataTable: Table {
+    dataTable: TableView {
 	hasHeader: Bool true
 	fieldNames: Array [
 		{field:"c0", title:"col[0]"},
@@ -115,7 +115,7 @@ top: VBox {
 		{field:"c2", title:"col[2]"}
 	]
 	init: Init %{
-		console.log("[Table] Init") ;
+		console.log("[Table View] Init") ;
 
 		/* Set data */
 		let storage = ValueStorage("storage") ;

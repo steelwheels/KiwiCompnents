@@ -1,5 +1,5 @@
-# Table component
-The table is used to present the content of database. 
+# TableView component
+The table view is used to present the content of database. 
 The content of the database is defined by table object.
 See [ValueTable](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/ValueTable.md),
 [ContactTable](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/ContactTable.md).
@@ -8,7 +8,7 @@ This is sample script and it's view:
 ````
 top: VBox {
     top: VBox {
-    table: Table {
+    table: TableView {
 	hasHeader: Bool true
         isSelectable: Bool true
         fieldNames: Array [

@@ -74,7 +74,7 @@ public class KMComponentMapper: AMBComponentMapper
 		case "Stepper":
 			newcomp     = KMStepper()
 			hassubview  = false
-		case "Table":
+		case "TableView":
 			newcomp     = KMTableView()
 			hassubview  = false
 		case "Terminal":

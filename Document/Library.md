@@ -18,7 +18,7 @@ This document describes list of classes and functions for component programming.
 * [PopupMenu](Components/PopupMenu.md): Popup menu which has multiple string items.
 * [RadioButtons](Components/RadioButtons.md): The button groups to select one item.
 * [Stepper](Components/Stepper.md): Set the value of limited number.
-* [Table](Components/Table.md): N x M cells on the table.
+* [TableView](Components/Table.md): N x M cells on the table view.
 * [Terminal](): Terminal view based on escape sequence.
 * [TextField](Components/TextField.md): The editable text field.
 * [ValueView](Components/ValueView.md): The data structure viewer such as dictionary, array and etc...
