@@ -16,13 +16,14 @@ import Foundation
 
 public class KMTableView: KCTableView, AMBComponent
 {
-	public typealias FieldName = KCTableView.FieldName
+	public typealias FieldName = KCTableViewCore.FieldName
 
 	private static let PressedItem			= "pressed"
 	private static let FieldNamesItem		= "fieldNames"
 	private static let HasHeaderItem		= "hasHeader"
-	private static let IsSelectableItem		= "isSelectable"
+	private static let IsEditableItem		= "isEditable"
 	private static let DidSelectedItem		= "didSelected"
+	private static let DataTableItem		= "dataTable"
 	private static let RowCountItem			= "rowCount"
 	private static let VisibleRowCountItem		= "visibleRowCount"
 	private static let RemoveSelectedRowsItem	= "removeSelectedRows"
@@ -120,12 +121,12 @@ public class KMTableView: KCTableView, AMBComponent
 		addScriptedProperty(object: robj, forProperty: KMTableView.RowCountItem)
 		robj.setInt32Value(value: Int32(self.numberOfRows),	forProperty: KMTableView.RowCountItem)
 
-		/* Add isSelectable properties */
-		addScriptedProperty(object: robj, forProperty: KMTableView.IsSelectableItem)
-		if let val = robj.boolValue(forProperty: KMTableView.IsSelectableItem) {
-			self.isSelectable = val
+		/* isEditable */
+		addScriptedProperty(object: robj, forProperty: KMTableView.IsEditableItem)
+		if let val = robj.boolValue(forProperty: KMTableView.IsEditableItem) {
+			self.isEditable = val
 		} else {
-			robj.setBoolValue(value: self.isSelectable, forProperty: KMTableView.IsSelectableItem)
+			robj.setBoolValue(value: self.isEditable, forProperty: KMTableView.IsEditableItem)
 		}
 
 		/* Add didSelected properties */
@@ -159,23 +160,44 @@ public class KMTableView: KCTableView, AMBComponent
 		}
 		robj.setImmediateValue(value: JSValue(object: rmrowsfunc, in: robj.context), forProperty: KMTableView.RemoveSelectedRowsItem)
 
-		/* reload method */
-		addScriptedProperty(object: robj, forProperty: KMTableView.ReloadItem)
-		let reloadfunc: @convention(block) (_ val: JSValue) -> JSValue = {
-			(_ val: JSValue)  in
-			var result = false
-			if val.isObject {
-				if let table = val.toObject() as? KLTableCore {
+		/* table property */
+		addScriptedProperty(object: robj, forProperty: KMTableView.DataTableItem)
+		if let val = robj.objectValue(forProperty: KMTableView.DataTableItem) {
+			if let tbl = val as? KLTableCore {
+				CNExecuteInMainThread(doSync: false, execute: {
+					() -> Void in self.dataTable = tbl.core()
+				})
+			}
+		} else {
+			if let tbl = self.dataTable as? CNValueTable {
+				let obj = KLValueTable(table: tbl, context: robj.context)
+				robj.setObjectValue(value: obj, forProperty: KMTableView.DataTableItem)
+			} else if let _ = self.dataTable as? CNContactDatabase {
+				let obj = KLContactDatabase(context: robj.context)
+				robj.setObjectValue(value: obj, forProperty: KMTableView.DataTableItem)
+			} else {
+				CNLog(logLevel: .error, message: "Failed to set table property", atFunction: #function, inFile: #file)
+			}
+		}
+		robj.addObserver(forProperty: KMTableView.DataTableItem, callback: {
+			(_ param: Any) -> Void in
+			if let obj = robj.objectValue(forProperty: KMTableView.DataTableItem) {
+				if let tbl = obj as? KLTableCore {
 					CNExecuteInMainThread(doSync: false, execute: {
-						() -> Void in super.reload(table: table.core())
+						() -> Void in self.dataTable = tbl.core()
 					})
-					result = true
 				}
 			}
-			if !result {
-				CNLog(logLevel: .error, message: "Unexpected parameter: \(val)", atFunction: #function, inFile: #file)
-			}
-			return JSValue(bool: result, in: robj.context)
+		})
+
+		/* reload method */
+		addScriptedProperty(object: robj, forProperty: KMTableView.ReloadItem)
+		let reloadfunc: @convention(block) () -> JSValue = {
+			() -> JSValue  in
+			CNExecuteInMainThread(doSync: false, execute: {
+				() -> Void in super.reload()
+			})
+			return JSValue(bool: true, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: reloadfunc, in: robj.context), forProperty: KMTableView.ReloadItem)
 

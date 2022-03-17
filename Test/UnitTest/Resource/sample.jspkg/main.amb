@@ -133,7 +133,8 @@ top: VBox {
 		rec1.setValue(42, "c2") ;
 		table.append(rec1) ;
 
-		self.reload(table) ;
+		self.dataTable = table ;
+		self.reload() ;
 	%}
     }
     labelBox: LabeledBox {
