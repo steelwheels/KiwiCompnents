@@ -22,6 +22,8 @@ public class KMStorage: AMBComponentObject
 	private static let NameItem		= "name"	// Name of storage
 	private static let PathItem		= "path"
 	private static let TableItem		= "table"
+	private static let SaveItem		= "save"
+	private static let IsDirtyItem		= "isDirty"
 
 	public override func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		if let err = super.setup(reactObject: robj, console: cons) {
@@ -58,6 +60,20 @@ public class KMStorage: AMBComponentObject
 		let table    = CNValueTable(path: CNValuePath(elements: pathelms), valueStorage: storage)
 		let tableobj = KLValueTable(table: table, context: robj.context)
 		robj.setImmediateValue(value: JSValue(object: tableobj, in: robj.context), forProperty: KMStorage.TableItem)
+
+		/* save method */
+		addScriptedProperty(object: robj, forProperty: KMStorage.SaveItem)
+		let savefunc: @convention(block) () -> JSValue = {
+			() in return JSValue(bool: storage.save(), in: robj.context)
+		}
+		robj.setImmediateValue(value: JSValue(object: savefunc, in: robj.context), forProperty: KMStorage.SaveItem)
+
+		/* isDirty method */
+		addScriptedProperty(object: robj, forProperty: KMStorage.IsDirtyItem)
+		let isdirtyfunc: @convention(block) () -> JSValue = {
+			() in return JSValue(bool: storage.isDirty, in: robj.context)
+		}
+		robj.setImmediateValue(value: JSValue(object: isdirtyfunc, in: robj.context), forProperty: KMStorage.IsDirtyItem)
 
 		return nil
 	}
