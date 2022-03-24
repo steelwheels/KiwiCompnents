@@ -29,12 +29,13 @@ public class KMLibraryCompiler
 
 	private func defineComponentFuntion(context ctxt: KEContext, viewController vcont: KMComponentViewController, resource res: KEResource) {
 		/* enterView function */
-		let enterfunc: @convention(block) (_ pathval: JSValue, _ cbfunc: JSValue) -> Void = {
-			(_ paramval: JSValue, _ cbfunc: JSValue) -> Void in
+		let enterfunc: @convention(block) (_ pathval: JSValue, _ argval: JSValue, _ cbfunc: JSValue) -> Void = {
+			(_ paramval: JSValue, _ argval: JSValue, _ cbfunc: JSValue) -> Void in
 			CNExecuteInMainThread(doSync: false, execute: {
 				() -> Void in
 				if let src = self.enterParameter(parameter: paramval, resource: res) {
-					self.enterView(viewController: vcont, context: ctxt, source: src, callback: cbfunc)
+					let arg = argval.toNativeValue()
+					self.enterView(viewController: vcont, context: ctxt, source: src, argument: arg, callback: cbfunc)
 				}
 			})
 		}
@@ -64,7 +65,7 @@ public class KMLibraryCompiler
 		}
 	}
 
-	private func enterView(viewController vcont: KMComponentViewController, context ctxt: KEContext, source src: KMSource, callback cbfunc: JSValue) {
+	private func enterView(viewController vcont: KMComponentViewController, context ctxt: KEContext, source src: KMSource, argument arg: CNValue, callback cbfunc: JSValue) {
 		if let parent = vcont.parent as? KMMultiComponentViewController {
 			let vcallback: KMMultiComponentViewController.ViewSwitchCallback = {
 				(_ val: CNValue) -> Void in
@@ -72,7 +73,7 @@ public class KMLibraryCompiler
 					cbfunc.call(withArguments: [val.toJSValue(context: ctxt)])
 				})
 			}
-			parent.pushViewController(source: src, callback: vcallback)
+			parent.pushViewController(source: src, argument: arg, callback: vcallback)
 		} else {
 			CNLog(logLevel: .error, message: "[Error] No parent controller")
 		}

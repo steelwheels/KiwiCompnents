@@ -15,10 +15,10 @@ function alert(message) {
     sem.wait(); // Wait finish operation
     return result;
 }
-function enterView(path) {
+function enterView(path, arg) {
     let sem = new Semaphore(0);
     let result = 0;
-    _enterView(path, function (retval) {
+    _enterView(path, arg, function (retval) {
         result = retval;
         sem.signal(); // Tell finish operation
     });

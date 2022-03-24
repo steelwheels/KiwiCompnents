@@ -17,10 +17,10 @@ function alert(message: string): number {
 	return result ;
 }
 
-function enterView(path: string): any {
+function enterView(path: string, arg: any): any {
 	let sem    = new Semaphore(0) ;
 	let result: any = 0 ;
-	_enterView(path, function(retval: any) {
+	_enterView(path, arg, function(retval: any) {
 		result = retval ;
 		sem.signal() ;  // Tell finish operation
 	})

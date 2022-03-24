@@ -27,6 +27,7 @@ open class KMComponentViewController: KCSingleViewController
 {
 	private var mContext:			KEContext
 	private var mSource:			KMSource?
+	private var mArgument:			CNValue
 	private var mProcessManager:		CNProcessManager?
 	private var mResource:			KEResource?
 	private var mEnvironment:		CNEnvironment?
@@ -39,6 +40,7 @@ open class KMComponentViewController: KCSingleViewController
 		}
 		mContext		= KEContext(virtualMachine: vm)
 		mSource			= nil
+		mArgument		= .nullValue
 		mProcessManager		= nil
 		mResource		= nil
 		mEnvironment		= nil
@@ -53,6 +55,7 @@ open class KMComponentViewController: KCSingleViewController
 		}
 		mContext		= KEContext(virtualMachine: vm)
 		mSource			= nil
+		mArgument		= .nullValue
 		mProcessManager		= nil
 		mResource		= nil
 		mEnvironment		= nil
@@ -74,8 +77,9 @@ open class KMComponentViewController: KCSingleViewController
 		}
 	}
 
-	public func setup(source src: KMSource, processManager pmgr: CNProcessManager, environment env: CNEnvironment) {
+	public func setup(source src: KMSource, argument arg: CNValue, processManager pmgr: CNProcessManager, environment env: CNEnvironment) {
 		mSource		= src
+		mArgument	= arg
 		mProcessManager	= pmgr
 		mEnvironment	= env
 	}
@@ -266,7 +270,7 @@ open class KMComponentViewController: KCSingleViewController
 				if root.hasCoreView {
 					let exec = AMBComponentExecutor(console: self.globalConsole)
 					let comp:AMBComponent = root.getCoreView()
-					exec.exec(component: comp, console: self.globalConsole)
+					exec.exec(component: comp, argument: mArgument, console: self.globalConsole)
 				} else {
 					CNLog(logLevel: .error, message: "No core view in root", atFunction: #function, inFile: #file)
 				}

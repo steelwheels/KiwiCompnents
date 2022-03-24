@@ -170,9 +170,7 @@ top: VBox {
         title:  String "Go to Second"
         pressed: Event() %{
 			console.log("launch button view .. start") ;
-			enterView("button_view", function(val){
-				console.log("button_view is closed: " + val) ;
-			}) ;
+			enterView("button_view", null) ;
         %}
     }
 	init: Init %{
