@@ -74,20 +74,20 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 
 		/* Sync initial value: axis */
 		if let val = robj.int32Value(forProperty: KMLabeledStackView.AxisItem) {
-			if let axisval = CNAxis(rawValue: Int32(val)) {
+			if let axisval = CNAxis(rawValue: Int(val)) {
 				self.contentsView.axis = axisval
 			} else {
 				let ival = robj.immediateValue(forProperty: KMLabeledStackView.AxisItem)
 				CNLog(logLevel: .error, message: "Invalid property: name=\(KMLabeledStackView.AxisItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		} else {
-			robj.setInt32Value(value: self.contentsView.axis.rawValue, forProperty: KMLabeledStackView.AxisItem)
+			robj.setInt32Value(value: Int32(self.contentsView.axis.rawValue), forProperty: KMLabeledStackView.AxisItem)
 		}
 		/* Add listner: axis */
 		robj.addObserver(forProperty: KMLabeledStackView.AxisItem, callback:  {
 			(_ val: Any) -> Void in
 			if let val = robj.int32Value(forProperty: KMLabeledStackView.AxisItem) {
-				if let axisval = CNAxis(rawValue: val) {
+				if let axisval = CNAxis(rawValue: Int(val)) {
 					CNExecuteInMainThread(doSync: false, execute: {
 						self.contentsView.axis = axisval
 					})
@@ -100,20 +100,20 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 
 		/* Sync initial value: alignment */
 		if let val = robj.int32Value(forProperty: KMLabeledStackView.AlignmentItem) {
-			if let alignval = CNAlignment(rawValue: val) {
+			if let alignval = CNAlignment(rawValue: Int(val)) {
 				self.contentsView.alignment = alignval
 			} else {
 				let ival = robj.immediateValue(forProperty: KMLabeledStackView.AlignmentItem)
 				CNLog(logLevel: .error, message: "Invalid property: name=\(KMLabeledStackView.AlignmentItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		} else {
-			robj.setInt32Value(value: self.contentsView.alignment.rawValue, forProperty: KMLabeledStackView.AlignmentItem)
+			robj.setInt32Value(value: Int32(self.contentsView.alignment.rawValue), forProperty: KMLabeledStackView.AlignmentItem)
 		}
 		/* Add listner: alignment */
 		robj.addObserver(forProperty: KMLabeledStackView.AlignmentItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.int32Value(forProperty: KMLabeledStackView.AxisItem) {
-				if let alignval = CNAlignment(rawValue: val) {
+				if let alignval = CNAlignment(rawValue: Int(val)) {
 					CNExecuteInMainThread(doSync: false, execute: {
 						self.contentsView.alignment = alignval
 					})
@@ -126,20 +126,20 @@ public class KMLabeledStackView: KCLabeledStackView, AMBComponent
 
 		/* Sync initial value: distribution */
 		if let val = robj.int32Value(forProperty: KMLabeledStackView.DistributionItem) {
-			if let distval = CNDistribution(rawValue: val) {
+			if let distval = CNDistribution(rawValue: Int(val)) {
 				self.contentsView.distribution = distval
 			} else {
 				let ival = robj.immediateValue(forProperty: KMLabeledStackView.DistributionItem)
 				CNLog(logLevel: .error, message: "Invalid property: name=\(KMLabeledStackView.DistributionItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		} else {
-			robj.setInt32Value(value: self.contentsView.distribution.rawValue, forProperty: KMLabeledStackView.DistributionItem)
+			robj.setInt32Value(value: Int32(self.contentsView.distribution.rawValue), forProperty: KMLabeledStackView.DistributionItem)
 		}
 		/* Add listner: distribution */
 		robj.addObserver(forProperty: KMLabeledStackView.DistributionItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.int32Value(forProperty: KMLabeledStackView.DistributionItem) {
-				if let distval = CNDistribution(rawValue: val) {
+				if let distval = CNDistribution(rawValue: Int(val)) {
 					CNExecuteInMainThread(doSync: false, execute: {
 						self.contentsView.distribution = distval
 					})

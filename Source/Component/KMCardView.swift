@@ -57,18 +57,18 @@ public class KMCardView: KCCardView, AMBComponent
 		/* axis */
 		addScriptedProperty(object: robj, forProperty: KMCardView.AxisItem)
 		if let val = robj.int32Value(forProperty: KMCardView.AxisItem) {
-			if let axisval = CNAxis(rawValue: Int32(val)) {
+			if let axisval = CNAxis(rawValue: Int(val)) {
 				self.axis = axisval
 			} else {
 				cons.error(string: "Invalid raw value for axis: \(val)\n")
 			}
 		} else {
-			robj.setInt32Value(value: self.axis.rawValue, forProperty: KMCardView.AxisItem)
+			robj.setInt32Value(value: Int32(self.axis.rawValue), forProperty: KMCardView.AxisItem)
 		}
 		robj.addObserver(forProperty: KMCardView.AxisItem, callback:  {
 			(_ val: Any) -> Void in
 			if let val = robj.int32Value(forProperty: KMCardView.AxisItem) {
-				if let axisval = CNAxis(rawValue: val) {
+				if let axisval = CNAxis(rawValue: Int(val)) {
 					CNExecuteInMainThread(doSync: false, execute: {
 						self.axis = axisval
 					})
@@ -84,7 +84,7 @@ public class KMCardView: KCCardView, AMBComponent
 		/* alignment */
 		addScriptedProperty(object: robj, forProperty: KMCardView.AlignmentItem)
 		if let val = robj.int32Value(forProperty: KMCardView.AlignmentItem) {
-			if let alignval = CNAlignment(rawValue: val) {
+			if let alignval = CNAlignment(rawValue: Int(val)) {
 				CNExecuteInMainThread(doSync: false, execute: {
 					self.alignment = alignval
 				})
@@ -92,12 +92,12 @@ public class KMCardView: KCCardView, AMBComponent
 				cons.error(string: "Invalid raw value for alignment: \(val)\n")
 			}
 		} else {
-			robj.setInt32Value(value: self.alignment.rawValue, forProperty: KMCardView.AlignmentItem)
+			robj.setInt32Value(value: Int32(self.alignment.rawValue), forProperty: KMCardView.AlignmentItem)
 		}
 		robj.addObserver(forProperty: KMCardView.AlignmentItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.int32Value(forProperty: KMCardView.AxisItem) {
-				if let alignval = CNAlignment(rawValue: val) {
+				if let alignval = CNAlignment(rawValue: Int(val)) {
 					CNExecuteInMainThread(doSync: false, execute: {
 						self.alignment = alignval
 					})
@@ -113,18 +113,18 @@ public class KMCardView: KCCardView, AMBComponent
 		/* distribution */
 		addScriptedProperty(object: robj, forProperty: KMCardView.DistributionItem)
 		if let val = robj.int32Value(forProperty: KMCardView.DistributionItem) {
-			if let distval = CNDistribution(rawValue: val) {
+			if let distval = CNDistribution(rawValue: Int(val)) {
 				self.distribution = distval
 			} else {
 				cons.error(string: "Invalid raw value for distribution: \(val)\n")
 			}
 		} else {
-			robj.setInt32Value(value: self.distribution.rawValue, forProperty: KMCardView.DistributionItem)
+			robj.setInt32Value(value: Int32(self.distribution.rawValue), forProperty: KMCardView.DistributionItem)
 		}
 		robj.addObserver(forProperty: KMCardView.DistributionItem, callback: {
 			(_ param: Any) -> Void in
 			if let val = robj.int32Value(forProperty: KMCardView.DistributionItem) {
-				if let distval = CNDistribution(rawValue: val) {
+				if let distval = CNDistribution(rawValue: Int(val)) {
 					CNExecuteInMainThread(doSync: false, execute: {
 						self.distribution = distval
 					})
