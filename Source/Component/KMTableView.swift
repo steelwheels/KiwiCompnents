@@ -24,6 +24,7 @@ public class KMTableView: KCTableView, AMBComponent
 	private static let IsEditableItem		= "isEditable"
 	private static let DidSelectedItem		= "didSelected"
 	private static let DataTableItem		= "dataTable"
+	private static let FilterItem			= "filter"
 	private static let RowCountItem			= "rowCount"
 	private static let VisibleRowCountItem		= "visibleRowCount"
 	private static let RemoveSelectedRowsItem	= "removeSelectedRows"
@@ -169,15 +170,8 @@ public class KMTableView: KCTableView, AMBComponent
 				})
 			}
 		} else {
-			if let tbl = self.dataTable as? CNValueTable {
-				let obj = KLValueTable(table: tbl, context: robj.context)
-				robj.setObjectValue(value: obj, forProperty: KMTableView.DataTableItem)
-			} else if let _ = self.dataTable as? CNContactDatabase {
-				let obj = KLContactDatabase(context: robj.context)
-				robj.setObjectValue(value: obj, forProperty: KMTableView.DataTableItem)
-			} else {
-				CNLog(logLevel: .error, message: "Failed to set table property", atFunction: #function, inFile: #file)
-			}
+			let obj = KLValueTable(table: self.dataTable, context: robj.context)
+			robj.setObjectValue(value: obj, forProperty: KMTableView.DataTableItem)
 		}
 		robj.addObserver(forProperty: KMTableView.DataTableItem, callback: {
 			(_ param: Any) -> Void in
@@ -189,6 +183,32 @@ public class KMTableView: KCTableView, AMBComponent
 				}
 			}
 		})
+
+		/* filter property */
+		addScriptedProperty(object: robj, forProperty: KMTableView.FilterItem)
+		if let _ = robj.immediateValue(forProperty: KMTableView.FilterItem) {
+			/* already set */
+		} else {
+			robj.setImmediateValue(value: JSValue(nullIn: robj.context), forProperty: KMTableView.FilterItem)
+		}
+		self.filterFunction = {
+			(_ rec: CNRecord) -> Bool in
+			var result = true
+			if let val = robj.immediateValue(forProperty: KMTableView.FilterItem) {
+				if !val.isNull {
+					let recobj = KLRecord(record: rec, context: robj.context)
+					/* Call event function: event(self, record) */
+					if let retval = val.call(withArguments: [robj, recobj]) {
+						if retval.isBoolean {
+							result = retval.toBool()
+						} else {
+							CNLog(logLevel: .error, message: "Unexpected return value of removeMapping method", atFunction: #function, inFile: #file)
+						}
+					}
+				}
+			}
+			return result
+		}
 
 		/* reload method */
 		addScriptedProperty(object: robj, forProperty: KMTableView.ReloadItem)

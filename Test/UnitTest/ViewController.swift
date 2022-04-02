@@ -53,7 +53,7 @@ class ViewController: KMMultiComponentViewController
 				}
 				CNLog(logLevel: .detail, message: "original view controller is poped: \(msg)")
 			}
-			let _ = super.pushViewController(source: .mainView(res), callback: callback)
+			let _ = super.pushViewController(source: .mainView(res), argument: .nullValue, callback: callback)
 		} else {
 			CNLog(logLevel: .error, message: "Failed to get resource")
 		}

@@ -136,6 +136,10 @@ top: VBox {
 		self.dataTable = table ;
 		self.reload() ;
 	%}
+	filter: Event(record) %{
+		console.log("recordMapping") ;
+		return true ;
+	%}
     }
     labelBox: LabeledBox {
 	title: String "Label Box"
