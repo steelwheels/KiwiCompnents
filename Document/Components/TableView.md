@@ -10,6 +10,7 @@ top: VBox {
     table: TableView {
 	hasHeader: Bool true
         isSelectable: Bool true
+        visibleRowCount: Int 8
         fieldNames: Array [
                 {field:"c0", title:"column 0"},
                 {field:"c1", title:"column 1"},
@@ -26,6 +27,9 @@ top: VBox {
                 }
                 // Load table into this view
                 self.reload(table) ;
+        %}
+        filter: Event(record) %{
+                return true ; // select all rows
         %}
         pressed: Event(row, col) %{
                 console.log("row    = " + row + "/" + self.rowCount) ;
@@ -56,9 +60,10 @@ You can see the entire script at [value-table-4.jspkg](https://github.com/steelw
 |didSelected    |Bool   |Has true when the row of table is selected. |
 |fieldNames     |Array  |Active field names |
 |hasHeader      |Bool   |The visibility of column title view|
-|isSelectable   |Bool   |You can select row or not |
 |rowCount       |Int    |Number of rows in table (Read only)|
-|visibleRowCount |Int    |Number of rows in table (Read only)|
+|isSelectable   |Bool   |You can select row or not |
+|selectedRows   |number[] | Array of row numbers (Read only)|
+|visibleRowCount |Int    |Minimum umber of visible rows|
 
 The `fieldNames` property used to decide following thigs:
 * Choose the fields in the record. These fields are displayed in the table.
@@ -67,8 +72,8 @@ The `fieldNames` property used to decide following thigs:
 The `fieldNames` is an array of following objects:
 ````
 {
-  field:  "c0"    // The string value for the field in record
-  title:  "col0"  // The header name in the table
+  field:  "c0"    // Field name in the record
+  title:  "col0"  // Visible column name
 }
 ````
 
@@ -82,6 +87,14 @@ Replace entire data in the table.
 reload(table: TableIF) ;
 ```
 See the definition of [TableIF](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/ValueTable.md).
+
+### `filter`
+The event method to select the record or not. The table selects the records whose return value is true.
+````
+filter: Event(record: RecordIF) %{
+        return true /* or false */ ;
+%}
+````
 
 ### `pressed`
 The event method to accept clicked event:

@@ -27,6 +27,7 @@ public class KMTableView: KCTableView, AMBComponent
 	private static let FilterItem			= "filter"
 	private static let RowCountItem			= "rowCount"
 	private static let VisibleRowCountItem		= "visibleRowCount"
+	private static let SelectedRowsItem		= "selectedRows"
 	private static let RemoveSelectedRowsItem	= "removeSelectedRows"
 	private static let ReloadItem			= "reload"
 	private static let IsDirtyItem			= "isDirty"
@@ -149,6 +150,23 @@ public class KMTableView: KCTableView, AMBComponent
 		} else {
 			robj.setInt32Value(value: Int32(self.minimumVisibleRowCount), forProperty: KMTableView.VisibleRowCountItem)
 		}
+
+		/* selectedRows method */
+		addScriptedProperty(object: robj, forProperty: KMTableView.SelectedRowsItem)
+		let selrowsfunc: @convention(block) () -> JSValue = {
+			() -> JSValue in
+			var nums: Array<NSNumber> = []
+			for row in super.selectedRows() {
+				nums.append(NSNumber(integerLiteral: row))
+			}
+			if let rows = JSValue(object: nums, in: robj.context) {
+				return rows
+			} else {
+				CNLog(logLevel: .error, message: "Failed to allocate index array", atFunction: #function, inFile: #file)
+				return JSValue(newArrayIn: robj.context)
+			}
+		}
+		robj.setImmediateValue(value: JSValue(object: selrowsfunc, in: robj.context), forProperty: KMTableView.SelectedRowsItem)
 
 		/* remove selected row method */
 		addScriptedProperty(object: robj, forProperty: KMTableView.RemoveSelectedRowsItem)
