@@ -27,7 +27,7 @@ public class KMTableView: KCTableView, AMBComponent
 	private static let FilterItem			= "filter"
 	private static let RowCountItem			= "rowCount"
 	private static let VisibleRowCountItem		= "visibleRowCount"
-	private static let SelectedRowsItem		= "selectedRows"
+	private static let SelectedRecordsItem		= "selectedRecords"
 	private static let RemoveSelectedRowsItem	= "removeSelectedRows"
 	private static let ReloadItem			= "reload"
 	private static let IsDirtyItem			= "isDirty"
@@ -152,21 +152,21 @@ public class KMTableView: KCTableView, AMBComponent
 		}
 
 		/* selectedRows method */
-		addScriptedProperty(object: robj, forProperty: KMTableView.SelectedRowsItem)
-		let selrowsfunc: @convention(block) () -> JSValue = {
+		addScriptedProperty(object: robj, forProperty: KMTableView.SelectedRecordsItem)
+		let selrecsfunc: @convention(block) () -> JSValue = {
 			() -> JSValue in
-			var nums: Array<NSNumber> = []
-			for row in super.selectedRows() {
-				nums.append(NSNumber(integerLiteral: row))
+			var recs: Array<KLRecord> = []
+			for rec in super.selectedRecords() {
+				recs.append(KLRecord(record: rec, context: robj.context))
 			}
-			if let rows = JSValue(object: nums, in: robj.context) {
-				return rows
+			if let recobj = JSValue(object: recs, in: robj.context) {
+				return recobj
 			} else {
-				CNLog(logLevel: .error, message: "Failed to allocate index array", atFunction: #function, inFile: #file)
+				CNLog(logLevel: .error, message: "Failed to allocate array of records", atFunction: #function, inFile: #file)
 				return JSValue(newArrayIn: robj.context)
 			}
 		}
-		robj.setImmediateValue(value: JSValue(object: selrowsfunc, in: robj.context), forProperty: KMTableView.SelectedRowsItem)
+		robj.setImmediateValue(value: JSValue(object: selrecsfunc, in: robj.context), forProperty: KMTableView.SelectedRecordsItem)
 
 		/* remove selected row method */
 		addScriptedProperty(object: robj, forProperty: KMTableView.RemoveSelectedRowsItem)
