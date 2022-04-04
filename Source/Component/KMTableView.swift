@@ -156,9 +156,12 @@ public class KMTableView: KCTableView, AMBComponent
 		let selrecsfunc: @convention(block) () -> JSValue = {
 			() -> JSValue in
 			var recs: Array<KLRecord> = []
-			for rec in super.selectedRecords() {
-				recs.append(KLRecord(record: rec, context: robj.context))
-			}
+			CNExecuteInMainThread(doSync: true, execute: {
+				() -> Void in
+				for rec in super.selectedRecords() {
+					recs.append(KLRecord(record: rec, context: robj.context))
+				}
+			})
 			if let recobj = JSValue(object: recs, in: robj.context) {
 				return recobj
 			} else {
