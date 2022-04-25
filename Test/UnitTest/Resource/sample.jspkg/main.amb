@@ -118,8 +118,8 @@ top: VBox {
 		console.log("[Table View] Init") ;
 
 		/* Set data */
-		let storage = ValueStorage("storage") ;
-		let table   = ValueTable("root", storage) ;
+		let storage = Storage("storage") ;
+		let table   = Table("root", storage) ;
 
 		let rec0  = Record() ;
 		rec0.setValue(30, "c0") ;
