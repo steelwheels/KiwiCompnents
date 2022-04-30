@@ -28,7 +28,7 @@ top: VBox {
 			draw: Event(context, count) %{
 				//console.log("[Grahics2D] " + count) ;
 				let lframe = context.logicalFrame ;
-				let offset = Math.PI * ((count % 10) / 10.0) ; 
+				let offset = Math.PI * ((count % 10) / 10.0) ;
 				context.moveTo(lframe.x, Math.sin(lframe.x + offset)) ;
 				for(let x=lframe.x ; x<=lframe.x + lframe.width ; x+=0.1) {
 					let y = Math.sin(x + offset) ;
@@ -126,7 +126,7 @@ top: VBox {
 		rec0.setValue(31, "c1") ;
 		rec0.setValue(32, "c2") ;
 		table.append(rec0) ;
-		
+
 		let rec1  = Record() ;
 		rec1.setValue(40, "c0") ;
 		rec1.setValue(41, "c1") ;

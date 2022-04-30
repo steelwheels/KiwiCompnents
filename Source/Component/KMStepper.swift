@@ -27,7 +27,7 @@ public class KMStepper: KCStepper, AMBComponent
 	private static let CurrentValueItem	= "currentValue"
 	private static let DecimalPlacesItem	= "decimalPlaces"
 	private static let ChangedItem		= "changed"
-	
+
 	private var mReactObject:	AMBReactObject?
 	private var mChildObjects:	Array<AMBComponentObject>
 
@@ -35,7 +35,7 @@ public class KMStepper: KCStepper, AMBComponent
 	public func addChild(component comp: AMBComponent) {
 		CNLog(logLevel: .error, message: "Not supported", atFunction: #function, inFile: #file)
 	}
-	
+
 	public var reactObject: AMBReactObject {
 		get {
 			if let robj = mReactObject {

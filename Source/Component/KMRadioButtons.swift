@@ -29,7 +29,7 @@ public class KMRadioButtons: KCRadioButtons, AMBComponent
 	public func addChild(component comp: AMBComponent) {
 		CNLog(logLevel: .error, message: "Not supported", atFunction: #function, inFile: #file)
 	}
-	
+
 	public var reactObject: AMBReactObject {
 		get {
 			if let robj = mReactObject {
