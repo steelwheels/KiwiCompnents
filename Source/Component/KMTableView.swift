@@ -109,7 +109,7 @@ public class KMTableView: KCTableView, AMBComponent
 						CNLog(logLevel: .error, message: "Invalid active field name: field and title properties are required")
 					}
 				} else {
-					CNLog(logLevel: .error, message: "Invalid active field name: dictionary data is required")
+					CNLog(logLevel: .error, message: "Invalid active field name: dictionary data is required but \"\(elm)\" is given")
 				}
 			}
 			if result.count > 0 {

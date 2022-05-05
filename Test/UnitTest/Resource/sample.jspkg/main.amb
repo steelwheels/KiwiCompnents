@@ -3,7 +3,7 @@ top: VBox {
     adbook: AddressBook {
     }
     message: HBox {
-	    logo: Image {
+	    logo: ImageView {
 			name: String "logo"
 	    }
 	    text_a: TextField {

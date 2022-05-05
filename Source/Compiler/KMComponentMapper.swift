@@ -13,13 +13,11 @@ import CoconutData
 
 public class KMComponentMapper: AMBComponentMapper
 {
-	public typealias  MapResult = AMBComponentMapper.MapResult
-
-	open override func map(object robj: AMBReactObject, console cons: CNConsole) -> MapResult {
+	open override func map(object robj: AMBReactObject, console cons: CNConsole) -> Result<AMBComponent, NSError> {
 		return mapView(object: robj, console: cons)
 	}
 
-	public func mapView(object robj: AMBReactObject, console cons: CNConsole) -> MapResult {
+	public func mapView(object robj: AMBReactObject, console cons: CNConsole) -> Result<AMBComponent, NSError> {
 		let classname = robj.frame.className
 		let newcomp    : AMBComponent
 		let hassubview : Bool
@@ -53,7 +51,7 @@ public class KMComponentMapper: AMBComponentMapper
 		case "Icon":
 			newcomp     = KMIcon()
 			hassubview  = false
-		case "Image":
+		case "ImageView":
 			newcomp     = KMImage()
 			hassubview  = false
 		case "Label":
@@ -97,20 +95,20 @@ public class KMComponentMapper: AMBComponentMapper
 		}
 		if hassubview {
 			if let err = mapChildView(component: newcomp, reactObject: robj, console: cons) {
-				return .error(err)
+				return .failure(err)
 			}
 		} else {
 			if let err = mapChildData(component: newcomp, reactObject: robj, console: cons) {
-				return .error(err)
+				return .failure(err)
 			}
 		}
 		if let err = newcomp.setup(reactObject: robj, console: cons) {
-			return .error(err)
+			return .failure(err)
 		}
-		return .ok(newcomp)
+		return .success(newcomp)
 	}
 
-	public func mapData(object robj: AMBReactObject, console cons: CNConsole) -> MapResult {
+	public func mapData(object robj: AMBReactObject, console cons: CNConsole) -> Result<AMBComponent, NSError>  {
 		let classname = robj.frame.className
 		let newcomp    : AMBComponent
 		switch classname {
@@ -124,12 +122,12 @@ public class KMComponentMapper: AMBComponentMapper
 			return super.mapObject(object: robj, console: cons)
 		}
 		if let err = mapChildData(component: newcomp, reactObject: robj, console: cons) {
-			return .error(err)
+			return .failure(err)
 		}
 		if let err = newcomp.setup(reactObject: robj, console: cons) {
-			return .error(err)
+			return .failure(err)
 		} else {
-			return .ok(newcomp)
+			return .success(newcomp)
 		}
 	}
 
@@ -137,12 +135,10 @@ public class KMComponentMapper: AMBComponentMapper
 		for prop in robj.scriptedPropertyNames {
 			if let child = robj.childFrame(forProperty: prop) {
 				switch mapView(object: child, console: cons) {
-				case .ok(let childcomp):
+				case .success(let childcomp):
 					comp.addChild(component: childcomp)
-				case .error(let err):
+				case .failure(let err):
 					return err
-				@unknown default:
-					return NSError.parseError(message: "Can not happen at function \(#function) in file \(#file)")
 				}
 			}
 		}
@@ -153,19 +149,14 @@ public class KMComponentMapper: AMBComponentMapper
 		for prop in robj.scriptedPropertyNames {
 			if let child = robj.childFrame(forProperty: prop) {
 				switch mapData(object: child, console: cons) {
-				case .ok(let childcomp):
+				case .success(let childcomp):
 					comp.addChild(component: childcomp)
-				case .error(let err):
+				case .failure(let err):
 					return err
-				@unknown default:
-					return NSError.parseError(message: "Can not happen at function \(#function) in file \(#file)")
 				}
 			}
 		}
 		return nil
 	}
 }
-
-
-
 

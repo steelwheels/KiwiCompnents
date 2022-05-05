@@ -139,21 +139,23 @@ open class KMComponentViewController: KCSingleViewController
 		let ambparser = AMBParser()
 		let frame: AMBFrame
 		switch ambparser.parse(source: script as String) {
-		case .ok(let frm):
-			frame = frm
-			/* dump the frame */
-			if loglevel.isIncluded(in: .detail) {
-				console.print(string: "[Output of Amber Parser]\n")
-				let dumper = AMBFrameDumper()
-				let txt = dumper.dumpToText(frame: frm).toStrings().joined(separator: "\n")
-				console.print(string: txt + "\n")
+		case .success(let val):
+			if let frm = val as? AMBFrame {
+				frame = frm
+			} else {
+				console.error(string: "Error: Frame object is required\n")
+				return nil
 			}
-		case .error(let err):
+		case .failure(let err):
 			console.error(string: "Error: \(err.toString())\n")
 			return nil
-		@unknown default:
-			console.error(string: "Error: Unknown switch condition (1)\n")
-			return nil
+		}
+
+		/* dump the frame */
+		if loglevel.isIncluded(in: .detail) {
+			console.print(string: "[Output of Amber Parser]\n")
+			let txt = frame.toText().toStrings().joined(separator: "\n")
+			console.print(string: txt + "\n")
 		}
 
 		/* Allocate the component */
@@ -161,20 +163,16 @@ open class KMComponentViewController: KCSingleViewController
 		let mapper   = KMComponentMapper()
 		let topcomp: AMBComponent
 		switch compiler.compile(frame: frame, mapper: mapper, context: context, processManager: procmgr, resource: resource, environment: self.environment, config: config, console: console) {
-		case .ok(let comp):
+		case .success(let comp):
 			topcomp = comp
 			/* dump the component */
 			if loglevel.isIncluded(in: .detail) {
 				console.print(string: "[Output of Amber Compiler]\n")
-				let dumper = AMBComponentDumper()
-				let txt    = dumper.dumpToText(component: comp).toStrings().joined(separator: "\n")
+				let txt = comp.toText().toStrings().joined(separator: "\n")
 				console.print(string: txt + "\n")
 			}
-		case .error(let err):
+		case .failure(let err):
 			console.error(string: "Error: \(err.toString())\n")
-			return nil
-		@unknown default:
-			console.error(string: "Error: Unknown switch condition (2)\n")
 			return nil
 		}
 
@@ -270,7 +268,7 @@ open class KMComponentViewController: KCSingleViewController
 				if root.hasCoreView {
 					let exec = AMBComponentExecutor(console: self.globalConsole)
 					let comp:AMBComponent = root.getCoreView()
-					exec.exec(component: comp, argument: mArgument, console: self.globalConsole)
+					exec.exec(component: comp, console: self.globalConsole)
 				} else {
 					CNLog(logLevel: .error, message: "No core view in root", atFunction: #function, inFile: #file)
 				}
