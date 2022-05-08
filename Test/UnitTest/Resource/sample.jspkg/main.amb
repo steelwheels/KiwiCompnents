@@ -1,14 +1,14 @@
 top: VBox {
-    index: Int 0
-    adbook: AddressBook {
-    }
+    index: 0
+    //adbook: AddressBook {
+    //}
     message: HBox {
 	    logo: ImageView {
-			name: String "logo"
+			name: "logo"
 	    }
 	    text_a: TextField {
-			minWidth: Int 20
-			text: String Listner(index: top.index) %{
+			minWidth: 20
+			text: Listner(index: top.index) %{
 				let label = "?" ;
 				let rec   = top.adbook.record ;
 				if(rec != null){
@@ -21,10 +21,10 @@ top: VBox {
 			%}
 	    }
 		graphics: Graphics2D {
-			xOrigin:  Float -1.0
-			yOrigin:  Float -1.0
-			xSize:    Float  2.0
-			ySize:    Float  2.0
+			xOrigin:  -1.0
+			yOrigin:  -1.0
+			xSize:    2.0
+			ySize:    2.0
 			draw: Event(context, count) %{
 				//console.log("[Grahics2D] " + count) ;
 				let lframe = context.logicalFrame ;
@@ -56,20 +56,20 @@ top: VBox {
     }
     boxes: HBox {
 		checkBox0: CheckBox {
-			title:	String "option-0"
+			title:	"option-0"
 			pressed: Event(status) %{
 				console.log("option-0: " + status) ;
 			%}
 		}
 		checkBox1: CheckBox {
-			title:	String "option-1"
-			status: Bool false
+			title:	"option-1"
+			status: false
 			pressed: Event(status) %{
 				console.log("option-1: " + status) ;
 			%}
 		}
 		button0: Button {
-			title:	String Listner(state: top.message.graphics.state) %{
+			title:	Listner(state: top.message.graphics.state) %{
 				let result = "Unknown" ;
 				switch(state) {
 					case AnimationState.idle:
@@ -104,12 +104,12 @@ top: VBox {
 			%}
 		}
 		menu0: PopupMenu {
-			items: Array ["a", "b", "c"]
+			items: ["a", "b", "c"]
 		}
     }
     dataTable: TableView {
-	hasHeader: Bool true
-	fieldNames: Array [
+	hasHeader: true
+	fieldNames: [
 		{field:"c0", title:"col[0]"},
 		{field:"c1", title:"col[1]"},
 		{field:"c2", title:"col[2]"}
@@ -142,13 +142,13 @@ top: VBox {
 	%}
     }
     labelBox: LabeledBox {
-	title: String "Label Box"
+	title: "Label Box"
 	box: HBox {
 		firstName: Label {
-			text: String "first-name"
+			text: "first-name"
 		}
 		givenName: Label {
-			text: String "given-name"
+			text: "given-name"
 		}
         }
     }
@@ -171,7 +171,7 @@ top: VBox {
         %}
     }
     button_a: Button {
-        title:  String "Go to Second"
+        title:  "Go to Second"
         pressed: Event() %{
 			console.log("launch button view .. start") ;
 			enterView("button_view", null) ;

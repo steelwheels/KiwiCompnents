@@ -1,55 +1,42 @@
 # Bitmap component
 The 2D bitmap drawer.  The [bitmap context](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/BitmapContext.md) is used to set/get pixel in the bitmap. The `draw` method is called to draw/update the bitmap. It is called periodically. The calling is controlled by `start`, `stop`, `suspend`, `resume` methods.
 
-## Sample script
-````
-top: VBox {
-    bitmap: Bitmap {
-        width:          Int     640
-        height:         Int     480
-        rowCount:       Int     50
-        columnCount:    Int     50
+## Screen shot
 
-        draw: Event(context, count) %{
-            ... Update context ...
-        %}
-    }
-    buttons: HBox {
-        start_button: Button {
-            pressed: Event() %{
-                let grp = top.bitmap ;
-                // Get the state of graphics drawing
-                switch(grp.state) {
-                    case AnimationState.idle:
-                        // Start drawing
-                        grp.start(1.0, 10.0) ;
-                    break ;
-                    case AnimationState.run:
-                        grp.stop() ;
-                    break ;
-                    case AnimationState.pause:
-                        console.print("No effect\n") ;
-                    break ;
-                }
-            %}
-        }
-    }
-}
-````
 ![Bitmap View](Images/bitmap-view.png)
 
 You can see the full implementation at [bitmap.jspkg](https://github.com/steelwheels/JSTerminal/tree/master/Resource/Sample/bitmap.jspkg).
 
+## Interface
+
+````
+interface Bitmap
+{
+        readonly width:         float
+        readonly height:        float
+        rowCount:               int
+        columnCount:            int
+
+        readonly state:         AnimationState
+
+        func start(duration, repeat):   void
+        func stop():                    void
+        func suspend():                 void
+        func resume():                  void
+
+        event draw(context, count): void
+}
+````
 
 ## Properties
 
-|Property name  |Type       |Description        |
-|:--            |:--        |:--                |
-|width          |number     |The width of view |
-|height         |number     |The height of view  |
-|rowCount       |number     |The number of pixels on the row of bitmap |
-|columnCount    |number     |The number of pixels on the column of bitmap |
-|status         |[AnimationState](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Enum/AnimationState.md)     |The state of animation. (Read only) |
+|Property name  |Type       |Access     |Description        |
+|:--            |:--        |:--        |:--                |
+|width          |number     |readonly   |The width of view |
+|height         |number     |readonly   |The height of view  |
+|rowCount       |number     |read/write |The number of pixels on the row of bitmap |
+|columnCount    |number     |read/write |The number of pixels on the column of bitmap |
+|status         |[AnimationState](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Enum/AnimationState.md)     |readonly   |The state of animation|
 
 
 ## Methods
@@ -66,17 +53,21 @@ start(duration:number, repeat:number) %{
 |repeat         |number     |Integer number to present repeat counts. |
 
 ### `stop` method
+Stop the animation. The animation state will be initialized.
 
 ### `suspend` method
+Stop the animation tempollary. It will be restarted `resume` method call.
 
 ### `resume` method
+Restart the animation which is stopped by `suspend` method.
 
 ### `draw` event function
 The event function which is called when to draw the graphics.
 
 ````
 {
-    draw: Event(context, )
+    draw: Event(context, count) %{
+    %}
 }
 ````
 
@@ -86,36 +77,6 @@ The event function which is called when to draw the graphics.
 
 The parameter `context` is an instance of [GraphicsContext class](
 https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/GraphicsContext.md).
-
-## Built-in method
-Following methods are defined as built-in method. 
-You can call them in your JavaScript code:
-
-### `start`
-````
-grp.start(interval: Double, endtime: Doble) ;
-````
-Start the animation. The `interval` is the period of the animation. And the `endtime` is time to run the animation.
-
-### `stop`
-Stop the animation. All status (such as state, repeat count) will be initialized for next `start`.
-````
-grp.stop() ;
-````
-
-### `suspend`
-Suspend the animation. The status is freezed until `resume` or `stop` method is called.
-````
-grp.suspend() ;
-````
-Suspend the animation. It can be resumed by `resume` method.
-
-### `resume`
-Resume the animation. This method is used to restart animation which is suspended by `suspend` method.
-````
-grp.resume() ;
-````
-Resume the suspende anumation.
 
 ## Reference
 * [Bitmap context](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/BitmapContext.md): The bitmap to draw the 2D bitmap graphics. 

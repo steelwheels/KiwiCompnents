@@ -1,9 +1,9 @@
 top: VBox {
     button_a: Button {
-        title:  String "Back to First"
+		title:  "Back to First"
         pressed: Event() %{
-		console.log("leave view") ;
-		leaveView(1234) ;
+			console.log("leave view") ;
+			leaveView(1234) ;
         %}
     }
 }
