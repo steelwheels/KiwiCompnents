@@ -100,7 +100,7 @@ public class KMLibraryCompiler
 					if let retobj = JSValue(int32: Int32(retval), in: ctxt) {
 						cbfunc.call(withArguments: [retobj])
 					} else {
-						NSLog("Failed to allocate return value")
+						CNLog(logLevel: .error, message: "Failed to allocate return value", atFunction: #function, inFile: #file)
 						cbfunc.call(withArguments: [])
 					}
 				})

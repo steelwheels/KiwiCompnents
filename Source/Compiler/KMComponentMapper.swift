@@ -119,7 +119,12 @@ public class KMComponentMapper: AMBComponentMapper
 		case "Storage":
 			newcomp = KMStorage()
 		default:
-			return super.mapObject(object: robj, console: cons)
+			switch super.mapObject(object: robj, console: cons) {
+			case .success(let comp):
+				newcomp = comp
+			case .failure(let err):
+				return .failure(err)
+			}
 		}
 		if let err = mapChildData(component: newcomp, reactObject: robj, console: cons) {
 			return .failure(err)

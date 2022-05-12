@@ -71,7 +71,7 @@ open class KMComponentViewController: KCSingleViewController
 			if let env = mEnvironment {
 				return env
 			} else {
-				NSLog("[FatalError] No inherited environment")
+				CNLog(logLevel: .error, message: "No inherited environment", atFunction: #function, inFile: #file)
 				return CNEnvironment()
 			}
 		}

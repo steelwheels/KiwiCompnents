@@ -1,7 +1,7 @@
 # Bitmap component
 The 2D bitmap drawer.  The [bitmap context](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/BitmapContext.md) is used to set/get pixel in the bitmap. The `draw` method is called to draw/update the bitmap. It is called periodically. The calling is controlled by `start`, `stop`, `suspend`, `resume` methods.
 
-## Screen shot
+## Samble screen shot
 
 ![Bitmap View](Images/bitmap-view.png)
 

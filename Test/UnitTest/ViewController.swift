@@ -23,9 +23,6 @@ class ViewController: KMMultiComponentViewController
 			if let err = loader.load(into: resource) {
 				CNLog(logLevel: .error, message: "Failed to load contents of sample.jspkg: \(err.toString())")
 			}
-			//NSLog("resource:")
-			//let txt = resource.toText().toStrings(terminal: "")
-			//NSLog(txt.joined(separator: "\n"))
 			return resource
 		} else {
 			CNLog(logLevel: .error, message: "Failed to load sample.jspkg")

@@ -112,7 +112,7 @@ public class KMDrawingView: KCDrawingView, AMBComponent
 	public var children: Array<AMBComponent>  { get { return [] }}
 
 	public func addChild(component comp: AMBComponent) {
-		NSLog("Can not add child components to Button component")
+		CNLog(logLevel: .error, message: "Can not add child components to Button component", atFunction: #function, inFile: #file)
 	}
 
 	public func accept(visitor vst: KMVisitor) {

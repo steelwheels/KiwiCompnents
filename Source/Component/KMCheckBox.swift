@@ -45,7 +45,7 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 
 	public var children: Array<AMBComponent>  { get { return [] }}
 	public func addChild(component comp: AMBComponent) {
-		NSLog("Can not add child components to Button component")
+		CNLog(logLevel: .error, message: "Can not add child components to Button component", atFunction: #function, inFile: #file)
 	}
 
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
@@ -122,7 +122,7 @@ public class KMCheckBox: KCCheckBox, AMBComponent
 						evtval.call(withArguments: [robj, statval])	// insert self
 					})
 				} else {
-					NSLog("Failed to allocate object at \(#function)")
+					CNLog(logLevel: .error, message: "Failed to allocate object" , atFunction: #function, inFile: #file)
 				}
 			} else {
 				let ival = robj.immediateValue(forProperty: KMCheckBox.PressedItem)

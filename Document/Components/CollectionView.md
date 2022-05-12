@@ -3,52 +3,45 @@ The collection view is used to display multiple arranged images. The image can b
 
 The context of the view is defined as an instance of [Collection](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/Collection.md) class.
 
-## Sanple
-````
-top: VBox {
-        collection: CollectionView {
-                init: Init %{
-                        let col0 = Collection();
-                        let paths = [
-                                Symbols.characterA,
-                                ....
-                                Symbols.rectangle(true, true)
-                        ];
-                        col0.add("Header", "Footer", paths);
-                        self.store(col0) ;
-                %}
-                selected: Event(section, item) %{
-                        console.print("selected: " + section + ", " + item + "\n") ;
-                        console.print("itemCount: " + self.itemCount(section) + "\n");
-                %}
-        }
-        ...
-}
-````
-
-This is the screenshot of this component:
+## Sanple screen shot
 ![Collection View](./Images/collection-view.png)
 
-In the above example, the instance of [Collection](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/Collection.md) class is allocated in `Init` method and stored by `store` method.
+You can see the entire script at [checkbox.jspkg](https://github.com/steelwheels/JSTerminal/tree/master/Resource/Sample/collection1.jspkg).
+
+The instance of [Collection](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/Collection.md) class is allocated in `Init` method and stored by `store` method.
 
 You can see the entire script at [collection1.jspkg](https://github.com/steelwheels/JSTerminal/tree/master/Resource/Sample/collection1.jspkg).
 
+## Interface
+````
+interface CollectionView
+{
+        sectionCount:   int
+        isSelectable:   boolean
+
+        func  itemCount(section):       number
+        event selected(section, item):  void
+        func  store(collection):        void
+}
+````
+
 ## Properties
-|Property name  |Type   |Description        |
-|:--            |:--    |:--                | 
-|sectionCount   |number |Number of sections in the collection |
-|isSelectable   |Bool   |User can select an item or not|
+|Property name  |Type   |Access |Description        |
+|:--            |:--    |:--    |:--                | 
+|sectionCount   |number |readonly |Number of sections in the collection |
+|isSelectable   |Bool   |readonly |User can select an item or not|
 
 ## Method
 
 ### `itemCount`
+Return the count of items in the specified section by argument `secno`.
+If the argument is not valid or there are no matched section, the return value will be 0.
 ````
 itemCount(secno: number): number
 ````
-Return the count of items in the specified section by argument `secno`.
-If the argument is not valid or there are no matched section, the return value will be 0.
 
 ### `selected` method
+This function will be called when the use click select new item in the collection view.
 ````
 selected: Event(section, item) %{
 %}

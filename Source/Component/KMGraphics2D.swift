@@ -67,7 +67,7 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 
 	public var children: Array<AMBComponent>  { get { return [] }}
 	public func addChild(component comp: AMBComponent) {
-		NSLog("Can not add child components to Button component")
+		CNLog(logLevel: .error, message: "Can not add child components to Button component", atFunction: #function, inFile: #file)
 	}
 
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
@@ -188,7 +188,7 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 			/* Call event function */
 			drawfnc.call(withArguments: [reactObject, gctxt, cntval])	// (self, context, count)
 		} else {
-			NSLog("No function to draw at \(#function)")
+			CNLog(logLevel: .error, message: "No function to draw", atFunction: #function, inFile: #file)
 		}
 	}
 

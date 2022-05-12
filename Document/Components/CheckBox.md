@@ -1,23 +1,21 @@
 # CheckBox component
 The check box to toggle ON/OFF value.
 
-## Samble
-````
-top: VBox {
-    checkbox: CheckBox {
-        title:     String "Do you understand ?"
-        isEnabled: Bool  true
-        pressed: Event() %{
-                console.print("pressed: " + self.status + "\n") ;
-        %}
-    }
-    ...
-}
-````
-
+## Samble screen shot
 ![CheckBox View](./Images/checkbox-view.png)
 
 You can see the entire script at [checkbox.jspkg](https://github.com/steelwheels/JSTerminal/tree/master/Resource/Sample/checkbox.jspkg).
+
+## Interface
+````
+interface: Checkbox {
+        status:         boolean
+        isEnabled:      boolean
+        title:          string
+
+        event pressed(): void
+}
+````
 
 ## Properties
 |Property name  |Type       |Description        |

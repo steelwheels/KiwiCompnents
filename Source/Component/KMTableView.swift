@@ -31,8 +31,10 @@ public class KMTableView: KCTableView, AMBComponent
 	private static let RemoveSelectedRowsItem	= "removeSelectedRows"
 	private static let ReloadItem			= "reload"
 	private static let IsDirtyItem			= "isDirty"
+	private static let VirtualFieldsItem		= "virtualFields"
 
 	private var mReactObject:	AMBReactObject?
+	private var mChildComponents:	Array<AMBComponent>
 	private var mConsole:		CNConsole
 
 	public var reactObject: AMBReactObject	{ get {
@@ -43,10 +45,17 @@ public class KMTableView: KCTableView, AMBComponent
 		}
 	}}
 
-	public var children: Array<AMBComponent> { get { return [] }}
+	public var children: Array<AMBComponent> { get {
+		return mChildComponents
+	}}
+
+	public func addChild(component comp: AMBComponent) {
+		mChildComponents.append(comp)
+	}
 
 	public init(){
 		mReactObject		= nil
+		mChildComponents	= []
 		mConsole		= CNFileConsole()
 		#if os(OSX)
 			let frame = NSRect(x: 0.0, y: 0.0, width: 480, height: 160)
@@ -58,15 +67,15 @@ public class KMTableView: KCTableView, AMBComponent
 
 	@objc required dynamic init?(coder: NSCoder) {
 		mReactObject		= nil
+		mChildComponents	= []
 		mConsole		= CNFileConsole()
 		super.init(coder: coder)
 	}
 
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
-		mReactObject	= robj
-		mConsole	= cons
-		//self.isEditable = true
-		self.isEnable = true
+		mReactObject		= robj
+		mConsole		= cons
+		self.isEnable 		= true
 
 		/* Sync initial value: hasHeader */
 		addScriptedProperty(object: robj, forProperty: KMTableView.HasHeaderItem)
@@ -231,6 +240,33 @@ public class KMTableView: KCTableView, AMBComponent
 			return result
 		}
 
+		/* virtualFields */
+		addScriptedProperty(object: robj, forProperty: KMTableView.VirtualFieldsItem)
+		if let ccomp = self.searchChild(byName: KMTableView.VirtualFieldsItem) {
+			let cobj   = ccomp.reactObject
+			let cframe = cobj.frame
+			for cmemb in cframe.members {
+				switch cmemb.value.type {
+				case .procedureFunction:
+					if let funcval = cobj.immediateValue(forProperty: cmemb.identifier) {
+						super.addVirtualField(name: cmemb.identifier, callbackFunction: {
+							(_ rec: CNRecord) -> CNValue in
+							let recobj = KLRecord(record: rec, context: robj.context)
+							if let retval = funcval.call(withArguments: [recobj]) {
+								return retval.toNativeValue()
+							} else {
+								return .nullValue
+							}
+						})
+					} else {
+						CNLog(logLevel: .error, message: "No procedural function name: \(cmemb.identifier)", atFunction: #function, inFile: #file)
+					}
+				default:
+					break
+				}
+			}
+		}
+
 		/* reload method */
 		addScriptedProperty(object: robj, forProperty: KMTableView.ReloadItem)
 		let reloadfunc: @convention(block) () -> JSValue = {
@@ -247,10 +283,6 @@ public class KMTableView: KCTableView, AMBComponent
 
 	public func accept(visitor vst: KMVisitor) {
 		vst.visit(tableView: self)
-	}
-
-	public func addChild(component comp: AMBComponent) {
-		mConsole.error(string: "Not supported: addChild at \(#function) in \(#file)")
 	}
 }
 
