@@ -87,7 +87,7 @@ public class KMContactDatabase: AMBComponentObject
 		let db = CNContactDatabase.shared
 		if let rec = db.record(at: idx) {
 			let newrec = KLRecord(record: rec, context: robj.context)
-			newobj = JSValue(object: newrec, in: robj.context)
+			newobj = KLRecord.allocate(record: newrec, atFunction: #function, inFile: #file)
 		} else {
 			newobj = JSValue(nullIn: robj.context)
 		}

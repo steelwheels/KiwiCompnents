@@ -227,8 +227,9 @@ public class KMTableView: KCTableView, AMBComponent
 			if let val = robj.immediateValue(forProperty: KMTableView.FilterItem) {
 				if !val.isNull {
 					let recobj = KLRecord(record: rec, context: robj.context)
+					let recval = KLRecord.allocate(record: recobj, atFunction: #function, inFile: #file)
 					/* Call event function: event(self, record) */
-					if let retval = val.call(withArguments: [robj, recobj]) {
+					if let retval = val.call(withArguments: [robj, recval]) {
 						if retval.isBoolean {
 							result = retval.toBool()
 						} else {
@@ -252,7 +253,8 @@ public class KMTableView: KCTableView, AMBComponent
 						super.addVirtualField(name: cmemb.identifier, callbackFunction: {
 							(_ rec: CNRecord) -> CNValue in
 							let recobj = KLRecord(record: rec, context: robj.context)
-							if let retval = funcval.call(withArguments: [recobj]) {
+							let recval = KLRecord.allocate(record: recobj, atFunction: #function, inFile: #file)
+							if let retval = funcval.call(withArguments: [recval]) {
 								return retval.toNativeValue()
 							} else {
 								return .nullValue
