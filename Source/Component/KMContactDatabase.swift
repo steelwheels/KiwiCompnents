@@ -83,15 +83,20 @@ public class KMContactDatabase: AMBComponentObject
 		mCurrentIndex = idx
 
 		/* Update record */
-		let newobj: JSValue
+		let result: JSValue
 		let db = CNContactDatabase.shared
 		if let rec = db.record(at: idx) {
 			let newrec = KLRecord(record: rec, context: robj.context)
-			newobj = KLRecord.allocate(record: newrec, atFunction: #function, inFile: #file)
+			if let newval = KLRecord.allocate(record: newrec) {
+				result = newval
+			} else {
+				CNLog(logLevel: .error, message: "Failed to allocate", atFunction: #function, inFile: #file)
+				result = JSValue(nullIn: robj.context)
+			}
 		} else {
-			newobj = JSValue(nullIn: robj.context)
+			result = JSValue(nullIn: robj.context)
 		}
-		robj.setImmediateValue(value: newobj, forProperty: KMContactDatabase.RecordItem)
+		robj.setImmediateValue(value: result, forProperty: KMContactDatabase.RecordItem)
 	}
 
 	public func accept(visitor vst: KMVisitor) {

@@ -160,7 +160,7 @@ public class KMTableView: KCTableView, AMBComponent
 			robj.setInt32Value(value: Int32(self.minimumVisibleRowCount), forProperty: KMTableView.VisibleRowCountItem)
 		}
 
-		/* selectedRows method */
+		/* selectedRecords method */
 		addScriptedProperty(object: robj, forProperty: KMTableView.SelectedRecordsItem)
 		let selrecsfunc: @convention(block) () -> JSValue = {
 			() -> JSValue in
@@ -171,11 +171,11 @@ public class KMTableView: KCTableView, AMBComponent
 					recs.append(KLRecord(record: rec, context: robj.context))
 				}
 			})
-			if let recobj = JSValue(object: recs, in: robj.context) {
-				return recobj
+			if let val = KLRecord.allocate(records: recs, context: robj.context) {
+				return val
 			} else {
-				CNLog(logLevel: .error, message: "Failed to allocate array of records", atFunction: #function, inFile: #file)
-				return JSValue(newArrayIn: robj.context)
+				CNLog(logLevel: .error, message: "Failed to allocate", atFunction: #function, inFile: #file)
+				return JSValue(nullIn: robj.context)
 			}
 		}
 		robj.setImmediateValue(value: JSValue(object: selrecsfunc, in: robj.context), forProperty: KMTableView.SelectedRecordsItem)
@@ -227,14 +227,17 @@ public class KMTableView: KCTableView, AMBComponent
 			if let val = robj.immediateValue(forProperty: KMTableView.FilterItem) {
 				if !val.isNull {
 					let recobj = KLRecord(record: rec, context: robj.context)
-					let recval = KLRecord.allocate(record: recobj, atFunction: #function, inFile: #file)
-					/* Call event function: event(self, record) */
-					if let retval = val.call(withArguments: [robj, recval]) {
-						if retval.isBoolean {
-							result = retval.toBool()
-						} else {
-							CNLog(logLevel: .error, message: "Unexpected return value of removeMapping method", atFunction: #function, inFile: #file)
+					if let recval = KLRecord.allocate(record: recobj) {
+						/* Call function: func(self, record) */
+						if let retval = val.call(withArguments: [robj, recval]) {
+							if retval.isBoolean {
+								result = retval.toBool()
+							} else {
+								CNLog(logLevel: .error, message: "Unexpected return value of removeMapping method", atFunction: #function, inFile: #file)
+							}
 						}
+					} else {
+						CNLog(logLevel: .error, message: "Failed to allocate", atFunction: #function, inFile: #file)
 					}
 				}
 			}
@@ -253,10 +256,14 @@ public class KMTableView: KCTableView, AMBComponent
 						super.addVirtualField(name: cmemb.identifier, callbackFunction: {
 							(_ rec: CNRecord) -> CNValue in
 							let recobj = KLRecord(record: rec, context: robj.context)
-							let recval = KLRecord.allocate(record: recobj, atFunction: #function, inFile: #file)
-							if let retval = funcval.call(withArguments: [recval]) {
-								return retval.toNativeValue()
+							if let recval = KLRecord.allocate(record: recobj) {
+								if let retval = funcval.call(withArguments: [recval]) {
+									return retval.toNativeValue()
+								} else {
+									return .nullValue
+								}
 							} else {
+								CNLog(logLevel: .error, message: "Failed to allocate", atFunction: #function, inFile: #file)
 								return .nullValue
 							}
 						})
