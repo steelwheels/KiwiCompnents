@@ -98,8 +98,7 @@ public class KMRadioButtons: KCRadioButtons, AMBComponent
 					self.setEnable(scriptValue: val)
 				})
 			} else {
-				let ival = robj.immediateValue(forProperty: KMRadioButtons.IsEnabledItem)
-				CNLog(logLevel: .error, message: "Invalid property: name=\(KMRadioButtons.IsEnabledItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
+				/* ignore undefined values */
 			}
 		})
 
