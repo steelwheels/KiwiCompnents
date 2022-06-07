@@ -68,12 +68,16 @@ public class KMRadioButtons: KCRadioButtons, AMBComponent
 		/* Labels (required, write-only (execute after gettting columnCount) */
 		addScriptedProperty(object: robj, forProperty: KMRadioButtons.LabelsItem)
 		if let val = robj.arrayValue(forProperty: KMRadioButtons.LabelsItem) {
-			var labels: Array<String> = []
-			for lab in val {
-				if let str = lab as? String {
-					labels.append(str)
+			var labels: Array<KCRadioButtons.Label> = []
+			for elm in val {
+				if let dict = elm as? Dictionary<String, Any> {
+					if let title = dict["title"] as? String, let idnum = dict["id"] as? NSNumber {
+						labels.append(KCRadioButtons.Label(title: title, id: idnum.intValue))
+					} else {
+						CNLog(logLevel: .error, message: "Labels property requires {field:, id:} value (dict:\(dict))", atFunction: #function, inFile: #file)
+					}
 				} else {
-					CNLog(logLevel: .error, message: "Labels property requires string value", atFunction: #function, inFile: #file)
+					CNLog(logLevel: .error, message: "Labels property requires {field:, id:} value (elm:\(elm))", atFunction: #function, inFile: #file)
 				}
 			}
 			super.setLabels(labels: labels)

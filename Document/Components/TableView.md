@@ -16,11 +16,11 @@ Interface TableView {
         reload():               boolean ;
 
         hasHeader:              boolean ;
-        fieldNames: {
+        fieldNames: [
                 {field:"field_0", title:"title-0"},
                 {field:"field_1", title:"title-1"},
                 ...
-        }
+        ]
         readonly rowCount:      int ;
         visibleRowCount:        int ;
 

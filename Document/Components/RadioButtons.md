@@ -5,7 +5,11 @@ The button to select one from multiple items.
 ````
 top: VBox {
     radio0: RadioButtons {
-        labels:      Array      ["a", "b", "c", "d"]
+        labels:      Array      [
+                {title:"title-0", id: 0},
+                {title:"title-1", id: 1}
+                ...
+        ]
         isEnabled:   Array      [true, true, true, false]
         columnCount: Int        3
         selected: Event(newidx: number | null) %{
@@ -24,19 +28,29 @@ You can see the full implementation at [radio-button.jspkg](https://github.com/s
 
 |Property name  |Type       |Description        |
 |:--            |:--        |:--                |
-|labels         |string[]   |Labels of radio buttons. This value *must be* defined in the script. And these value can not be changed. |
+|labels         |`Label`    |Labels of radio buttons. It has label title (string) and label id (integer). The label id will be used as a parameter for `selected` event.|
 |isEnabled      |boolean[]    |Activate/inactivate the  corresponded button. If this is not given, all buttons will be enabled. |
+
+The `Label`  is an object. The parameter is array of them:
+````
+[
+ {field: "label-name0", id: 0 },
+ {field: "label-name1", id: 1 },
+ {field: "label-name2", id: 2 }
+]
+````
+Multiple labels can have any ids:
 
 ## Methods
 ### `selected` event
 This method will be called when the radio button is pressed by the user.
 ````
-selected: Event(newidx: number | null) %{
+selected: Event(labid: number | null) %{
         ... event processing ...
 %}
 ````
 
-The parameter `newidx` presents index number of pressed radio button.
+The parameter `newidx` is the label id of selected radio button or `null` when there are no selected buttons.
 
 ## Reference
 * [Library](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Library.md): The list of components. 
