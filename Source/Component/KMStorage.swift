@@ -50,13 +50,17 @@ public class KMStorage: AMBComponentObject
 		}
 
 		/* Allocate path object */
-		guard let (ident, pathelms) = CNValuePath.pathExpression(string: pathstr) else {
-			return NSError.fileError(message: "Invalid 'path' property for 'ValueStorage' component", location: #file)
+		let vpath: CNValuePath
+		switch CNValuePath.pathExpression(string: pathstr) {
+		case .success(let p):
+			vpath = p
+		case .failure(let err):
+			return err
 		}
 
 		/* Allocate table */
 		addScriptedProperty(object: robj, forProperty: KMStorage.TableItem)
-		let table    = CNValueTable(path: CNValuePath(identifier: ident, elements: pathelms), valueStorage: storage)
+		let table    = CNValueTable(path: vpath, valueStorage: storage)
 		let tableobj = KLValueTable(table: table, context: robj.context)
 		robj.setImmediateValue(value: JSValue(object: tableobj, in: robj.context), forProperty: KMStorage.TableItem)
 

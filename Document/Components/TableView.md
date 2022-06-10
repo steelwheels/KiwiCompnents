@@ -90,14 +90,23 @@ removeSelectedRows(): boolean
 ````
 
 ### `filter`
-The event method to show the record or not. The table show the records whose return value is true.
- See the [RecordIF](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/Record.md).
+The method to show the record or not. The table show the records whose return value is true.
 
 ````
-filter: Event(record: RecordIF) %{
+Func(self: TableView, record: RecordIF) %{
         return true /* or false */ ;
 %}
 ````
+
+In the following example, only the record
+whose field `isVisible` value is true:
+````
+filter: Func(self, record) %{
+        return record.isVisible ;
+%}
+````
+
+ See the [RecordIF](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/Record.md).
 
 ### `pressed`
 The event method to accept clicked event:
