@@ -251,7 +251,7 @@ interface TableIF {
 
 	search(value: any, name: string):	RecordIF[] | null ;
 	append(record: RecordIF): 		void ;
-	appendPointer(pointer: any):		void ;
+	appendPointer(pointer: PointerValueIF):	void ;
 
 	remove(index: number):			boolean ;
 	save():					boolean ;
