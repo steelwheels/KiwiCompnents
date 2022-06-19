@@ -20,8 +20,7 @@ import UIKit
 public class KMStorage: AMBComponentObject
 {
 	private static let NameItem		= "name"	// Name of storage
-	private static let PathItem		= "path"
-	private static let TableItem		= "table"
+	private static let TablesItem		= "tables"
 	private static let SaveItem		= "save"
 
 	public override func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
@@ -41,28 +40,14 @@ public class KMStorage: AMBComponentObject
 			return NSError.fileError(message: "No storage named: \(storagename)", location: #file)
 		}
 
-		/* path */
-		let pathstr: String
-		if let path = robj.stringValue(forProperty: KMStorage.PathItem) {
-			pathstr = path
-		} else {
-			return NSError.fileError(message: "The 'path' property is required by 'ValueStorage' component", location: #file)
+		/* Parse tables */
+		if let tbls = robj.dictionaryValue(forProperty: KMStorage.TablesItem) {
+			for (aname, apath) in tbls {
+				if let name = aname as? String, let path = apath as? String {
+					addTable(name: name, path: path, storage: storage, reactObject: robj)
+				}
+			}
 		}
-
-		/* Allocate path object */
-		let vpath: CNValuePath
-		switch CNValuePath.pathExpression(string: pathstr) {
-		case .success(let p):
-			vpath = p
-		case .failure(let err):
-			return err
-		}
-
-		/* Allocate table */
-		addScriptedProperty(object: robj, forProperty: KMStorage.TableItem)
-		let table    = CNValueTable(path: vpath, valueStorage: storage)
-		let tableobj = KLValueTable(table: table, context: robj.context)
-		robj.setImmediateValue(value: JSValue(object: tableobj, in: robj.context), forProperty: KMStorage.TableItem)
 
 		/* save method */
 		addScriptedProperty(object: robj, forProperty: KMStorage.SaveItem)
@@ -72,6 +57,18 @@ public class KMStorage: AMBComponentObject
 		robj.setImmediateValue(value: JSValue(object: savefunc, in: robj.context), forProperty: KMStorage.SaveItem)
 
 		return nil
+	}
+
+	private func addTable(name nm: String, path pstr: String, storage strg: CNValueStorage, reactObject robj: AMBReactObject) {
+		addScriptedProperty(object: robj, forProperty: nm)
+		switch CNValuePath.pathExpression(string: pstr) {
+		case .success(let path):
+			let table    = CNValueTable(path: path, valueStorage: strg)
+			let tableobj = KLValueTable(table: table, context: robj.context)
+			robj.setImmediateValue(value: JSValue(object: tableobj, in: robj.context), forProperty: nm)
+		case .failure(let err):
+			CNLog(logLevel: .error, message: "Failed to allocate path for table: path=\(pstr), err=\(err.toString())", atFunction: #function, inFile: #file)
+		}
 	}
 
 	public func accept(visitor vst: KMVisitor) {
