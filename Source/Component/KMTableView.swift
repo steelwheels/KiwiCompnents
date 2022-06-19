@@ -194,19 +194,19 @@ public class KMTableView: KCTableView, AMBComponent
 		/* table property */
 		addScriptedProperty(object: robj, forProperty: KMTableView.DataTableItem)
 		if let val = robj.objectValue(forProperty: KMTableView.DataTableItem) {
-			if let tbl = val as? KLTableCore {
+			if let tbl = val as? KLTableCoreProtocol {
 				CNExecuteInMainThread(doSync: false, execute: {
 					() -> Void in self.dataTable = tbl.core()
 				})
 			}
 		} else {
-			let obj = KLValueTable(table: self.dataTable, context: robj.context)
+			let obj = KLTable(table: self.dataTable, context: robj.context)
 			robj.setObjectValue(value: obj, forProperty: KMTableView.DataTableItem)
 		}
 		robj.addObserver(forProperty: KMTableView.DataTableItem, callback: {
 			(_ param: Any) -> Void in
 			if let obj = robj.objectValue(forProperty: KMTableView.DataTableItem) {
-				if let tbl = obj as? KLTableCore {
+				if let tbl = obj as? KLTableCoreProtocol {
 					CNExecuteInMainThread(doSync: false, execute: {
 						() -> Void in self.dataTable = tbl.core()
 					})

@@ -63,8 +63,8 @@ public class KMStorage: AMBComponentObject
 		addScriptedProperty(object: robj, forProperty: nm)
 		switch CNValuePath.pathExpression(string: pstr) {
 		case .success(let path):
-			let table    = CNValueTable(path: path, storage: strg)
-			let tableobj = KLValueTable(table: table, context: robj.context)
+			let table    = CNStorageTable(path: path, storage: strg)
+			let tableobj = KLTable(table: table, context: robj.context)
 			robj.setImmediateValue(value: JSValue(object: tableobj, in: robj.context), forProperty: nm)
 		case .failure(let err):
 			CNLog(logLevel: .error, message: "Failed to allocate path for table: path=\(pstr), err=\(err.toString())", atFunction: #function, inFile: #file)
