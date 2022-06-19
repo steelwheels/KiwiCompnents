@@ -1,6 +1,6 @@
 /**
- * @file	KMValueStorage.swift
- * @brief	Define KMValueStorage class
+ * @file	KMStorage.swift
+ * @brief	Define KMStorage class
  * @par Copyright
  *   Copyright (C) 2022 Steel Wheels Project
  */
@@ -33,7 +33,7 @@ public class KMStorage: AMBComponentObject
 		if let name = robj.stringValue(forProperty: KMStorage.NameItem) {
 			storagename = name
 		} else {
-			return NSError.fileError(message: "The 'name' property is required by 'ValueStorage' component", location: #file)
+			return NSError.fileError(message: "The 'name' property is required by KMStorage' component", location: #file)
 		}
 
 		guard let storage = robj.resource.loadStorage(identifier: storagename) else {
@@ -59,11 +59,11 @@ public class KMStorage: AMBComponentObject
 		return nil
 	}
 
-	private func addTable(name nm: String, path pstr: String, storage strg: CNValueStorage, reactObject robj: AMBReactObject) {
+	private func addTable(name nm: String, path pstr: String, storage strg: CNStorage, reactObject robj: AMBReactObject) {
 		addScriptedProperty(object: robj, forProperty: nm)
 		switch CNValuePath.pathExpression(string: pstr) {
 		case .success(let path):
-			let table    = CNValueTable(path: path, valueStorage: strg)
+			let table    = CNValueTable(path: path, storage: strg)
 			let tableobj = KLValueTable(table: table, context: robj.context)
 			robj.setImmediateValue(value: JSValue(object: tableobj, in: robj.context), forProperty: nm)
 		case .failure(let err):
