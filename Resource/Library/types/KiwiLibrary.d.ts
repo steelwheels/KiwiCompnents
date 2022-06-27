@@ -61,6 +61,8 @@ interface ArrayIF {
 	values:	[any] ;
 
 	value(index: number): any | null ;
+	contains(value: any): boolean ;
+	
 	set(value: any, index: number): void ;
 	append(value: any): void ;
 }
@@ -70,6 +72,8 @@ interface SetIF {
 	values:	[any] ;
 
 	value(index: number): any | null ;
+	contains(value: any): boolean ;
+
 	insert(value: any): void ;
 }
 
@@ -332,8 +336,12 @@ declare function Rect(x: number, y: number, width: number, height: number): Rect
 declare function Size(width: number, height: number): SizeIF ;
 declare function Collection(): CollectionIF ;
 declare function URL(path: string): URLIF | null ;
+
 declare function Storage(path: string): StorageIF | null ;
-declare function Table(path: string, storage: StorageIF): TableIF | null ;
+declare function ArrayInStorage(path: string, storage: StorageIF): ArrayIF | null ;
+declare function SetInStorage(path: string, storage: StorageIF): SetIF | null ;
+declare function DictionaryInStorage(path: string, storage: StorageIF): DictionaryIF | null ;
+declare function TableInStorage(path: string, storage: StorageIF): TableIF | null ;
 
 declare function isArray(value: any): boolean ;
 declare function isBitmap(value: any): boolean ;

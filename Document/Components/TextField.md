@@ -5,26 +5,26 @@ This is sample script and the view:
 ````
 top: VBox {
     label_str: Label {
-        text:     String   "Text Field"
-        fontSize: FontSize large
+        text:     "Text Field"
+        fontSize: FontSize.large
     }
     label_int: Label {
-        number:        Float 1234.567
-        isEnabled:     Bool  false
-        decimalPlaces: Int   2
+        number:         1234.567
+        isEnabled:      false
+        decimalPlaces:  2
     }
     edit_str: TextField {
-        text:       String "Editable Field"
-        isEnabled:  Bool   true
-        isEditable: Bool   true
+        text:       "Editable Field"
+        isEnabled:  true
+        isEditable: true
         edited: Event(str) %{
-                console.print("edited result = " + str + "\n") ;
+            console.log("edited result = " + str) ;
         %}
     }
     quit_button: Button {
-        title: String "Quit"
+        title: "Quit"
         pressed: Event() %{
-                leaveView(1) ;
+            leaveView(1) ;
         %}
     }
 }

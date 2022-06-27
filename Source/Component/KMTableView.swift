@@ -89,12 +89,13 @@ public class KMTableView: KCTableView, AMBComponent
 
 		/* allocate callback */
 		self.cellClickedCallback = {
-			(_ isdouble: Bool, _ col: String, _ row: Int) -> Void in
+			(_ isdouble: Bool, _ rec: CNRecord, _ field: String) -> Void in
 			if let pressed = robj.immediateValue(forProperty: KMTableView.PressedItem) {
-				if let colval = JSValue(object: col, in: robj.context),
-				   let rowval = JSValue(int32: Int32(row), in: robj.context) {
+				let recobj = KLRecord(record: rec, context: robj.context)
+				if let recval = KLRecord.allocate(record: recobj),
+				   let fldval = JSValue(object: field, in: robj.context) {
 					CNExecuteInUserThread(level: .event, execute: {
-						let args   = [robj, colval, rowval]
+						let args   = [robj, recval, fldval]
 						pressed.call(withArguments: args)
 					})
 				}
