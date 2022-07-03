@@ -75,7 +75,7 @@ public class KMLibraryCompiler
 			}
 			parent.pushViewController(source: src, argument: arg, callback: vcallback)
 		} else {
-			CNLog(logLevel: .error, message: "[Error] No parent controller")
+			CNLog(logLevel: .error, message: "No parent controller")
 		}
 	}
 

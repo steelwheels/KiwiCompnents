@@ -32,6 +32,8 @@ public class KMTableView: KCTableView, AMBComponent
 	private static let ReloadItem			= "reload"
 	private static let IsDirtyItem			= "isDirty"
 	private static let VirtualFieldsItem		= "virtualFields"
+	private static let SortOrderItem		= "sortOrder"
+	private static let CompareItem			= "compare"
 
 	private var mReactObject:	AMBReactObject?
 	private var mChildComponents:	Array<AMBComponent>
@@ -275,6 +277,69 @@ public class KMTableView: KCTableView, AMBComponent
 					break
 				}
 			}
+		}
+
+		/* sortOrder */
+		addScriptedProperty(object: robj, forProperty: KMTableView.SortOrderItem)
+		if let val = robj.int32Value(forProperty: KMTableView.SortOrderItem) {
+			if let order = CNSortOrder(rawValue: Int(val)) {
+				self.sortOrder = order
+			} else {
+				CNLog(logLevel: .error, message: "Invalid value for \(KMTableView.SortOrderItem) property: \(val)")
+			}
+		} else {
+			robj.setInt32Value(value: Int32(self.sortOrder.rawValue), forProperty: KMTableView.SortOrderItem)
+		}
+		robj.addObserver(forProperty: KMTableView.SortOrderItem, callback:  {
+			(_ val: Any) -> Void in
+			if let val = robj.int32Value(forProperty: KMTableView.SortOrderItem) {
+				if let order = CNSortOrder(rawValue: Int(val)) {
+					CNExecuteInMainThread(doSync: false, execute: {
+						() -> Void in self.sortOrder = order
+					})
+					return // done
+				}
+			}
+			CNLog(logLevel: .error, message: "Invalid property: name=\(KMTableView.SortOrderItem), value=\(String(describing: val))", atFunction: #function, inFile: #file)
+		})
+
+		/* compare property */
+		addScriptedProperty(object: robj, forProperty: KMTableView.CompareItem)
+		if let _ = robj.immediateValue(forProperty: KMTableView.CompareItem) {
+			/* already set */
+		} else {
+			robj.setImmediateValue(value: JSValue(nullIn: robj.context), forProperty: KMTableView.CompareItem)
+		}
+		self.compareFunction = {
+			(_ rec0: CNRecord, _ rec1: CNRecord) -> ComparisonResult in
+			guard let cfunc = robj.immediateValue(forProperty: KMTableView.CompareItem) else {
+				return .orderedSame // No compare result
+			}
+			guard !cfunc.isNull else {
+				return .orderedSame // No compare result
+			}
+			var result: ComparisonResult
+			let recobj0 = KLRecord(record: rec0, context: robj.context)
+			let recobj1 = KLRecord(record: rec1, context: robj.context)
+			if let recval0 = KLRecord.allocate(record: recobj0),
+			   let recval1 = KLRecord.allocate(record: recobj1) {
+				/* Call function: func(self, record) */
+				if let retval = cfunc.call(withArguments: [robj, recval0, recval1]) {
+					if let res = ComparisonResult.fromScriptValue(retval) {
+						result = res
+					} else {
+						CNLog(logLevel: .error, message: "Unexpected result: \(retval.description)", atFunction: #function, inFile: #file)
+						result = .orderedSame
+					}
+				} else {
+					CNLog(logLevel: .error, message: "Failed to execute", atFunction: #function, inFile: #file)
+					result = .orderedSame
+				}
+			} else {
+				CNLog(logLevel: .error, message: "Failed to allocate", atFunction: #function, inFile: #file)
+				result = .orderedSame
+			}
+			return result
 		}
 
 		/* reload method */
