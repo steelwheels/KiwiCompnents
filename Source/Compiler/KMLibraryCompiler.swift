@@ -139,7 +139,7 @@ public class KMLibraryCompiler
 			for libname in libnames {
 				if let url = CNFilePath.URLForResourceFile(fileName: libname, fileExtension: "js", subdirectory: "Library", forClass: KMLibraryCompiler.self) {
 					let script = try String(contentsOf: url, encoding: .utf8)
-					let _ = compile(context: ctxt, statement: script, console: cons, config: conf)
+					let _ = compile(context: ctxt, statement: script, sourceFile: url, console: cons, config: conf)
 				} else {
 					cons.error(string: "Built-in script \"\(libname)\" is not found.\n")
 				}
@@ -149,7 +149,7 @@ public class KMLibraryCompiler
 		}
 	}
 
-	public func compile(context ctxt: KEContext, statement stmt: String, console cons: CNConsole, config conf: KEConfig) -> JSValue? {
+	public func compile(context ctxt: KEContext, statement stmt: String, sourceFile srcfile: URL?, console cons: CNConsole, config conf: KEConfig) -> JSValue? {
 		switch conf.logLevel {
 		case .nolog, .error, .warning, .debug:
 			break
@@ -158,7 +158,7 @@ public class KMLibraryCompiler
 		@unknown default:
 			break
 		}
-		return ctxt.evaluateScript(stmt)
+		return ctxt.evaluateScript(script: stmt, sourceFile: srcfile)
 	}
 
 	private func pathExtension(string str: String) -> String {

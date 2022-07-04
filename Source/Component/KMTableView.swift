@@ -194,7 +194,7 @@ public class KMTableView: KCTableView, AMBComponent
 		}
 		robj.setImmediateValue(value: JSValue(object: rmrowsfunc, in: robj.context), forProperty: KMTableView.RemoveSelectedRowsItem)
 
-		/* table property */
+		/* dataTable property */
 		addScriptedProperty(object: robj, forProperty: KMTableView.DataTableItem)
 		if let val = robj.objectValue(forProperty: KMTableView.DataTableItem) {
 			if let tbl = val as? KLTableCoreProtocol {

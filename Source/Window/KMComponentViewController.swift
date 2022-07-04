@@ -98,11 +98,13 @@ open class KMComponentViewController: KCSingleViewController
 		}
 
 		let script:	String
+		let srcfile:	URL?
 		let resource:	KEResource
 		switch src {
 		case .mainView(let res):
 			if let scr = res.loadView() {
 				script		= scr
+				srcfile		= res.URLOfView()
 				resource	= res
 			} else {
 				console.error(string: "Failed to load main view\n")
@@ -111,6 +113,7 @@ open class KMComponentViewController: KCSingleViewController
 		case .subView(let res, let name):
 			if let scr = res.loadSubview(identifier: name) {
 				script		= scr
+				srcfile		= res.URLOfSubView(identifier: name)
 				resource	= res
 			} else {
 				console.error(string: "Failed to load sub view named: \(name)\n")
@@ -138,7 +141,7 @@ open class KMComponentViewController: KCSingleViewController
 		/* Compile the Amber script */
 		let ambparser = AMBParser()
 		let frame: AMBFrame
-		switch ambparser.parse(source: script as String) {
+		switch ambparser.parse(source: script as String, sourceFile: srcfile) {
 		case .success(let val):
 			if let frm = val as? AMBFrame {
 				frame = frm

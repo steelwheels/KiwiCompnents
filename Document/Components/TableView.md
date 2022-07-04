@@ -33,6 +33,9 @@ Interface TableView {
         removeSelectedRows():   boolean ;
        
         filter:                 func(record: RecordIF) ;
+        sortOrder:              SortOrder
+        compare:                event(rec0: RecordIF, rec1: RecordIf): ComparisonResult ;
+
         pressed:                func(column: string, row: int) ;
         visibleFields: {
                 column_name0:   func(self: TableView, record: RecordIF)
