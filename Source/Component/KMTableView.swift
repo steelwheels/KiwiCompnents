@@ -27,8 +27,8 @@ public class KMTableView: KCTableView, AMBComponent
 	private static let FilterItem			= "filter"
 	private static let RowCountItem			= "rowCount"
 	private static let VisibleRowCountItem		= "visibleRowCount"
-	private static let SelectedRecordsItem		= "selectedRecords"
-	private static let RemoveSelectedRowsItem	= "removeSelectedRows"
+	private static let SelectedRecordItem		= "selectedRecord"
+	private static let RemoveSelectedRecordItem	= "removeSelectedRecord"
 	private static let ReloadItem			= "reload"
 	private static let IsDirtyItem			= "isDirty"
 	private static let VirtualFieldsItem		= "virtualFields"
@@ -163,36 +163,39 @@ public class KMTableView: KCTableView, AMBComponent
 			robj.setInt32Value(value: Int32(self.minimumVisibleRowCount), forProperty: KMTableView.VisibleRowCountItem)
 		}
 
-		/* selectedRecords method */
-		addScriptedProperty(object: robj, forProperty: KMTableView.SelectedRecordsItem)
+		/* selectedRecord method */
+		addScriptedProperty(object: robj, forProperty: KMTableView.SelectedRecordItem)
 		let selrecsfunc: @convention(block) () -> JSValue = {
 			() -> JSValue in
-			var recs: Array<KLRecord> = []
+			var recp: CNRecord?
 			CNExecuteInMainThread(doSync: true, execute: {
 				() -> Void in
-				for rec in super.selectedRecords() {
-					recs.append(KLRecord(record: rec, context: robj.context))
-				}
+				recp = super.selectedRecord()
 			})
-			if let val = KLRecord.allocate(records: recs, context: robj.context) {
-				return val
+			if let rec = recp {
+				let recobj = KLRecord(record: rec, context: robj.context)
+				if let val = KLRecord.allocate(record: recobj) {
+					return val
+				} else {
+					CNLog(logLevel: .error, message: "Failed to allocate record object", atFunction: #function, inFile: #file)
+				}
 			} else {
-				CNLog(logLevel: .error, message: "Failed to allocate", atFunction: #function, inFile: #file)
-				return JSValue(nullIn: robj.context)
+				CNLog(logLevel: .error, message: "Failed to get resule", atFunction: #function, inFile: #file)
 			}
+			return JSValue(nullIn: robj.context)
 		}
-		robj.setImmediateValue(value: JSValue(object: selrecsfunc, in: robj.context), forProperty: KMTableView.SelectedRecordsItem)
+		robj.setImmediateValue(value: JSValue(object: selrecsfunc, in: robj.context), forProperty: KMTableView.SelectedRecordItem)
 
 		/* remove selected row method */
-		addScriptedProperty(object: robj, forProperty: KMTableView.RemoveSelectedRowsItem)
+		addScriptedProperty(object: robj, forProperty: KMTableView.RemoveSelectedRecordItem)
 		let rmrowsfunc: @convention(block) () -> JSValue = {
 			() -> JSValue in
 			CNExecuteInMainThread(doSync: false, execute: {
-				super.removeSelectedRows()
+				super.removeSelectedRecord()
 			})
 			return JSValue(bool: true, in: robj.context)
 		}
-		robj.setImmediateValue(value: JSValue(object: rmrowsfunc, in: robj.context), forProperty: KMTableView.RemoveSelectedRowsItem)
+		robj.setImmediateValue(value: JSValue(object: rmrowsfunc, in: robj.context), forProperty: KMTableView.RemoveSelectedRecordItem)
 
 		/* dataTable property */
 		addScriptedProperty(object: robj, forProperty: KMTableView.DataTableItem)

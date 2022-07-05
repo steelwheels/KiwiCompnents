@@ -29,8 +29,8 @@ Interface TableView {
         readonly isDirty:       boolean ;
 
         didSelected:            boolean ;
-        selectedRecords():      RecordIF[] ;
-        removeSelectedRows():   boolean ;
+        selectedRecord():       RecordIF | null ;
+        removeSelectedRecord():   boolean ;
        
         filter:                 func(record: RecordIF) ;
         sortOrder:              SortOrder
@@ -80,16 +80,16 @@ Replace entire data in the table. If you update the `dataTable` property, call t
 reload(): boolean
 ```
 
-### `selectedRecords`
-Return the array of [RecordIF](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/Record.md) objects. 
+### `selectedRecord`
+Return the selected record object ([RecordIF](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/Record.md)). If there are no seleted records, this value will be `null`.
 ````
-selectedRecords(): RecordIF[]
+selectedRecord(): RecordIF | null ;
 ````
 
-### `removeSelectedRows`
-Remove the user selected rows.
+### `removeSelectedRecord`
+Remove the user selected record.
 ````
-removeSelectedRows(): boolean
+removeSelectedRecord(): boolean
 ````
 
 ### `filter`
@@ -118,12 +118,6 @@ pressed: Event(col: string, row: number) %{
 %}
 ````
 The `col` is the field name of the clicked record and the `row` is the index number of record.
-
-### `removeSelectedRows`
-Delete the selected rows in the table.
-`````
-removeSelectedRows() ;
-`````
 
 # Reference
 * [TableIF](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/Table.md): The data table in thie view 
