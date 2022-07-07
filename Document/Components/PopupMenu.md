@@ -3,19 +3,19 @@
 ## Sample
 ````
 top: VBox {
-    index: Int 0
+    index: 0
     menu: PopupMenu {
-        items: Array ["item-a", "item-b", "item-c"]
+        items: ["item-a", "item-b", "item-c"]
         selected: Event(index) %{
-                console.print("selected = " + index + "\n") ;
-                top.index = index ;
+            console.log("selected = " + index) ;
+            top.index = index ;
         %}
     }
     ok_button: Button {
-        title:  String "OK"
+        title:   "OK"
         pressed: Event() %{
-                console.print("pressed: OK -> " + top.index + "\n") ;
-                leaveView(1) ;
+            console.log("pressed: OK -> " + top.index) ;
+            leaveView(1) ;
         %}
     }
 }
