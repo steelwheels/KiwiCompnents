@@ -47,6 +47,8 @@ open class KMVisitor
 			visit(collectionView: col)
 		} else if let term = comp as? KMTerminalView {
 			visit(terminalView: term)
+		} else if let dict = comp as? KMDictionaryData {
+			visit(dictionaryData: dict)
 		} else if let storage = comp as? KMStorage {
 			visit(storage: storage)
 		} else {
@@ -60,6 +62,7 @@ open class KMVisitor
 	open func visit(checkBox view: KMCheckBox){ }
 	open func visit(radioButtons view: KMRadioButtons){ }
 	open func visit(contactDatabase view: KMContactDatabase){ }
+	open func visit(dictionaryData dict: KMDictionaryData){ }
 	open func visit(drawingView view: KMDrawingView){ }
 	open func visit(graphics2D view: KMGraphics2D){ }
 	open func visit(image view: KMImage){ }

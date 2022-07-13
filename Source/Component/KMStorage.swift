@@ -40,7 +40,7 @@ public class KMStorage: AMBComponentObject
 			return err
 		}
 
-		/* storage */
+		/* name */
 		let storagename: String
 		if let name = robj.stringValue(forProperty: KMStorage.NameItem) {
 			storagename = name
