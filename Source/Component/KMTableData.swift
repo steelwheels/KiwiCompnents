@@ -29,6 +29,13 @@ public class KMTableData: AMBComponentObject
 	private static let RecordCountItem	= "recordCount"
 
 	private var mTable: 	CNStorageTable? = nil
+	private var mEventCallbackId:	Int?	= nil
+
+	deinit {
+		if let table = mTable, let eid = mEventCallbackId {
+			table.removeEventFunction(eventFuncId: eid)
+		}
+	}
 
 	public override func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		if let err = super.setup(reactObject: robj, console: cons) {
@@ -143,7 +150,23 @@ public class KMTableData: AMBComponentObject
 		}
 		robj.setImmediateValue(value: JSValue(object: appendfunc, in: robj.context), forProperty: KMTableData.AppendItem)
 
+		mEventCallbackId = table.allocateEventFunction(eventFunc: {
+			() -> Void in self.updateData()
+		})
 		return nil // no error
+	}
+
+	private func updateData() {
+		if let table = mTable {
+			let robj = super.reactObject
+
+			/* fieldNames */
+			let fnames = table.fieldNames.map({ (_ key: String) -> CNValue in return .stringValue(key) })
+			robj.setArrayValue(value: fnames, forProperty: KMTableData.FieldNamesItem)
+
+			/* recordCount */
+			robj.setNumberValue(value: NSNumber(integerLiteral: table.recordCount), forProperty: KMTableData.RecordCountItem)
+		}
 	}
 }
 
