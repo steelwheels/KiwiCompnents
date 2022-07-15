@@ -118,6 +118,8 @@ public class KMComponentMapper: AMBComponentMapper
 			newcomp = KMContactDatabase()
 		case "Dictionary":
 			newcomp = KMDictionaryData()
+		case "Table":
+			newcomp = KMTableData()
 		case "Storage":
 			newcomp = KMStorage()
 		default:

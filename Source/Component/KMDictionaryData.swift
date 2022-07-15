@@ -25,7 +25,14 @@ public class KMDictionaryData: AMBComponentObject
 	private static let ValuesItem		= "values"
 	private static let SetItem		= "set"
 
-	private var mDictionary: CNStorageDictionary? = nil
+	private var mDictionary: 	CNStorageDictionary? = nil
+	private var mEventCallbackId:	Int?	= nil
+
+	deinit {
+		if let dict = mDictionary, let eid = mEventCallbackId {
+			dict.removeEventFunction(eventFuncId: eid)
+		}
+	}
 
 	public override func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		if let err = super.setup(reactObject: robj, console: cons) {
@@ -49,11 +56,13 @@ public class KMDictionaryData: AMBComponentObject
 		}
 
 		/* Load storage dictionary */
+		let dict: CNStorageDictionary
 		let res = robj.resource
 		if let storage = res.loadStorage(identifier: storagename) {
 			switch CNValuePath.pathExpression(string: pathname) {
 			case .success(let path):
-				mDictionary = CNStorageDictionary(path: path, storage: storage)
+				dict = CNStorageDictionary(path: path, storage: storage)
+				mDictionary = dict
 			case .failure(let err):
 				return err
 			}
@@ -63,15 +72,16 @@ public class KMDictionaryData: AMBComponentObject
 
 		/* count */
 		addScriptedProperty(object: robj, forProperty: KMDictionaryData.CountItem)
-		robj.setNumberValue(value: NSNumber(integerLiteral: self.count), forProperty: KMDictionaryData.CountItem)
+		robj.setNumberValue(value: NSNumber(integerLiteral: dict.count), forProperty: KMDictionaryData.CountItem)
 
 		/* keys */
 		addScriptedProperty(object: robj, forProperty: KMDictionaryData.KeysItem)
-		robj.setArrayValue(value: self.keys, forProperty: KMDictionaryData.KeysItem)
+		let keys = dict.keys.map({ (_ key: String) -> CNValue in return .stringValue(key) })
+		robj.setArrayValue(value: keys, forProperty: KMDictionaryData.KeysItem)
 
 		/* values */
 		addScriptedProperty(object: robj, forProperty: KMDictionaryData.ValuesItem)
-		robj.setArrayValue(value: self.values, forProperty: KMDictionaryData.ValuesItem)
+		robj.setArrayValue(value: dict.values, forProperty: KMDictionaryData.ValuesItem)
 
 		/* value method */
 		addScriptedProperty(object: robj, forProperty: KMDictionaryData.ValueItem)
@@ -100,37 +110,11 @@ public class KMDictionaryData: AMBComponentObject
 		}
 		robj.setImmediateValue(value: JSValue(object: setfunc, in: robj.context), forProperty: KMDictionaryData.SetItem)
 
+		/* callback */
+		mEventCallbackId = dict.allocateEventFunction(eventFunc: {
+			() -> Void in self.updateEvent()
+		})
 		return nil // setup done without errors
-	}
-
-	public var count: Int {
-		get {
-			if let dict = mDictionary {
-				return dict.count
-			} else {
-				return 0
-			}
-		}
-	}
-
-	private var keys: Array<CNValue> {
-		get {
-			if let dict = mDictionary {
-				return dict.keys.map({ (_ key: String) -> CNValue in return .stringValue(key) })
-			} else {
-				return []
-			}
-		}
-	}
-
-	private var values: Array<CNValue> {
-		get {
-			if let dict = mDictionary {
-				return dict.values
-			} else {
-				return []
-			}
-		}
 	}
 
 	private func getValue(forKey key: String) -> CNValue {
@@ -149,6 +133,22 @@ public class KMDictionaryData: AMBComponentObject
 			}
 		} else {
 			CNLog(logLevel: .error, message: "No storage", atFunction: #function, inFile: #file)
+		}
+	}
+
+	private func updateEvent() {
+		let robj = self.reactObject
+		if let dict = mDictionary {
+			/* Update keys */
+			let keys = dict.keys.map({ (_ key: String) -> CNValue in return .stringValue(key) })
+			robj.setArrayValue(value: keys, forProperty: KMDictionaryData.KeysItem)
+
+			/* Update values */
+			robj.setArrayValue(value: dict.values, forProperty: KMDictionaryData.ValuesItem)
+
+			/* Update count */
+			robj.setNumberValue(value: NSNumber(integerLiteral: dict.count), forProperty: KMDictionaryData.CountItem)
+
 		}
 	}
 
