@@ -27,6 +27,7 @@ public class KMTableData: AMBComponentObject
 	private static let NewRecordItem	= "newRecord"
 	private static let RecordItem		= "record"
 	private static let RecordCountItem	= "recordCount"
+	private static let TableItem		= "table"
 
 	private var mTable: 	CNStorageTable? = nil
 	private var mEventCallbackId:	Int?	= nil
@@ -47,7 +48,7 @@ public class KMTableData: AMBComponentObject
 		if let name = robj.stringValue(forProperty: KMTableData.StorageItem) {
 			storagename = name
 		} else {
-			return NSError.fileError(message: "The 'name' property is required by KMDictionary' component")
+			return NSError.fileError(message: "The '\(KMTableData.StorageItem)' property is required by Table component")
 		}
 
 		/* path */
@@ -55,7 +56,7 @@ public class KMTableData: AMBComponentObject
 		if let name = robj.stringValue(forProperty: KMTableData.PathItem) {
 			pathname = name
 		} else {
-			return NSError.fileError(message: "The 'path' property is required by KMDictionary' component")
+			return NSError.fileError(message: "The '\(KMTableData.PathItem)' property is required by Table component")
 		}
 
 		/* Load storage dictionary */
@@ -150,6 +151,20 @@ public class KMTableData: AMBComponentObject
 		}
 		robj.setImmediateValue(value: JSValue(object: appendfunc, in: robj.context), forProperty: KMTableData.AppendItem)
 
+		/* table() */
+		addScriptedProperty(object: robj, forProperty: KMTableData.TableItem)
+		let tabfunc: @convention(block) () -> JSValue = {
+			() -> JSValue in
+			if let table = self.mTable {
+				let tabobj = KLTable(table: table, context: robj.context)
+				return JSValue(object: tabobj, in: robj.context)
+			} else {
+				return JSValue(nullIn: robj.context)
+			}
+		}
+		robj.setImmediateValue(value: JSValue(object: tabfunc, in: robj.context), forProperty: KMTableData.TableItem)
+
+		/* callback for update event */
 		mEventCallbackId = table.allocateEventFunction(eventFunc: {
 			() -> Void in self.updateData()
 		})
