@@ -4,6 +4,11 @@
 This document describes list of classes and functions for component programming.
 
 ### Components
+#### Data components
+* [TableData](Components/TableData.md): The database which contains multiple records. This component is used as the context of [TableView](Components/TableView.md).
+* [DictionaryData](Components/Dictionaryata.md): A collection whose elements are key-value pairs.
+
+#### GUI components
 * [AddressBook](Components/AddressBook.md): The addressbook database
 * [Bitmap](Components/Bitmap.md): 2D bitmap
 * [Box](Components/Box.md): The box to contain multiple modules vertically or holizontaly. There are `HBox`, `VBox` and `LabeledBox`.
@@ -18,7 +23,7 @@ This document describes list of classes and functions for component programming.
 * [PopupMenu](Components/PopupMenu.md): Popup menu which has multiple string items.
 * [RadioButtons](Components/RadioButtons.md): The button groups to select one item.
 * [Stepper](Components/Stepper.md): Set the value of limited number.
-* [TableView](Components/Table.md): N x M cells on the table view.
+* [TableView](Components/TableView.md): N x M cells on the table view.
 * [Terminal](): Terminal view based on escape sequence.
 * [TextField](Components/TextField.md): The editable text field.
 

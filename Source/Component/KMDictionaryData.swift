@@ -24,9 +24,11 @@ public class KMDictionaryData: AMBComponentObject
 	private static let ValueItem		= "value"
 	private static let ValuesItem		= "values"
 	private static let SetItem		= "set"
+	private static let UpdateItem		= "update"
 
 	private var mDictionary: 	CNStorageDictionary? = nil
 	private var mEventCallbackId:	Int?	= nil
+	private var mUpdateCount:	Int 	= 0
 
 	deinit {
 		if let dict = mDictionary, let eid = mEventCallbackId {
@@ -73,6 +75,11 @@ public class KMDictionaryData: AMBComponentObject
 		/* count */
 		addScriptedProperty(object: robj, forProperty: KMDictionaryData.CountItem)
 		robj.setNumberValue(value: NSNumber(integerLiteral: dict.count), forProperty: KMDictionaryData.CountItem)
+
+		/* update */
+		addScriptedProperty(object: robj, forProperty: KMDictionaryData.UpdateItem)
+		robj.setNumberValue(value: NSNumber(integerLiteral: mUpdateCount), forProperty: KMDictionaryData.UpdateItem)
+		mUpdateCount += 1
 
 		/* keys */
 		addScriptedProperty(object: robj, forProperty: KMDictionaryData.KeysItem)
@@ -139,16 +146,20 @@ public class KMDictionaryData: AMBComponentObject
 	private func updateEvent() {
 		let robj = self.reactObject
 		if let dict = mDictionary {
-			/* Update keys */
+			/* keys */
 			let keys = dict.keys.map({ (_ key: String) -> CNValue in return .stringValue(key) })
 			robj.setArrayValue(value: keys, forProperty: KMDictionaryData.KeysItem)
 
-			/* Update values */
+			/* values */
 			robj.setArrayValue(value: dict.values, forProperty: KMDictionaryData.ValuesItem)
 
-			/* Update count */
+			/* count */
 			robj.setNumberValue(value: NSNumber(integerLiteral: dict.count), forProperty: KMDictionaryData.CountItem)
 
+			/* update count */
+			addScriptedProperty(object: robj, forProperty: KMDictionaryData.UpdateItem)
+			robj.setNumberValue(value: NSNumber(integerLiteral: mUpdateCount), forProperty: KMDictionaryData.UpdateItem)
+			mUpdateCount += 1
 		}
 	}
 

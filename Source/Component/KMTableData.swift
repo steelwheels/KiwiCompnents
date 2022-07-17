@@ -28,9 +28,11 @@ public class KMTableData: AMBComponentObject
 	private static let RecordItem		= "record"
 	private static let RecordCountItem	= "recordCount"
 	private static let TableItem		= "table"
+	private static let UpdateItem		= "update"
 
 	private var mTable: 	CNStorageTable? = nil
 	private var mEventCallbackId:	Int?	= nil
+	private var mUpdateCount:	Int	= 0
 
 	deinit {
 		if let table = mTable, let eid = mEventCallbackId {
@@ -77,6 +79,11 @@ public class KMTableData: AMBComponentObject
 		/* recordCount */
 		addScriptedProperty(object: robj, forProperty: KMTableData.RecordCountItem)
 		robj.setNumberValue(value: NSNumber(integerLiteral: table.recordCount), forProperty: KMTableData.RecordCountItem)
+
+		/* update count */
+		addScriptedProperty(object: robj, forProperty: KMTableData.UpdateItem)
+		robj.setNumberValue(value: NSNumber(integerLiteral: mUpdateCount), forProperty: KMTableData.UpdateItem)
+		mUpdateCount += 1
 
 		/* fieldNames */
 		addScriptedProperty(object: robj, forProperty: KMTableData.FieldNamesItem)
@@ -181,6 +188,11 @@ public class KMTableData: AMBComponentObject
 
 			/* recordCount */
 			robj.setNumberValue(value: NSNumber(integerLiteral: table.recordCount), forProperty: KMTableData.RecordCountItem)
+
+			/* update count */
+			addScriptedProperty(object: robj, forProperty: KMTableData.UpdateItem)
+			robj.setNumberValue(value: NSNumber(integerLiteral: mUpdateCount), forProperty: KMTableData.UpdateItem)
+			mUpdateCount += 1
 		}
 	}
 }

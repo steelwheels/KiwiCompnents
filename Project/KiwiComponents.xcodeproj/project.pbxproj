@@ -69,8 +69,6 @@
 		057F891125C4586F00C12C77 /* KMGraphics2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057F890F25C4586F00C12C77 /* KMGraphics2D.swift */; };
 		058DD2172880D3BF00168723 /* KMTableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058DD2162880D3BF00168723 /* KMTableData.swift */; };
 		058DD2182880D3BF00168723 /* KMTableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058DD2162880D3BF00168723 /* KMTableData.swift */; };
-		059316D427DC97FD006852EA /* KMStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059316D327DC97FD006852EA /* KMStorage.swift */; };
-		059316D527DC97FD006852EA /* KMStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059316D327DC97FD006852EA /* KMStorage.swift */; };
 		059545AB252EF2AB00E019B2 /* KMTerminalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059545AA252EF2AB00E019B2 /* KMTerminalView.swift */; };
 		059545AC252EF2AB00E019B2 /* KMTerminalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059545AA252EF2AB00E019B2 /* KMTerminalView.swift */; };
 		0596163025327D2800F6059F /* KMShell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0596162F25327D2800F6059F /* KMShell.swift */; };
@@ -262,7 +260,6 @@
 		057CCC91252E04D40012EA0C /* KMComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMComponentViewController.swift; sourceTree = "<group>"; };
 		057F890F25C4586F00C12C77 /* KMGraphics2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMGraphics2D.swift; sourceTree = "<group>"; };
 		058DD2162880D3BF00168723 /* KMTableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMTableData.swift; sourceTree = "<group>"; };
-		059316D327DC97FD006852EA /* KMStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMStorage.swift; sourceTree = "<group>"; };
 		059545AA252EF2AB00E019B2 /* KMTerminalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMTerminalView.swift; sourceTree = "<group>"; };
 		0596162F25327D2800F6059F /* KMShell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMShell.swift; sourceTree = "<group>"; };
 		059AB1D5251C09FA0094B268 /* UnitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -439,7 +436,6 @@
 				0596162F25327D2800F6059F /* KMShell.swift */,
 				056719DD252DE73100201386 /* KMStackView.swift */,
 				05ED099227785D0000AF0E42 /* KMStepper.swift */,
-				059316D327DC97FD006852EA /* KMStorage.swift */,
 				058DD2162880D3BF00168723 /* KMTableData.swift */,
 				0516CB9926462A6D00BE6F3E /* KMTableView.swift */,
 				059545AA252EF2AB00E019B2 /* KMTerminalView.swift */,
@@ -729,7 +725,6 @@
 				05D6CECA25CAEC8B0055801C /* KMBitmap.swift in Sources */,
 				05EC69412544629B008932EB /* KMComponentLinker.swift in Sources */,
 				054CCB9827255EA60030F892 /* KMCollectionView.swift in Sources */,
-				059316D427DC97FD006852EA /* KMStorage.swift in Sources */,
 				058DD2172880D3BF00168723 /* KMTableData.swift in Sources */,
 				05ED099327785D0000AF0E42 /* KMStepper.swift in Sources */,
 				0543E9CD26C7BEFA0022828E /* KMContactDatabase.swift in Sources */,
@@ -767,7 +762,6 @@
 				05D6CECB25CAEC8B0055801C /* KMBitmap.swift in Sources */,
 				05EC69422544629B008932EB /* KMComponentLinker.swift in Sources */,
 				054CCB9927255EA60030F892 /* KMCollectionView.swift in Sources */,
-				059316D527DC97FD006852EA /* KMStorage.swift in Sources */,
 				058DD2182880D3BF00168723 /* KMTableData.swift in Sources */,
 				05ED099427785D0000AF0E42 /* KMStepper.swift in Sources */,
 				0543E9CE26C7BEFA0022828E /* KMContactDatabase.swift in Sources */,

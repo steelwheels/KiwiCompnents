@@ -41,6 +41,8 @@ open class KMVisitor
 			visit(stackView: stack)
 		} else if let stepper = comp as? KMStepper {
 			visit(stepper: stepper)
+		} else if let table = comp as? KMTableData {
+			visit(tableData: table)
 		} else if let table = comp as? KMTableView {
 			visit(tableView: table)
 		} else if let col = comp as? KMCollectionView {
@@ -49,8 +51,6 @@ open class KMVisitor
 			visit(terminalView: term)
 		} else if let dict = comp as? KMDictionaryData {
 			visit(dictionaryData: dict)
-		} else if let storage = comp as? KMStorage {
-			visit(storage: storage)
 		} else {
 			CNLog(logLevel: .error, message: "Unknown component")
 		}
@@ -71,9 +71,9 @@ open class KMVisitor
 	open func visit(popupMenu view: KMPopupMenu){ }
 	open func visit(stackView view: KMStackView){ }
 	open func visit(stepper view: KMStepper){ }
+	open func visit(tableData strg: KMTableData){ }
 	open func visit(tableView view: KMTableView){ }
 	open func visit(collectionView view: KMCollectionView){ }
 	open func visit(terminalView view: KMTerminalView){ }
 	open func visit(textEdit view: KMTextEdit){ }
-	open func visit(storage strg: KMStorage){ }
 }

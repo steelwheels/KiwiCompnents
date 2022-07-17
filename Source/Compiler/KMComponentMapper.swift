@@ -120,8 +120,6 @@ public class KMComponentMapper: AMBComponentMapper
 			newcomp = KMDictionaryData()
 		case "Table":
 			newcomp = KMTableData()
-		case "Storage":
-			newcomp = KMStorage()
 		default:
 			switch super.mapObject(object: robj, console: cons) {
 			case .success(let comp):

@@ -101,6 +101,10 @@ public class KMComponentLinker: KMVisitor
 		}
 	}
 
+	public override func visit(tableData data: KMTableData) {
+		/* Do nothing */
+	}
+
 	public override func visit(tableView view: KMTableView) {
 		/* Do nothing */
 	}
@@ -114,9 +118,5 @@ public class KMComponentLinker: KMVisitor
 		if mFileConsole == nil {
 			mFileConsole = CNFileConsole(input: view.inputFile, output: view.outputFile, error: view.errorFile)
 		}
-	}
-
-	public override func visit(storage strg: KMStorage) {
-		/* Do nothing */
 	}
 }
