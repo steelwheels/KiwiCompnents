@@ -166,12 +166,12 @@ public class KMBitmap: KCBitmapView, AMBComponent
 
 	public override func update(bitmapContext ctxt: CNBitmapContext, count cnt: Int32) {
 		if let drawfnc = mDrawFunc, let cntval = JSValue(int32: cnt, in: reactObject.context) {
-			//CNExecuteInUserThread(level: .event, execute: {
-			//	() -> Void in
+			CNExecuteInUserThread(level: .event, execute: {
+				() -> Void in
 				let bmctxt = KLBitmapContext(bitmapContext: ctxt, scriptContext: self.reactObject.context, console: self.mConsole)
 				/* Call event function */
 				drawfnc.call(withArguments: [self.reactObject, bmctxt, cntval])	// (self, context, count)
-			//})
+			})
 		} else {
 			CNLog(logLevel: .error, message: "No function to draw ", atFunction: #function, inFile: #file)
 		}

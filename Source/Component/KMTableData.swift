@@ -173,7 +173,10 @@ public class KMTableData: AMBComponentObject
 
 		/* callback for update event */
 		mEventCallbackId = table.allocateEventFunction(eventFunc: {
-			() -> Void in self.updateData()
+			() -> Void in
+			CNExecuteInMainThread(doSync: false, execute: {
+				() -> Void in self.updateData()
+			})
 		})
 		return nil // no error
 	}

@@ -135,13 +135,14 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 		let startfunc: @convention(block) (_ durval: JSValue, _ repval: JSValue) -> JSValue = {
 			(_ durval: JSValue, _ repval: JSValue) -> JSValue in
 			if durval.isNumber && repval.isNumber {
-				let duration = durval.toDouble()
-				let repcount = repval.toInt32()
-				self.start(duration: duration, repeatCount: Int(repcount))
-				return JSValue(bool: true, in: robj.context)
-			} else {
-				return JSValue(bool: false, in: robj.context)
+				CNExecuteInMainThread(doSync: false, execute: {
+					() -> Void in
+					let duration = durval.toDouble()
+					let repcount = repval.toInt32()
+					self.start(duration: duration, repeatCount: Int(repcount))
+				})
 			}
+			return JSValue(bool: true, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: startfunc, in: robj.context), forProperty: KMGraphics2D.StartItem)
 
@@ -149,7 +150,9 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 		addScriptedProperty(object: robj, forProperty: KMGraphics2D.StopItem)
 		let stopfunc: @convention(block) () -> JSValue = {
 			() -> JSValue in
-			self.stop()
+			CNExecuteInMainThread(doSync: false, execute: {
+				() -> Void in self.stop()
+			})
 			return JSValue(bool: true, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: stopfunc, in: robj.context), forProperty: KMGraphics2D.StopItem)
@@ -158,7 +161,9 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 		addScriptedProperty(object: robj, forProperty: KMGraphics2D.SuspendItem)
 		let suspendfunc: @convention(block) () -> JSValue = {
 			() -> JSValue in
-			self.suspend()
+			CNExecuteInMainThread(doSync: false, execute: {
+				() -> Void in self.suspend()
+			})
 			return JSValue(bool: true, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: suspendfunc, in: robj.context), forProperty: KMGraphics2D.SuspendItem)
@@ -167,7 +172,9 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 		addScriptedProperty(object: robj, forProperty: KMGraphics2D.ResumeItem)
 		let resumefunc: @convention(block) () -> JSValue = {
 			() -> JSValue in
-			self.resume()
+			CNExecuteInMainThread(doSync: false, execute: {
+				() -> Void in self.resume()
+			})
 			return JSValue(bool: true, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: resumefunc, in: robj.context), forProperty: KMGraphics2D.ResumeItem)
@@ -184,9 +191,16 @@ public class KMGraphics2D: KCGraphics2DView, AMBComponent
 
 	public override func draw(graphicsContext ctxt: CNGraphicsContext, count cnt: Int32) {
 		if let drawfnc = mDrawFunc, let cntval = JSValue(int32: cnt, in: reactObject.context) {
-			let gctxt  = KLGraphicsContext(graphicsContext: ctxt, scriptContext: reactObject.context, console: mConsole)
-			/* Call event function */
-			drawfnc.call(withArguments: [reactObject, gctxt, cntval])	// (self, context, count)
+			let sem = DispatchSemaphore(value: 0)
+			CNExecuteInUserThread(level: .event, execute: {
+				() -> Void in
+				let gctxt  = KLGraphicsContext(graphicsContext: ctxt, scriptContext: self.reactObject.context, console: self.mConsole)
+				/* Call event function */
+				drawfnc.call(withArguments: [self.reactObject, gctxt, cntval])	// (self, context, count)
+				/* Finish process */
+				sem.signal()
+			})
+			sem.wait()
 		} else {
 			CNLog(logLevel: .error, message: "No function to draw", atFunction: #function, inFile: #file)
 		}
