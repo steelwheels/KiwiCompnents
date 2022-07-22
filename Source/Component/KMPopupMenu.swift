@@ -18,9 +18,12 @@ import UIKit
 
 public class KMPopupMenu: KCPopupMenu, AMBComponent
 {
+	public typealias MenuItem = KCPopupMenu.MenuItem
+
+	private static let AddItemItem		= "addItem"
 	private static let ItemsItem		= "items"
-	private static let IndexItem		= "index"
 	private static let SelectedItem		= "selected"
+	private static let ValueItem		= "value"
 
 	private var mReactObject:	AMBReactObject?
 
@@ -54,51 +57,98 @@ public class KMPopupMenu: KCPopupMenu, AMBComponent
 
 		/* items */
 		addScriptedProperty(object: robj, forProperty: KMPopupMenu.ItemsItem)
-		if let val = robj.arrayValue(forProperty: KMPopupMenu.ItemsItem) {
-			if let arr = val as? Array<String> {
-				super.removeAllItems()
-				super.addItems(withTitles: arr)
-			} else {
-				cons.error(string: "Invalid value for popup menu items [0]: \(val)\n")
-			}
+		if let arr = robj.arrayValue(forProperty: KMPopupMenu.ItemsItem) {
+			let menuitems = arrayToMenuItems(array: arr)
+			super.removeAllItems()
+			super.addItems(menuitems)
+
 		} else {
 			let empty: Array<CNValue> = []
 			robj.setArrayValue(value: empty, forProperty: KMPopupMenu.ItemsItem)
 		}
 		robj.addObserver(forProperty: KMPopupMenu.ItemsItem, callback: {
 			(_ param: Any) -> Void in
-			if let val = robj.arrayValue(forProperty: KMPopupMenu.ItemsItem) {
-				if let arr = val as? Array<String> {
-					CNExecuteInMainThread(doSync: false, execute: {
-						super.removeAllItems()
-						super.addItems(withTitles: arr)
-					})
-				} else {
-					let ival = robj.immediateValue(forProperty: KMPopupMenu.ItemsItem)
-					CNLog(logLevel: .error, message: "Invalid property: name=\(KMPopupMenu.ItemsItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
-				}
+			if let arr = robj.arrayValue(forProperty: KMPopupMenu.ItemsItem) {
+				let menuitems = self.arrayToMenuItems(array: arr)
+				CNExecuteInMainThread(doSync: false, execute: {
+					super.removeAllItems()
+					super.addItems(menuitems)
+				})
 			}
 		})
 
-		/* Index (readonly) */
-		addScriptedProperty(object: robj, forProperty: KMPopupMenu.IndexItem)
-		robj.setInt32Value(value: Int32(self.indexOfSelectedItem), forProperty: KMPopupMenu.IndexItem)
+		/* value (readonly) */
+		addScriptedProperty(object: robj, forProperty: KMPopupMenu.ValueItem)
+		if let sval = super.selectedValue() {
+			robj.setImmediateValue(value: sval.toJSValue(context: robj.context), forProperty: KMPopupMenu.ValueItem)
+		} else {
+			robj.setImmediateValue(value: JSValue(nullIn: robj.context), forProperty: KMPopupMenu.ValueItem)
+		}
+
+		/* addItem(title, value) */
+		addScriptedProperty(object: robj, forProperty: KMPopupMenu.AddItemItem)
+		let fnamefunc: @convention(block) (_ title: JSValue, _ value: JSValue) -> JSValue = {
+			(_ title: JSValue, _ value: JSValue) -> JSValue in
+			var result = false
+			if title.isString {
+				if let str = title.toString() {
+					let nval = value.toNativeValue()
+					CNExecuteInMainThread(doSync: false, execute: {
+						let item = KCPopupMenu.MenuItem(title: str, value: nval)
+						super.addItem(item)
+					})
+					result = true
+				}
+			}
+			return JSValue(bool: result, in: robj.context)
+		}
+		robj.setImmediateValue(value: JSValue(object: fnamefunc, in: robj.context), forProperty: KMPopupMenu.AddItemItem)
 
 		/* Callback */
 		super.callbackFunction = {
-			(_ index: Int, _ title: String?) -> Void in
-			if let evtval = robj.immediateValue(forProperty: KMPopupMenu.SelectedItem),
-			   let idxval = JSValue(int32: Int32(index), in: robj.context) {
+			(_ val: CNValue) -> Void in
+			/* set value property */
+			let valobj = val.toJSValue(context: robj.context)
+			robj.setImmediateValue(value: valobj, forProperty: KMPopupMenu.ValueItem)
+
+			if let evtval = robj.immediateValue(forProperty: KMPopupMenu.SelectedItem) {
 				CNExecuteInUserThread(level: .event, execute: {
-					evtval.call(withArguments: [robj, idxval])	// insert self, index
+					evtval.call(withArguments: [robj, valobj])	// insert self, value
 				})
-			} else {
-				let ival = robj.immediateValue(forProperty: KMPopupMenu.SelectedItem)
-				CNLog(logLevel: .error, message: "Invalid property: name=\(KMPopupMenu.SelectedItem), value=\(String(describing: ival))", atFunction: #function, inFile: #file)
 			}
 		}
 
 		return nil
+	}
+
+	private func arrayToMenuItems(array arr: Array<Any>) -> Array<MenuItem> {
+		var result: Array<MenuItem> = []
+		for elm in arr {
+			if let dict = elm as? Dictionary<String, Any> {
+				if let item = dictionaryToMenuItem(dictionary: dict) {
+					result.append(item)
+				}
+			} else {
+				CNLog(logLevel: .error, message: "Invalid data for popup menu item")
+			}
+		}
+		return result
+	}
+
+	private func dictionaryToMenuItem(dictionary dict: Dictionary<String, Any>) -> MenuItem? {
+		guard let title = dict["title"] as? String else {
+			CNLog(logLevel: .error, message: "No (or unexpected) \"title\" value for popup menu item")
+			return nil
+		}
+		guard let elm = dict["value"] else {
+			CNLog(logLevel: .error, message: "No \"value\" value for popup menu item")
+			return nil
+		}
+		guard let val = CNValue.anyToValue(object: elm) else {
+			CNLog(logLevel: .error, message: "Unexpected value of \"value\" field for popup menu item")
+			return nil
+		}
+		return MenuItem(title: title, value: val)
 	}
 
 	public var children: Array<AMBComponent> { get { return [] }}

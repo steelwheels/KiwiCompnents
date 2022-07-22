@@ -1,53 +1,57 @@
 # PopupMenu Component
 
-## Sample
-````
-top: VBox {
-    index: 0
-    menu: PopupMenu {
-        items: ["item-a", "item-b", "item-c"]
-        selected: Event(index) %{
-            console.log("selected = " + index) ;
-            top.index = index ;
-        %}
-    }
-    ok_button: Button {
-        title:   "OK"
-        pressed: Event() %{
-            console.log("pressed: OK -> " + top.index) ;
-            leaveView(1) ;
-        %}
-    }
-}
-````
+## Sample screen shot
 
 ![Popup-menu View](./Images/popup-menu-view.png)
 
 You can find the entire implementation at [popup-menu.jspkg](https://github.com/steelwheels/JSTerminal/tree/master/Resource/Sample/popup-menu.jspkg).
 
-### Properties
-|Name   |Type           |Description                        |
-|:--    |:--            |:--                                |
-|items  |Array<String>  |Array of menu items                |
-|index  |Int            |Index of selected item (read only) |
+## Interface
+````
+Interface PopupMenu {
+        items:  Array<MenuItem> ; // *1
+        value:  any ;
 
-Note: The `index` property is read only. You can declare the property but the value will not set.
+        selected(value: any) ;
+        addItem(title: string, value: any) ;
+}
+
+MenuItem := {title: "title", value: val } ;
+````
+
+### Properties
+|Name   |Type           |Description                    |
+|:--    |:--            |:--                            |
+|items  |[MenuItem]     |Array of menu items            |
+|value  |any            |The "value" property of selected menu item|
+
+The `MenuItem` is dictionary which has `title` and `value` property. the string value of `title` property will be a title of popup menu ite. The value of `value` is used as the *selected* value of the menu item.
+
 
 ### Event functions
 #### `selected` event
 The function which is called when the user select the menu item.
-
 ````
-menu0: PopupMenu {
-    selected: Event(index) %{
-    %}
-}
+selected: Event(value) %{
+%}
+````
+#### Parameter(s)
+|Name   |Type   |Description        |
+|:--    |:--    |:--                |
+|value  |any    |The value of the current selected menu item |
+
+#### `addItem` method
+The method to append popup menu item.
+````
+addItem: Func(title: string, value: any) %{
+%}
 ````
 
 #### Parameter(s)
 |Name   |Type   |Description        |
 |:--    |:--    |:--                |
-|index  |Int    |Index of array of selected item   |
+|title  |string |The title of the menu item to append           |
+|value  |any    |The value which is associated to the title     |
 
 ## Related links
 * [Library](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Library.md): The list of components. 
