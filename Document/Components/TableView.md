@@ -21,8 +21,8 @@ Interface TableView {
                 {field:"field_1", title:"title-1"},
                 ...
         ]
-        readonly rowCount:      int ;
-        visibleRowCount:        int ;
+        readonly recordCount:	int ;
+        rowCount:        		int ;
 
         isSelectable:           boolean ;
         isEditable:             boolean ;
@@ -37,9 +37,32 @@ Interface TableView {
         compare:                event(rec0: RecordIF, rec1: RecordIf): ComparisonResult ;
 
         pressed:                func(column: string, row: int) ;
-        visibleFields: {
+        virtualFields: {
                 column_name0:   func(self: TableView, record: RecordIF)
                 column_name1:   func(self: TableView, record: RecordIF)
+        }
+}
+````
+
+### Virtual fields
+In usually, the value for each field cell are given by source table (set by `dataTable` property).
+In this case, the `field` value in `fieldNames` propery will have the `field` name of source table.
+
+You can define extra fields which is not contained in source table. Such field is called `virtual field`.
+The `virtualFields` property define functions to caclulate the value for each virtual fields.
+
+In the following example, the source table have "a", "b" field. The virtual field "sum" is calculated by `sun` function. 
+````
+table: TableView {
+        fieldNames: [
+                {field: "a",   title: "Column-A"},
+                {field: "b",   title: "Column-B"}
+                {field: "sum", title: "A+B"}
+        ],
+        virtualFields: {
+                sum: Func(self, record) %{
+                        return record.a + record.b ;
+                %}
         }
 }
 ````
@@ -49,8 +72,8 @@ Interface TableView {
 |:--            |:--    |:--                | 
 |dataTable      |[TableIF](https://github.com/steelwheels/KiwiScript/blob/master/KiwiLibrary/Document/Class/Table.md)  |Source data table. It can be loaded by `reload` method. |
 |hasHeader      |boolean   |The visibility of column title at the top of table view|
-|rowCount       |int    |Number of rows in table (Read only)|
-|visibleRowCount |int    |Minimum umber of visible rows|
+|recordCount       |int    |Number of records in table (Read only)|
+|rowCount 			|int    |Minimum umber of visible rows|
 |isSelectable   |boolean |You can select row or not |
 |isEditable     |boolean |Set editable or not |
 |isDirty        |boolean |The table data is modifed. Call `save` method of `data table` to cleanup (Read only). |
@@ -65,12 +88,17 @@ Define the correspondence between field name and column name. The field name mus
 All field names (and column titles) must be defined to be visible in the table.
 
 ````
-fieldNames: {
+fieldNames: [
         {field:"field_0", title:"title-0"},
         {field:"field_1", title:"title-1"},
         ...
-}
+]
 ````
+
+### `virtualFields`
+This property will have dictionary:
+* The key is string for virtual field name
+* The value is function to calculate value for above key.
 
 ## Method
 

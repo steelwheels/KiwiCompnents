@@ -25,6 +25,7 @@ public class KMTableData: AMBComponentObject
 	private static let FieldNameItem	= "fieldName"
 	private static let FieldNamesItem	= "fieldNames"
 	private static let NewRecordItem	= "newRecord"
+	private static let SearchItem		= "search"
 	private static let RecordItem		= "record"
 	private static let RecordCountItem	= "recordCount"
 	private static let TableItem		= "table"
@@ -157,6 +158,25 @@ public class KMTableData: AMBComponentObject
 			return JSValue(nullIn: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: appendfunc, in: robj.context), forProperty: KMTableData.AppendItem)
+
+		/* search(field, value) */
+		addScriptedProperty(object: robj, forProperty: KMTableData.SearchItem)
+		let searchfunc: @convention(block) (_ field: JSValue, _ value: JSValue) -> JSValue = {
+			(_ field: JSValue, _ value: JSValue) -> JSValue in
+			var result: Array<KLRecord> = []
+			if let fname = field.toString() {
+				let nval = value.toNativeValue()
+				let recs = table.search(value: nval, forField: fname)
+				result.append(contentsOf: recs.map {KLRecord(record: $0, context: robj.context) } )
+			}
+			if let resobj = KLRecord.allocate(records: result, context: robj.context) {
+				return resobj
+			} else {
+				CNLog(logLevel: .error, message: "Failed to allocate records", atFunction: #function, inFile: #file)
+				return JSValue(newArrayIn: robj.context)
+			}
+		}
+		robj.setImmediateValue(value: JSValue(object: searchfunc, in: robj.context), forProperty: KMTableData.SearchItem)
 
 		/* table() */
 		addScriptedProperty(object: robj, forProperty: KMTableData.TableItem)

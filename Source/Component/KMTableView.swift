@@ -25,12 +25,11 @@ public class KMTableView: KCTableView, AMBComponent
 	private static let DidSelectedItem		= "didSelected"
 	private static let DataTableItem		= "dataTable"
 	private static let FilterItem			= "filter"
+	private static let RecordCountItem		= "recordCount"
 	private static let RowCountItem			= "rowCount"
-	private static let VisibleRowCountItem		= "visibleRowCount"
 	private static let SelectedRecordItem		= "selectedRecord"
 	private static let RemoveSelectedRecordItem	= "removeSelectedRecord"
 	private static let ReloadItem			= "reload"
-	private static let IsDirtyItem			= "isDirty"
 	private static let VirtualFieldsItem		= "virtualFields"
 	private static let SortOrderItem		= "sortOrder"
 	private static let CompareItem			= "compare"
@@ -104,10 +103,6 @@ public class KMTableView: KCTableView, AMBComponent
 			}
 		}
 
-		/* allocate status listner */
-		addScriptedProperty(object: robj, forProperty: KMTableView.IsDirtyItem)
-		robj.setBoolValue(value: false, forProperty: KMTableView.IsDirtyItem)
-
 		/* Add fieldNames property */
 		addScriptedProperty(object: robj, forProperty: KMTableView.FieldNamesItem)
 		if let fvals = robj.arrayValue(forProperty: KMTableView.FieldNamesItem) {
@@ -131,9 +126,9 @@ public class KMTableView: KCTableView, AMBComponent
 			robj.setArrayValue(value: [], forProperty: KMTableView.FieldNamesItem)
 		}
 
-		/* rowCount */
-		addScriptedProperty(object: robj, forProperty: KMTableView.RowCountItem)
-		robj.setInt32Value(value: Int32(self.numberOfRows),	forProperty: KMTableView.RowCountItem)
+		/* recordCount */
+		addScriptedProperty(object: robj, forProperty: KMTableView.RecordCountItem)
+		robj.setInt32Value(value: Int32(self.numberOfRows),	forProperty: KMTableView.RecordCountItem)
 
 		/* isEditable */
 		addScriptedProperty(object: robj, forProperty: KMTableView.IsEditableItem)
@@ -155,12 +150,12 @@ public class KMTableView: KCTableView, AMBComponent
 			robj.setBoolValue(value: selected, forProperty: KMTableView.DidSelectedItem)
 		}
 
-		/* Add visibleRowCount property */
-		addScriptedProperty(object: robj, forProperty: KMTableView.VisibleRowCountItem)
-		if let val = robj.int32Value(forProperty: KMTableView.VisibleRowCountItem) {
+		/* Add rowCount property */
+		addScriptedProperty(object: robj, forProperty: KMTableView.RowCountItem)
+		if let val = robj.int32Value(forProperty: KMTableView.RowCountItem) {
 			self.minimumVisibleRowCount = Int(val)
 		} else {
-			robj.setInt32Value(value: Int32(self.minimumVisibleRowCount), forProperty: KMTableView.VisibleRowCountItem)
+			robj.setInt32Value(value: Int32(self.minimumVisibleRowCount), forProperty: KMTableView.RowCountItem)
 		}
 
 		/* selectedRecord method */
@@ -263,7 +258,8 @@ public class KMTableView: KCTableView, AMBComponent
 							(_ rec: CNRecord) -> CNValue in
 							let recobj = KLRecord(record: rec, context: robj.context)
 							if let recval = KLRecord.allocate(record: recobj) {
-								if let retval = funcval.call(withArguments: [recval]) {
+								// call with parameter (self, record)
+								if let retval = funcval.call(withArguments: [cobj, recval]) {
 									return retval.toNativeValue()
 								} else {
 									return .nullValue
@@ -350,13 +346,29 @@ public class KMTableView: KCTableView, AMBComponent
 		let reloadfunc: @convention(block) () -> JSValue = {
 			() -> JSValue  in
 			CNExecuteInMainThread(doSync: false, execute: {
-				() -> Void in super.reload()
+				() -> Void in
+				super.reload()
+				self.finishReloading()
 			})
 			return JSValue(bool: true, in: robj.context)
 		}
 		robj.setImmediateValue(value: JSValue(object: reloadfunc, in: robj.context), forProperty: KMTableView.ReloadItem)
 
 		return nil
+	}
+
+	private func finishReloading() {
+		let robj = reactObject
+
+		/* recordCount */
+		robj.setInt32Value(value: Int32(self.numberOfRows),	forProperty: KMTableView.RecordCountItem)
+
+		/* isEditable */
+		robj.setBoolValue(value: self.isEditable, forProperty: KMTableView.IsEditableItem)
+
+		/* dataTable */
+		let obj = KLTable(table: self.dataTable, context: robj.context)
+		robj.setObjectValue(value: obj, forProperty: KMTableView.DataTableItem)
 	}
 
 	public func accept(visitor vst: KMVisitor) {

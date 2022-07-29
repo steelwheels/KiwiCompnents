@@ -18,6 +18,7 @@ table: Table
         newRecord(): RecordIF 
         record(index: number): RecordIF | null
         append(record: RecordIF)
+        search(field: string, value: any): [RecordIf]
 }
 ````
 
@@ -49,6 +50,11 @@ record(index: number): RecordIF | null
 #### `append`
 ````
 append(record: RecordIF)
+````
+
+#### `search`
+````
+search(field: string, value: any): [RecordIf]
 ````
 
 ## Reference
