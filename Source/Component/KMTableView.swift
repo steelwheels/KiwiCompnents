@@ -22,6 +22,7 @@ public class KMTableView: KCTableView, AMBComponent
 	private static let FieldNamesItem		= "fieldNames"
 	private static let HasHeaderItem		= "hasHeader"
 	private static let IsEditableItem		= "isEditable"
+	private static let IsEnableItem			= "isEnable"
 	private static let DidSelectedItem		= "didSelected"
 	private static let DataTableItem		= "dataTable"
 	private static let FilterItem			= "filter"
@@ -76,7 +77,6 @@ public class KMTableView: KCTableView, AMBComponent
 	public func setup(reactObject robj: AMBReactObject, console cons: CNConsole) -> NSError? {
 		mReactObject		= robj
 		mConsole		= cons
-		self.isEnable 		= true
 
 		/* Sync initial value: hasHeader */
 		addScriptedProperty(object: robj, forProperty: KMTableView.HasHeaderItem)
@@ -138,7 +138,7 @@ public class KMTableView: KCTableView, AMBComponent
 			robj.setBoolValue(value: self.isEditable, forProperty: KMTableView.IsEditableItem)
 		}
 
-		/* Add didSelected properties */
+		/* didSelected */
 		addScriptedProperty(object: robj, forProperty: KMTableView.DidSelectedItem)
 		if let val = robj.boolValue(forProperty: KMTableView.DidSelectedItem) {
 			robj.setBoolValue(value: val, forProperty: KMTableView.DidSelectedItem)
@@ -175,7 +175,7 @@ public class KMTableView: KCTableView, AMBComponent
 					CNLog(logLevel: .error, message: "Failed to allocate record object", atFunction: #function, inFile: #file)
 				}
 			} else {
-				CNLog(logLevel: .error, message: "Failed to get resule", atFunction: #function, inFile: #file)
+				CNLog(logLevel: .error, message: "Failed to get result", atFunction: #function, inFile: #file)
 			}
 			return JSValue(nullIn: robj.context)
 		}
@@ -239,6 +239,38 @@ public class KMTableView: KCTableView, AMBComponent
 						}
 					} else {
 						CNLog(logLevel: .error, message: "Failed to allocate", atFunction: #function, inFile: #file)
+					}
+				}
+			}
+			return result
+		}
+
+		/* isEnable property */
+		addScriptedProperty(object: robj, forProperty: KMTableView.IsEnableItem)
+		if let _ = robj.immediateValue(forProperty: KMTableView.IsEnableItem) {
+			/* already set */
+		} else {
+			robj.setImmediateValue(value: JSValue(nullIn: robj.context), forProperty: KMTableView.IsEnableItem)
+		}
+		self.isEnableCallback = {
+			(_ row: Int) -> Bool in
+			var result = true
+			if let funcval = robj.immediateValue(forProperty: KMTableView.IsEnableItem) {
+				if !funcval.isNull {
+					if let rec = self.dataTable.record(at: row) {
+						let recobj = KLRecord(record: rec, context: robj.context)
+						if let recval = KLRecord.allocate(record: recobj) {
+							/* Call function: func(self, record) */
+							if let retval = funcval.call(withArguments: [robj, recval]) {
+								if retval.isBoolean {
+									result = retval.toBool()
+								} else {
+									CNLog(logLevel: .error, message: "Unexpected return value of isEnable method", atFunction: #function, inFile: #file)
+								}
+							}
+						} else {
+							CNLog(logLevel: .error, message: "Failed to allocate", atFunction: #function, inFile: #file)
+						}
 					}
 				}
 			}

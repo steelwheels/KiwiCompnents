@@ -12,41 +12,56 @@ You can see the entire script at [value-table-4.jspkg](https://github.com/steelw
 ## Interface
 ````
 Interface TableView {
-        dataTable:              TableIF ;
-        reload():               boolean ;
-
+        // setup
         hasHeader:              boolean ;
+        isEditable:             boolean ;
         fieldNames: [
                 {field:"field_0", title:"title-0"},
                 {field:"field_1", title:"title-1"},
                 ...
         ]
-        readonly recordCount:	int ;
-        rowCount:        		int ;
-
-        isSelectable:           boolean ;
-        isEditable:             boolean ;
-        readonly isDirty:       boolean ;
-
-        didSelected:            boolean ;
-        selectedRecord():       RecordIF | null ;
-        removeSelectedRecord():   boolean ;
-       
-        filter:                 func(record: RecordIF) ;
-        sortOrder:              SortOrder
-        compare:                event(rec0: RecordIF, rec1: RecordIf): ComparisonResult ;
-
-        pressed:                func(column: string, row: int) ;
         virtualFields: {
                 column_name0:   func(self: TableView, record: RecordIF)
                 column_name1:   func(self: TableView, record: RecordIF)
+                ...
         }
+        filter:                 func(self: TableView, record: RecordIF): boolean ;
+        isEnable:               func(self: TableView, record: RecordIF): boolean ;
+        sortOrder:              SortOrder ;
+        compare:                event(rec0: RecordIF, rec1: RecordIf): ComparisonResult ;
+
+        dataTable:              TableIF ;
+
+        // status
+        readonly recordCount:   number ;
+        readonly rowCount:      number ;
+        selectedRecord():       RecordIF | null ;
+
+        // events
+        didSelected:            boolean ;
+        pressed:                func(column: string, row: int) ;
+
+        // edit        
+        removeSelectedRecord(): boolean ;
+        reload():               boolean ;      
 }
+````
+
+### Field names
+The `fieldNames` property defines the pair of field name of the record and the column title of the table view.
+
+For example, following property defines the 2 column titles named "Name" and "Hit point". The value for each fields are loaded from "name" and "hitPoint" field in the source table.
+
+````
+fieldNames: [
+        {title:"Name",      field:"name"},
+        {title:"Hit point", field:"hitPoint"}
+]
 ````
 
 ### Virtual fields
 In usually, the value for each field cell are given by source table (set by `dataTable` property).
-In this case, the `field` value in `fieldNames` propery will have the `field` name of source table.
+In this case, the `field` value in `fieldNames` propery will matche to the `field` name of source table.
 
 You can define extra fields which is not contained in source table. Such field is called `virtual field`.
 The `virtualFields` property define functions to caclulate the value for each virtual fields.
@@ -74,7 +89,6 @@ table: TableView {
 |hasHeader      |boolean   |The visibility of column title at the top of table view|
 |recordCount       |int    |Number of records in table (Read only)|
 |rowCount 			|int    |Minimum umber of visible rows|
-|isSelectable   |boolean |You can select row or not |
 |isEditable     |boolean |Set editable or not |
 |isDirty        |boolean |The table data is modifed. Call `save` method of `data table` to cleanup (Read only). |
 |didSelected    |boolean |This value will true when the use selecs 1 or more rows in the table. |
