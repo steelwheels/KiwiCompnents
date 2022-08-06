@@ -291,7 +291,7 @@ public class KMTableView: KCTableView, AMBComponent
 							let recobj = KLRecord(record: rec, context: robj.context)
 							if let recval = KLRecord.allocate(record: recobj) {
 								// call with parameter (self, record)
-								if let retval = funcval.call(withArguments: [cobj, recval]) {
+								if let retval = funcval.call(withArguments: [robj, recval]) {
 									return retval.toNativeValue()
 								} else {
 									return .nullValue

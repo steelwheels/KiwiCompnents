@@ -24,6 +24,7 @@ public class KMDictionaryData: AMBComponentObject
 	private static let ValueItem		= "value"
 	private static let ValuesItem		= "values"
 	private static let SetItem		= "set"
+	private static let DictionaryItem	= "dictionary"
 	private static let UpdateItem		= "update"
 
 	private var mDictionary: 	CNStorageDictionary? = nil
@@ -117,6 +118,10 @@ public class KMDictionaryData: AMBComponentObject
 		}
 		robj.setImmediateValue(value: JSValue(object: setfunc, in: robj.context), forProperty: KMDictionaryData.SetItem)
 
+		/* dictionary */
+		addScriptedProperty(object: robj, forProperty: KMDictionaryData.DictionaryItem)
+		updateDictionaryProperty()
+
 		/* callback */
 		mEventCallbackId = dict.allocateEventFunction(eventFunc: {
 			() -> Void in self.updateEvent()
@@ -156,11 +161,33 @@ public class KMDictionaryData: AMBComponentObject
 			/* count */
 			robj.setNumberValue(value: NSNumber(integerLiteral: dict.count), forProperty: KMDictionaryData.CountItem)
 
+			/* dictionary */
+			updateDictionaryProperty()
+
 			/* update count */
 			addScriptedProperty(object: robj, forProperty: KMDictionaryData.UpdateItem)
 			robj.setNumberValue(value: NSNumber(integerLiteral: mUpdateCount), forProperty: KMDictionaryData.UpdateItem)
 			mUpdateCount += 1
 		}
+	}
+
+	private func updateDictionaryProperty() {
+		let robj = self.reactObject
+
+		let dictval: JSValue
+		if let dict = mDictionary {
+			let dictobj = KLDictionary(dictionary: dict, context: robj.context)
+			if let val = KLDictionary.allocate(dictionary: dictobj) {
+				dictval = val
+			} else {
+				CNLog(logLevel: .error, message: "Failed to allocate dictionary", atFunction: #function, inFile: #file)
+				dictval = JSValue(nullIn: robj.context)
+			}
+		} else {
+			CNLog(logLevel: .error, message: "No source dictionary", atFunction: #function, inFile: #file)
+			dictval = JSValue(nullIn: robj.context)
+		}
+		robj.setImmediateValue(value: dictval, forProperty: KMDictionaryData.DictionaryItem)
 	}
 
 	public func accept(visitor vst: KMVisitor) {
