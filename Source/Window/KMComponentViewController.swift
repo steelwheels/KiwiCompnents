@@ -132,6 +132,10 @@ open class KMComponentViewController: KCSingleViewController
 			console.print(string: txt.toStrings().joined(separator: "\n"))
 		}
 
+		/* Define global variable: Argument */
+		let obj = mArgument.toJSValue(context: self.context)
+		self.context.set(name: "Argument", value: obj)
+
 		/* Compile library */
 		guard self.compile(viewController: self, context: self.context, resource: resource, processManager: procmgr, terminalInfo: terminfo, environment: self.environment, console: console, config: config) else {
 			console.error(string: "Failed to compile base\n")

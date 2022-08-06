@@ -1,10 +1,11 @@
 # `enterView` function
-Allocate new view and switch the current view to it.
+Allocate new child view and switch the current view to it.
+This function is finished after new child view is closed by [leaveView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/leaveView.md) function call.
 
 ## Prototype
-The `enterView` function allocate new view. The new view will be selected by the name of the view.
+The `enterView` function allocate new view. The parameter `arg` is passed to the view. The return value is given by [leaveView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/leaveView.md).
 ````
-enterView(name: string): any
+function enterView(path: string, arg: any): any
 ````
 
 ## Parameter(s)
@@ -13,6 +14,7 @@ The parameter can have some different data type to give the location of script f
 |Name      |Type   |Description                        |
 |:--       |:--    |:--                                |
 |name      |string |The name of view component. The name must be define in `subviews` section in the [manifest file](https://github.com/steelwheels/JSTools/blob/master/Document/jspkg.md).|
+|arg       |any    |The argument to pass to the new view. The global variable `Argument` will have copy of it. |
 
 ## Return value
 This value will be given as the parameter of [leaveView](https://github.com/steelwheels/KiwiCompnents/blob/master/Document/Function/leaveView.md) function.
@@ -23,41 +25,46 @@ It is defined by ｀leaveView` function which is corresponding to it.
 This full implementation of this example is [enter-view.jspkg](https://github.com/steelwheels/JSTerminal/tree/master/Resource/Sample/enter-view.jspkg).
 
 
-This is main-view. The return value of `enterView` function is
-given by `leaveView` function in sub-view. 
-The variable `ret` will have following object:
+This is main-view. By pressing Subview button, the `enterView` function will be called. The 2nd arcgument `"Hello"` is passed to the subview. You can get the value by reading `Argument` global variable in the script for subview.
+
+The return value of `enterView` function is the copy of argument of `leaveView` function. In the following exapmple. the variable `ret` will have following object:
 `{message: string, a: number, b: number}`.
 
 ````
 top: VBox {
     enter_button: Button {
-   	title: String "SubView"
-	pressed: Event() %{
-		let ret = enterView("sub") ;
-		console.log("message: " + ret.message
-                        + ", a = " + ret.a 
-                        + ", b = " + ret.b
-                ) ;
+        title: "SubView"
+        pressed: Event() %{
+            let ret = enterView("sub", "Hello from main view") ;
+            console.log("message: " + ret.message + ", a  = "
+                     + ret.a + ", b = " + ret.b) ;
         %}
+    }
+    quit_button: Button {
+        ...
     }
     ...
 }
 ````
 
-This is sub view. The `leaveView' function
+This is sub view. The `leaveView` function is used to back to the previous view.
 
 ````
 top: VBox {
     quit_button: Button {
-   	title: String "Quit"
-	pressed: Event() %{
-		leaveView({
-                  message: "Good bye sub view",
-                  a: 10,
-                  b: 20
-                }) ;
+        title: "Quit"
+        pressed: Event() %{
+            leaveView({
+                message: "Good bye sub view",
+                a: 10,
+                b: 20
+            }) ;
         %}
     }
+    init: Init %{
+        console.log("sub.init") ;
+        console.log("argument = " + Argument) ;
+    %}
 }
 ````
 
@@ -65,8 +72,11 @@ Execution result:
 ````
 jsh> run
 Hello, world !!
-from-sub : Good bye sub view
-from-main: Good bye main view
+main.init
+sub.init
+argument = Hello from main view
+message: Good bye sub view, a  = 10, b = 20
+exit-code = 0
 jsh> 
 ````
 
