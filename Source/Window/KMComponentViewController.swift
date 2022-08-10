@@ -161,7 +161,7 @@ open class KMComponentViewController: KCSingleViewController
 		/* dump the frame */
 		if loglevel.isIncluded(in: .detail) {
 			console.print(string: "[Output of Amber Parser]\n")
-			let txt = frame.toText().toStrings().joined(separator: "\n")
+			let txt = frame.toScript().toStrings().joined(separator: "\n")
 			console.print(string: txt + "\n")
 		}
 
