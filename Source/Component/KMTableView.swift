@@ -380,7 +380,7 @@ public class KMTableView: KCTableView, AMBComponent
 			CNExecuteInMainThread(doSync: false, execute: {
 				() -> Void in
 				super.reload()
-				self.finishReloading()
+				self.finishReloading(rows: self.numberOfRows)
 			})
 			return JSValue(bool: true, in: robj.context)
 		}
@@ -389,18 +389,21 @@ public class KMTableView: KCTableView, AMBComponent
 		return nil
 	}
 
-	private func finishReloading() {
-		let robj = reactObject
+	private func finishReloading(rows rcount: Int) {
+		CNExecuteInUserThread(level: .event, execute: {
+			() -> Void in
+			let robj = self.reactObject
 
-		/* recordCount */
-		robj.setInt32Value(value: Int32(self.numberOfRows),	forProperty: KMTableView.RecordCountItem)
+			/* recordCount */
+			robj.setInt32Value(value: Int32(rcount), forProperty: KMTableView.RecordCountItem)
 
-		/* isEditable */
-		robj.setBoolValue(value: self.isEditable, forProperty: KMTableView.IsEditableItem)
+			/* isEditable */
+			robj.setBoolValue(value: self.isEditable, forProperty: KMTableView.IsEditableItem)
 
-		/* dataTable */
-		let obj = KLTable(table: self.dataTable, context: robj.context)
-		robj.setObjectValue(value: obj, forProperty: KMTableView.DataTableItem)
+			/* dataTable */
+			let obj = KLTable(table: self.dataTable, context: robj.context)
+			robj.setObjectValue(value: obj, forProperty: KMTableView.DataTableItem)
+		})
 	}
 
 	public func accept(visitor vst: KMVisitor) {
