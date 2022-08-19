@@ -26,6 +26,7 @@ public class KMDictionaryData: AMBComponentObject
 	private static let SetItem		= "set"
 	private static let DictionaryItem	= "dictionary"
 	private static let UpdateItem		= "update"
+	private static let SaveItem		= "save"
 
 	private var mDictionary: 	CNStorageDictionary? = nil
 	private var mEventCallbackId:	Int?	= nil
@@ -117,6 +118,23 @@ public class KMDictionaryData: AMBComponentObject
 			}
 		}
 		robj.setImmediateValue(value: JSValue(object: setfunc, in: robj.context), forProperty: KMDictionaryData.SetItem)
+
+		/* save method */
+		addScriptedProperty(object: robj, forProperty: KMDictionaryData.SaveItem)
+		let savefunc: @convention(block) () -> Void = {
+			() -> Void in
+			if let dict = self.mDictionary {
+				if dict.save() {
+					/* succeeded */
+				} else {
+					CNLog(logLevel: .error, message: "Failed to save value", atFunction: #function, inFile: #file)
+				}
+			} else {
+				CNLog(logLevel: .error, message: "No dictionary body", atFunction: #function, inFile: #file)
+			}
+		}
+		robj.setImmediateValue(value: JSValue(object: savefunc, in: robj.context), forProperty: KMDictionaryData.SaveItem)
+
 
 		/* dictionary */
 		addScriptedProperty(object: robj, forProperty: KMDictionaryData.DictionaryItem)
