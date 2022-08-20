@@ -172,7 +172,7 @@ public class KMTableView: KCTableView, AMBComponent
 				if let val = KLRecord.allocate(record: recobj) {
 					return val
 				} else {
-					CNLog(logLevel: .error, message: "Failed to allocate record object", atFunction: #function, inFile: #file)
+					CNLog(logLevel: .error, message: "Failed to allocate record \"\(rec.description)\" for \(KMTableView.SelectedRecordItem) property", atFunction: #function, inFile: #file)
 				}
 			} else {
 				CNLog(logLevel: .error, message: "Failed to get result", atFunction: #function, inFile: #file)
@@ -238,7 +238,7 @@ public class KMTableView: KCTableView, AMBComponent
 							}
 						}
 					} else {
-						CNLog(logLevel: .error, message: "Failed to allocate", atFunction: #function, inFile: #file)
+						CNLog(logLevel: .error, message: "Failed to allocate record for \(KMTableView.FilterItem) property", atFunction: #function, inFile: #file)
 					}
 				}
 			}
@@ -269,7 +269,7 @@ public class KMTableView: KCTableView, AMBComponent
 								}
 							}
 						} else {
-							CNLog(logLevel: .error, message: "Failed to allocate", atFunction: #function, inFile: #file)
+							CNLog(logLevel: .error, message: "Failed to allocate record for \(KMTableView.IsEnableItem) property", atFunction: #function, inFile: #file)
 						}
 					}
 				}
@@ -297,7 +297,7 @@ public class KMTableView: KCTableView, AMBComponent
 									return .nullValue
 								}
 							} else {
-								CNLog(logLevel: .error, message: "Failed to allocate", atFunction: #function, inFile: #file)
+								CNLog(logLevel: .error, message: "Failed to allocate record \"\(rec.description)\" for \(KMTableView.VirtualFieldsItem) property", atFunction: #function, inFile: #file)
 								return .nullValue
 							}
 						})
@@ -367,7 +367,7 @@ public class KMTableView: KCTableView, AMBComponent
 					result = .orderedSame
 				}
 			} else {
-				CNLog(logLevel: .error, message: "Failed to allocate", atFunction: #function, inFile: #file)
+				CNLog(logLevel: .error, message: "Failed to allocate record for \(KMTableView.CompareItem) property", atFunction: #function, inFile: #file)
 				result = .orderedSame
 			}
 			return result
