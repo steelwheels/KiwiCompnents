@@ -4,14 +4,14 @@
  */
 /// <reference path="types/KiwiLibrary.d.ts"/>
 /// <reference path="types/Builtin.d.ts"/>
-function alert(message) {
+function alert(type, message) {
     let result = -1;
     let sem = new Semaphore(0);
     let cbfunc = function (res) {
         result = res;
         sem.signal(); // Tell finish operation
     };
-    _alert(message, cbfunc);
+    _alert(type, message, cbfunc);
     sem.wait(); // Wait finish operation
     return result;
 }

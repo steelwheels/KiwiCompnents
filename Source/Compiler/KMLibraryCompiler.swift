@@ -50,9 +50,9 @@ public class KMLibraryCompiler
 		ctxt.set(name: "leaveView", function: leavefunc)
 
 		/* _alert */
-		let alertfunc: @convention(block) (_ msg: JSValue, _ cbfunc: JSValue) -> Void = {
-			(_ msg: JSValue, _ cbfunc: JSValue) -> Void in
-			self.defineAlertFunction(message: msg, callback: cbfunc, viewController: vcont, context: ctxt)
+		let alertfunc: @convention(block) (_ type: JSValue, _ msg: JSValue, _ cbfunc: JSValue) -> Void = {
+			(_ type: JSValue, _ msg: JSValue, _ cbfunc: JSValue) -> Void in
+			self.defineAlertFunction(type: type, message: msg, callback: cbfunc, viewController: vcont, context: ctxt)
 		}
 		ctxt.set(name: "_alert", function: alertfunc)
 	}
@@ -92,25 +92,9 @@ public class KMLibraryCompiler
 		})
 	}
 
-	private func defineAlertFunction(message msg: JSValue, callback cbfunc: JSValue, viewController vcont: KMComponentViewController, context ctxt: KEContext) -> Void {
+	private func defineAlertFunction(type typ: JSValue, message msg: JSValue, callback cbfunc: JSValue, viewController vcont: KMComponentViewController, context ctxt: KEContext) -> Void {
 		CNExecuteInMainThread(doSync: false, execute: {
-			if let msgstr = msg.toString() {
-				KCAlert.alert(type: .information, messgage: msgstr, in: vcont, callback: {
-					(_ retval: Int) -> Void in
-					if let retobj = JSValue(int32: Int32(retval), in: ctxt) {
-						cbfunc.call(withArguments: [retobj])
-					} else {
-						CNLog(logLevel: .error, message: "Failed to allocate return value", atFunction: #function, inFile: #file)
-						cbfunc.call(withArguments: [])
-					}
-				})
-			} else {
-				if let retobj = JSValue(int32: -1, in: ctxt) {
-					cbfunc.call(withArguments: [retobj])
-				} else {
-					cbfunc.call(withArguments: [])
-				}
-			}
+			KMAlert.execute(type: typ, message: msg, callback: cbfunc, viewController: vcont, context: ctxt)
 		})
 	}
 
