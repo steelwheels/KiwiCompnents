@@ -15,10 +15,10 @@ import Foundation
 
 public class KMAlert
 {
-	public static func execute(type typval: JSValue, message msg: JSValue, callback cbfunc: JSValue, viewController vcont: KMComponentViewController, context ctxt: KEContext) -> Void {
+	public static func execute(type typval: JSValue, message msg: JSValue, labels labs: JSValue, callback cbfunc: JSValue, viewController vcont: KMComponentViewController, context ctxt: KEContext) -> Void {
 		CNExecuteInMainThread(doSync: false, execute: {
-			if let atype = valueToType(value: typval),  let msgstr = msg.toString() {
-				KCAlert.alert(type: atype, messgage: msgstr, in: vcont, callback: {
+			if let atype = valueToType(value: typval),  let msgstr = msg.toString(), let labels = valueToLabels(value: labs) {
+				KCAlert.alert(type: atype, messgage: msgstr, labels: labels, in: vcont, callback: {
 					(_ retval: Int) -> Void in
 					if let retobj = JSValue(int32: Int32(retval), in: ctxt) {
 						cbfunc.call(withArguments: [retobj])
@@ -41,6 +41,15 @@ public class KMAlert
 		if let num = val.toNumber() {
 			if let atype = CNAlertType(rawValue: num.intValue) {
 				return atype
+			}
+		}
+		return nil
+	}
+
+	private static func valueToLabels(value val: JSValue) -> Array<String>? {
+		if val.isArray {
+			if let labs = val.toArray() as? Array<String> {
+				return labs
 			}
 		}
 		return nil

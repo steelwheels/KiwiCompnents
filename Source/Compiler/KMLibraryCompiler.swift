@@ -50,9 +50,9 @@ public class KMLibraryCompiler
 		ctxt.set(name: "leaveView", function: leavefunc)
 
 		/* _alert */
-		let alertfunc: @convention(block) (_ type: JSValue, _ msg: JSValue, _ cbfunc: JSValue) -> Void = {
-			(_ type: JSValue, _ msg: JSValue, _ cbfunc: JSValue) -> Void in
-			self.defineAlertFunction(type: type, message: msg, callback: cbfunc, viewController: vcont, context: ctxt)
+		let alertfunc: @convention(block) (_ type: JSValue, _ msg: JSValue, _ labels: JSValue, _ cbfunc: JSValue) -> Void = {
+			(_ type: JSValue, _ msg: JSValue, _ labels: JSValue, _ cbfunc: JSValue) -> Void in
+			self.defineAlertFunction(type: type, message: msg, labels: labels, callback: cbfunc, viewController: vcont, context: ctxt)
 		}
 		ctxt.set(name: "_alert", function: alertfunc)
 	}
@@ -92,9 +92,9 @@ public class KMLibraryCompiler
 		})
 	}
 
-	private func defineAlertFunction(type typ: JSValue, message msg: JSValue, callback cbfunc: JSValue, viewController vcont: KMComponentViewController, context ctxt: KEContext) -> Void {
+	private func defineAlertFunction(type typ: JSValue, message msg: JSValue, labels labs: JSValue, callback cbfunc: JSValue, viewController vcont: KMComponentViewController, context ctxt: KEContext) -> Void {
 		CNExecuteInMainThread(doSync: false, execute: {
-			KMAlert.execute(type: typ, message: msg, callback: cbfunc, viewController: vcont, context: ctxt)
+			KMAlert.execute(type: typ, message: msg, labels: labs, callback: cbfunc, viewController: vcont, context: ctxt)
 		})
 	}
 

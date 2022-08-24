@@ -1,4 +1,4 @@
 /// <reference path="KiwiLibrary.d.ts" />
 /// <reference path="Builtin.d.ts" />
-declare function alert(message: string): number;
+declare function alert(type: AlertType, message: string, labels: string[]): number;
 declare function enterView(path: string, arg: any): any;
